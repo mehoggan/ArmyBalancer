@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ArmyBalancer.qml</file>
+        <file>ArmyBalancerAndroid.qml</file>
+    </qresource>
+</RCC>
