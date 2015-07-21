@@ -4,7 +4,7 @@
 #include <QtQml>
 #include <QObject>
 
-#include <armybalancer.h>
+#include "armybalancer.h"
 
 int main(int argc, char *argv[])
 {

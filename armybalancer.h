@@ -1,5 +1,5 @@
-﻿#ifndef ARMYBALANCER_H
-#define ARMYBALANCER_H
+﻿#ifndef FACTIONBALANCER_H
+#define FACTIONBALANCER_H
 
 #include <QQuickItem>
 
@@ -10,15 +10,15 @@
 
 #include <memory>
 
-#include "armies.h"
+#include "factions.h"
 #include "warscrollfactory.h"
 
 class ArmyBalancer : public QQuickItem
 {
   Q_OBJECT
 
-  Q_PROPERTY(QStringList armyList READ getArmyList WRITE setArmyList
-    NOTIFY armyListChanged)
+  Q_PROPERTY(QStringList factionList READ getFactionList WRITE setFactionList
+    NOTIFY factionListChanged)
   Q_PROPERTY(QStringList warScrolls READ getWarScrolls WRITE setWarScrolls
     NOTIFY warScrollsChanged)
 
@@ -27,31 +27,32 @@ public:
 
   void setRootView(QQuickView *root);
 
-  const QStringList &getArmyList() const {return m_ArmyList;}
-  void setArmyList(const QStringList &armyList);
+  const QStringList &getFactionList() const {return m_FactionList;}
+  void setFactionList(const QStringList &factionList);
 
   const QStringList &getWarScrolls() const {return m_CurrentWarScrolls;}
   void setWarScrolls(const QStringList &warScrolls);
 
 signals:
-  void armyListChanged();
+  void factionListChanged();
   void warScrollsChanged();
 
 public slots:
-  void armySelectionChanged(int index);
+  void factionSelectionChanged(int index);
   void warScrollSelectionChanged(int);
 
 private:
-  void getNextWarScrolls(QStringList &output, const QString &armyName);
+  void getNextWarScrolls(QStringList &output, const QString &factionName);
 
 private:
-  int m_CurrentArmyIndex;
+  int m_CurrentFactionIndex;
   QQuickView *m_Root;
-  QStringList m_ArmyList;
+  QStringList m_FactionList;
   QStringList m_CurrentWarScrolls;
 
-  QMap<QString, std::shared_ptr<IArmy>> m_ArmyNameToArmyMap;
+  typedef QMap<QString, std::shared_ptr<IFaction>> FactionMapType;
+  FactionMapType m_NameToFactionMap;
   WarScrollFactory &m_WarScrollFactory;
 };
 
-#endif // ARMYBALANCER_H
+#endif // FACTIONBALANCER_H

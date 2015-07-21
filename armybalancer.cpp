@@ -2,77 +2,79 @@
 
 ArmyBalancer::ArmyBalancer(QQuickItem *parent)
   : QQuickItem(parent)
-  , m_CurrentArmyIndex(0)
+  , m_CurrentFactionIndex(0)
   , m_WarScrollFactory(WarScrollFactory::getSharedInstance())
 {
-  m_ArmyList.push_back(tr(""));
+  m_FactionList.push_back(tr(""));
 
-  m_ArmyList.push_back(tr("Beastmen"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<BeastmenArmy>());
-  m_ArmyList.push_back(tr("Bretonia"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<BretonniaArmy>());
-  m_ArmyList.push_back(tr("Daemons of Chaos (Khorne)"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<DaemonsOfChaosKhorneArmy>());
-  m_ArmyList.push_back(tr("Daemons of Chaos (Nurgle)"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<DaemonsOfChaosNurgleArmy>());
-  m_ArmyList.push_back(tr("Daemons of Chaos (Tzeentch)"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<DaemonsOfChaosTzeentchArmy>());
-  m_ArmyList.push_back(tr("Daemons of Chaos (Slaanesh)"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<DaemonsOfChaosSlaaneshArmy>());
-  m_ArmyList.push_back(tr("Dark Elves"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<DarkElvesArmy>());
-  m_ArmyList.push_back(tr("Dwarfs"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<DwarfsArmy>());
-  m_ArmyList.push_back(tr("The Empire"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<TheEmpireArmy>());
-  m_ArmyList.push_back(tr("High Elves"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<HighElvesArmy>());
-  m_ArmyList.push_back(tr("Lizardmen"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<LizardmenArmy>());
-  m_ArmyList.push_back(tr("Ogre Kingdoms"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<OgreKingdomsArmy>());
-  m_ArmyList.push_back(tr("Orcs and Goblins"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<OrcsAndGoblinsArmy>());
-  m_ArmyList.push_back(tr("Skaven"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<SkavenArmy>());
-  m_ArmyList.push_back(tr("Tomb Kings"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<TombKingsArmy>());
-  m_ArmyList.push_back(tr("Vampire Counts"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<VampireCountsArmy>());
-  m_ArmyList.push_back(tr("Warriors of Chaos"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<WarriorsOfChaosArmy>());
-  m_ArmyList.push_back(tr("Wood Elves"));
-  m_ArmyNameToArmyMap.insert(m_ArmyList.back(),
-    std::make_shared<WoodElvesArmy>());
+  FactionMapType::const_iterator insert;
+
+  insert = m_NameToFactionMap.insert(BeastmenFaction().getName(),
+    std::make_shared<BeastmenFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(BretonniaFaction().getName(),
+    std::make_shared<BretonniaFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(DaemonsOfChaosKhorneFaction().getName(),
+    std::make_shared<DaemonsOfChaosKhorneFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(DaemonsOfChaosNurgleFaction().getName(),
+    std::make_shared<DaemonsOfChaosNurgleFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(DaemonsOfChaosTzeentchFaction().getName(),
+    std::make_shared<DaemonsOfChaosTzeentchFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(DaemonsOfChaosSlaaneshFaction().getName(),
+    std::make_shared<DaemonsOfChaosSlaaneshFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(DarkElvesFaction().getName(),
+    std::make_shared<DarkElvesFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(DwarfsFaction().getName(),
+    std::make_shared<DwarfsFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(TheEmpireFaction().getName(),
+    std::make_shared<TheEmpireFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(HighElvesFaction().getName(),
+    std::make_shared<HighElvesFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(LizardmenFaction().getName(),
+    std::make_shared<LizardmenFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(OgreKingdomsFaction().getName(),
+    std::make_shared<OgreKingdomsFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(OrcsAndGoblinsFaction().getName(),
+    std::make_shared<OrcsAndGoblinsFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(SkavenFaction().getName(),
+    std::make_shared<SkavenFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(TombKingsFaction().getName(),
+    std::make_shared<TombKingsFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(VampireCountsFaction().getName(),
+    std::make_shared<VampireCountsFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(WarriorsOfChaosFaction().getName(),
+    std::make_shared<WarriorsOfChaosFaction>());
+  m_FactionList.push_back((*insert)->getName());
+  insert = m_NameToFactionMap.insert(WoodElvesFaction().getName(),
+    std::make_shared<WoodElvesFaction>());
+  m_FactionList.push_back((*insert)->getName());
 }
 
 void ArmyBalancer::setRootView(QQuickView *root)
 {
   m_Root = root;
-  setArmyList(m_ArmyList);
+  setFactionList(m_FactionList);
 }
 
-void ArmyBalancer::setArmyList(const QStringList &armyList)
+void ArmyBalancer::setFactionList(const QStringList &factionList)
 {
-  m_ArmyList = armyList;
-  emit armyListChanged();
+  m_FactionList = factionList;
+  emit factionListChanged();
 }
 
 
@@ -83,25 +85,25 @@ void ArmyBalancer::setWarScrolls(const QStringList &warScrolls)
 }
 
 void ArmyBalancer::getNextWarScrolls(QStringList &output,
-  const QString &armyName)
+  const QString &factionName)
 {
-  if (!armyName.isEmpty()) {
-    output = m_ArmyNameToArmyMap[armyName]->getUnits();
+  if (!factionName.isEmpty()) {
+    output = m_NameToFactionMap[factionName]->getUnits();
   }
 }
 
-void ArmyBalancer::armySelectionChanged(int index)
+void ArmyBalancer::factionSelectionChanged(int index)
 {
   QStringList nextWarScrolls;
-  Q_ASSERT(index < m_ArmyList.size() && index >= 0);
-  m_CurrentArmyIndex = index;
-  getNextWarScrolls(nextWarScrolls, m_ArmyList.at(index));
+  Q_ASSERT(index < m_FactionList.size() && index >= 0);
+  m_CurrentFactionIndex = index;
+  getNextWarScrolls(nextWarScrolls, m_FactionList.at(index));
   setWarScrolls(nextWarScrolls);
 }
 
 void ArmyBalancer::warScrollSelectionChanged(int index)
 {
-  std::shared_ptr<IArmy> currentArmy = m_ArmyNameToArmyMap[
-    m_ArmyList.at(m_CurrentArmyIndex)];
-  currentArmy->buildUiForBattleScroll(m_Root, index);
+  std::shared_ptr<IFaction> currentFaction = m_NameToFactionMap[
+    m_FactionList.at(m_CurrentFactionIndex)];
+  currentFaction->buildUiForBattleScroll(m_Root, index);
 }

@@ -88,15 +88,15 @@ Item
       width: parent.width
       ComboBox
       {
-        id: selectArmyComboBox
+        id: selectFactionComboBox
         width: parent.width
         height: 100
         anchors.centerIn: parent.Center
-        model: armyBalancer.armyList
+        model: armyBalancer.factionList
 
         onActivated:
         {
-          armyBalancer.armySelectionChanged(index)
+          armyBalancer.factionSelectionChanged(index)
         }
       }
 
@@ -107,6 +107,11 @@ Item
         height: 100
         anchors.centerIn: parent.Center
         model: armyBalancer.warScrolls
+
+        onActivated:
+        {
+          armyBalancer.warScrollSelectionChanged(index)
+        }
       }
     }
   }

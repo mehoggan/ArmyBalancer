@@ -5,25 +5,25 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
   armybalancer.cpp \
-  beastmenarmy.cpp \
-  bretonniaarmy.cpp \
-  daemonsofchaoskhornearmy.cpp \
-  daemonsofchaosnurglearmy.cpp \
-  daemonsofchaosslaanesharmy.cpp \
-  daemonsofchaostzeentcharmy.cpp \
-  darkelvesarmy.cpp \
-  dwarfsarmy.cpp \
-  highelvesarmy.cpp \
-  lizardmenarmy.cpp \
-  ogrekingdomsarmy.cpp \
-  orcsandgoblinsarmy.cpp \
-  skavenarmy.cpp \
-  theempirearmy.cpp \
-  tombkingsarmy.cpp \
-  vampirecountsarmy.cpp \
-  warriorsofchaosarmy.cpp \
-  woodelvesarmy.cpp \
-    warscrollfactory.cpp
+  beastmenfaction.cpp \
+  bretonniafaction.cpp \
+  daemonsofchaoskhornefaction.cpp \
+  daemonsofchaosnurglefaction.cpp \
+  daemonsofchaosslaaneshfaction.cpp \
+  daemonsofchaostzeentchfaction.cpp \
+  darkelvesfaction.cpp \
+  dwarfsfaction.cpp \
+  highelvesfaction.cpp \
+  lizardmenfaction.cpp \
+  ogrekingdomsfaction.cpp \
+  orcsandgoblinsfaction.cpp \
+  skavenfaction.cpp \
+  theempirefaction.cpp \
+  tombkingsfaction.cpp \
+  vampirecountsfaction.cpp \
+  warriorsofchaosfaction.cpp \
+  woodelvesfaction.cpp \
+  warscrollfactory.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,25 +35,25 @@ include(deployment.pri)
 
 HEADERS += \
   armybalancer.h \
-  iarmy.h \
-  beastmenarmy.h \
-  bretonniaarmy.h \
-  daemonsofchaoskhornearmy.h \
-  daemonsofchaosnurglearmy.h \
-  daemonsofchaosslaanesharmy.h \
-  daemonsofchaostzeentcharmy.h \
-  darkelvesarmy.h \
-  dwarfsarmy.h \
-  highelvesarmy.h \
-  lizardmenarmy.h \
-  ogrekingdomsarmy.h \
-  orcsandgoblinsarmy.h \
-  skavenarmy.h \
-  theempirearmy.h \
-  tombkingsarmy.h \
-  vampirecountsarmy.h \
-  warriorsofchaosarmy.h \
-  woodelvesarmy.h \
-    armies.h \
-    warscrollfactory.h
+  ifaction.h \
+  beastmenfaction.h \
+  bretonniafaction.h \
+  daemonsofchaoskhornefaction.h \
+  daemonsofchaosnurglefaction.h \
+  daemonsofchaosslaaneshfaction.h \
+  daemonsofchaostzeentchfaction.h \
+  darkelvesfaction.h \
+  dwarfsfaction.h \
+  highelvesfaction.h \
+  lizardmenfaction.h \
+  ogrekingdomsfaction.h \
+  orcsandgoblinsfaction.h \
+  skavenfaction.h \
+  theempirefaction.h \
+  tombkingsfaction.h \
+  vampirecountsfaction.h \
+  warriorsofchaosfaction.h \
+  woodelvesfaction.h \
+  factions.h \
+  warscrollfactory.h
 
