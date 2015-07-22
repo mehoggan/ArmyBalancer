@@ -1,5 +1,9 @@
 ﻿#include "ogrekingdomsfaction.h"
 
+namespace WarScrollGeneration
+{
+}
+
 OgreKingdomsFaction::OgreKingdomsFaction() :
   IFaction(nullptr)
 {
@@ -29,18 +33,13 @@ OgreKingdomsFaction::OgreKingdomsFaction() :
   m_Units.push_back(tr("Giant"));
 }
 
-const QStringList &OgreKingdomsFaction::getUnits()
+const QStringList &OgreKingdomsFaction::getUnits() const
 {
   return m_Units;
 }
 
-void OgreKingdomsFaction::buildUiForBattleScroll(QQuickView * /*ui*/, int scrollIndex)
+QList<WarScroll> OgreKingdomsFaction::getWarScrolls() const
 {
-  if (scrollIndex == 0) {
-    return;
-  }
-
-  Q_ASSERT(scrollIndex < m_Units.size() && scrollIndex >= 0);
-  WarScroll ws = WarScrollFactory::getSharedInstance().getWarScroll(getName(),
-    m_Units.at(scrollIndex));
+  QList<WarScroll> warScrolls;
+  return warScrolls;
 }

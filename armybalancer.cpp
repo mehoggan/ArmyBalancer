@@ -68,7 +68,6 @@ ArmyBalancer::ArmyBalancer(QQuickItem *parent)
 void ArmyBalancer::setRootView(QQuickView *root)
 {
   m_Root = root;
-  setFactionList(m_FactionList);
 }
 
 void ArmyBalancer::setFactionList(const QStringList &factionList)
@@ -105,5 +104,5 @@ void ArmyBalancer::warScrollSelectionChanged(int index)
 {
   std::shared_ptr<IFaction> currentFaction = m_NameToFactionMap[
     m_FactionList.at(m_CurrentFactionIndex)];
-  currentFaction->buildUiForBattleScroll(m_Root, index);
+  Q_UNUSED(currentFaction);
 }

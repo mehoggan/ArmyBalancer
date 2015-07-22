@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>ArmyBalancer.qml</file>
         <file>ArmyBalancerAndroid.qml</file>
+        <file>WarScroll.qml</file>
     </qresource>
 </RCC>

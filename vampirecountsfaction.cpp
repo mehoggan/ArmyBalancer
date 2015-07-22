@@ -1,5 +1,9 @@
 ﻿#include "vampirecountsfaction.h"
 
+namespace WarScrollGeneration
+{
+}
+
 VampireCountsFaction::VampireCountsFaction() :
   IFaction(nullptr)
 {
@@ -45,18 +49,13 @@ VampireCountsFaction::VampireCountsFaction() :
   m_Units.push_back(tr("Zombie Dragon"));
 }
 
-const QStringList &VampireCountsFaction::getUnits()
+const QStringList &VampireCountsFaction::getUnits() const
 {
   return m_Units;
 }
 
-void VampireCountsFaction::buildUiForBattleScroll(QQuickView * /*ui*/, int scrollIndex)
+QList<WarScroll> VampireCountsFaction::getWarScrolls() const
 {
-  if (scrollIndex == 0) {
-    return;
-  }
-
-  Q_ASSERT(scrollIndex < m_Units.size() && scrollIndex >= 0);
-  WarScroll ws = WarScrollFactory::getSharedInstance().getWarScroll(getName(),
-    m_Units.at(scrollIndex));
+  QList<WarScroll> warScrolls;
+  return warScrolls;
 }

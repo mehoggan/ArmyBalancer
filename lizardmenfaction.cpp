@@ -1,5 +1,9 @@
 ﻿#include "lizardmenfaction.h"
 
+namespace WarScrollGeneration
+{
+}
+
 LizardmenFaction::LizardmenFaction() :
   IFaction(nullptr)
 {
@@ -36,18 +40,13 @@ LizardmenFaction::LizardmenFaction() :
   m_Units.push_back(tr("Jungle Swarms"));
 }
 
-const QStringList &LizardmenFaction::getUnits()
+const QStringList &LizardmenFaction::getUnits() const
 {
   return m_Units;
 }
 
-void LizardmenFaction::buildUiForBattleScroll(QQuickView * /*ui*/, int scrollIndex)
+QList<WarScroll> LizardmenFaction::getWarScrolls() const
 {
-  if (scrollIndex == 0) {
-    return;
-  }
-
-  Q_ASSERT(scrollIndex < m_Units.size() && scrollIndex >= 0);
-  WarScroll ws = WarScrollFactory::getSharedInstance().getWarScroll(getName(),
-    m_Units.at(scrollIndex));
+  QList<WarScroll> warScrolls;
+  return warScrolls;
 }

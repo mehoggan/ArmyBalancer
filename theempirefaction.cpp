@@ -1,5 +1,9 @@
 ﻿#include "theempirefaction.h"
 
+namespace WarScrollGeneration
+{
+}
+
 TheEmpireFaction::TheEmpireFaction() :
   IFaction(nullptr)
 {
@@ -44,18 +48,13 @@ TheEmpireFaction::TheEmpireFaction() :
   m_Units.push_back(tr("Luminark of Hysh"));
 }
 
-const QStringList &TheEmpireFaction::getUnits()
+const QStringList &TheEmpireFaction::getUnits() const
 {
   return m_Units;
 }
 
-void TheEmpireFaction::buildUiForBattleScroll(QQuickView * /*ui*/, int scrollIndex)
+QList<WarScroll> TheEmpireFaction::getWarScrolls() const
 {
-  if (scrollIndex == 0) {
-    return;
-  }
-
-  Q_ASSERT(scrollIndex < m_Units.size() && scrollIndex >= 0);
-  WarScroll ws = WarScrollFactory::getSharedInstance().getWarScroll(getName(),
-    m_Units.at(scrollIndex));
+  QList<WarScroll> warScrolls;
+  return warScrolls;
 }

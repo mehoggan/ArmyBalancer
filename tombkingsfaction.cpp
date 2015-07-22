@@ -1,5 +1,9 @@
 ﻿#include "tombkingsfaction.h"
 
+namespace WarScrollGeneration
+{
+}
+
 TombKingsFaction::TombKingsFaction() :
   IFaction(nullptr)
 {
@@ -32,18 +36,13 @@ TombKingsFaction::TombKingsFaction() :
   m_Units.push_back(tr("Tomb Swarm"));
 }
 
-const QStringList &TombKingsFaction::getUnits()
+const QStringList &TombKingsFaction::getUnits() const
 {
   return m_Units;
 }
 
-void TombKingsFaction::buildUiForBattleScroll(QQuickView * /*ui*/, int scrollIndex)
+QList<WarScroll> TombKingsFaction::getWarScrolls() const
 {
-  if (scrollIndex == 0) {
-    return;
-  }
-
-  Q_ASSERT(scrollIndex < m_Units.size() && scrollIndex >= 0);
-  WarScroll ws = WarScrollFactory::getSharedInstance().getWarScroll(getName(),
-    m_Units.at(scrollIndex));
+  QList<WarScroll> warScrolls;
+  return warScrolls;
 }

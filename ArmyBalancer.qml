@@ -58,6 +58,7 @@ Item
   ArmyBalancer
   {
     id: armyBalancer
+    objectName: "armyBalancer"
   }
 
   Rectangle

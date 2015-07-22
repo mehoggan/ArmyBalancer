@@ -21,6 +21,7 @@ class ArmyBalancer : public QQuickItem
     NOTIFY factionListChanged)
   Q_PROPERTY(QStringList warScrolls READ getWarScrolls WRITE setWarScrolls
     NOTIFY warScrollsChanged)
+  Q_PROPERTY(QString name READ getName WRITE setName)
 
 public:
   explicit ArmyBalancer(QQuickItem *parent = 0);
@@ -32,6 +33,9 @@ public:
 
   const QStringList &getWarScrolls() const {return m_CurrentWarScrolls;}
   void setWarScrolls(const QStringList &warScrolls);
+
+  QString getName() const {return "armyBalancer";}
+  void setName(const QString &) const {}
 
 signals:
   void factionListChanged();
@@ -45,6 +49,7 @@ private:
   void getNextWarScrolls(QStringList &output, const QString &factionName);
 
 private:
+  QString m_Name;
   int m_CurrentFactionIndex;
   QQuickView *m_Root;
   QStringList m_FactionList;

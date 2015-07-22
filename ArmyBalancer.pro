@@ -23,7 +23,8 @@ SOURCES += main.cpp \
   vampirecountsfaction.cpp \
   warriorsofchaosfaction.cpp \
   woodelvesfaction.cpp \
-  warscrollfactory.cpp
+  warscrollfactory.cpp \
+    warscroll.cpp
 
 RESOURCES += qml.qrc
 
@@ -55,5 +56,6 @@ HEADERS += \
   warriorsofchaosfaction.h \
   woodelvesfaction.h \
   factions.h \
-  warscrollfactory.h
+  warscrollfactory.h \
+    warscroll.h
 

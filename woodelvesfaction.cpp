@@ -1,5 +1,9 @@
 ﻿#include "woodelvesfaction.h"
 
+namespace WarScrollGeneration
+{
+}
+
 WoodElvesFaction::WoodElvesFaction() :
   IFaction(nullptr)
 {
@@ -36,18 +40,13 @@ WoodElvesFaction::WoodElvesFaction() :
   m_Units.push_back(tr("Sylvaneth Wyldwood"));
 }
 
-const QStringList &WoodElvesFaction::getUnits()
+const QStringList &WoodElvesFaction::getUnits() const
 {
   return m_Units;
 }
 
-void WoodElvesFaction::buildUiForBattleScroll(QQuickView * /*ui*/, int scrollIndex)
+QList<WarScroll> WoodElvesFaction::getWarScrolls() const
 {
-  if (scrollIndex == 0) {
-    return;
-  }
-
-  Q_ASSERT(scrollIndex < m_Units.size() && scrollIndex >= 0);
-  WarScroll ws = WarScrollFactory::getSharedInstance().getWarScroll(getName(),
-    m_Units.at(scrollIndex));
+  QList<WarScroll> warScrolls;
+  return warScrolls;
 }

@@ -1,5 +1,9 @@
 ﻿#include "skavenfaction.h"
 
+namespace WarScrollGeneration
+{
+}
+
 SkavenFaction::SkavenFaction() :
   IFaction(nullptr)
 {
@@ -51,18 +55,13 @@ SkavenFaction::SkavenFaction() :
   m_Units.push_back(tr("Gutter Runners"));
 }
 
-const QStringList &SkavenFaction::getUnits()
+const QStringList &SkavenFaction::getUnits() const
 {
   return m_Units;
 }
 
-void SkavenFaction::buildUiForBattleScroll(QQuickView * /*ui*/, int scrollIndex)
+QList<WarScroll> SkavenFaction::getWarScrolls() const
 {
-  if (scrollIndex == 0) {
-    return;
-  }
-
-  Q_ASSERT(scrollIndex < m_Units.size() && scrollIndex >= 0);
-  WarScroll ws = WarScrollFactory::getSharedInstance().getWarScroll(getName(),
-    m_Units.at(scrollIndex));
+  QList<WarScroll> warScrolls;
+  return warScrolls;
 }

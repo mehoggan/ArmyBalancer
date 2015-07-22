@@ -1,5 +1,9 @@
 ﻿#include "orcsandgoblinsfaction.h"
 
+namespace WarScrollGeneration
+{
+}
+
 OrcsAndGoblinsFaction::OrcsAndGoblinsFaction() :
   IFaction(nullptr)
 {
@@ -53,18 +57,13 @@ OrcsAndGoblinsFaction::OrcsAndGoblinsFaction() :
   m_Units.push_back(tr("Giant"));
 }
 
-const QStringList &OrcsAndGoblinsFaction::getUnits()
+const QStringList &OrcsAndGoblinsFaction::getUnits() const
 {
   return m_Units;
 }
 
-void OrcsAndGoblinsFaction::buildUiForBattleScroll(QQuickView * /*ui*/, int scrollIndex)
+QList<WarScroll> OrcsAndGoblinsFaction::getWarScrolls() const
 {
-  if (scrollIndex == 0) {
-    return;
-  }
-
-  Q_ASSERT(scrollIndex < m_Units.size() && scrollIndex >= 0);
-  WarScroll ws = WarScrollFactory::getSharedInstance().getWarScroll(getName(),
-    m_Units.at(scrollIndex));
+  QList<WarScroll> warScrolls;
+  return warScrolls;
 }

@@ -3,12 +3,6 @@
 
 #include <QDebug>
 
-WarScroll::WarScroll()
-  : m_IsValid(false)
-  , m_ContainsDamageTable(false)
-  , m_IsWarMachine(false)
-{}
-
 WarScrollFactory &WarScrollFactory::getSharedInstance()
 {
   static WarScrollFactory s_WarScrollFactory;
