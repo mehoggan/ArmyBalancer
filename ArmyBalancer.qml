@@ -101,7 +101,10 @@ Item
 
     Column
     {
+      objectName: "mainColumn"
       width: parent.width
+      height: parent.height
+      visible: true
       ComboBox
       {
         id: selectFactionComboBox
@@ -132,6 +135,105 @@ Item
         onCurrentIndexChanged:
         {
           armyBalancer.warScrollSelectionChanged(currentIndex)
+        }
+      }
+
+      Row
+      {
+        width: parent.width / 2
+        height: parent.height - 75
+        Rectangle
+        {
+          width: parent.width
+          height: parent.height
+          color: "#77000000"
+          border.width: 2
+          border.color: "#F5F5DF"
+          Column
+          {
+            Row
+            {
+              TextArea
+              {
+                text: "Hello"
+                backgroundVisible: false;
+                horizontalAlignment: TextEdit.AlignHCenter
+                verticalAlignment: TextEdit.AlignVCenter
+              }
+            }
+            Row
+            {
+              TextArea
+              {
+                text: "World"
+                backgroundVisible: false;
+                horizontalAlignment: TextEdit.AlignHCenter
+                verticalAlignment: TextEdit.AlignVCenter
+              }
+            }
+          }
+        }
+        Rectangle
+        {
+          width: parent.width
+          height: parent.height
+          color: "#77000000"
+          border.width: 2
+          border.color: "#F5F5DF"
+          Column
+          {
+            Row
+            {
+              TextArea
+              {
+                text: "Hello"
+                backgroundVisible: false;
+                horizontalAlignment: TextEdit.AlignHCenter
+                verticalAlignment: TextEdit.AlignVCenter
+              }
+            }
+            Row
+            {
+              TextArea
+              {
+                text: "World"
+                backgroundVisible: false;
+                horizontalAlignment: TextEdit.AlignHCenter
+                verticalAlignment: TextEdit.AlignVCenter
+              }
+            }
+          }
+        }
+      }
+
+      Row
+      {
+        width: parent.width
+        height: 25
+        anchors.horizontalCenter: parent.horizontalCenter
+        Button
+        {
+          width: 1/4 * parent.width
+          height: parent.height
+          text: "Add"
+        }
+        Button
+        {
+          width: 1/4 * parent.width
+          height: parent.height
+          text: "Remove"
+        }
+        Button
+        {
+          width: 1/4 * parent.width
+          height: parent.height
+          text: "Clear"
+        }
+        Button
+        {
+          width: 1/4 * parent.width
+          height: parent.height
+          text: "View"
         }
       }
     }

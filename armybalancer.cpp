@@ -131,5 +131,4 @@ void ArmyBalancer::warScrollSelectionChanged(int index)
     m_FactionList.at(m_CurrentFactionIndex)];
   WarScroll ws = m_WarScrollFactory.getSharedInstance().getWarScroll(
     currentFaction->getName(), currentFaction->getUnits()[index]);
-  qDebug() << ws.getTitle() << " Selected";
 }
