@@ -52,7 +52,7 @@ Item
       width: parent.width
       height: parent.height
       color: "#FFD700"
-      font.pointSize: 24
+      font.pointSize: 49
       text: "Army Balancer"
       verticalAlignment: Text.AlignVCenter
       horizontalAlignment: Text.AlignHCenter
@@ -101,21 +101,41 @@ Item
 
     Column
     {
+      id: mainColumn
       objectName: "mainColumn"
       width: parent.width
       height: parent.height
       visible: true
-      ComboBox
+      Row
       {
-        id: selectFactionComboBox
         width: parent.width
-        height: 25
-        anchors.centerIn: parent.Center
-        model: armyBalancer.factionList
+        height: 0.10 * parent.height
 
-        onCurrentIndexChanged:
+        TextArea
         {
-          armyBalancer.factionSelectionChanged(currentIndex)
+          width: 0.20 *parent.width
+          height: parent.height
+          font.pointSize: 12
+          textColor: "#000000"
+          font.family: "Courier"
+          text: "Faction"
+          backgroundVisible: false;
+          horizontalAlignment: TextEdit.AlignHCenter
+          verticalAlignment: TextEdit.AlignVCenter
+        }
+
+        ComboBox
+        {
+          id: selectFactionComboBox
+          width: 0.80 *parent.width
+          height: parent.height
+          anchors.centerIn: parent.Center
+          model: armyBalancer.factionList
+
+          onCurrentIndexChanged:
+          {
+              armyBalancer.factionSelectionChanged(currentIndex)
+          }
         }
       }
 
@@ -124,83 +144,80 @@ Item
         id: warScrollModel
       }
 
-      ComboBox
+      Row
       {
-        id: selectWarScroll
         width: parent.width
-        height: 25
-        anchors.centerIn: parent.Center
-        model: warScrollModel
+        height: 0.10 * parent.height
 
-        onCurrentIndexChanged:
+        TextArea
         {
-          armyBalancer.warScrollSelectionChanged(currentIndex)
+          width: 0.20 *parent.width
+          height: parent.height
+          font.pointSize: 12
+          textColor: "#000000"
+          font.family: "Courier"
+          text: "War Scroll"
+          backgroundVisible: false;
+          horizontalAlignment: TextEdit.AlignHCenter
+          verticalAlignment: TextEdit.AlignVCenter
+        }
+        ComboBox
+        {
+          id: selectWarScroll
+          width: 0.80 * parent.width
+          height: parent.height
+          anchors.centerIn: parent.Center
+          model: warScrollModel
+
+          onCurrentIndexChanged:
+          {
+            armyBalancer.warScrollSelectionChanged(currentIndex)
+          }
         }
       }
 
       Row
       {
-        width: parent.width / 2
-        height: parent.height - 75
+        width: parent.width
+        height: 0.70 * parent.height
         Rectangle
         {
           width: parent.width
           height: parent.height
+
           color: "#77000000"
           border.width: 2
           border.color: "#F5F5DF"
           Column
           {
-            Row
+            width: parent.width
+            height: parent.height
+
+            TextArea
             {
-              TextArea
-              {
-                text: "Hello"
-                backgroundVisible: false;
-                horizontalAlignment: TextEdit.AlignHCenter
-                verticalAlignment: TextEdit.AlignVCenter
-              }
+              text: "Point Balance"
+              font.pointSize: 24
+              textColor: "#FFFFFF"
+              font.family: "Courier"
+              width: parent.width
+              height: 0.25 * parent.height
+              backgroundVisible: false;
+              horizontalAlignment: TextEdit.AlignHCenter
+              verticalAlignment: TextEdit.AlignVCenter
+              readOnly: true
             }
-            Row
+            TextArea
             {
-              TextArea
-              {
-                text: "World"
-                backgroundVisible: false;
-                horizontalAlignment: TextEdit.AlignHCenter
-                verticalAlignment: TextEdit.AlignVCenter
-              }
-            }
-          }
-        }
-        Rectangle
-        {
-          width: parent.width
-          height: parent.height
-          color: "#77000000"
-          border.width: 2
-          border.color: "#F5F5DF"
-          Column
-          {
-            Row
-            {
-              TextArea
-              {
-                text: "Hello"
-                backgroundVisible: false;
-                horizontalAlignment: TextEdit.AlignHCenter
-                verticalAlignment: TextEdit.AlignVCenter
-              }
-            }
-            Row
-            {
-              TextArea
-              {
-                text: "World"
-                backgroundVisible: false;
-                horizontalAlignment: TextEdit.AlignHCenter
-                verticalAlignment: TextEdit.AlignVCenter
-              }
+              text: "0"
+              font.pointSize: 72
+              textColor: "#FFFFFF"
+              font.family: "Courier"
+              width: parent.width
+              height: 0.75 * parent.height
+              backgroundVisible: false;
+              horizontalAlignment: TextEdit.AlignHCenter
+              verticalAlignment: TextEdit.AlignVCenter
+              readOnly: true
             }
           }
         }
@@ -209,31 +226,140 @@ Item
       Row
       {
         width: parent.width
-        height: 25
+        height: 0.10 * parent.height
         anchors.horizontalCenter: parent.horizontalCenter
         Button
         {
           width: 1/4 * parent.width
           height: parent.height
           text: "Add"
+
+          onClicked: {
+            if (selectFactionComboBox.currentText != "" &&
+              selectWarScroll.currentText != "") {
+              viewRemoveColumn.visible = false
+              mainColumn.visible = false
+              addColumn.visible = true
+            }
+          }
         }
         Button
         {
-          width: 1/4 * parent.width
+          width: 1/2 * parent.width
           height: parent.height
-          text: "Remove"
+          text: "View/Remove"
+
+          onClicked: {
+            viewRemoveColumn.visible = true
+            mainColumn.visible = false
+            addColumn.visible = false
+          }
         }
         Button
         {
           width: 1/4 * parent.width
           height: parent.height
           text: "Clear"
+
+          onClicked: {
+            // TODO: Call ArmyBalancer.clearCurrentArmy or something of this
+            // nature.
+          }
+        }
+      }
+    }
+
+    Column
+    {
+      id: addColumn
+      objectName: "addColumn"
+      width: parent.width
+      height: parent.height
+      visible: false
+
+      Row
+      {
+        width: parent.width
+        height: 0.90 * parent.height
+
+        Rectangle
+        {
+          width: parent.width
+          height: parent.height
+          color: "#77FF0000"
+        }
+      }
+
+      Row
+      {
+        width: parent.width
+        height: 0.10 * parent.height
+        anchors.horizontalCenter: parent.horizontalCenter
+        Button
+        {
+          width: 1/2 * parent.width
+          height: parent.height
+          text: "Cancel Add"
+
+          onClicked: {
+            mainColumn.visible = true
+            addColumn.visible = false
+            viewRemoveColumn.visible = false
+          }
         }
         Button
         {
-          width: 1/4 * parent.width
+          width: 1/2 * parent.width
           height: parent.height
-          text: "View"
+          text: "Add to Army"
+
+          onClicked: {
+            mainColumn.visible = true
+            addColumn.visible = false
+            viewRemoveColumn.visible = false
+          }
+        }
+      }
+    }
+
+    Column
+    {
+      id: viewRemoveColumn
+      objectName: "viewRemoveColumn"
+      width: parent.width
+      height: parent.height
+      visible: false
+
+      Row
+      {
+        width: parent.width
+        height: 0.90 * parent.height
+
+        Rectangle
+        {
+          width: parent.width
+          height: parent.height
+          color: "#77FF0000"
+        }
+      }
+
+      Row
+      {
+        width: parent.width
+        height: 0.10 * parent.height
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        Button
+        {
+          width: parent.width
+          height: parent.height
+          text: "Done"
+
+          onClicked: {
+            mainColumn.visible = true
+            addColumn.visible = false
+            viewRemoveColumn.visible = false
+          }
         }
       }
     }

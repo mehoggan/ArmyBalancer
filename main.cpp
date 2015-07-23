@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
   QQuickView * quickView = new QQuickView;
   quickView->setSource(QUrl(QStringLiteral("qrc:/ArmyBalancer.qml")));
-  quickView->setMinimumSize(QSize(350, 450));
+  quickView->setMinimumSize(QSize(500, 800));
 
   QObject *root = quickView->rootObject();
   QQuickItem *item = qobject_cast<QQuickItem *>(root);
