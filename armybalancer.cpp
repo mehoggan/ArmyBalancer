@@ -1,8 +1,11 @@
 ﻿#include "armybalancer.h"
 
+#include <QDate>
+
 ArmyBalancer::ArmyBalancer(QQuickItem *parent)
   : QQuickItem(parent)
   , m_CurrentFactionIndex(0)
+  , m_Root(nullptr)
   , m_WarScrollFactory(WarScrollFactory::getSharedInstance())
 {
   m_FactionList.push_back(tr(""));
@@ -70,17 +73,38 @@ void ArmyBalancer::setRootView(QQuickView *root)
   m_Root = root;
 }
 
+const QStringList &ArmyBalancer::getFactionList() const
+{
+  qDebug() << "Getting Faction List";
+  return m_FactionList;
+}
+
 void ArmyBalancer::setFactionList(const QStringList &factionList)
 {
   m_FactionList = factionList;
   emit factionListChanged();
 }
 
+const QStringList &ArmyBalancer::getWarScrolls() const
+{
+  qDebug() << "Getting WarScrolls";
+  return m_CurrentWarScrolls;
+}
 
 void ArmyBalancer::setWarScrolls(const QStringList &warScrolls)
 {
   m_CurrentWarScrolls = warScrolls;
   emit warScrollsChanged();
+
+  qDebug() << "Setting War Scrolls";
+  if (m_Root) {
+    QVariantList list;
+    foreach (const QString &scroll, warScrolls) {
+      list.append(scroll);
+    }
+    QMetaObject::invokeMethod(m_Root->rootObject(), "updateWarScrollList",
+      Q_ARG(QVariant, QVariant::fromValue(list)));
+  }
 }
 
 void ArmyBalancer::getNextWarScrolls(QStringList &output,
@@ -102,6 +126,9 @@ void ArmyBalancer::factionSelectionChanged(int index)
 
 void ArmyBalancer::warScrollSelectionChanged(int index)
 {
+  if (index == 0) {
+    return;
+  }
   std::shared_ptr<IFaction> currentFaction = m_NameToFactionMap[
     m_FactionList.at(m_CurrentFactionIndex)];
   WarScroll ws = m_WarScrollFactory.getSharedInstance().getWarScroll(

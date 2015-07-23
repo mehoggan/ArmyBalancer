@@ -27,10 +27,10 @@ public:
 
   void setRootView(QQuickView *root);
 
-  const QStringList &getFactionList() const {return m_FactionList;}
+  const QStringList &getFactionList() const;
   void setFactionList(const QStringList &factionList);
 
-  const QStringList &getWarScrolls() const {return m_CurrentWarScrolls;}
+  const QStringList &getWarScrolls() const;
   void setWarScrolls(const QStringList &warScrolls);
 
 signals:

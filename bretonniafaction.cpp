@@ -4,120 +4,121 @@ namespace WarScrollGeneration
 {
   WarScroll King_Louen_Leoncoeur(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll The_Fay_Enchantress(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll The_Green_Knight(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Bretonnian_Lord(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Paladin(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Paladin_Standard_Bearer(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Damsel_of_the_Lady(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Knights_Errant(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Knights_of_the_Realm(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Questing_Knights(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Grail_Knights(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Pegasus_Knights(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Battle_Pilgrims(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Men_at_Arms(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Peasant_Bowmen(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Mounted_Yeomen(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 
   WarScroll Field_Trebuchet(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
+    ws.setTitle(name);
     return ws;
   }
 }

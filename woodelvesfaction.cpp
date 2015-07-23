@@ -4,7 +4,6 @@ namespace WarScrollGeneration
 {
   WarScroll Araloth(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -12,7 +11,6 @@ namespace WarScrollGeneration
 
   WarScroll Glade_Captain_Battle_Standard_Bearer(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -20,7 +18,6 @@ namespace WarScrollGeneration
 
   WarScroll Glade_Lord(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -28,7 +25,6 @@ namespace WarScrollGeneration
 
   WarScroll Glade_Lord_on_Great_Eagle(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -36,7 +32,6 @@ namespace WarScrollGeneration
 
   WarScroll Glade_Lord_on_Great_Stag(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -44,7 +39,6 @@ namespace WarScrollGeneration
 
   WarScroll Glade_Lord_on_Forest_Dragon(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -52,7 +46,6 @@ namespace WarScrollGeneration
 
   WarScroll Mounted_Glade_Lord(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -60,7 +53,6 @@ namespace WarScrollGeneration
 
   WarScroll Orion_King_in_the_Woods(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -68,7 +60,6 @@ namespace WarScrollGeneration
 
   WarScroll Hunting_Hounds(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -76,7 +67,6 @@ namespace WarScrollGeneration
 
   WarScroll Wild_Riders(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -84,7 +74,6 @@ namespace WarScrollGeneration
 
   WarScroll The_Sisters_of_Twilight_on_Forest_Dragon(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -92,7 +81,6 @@ namespace WarScrollGeneration
 
   WarScroll Spellweaver(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -100,7 +88,6 @@ namespace WarScrollGeneration
 
   WarScroll Shadowdancer(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -108,7 +95,6 @@ namespace WarScrollGeneration
 
   WarScroll Wardancers(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -116,7 +102,6 @@ namespace WarScrollGeneration
 
   WarScroll Waywatcher_Lord(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -124,7 +109,6 @@ namespace WarScrollGeneration
 
   WarScroll Waywatchrs(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -132,7 +116,6 @@ namespace WarScrollGeneration
 
   WarScroll Glade_Guard(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -140,7 +123,6 @@ namespace WarScrollGeneration
 
   WarScroll Glade_Riders(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -148,7 +130,6 @@ namespace WarScrollGeneration
 
   WarScroll Eternal_Guard(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -156,7 +137,6 @@ namespace WarScrollGeneration
 
   WarScroll Wildwood_Rangers(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -164,7 +144,6 @@ namespace WarScrollGeneration
 
   WarScroll Warhawk_Riders(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -172,7 +151,6 @@ namespace WarScrollGeneration
 
   WarScroll Sisters_of_the_Thorn(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -180,7 +158,6 @@ namespace WarScrollGeneration
 
   WarScroll Great_Eagles_in_Wood_Elves(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -188,7 +165,6 @@ namespace WarScrollGeneration
 
   WarScroll Branchwraith(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -196,7 +172,6 @@ namespace WarScrollGeneration
 
   WarScroll Dryads(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -204,7 +179,6 @@ namespace WarScrollGeneration
 
   WarScroll Tree_Kin(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -212,7 +186,6 @@ namespace WarScrollGeneration
 
   WarScroll Durthu(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -220,7 +193,6 @@ namespace WarScrollGeneration
 
   WarScroll Treeman(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -228,7 +200,6 @@ namespace WarScrollGeneration
 
   WarScroll Treeman_Ancient(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -236,7 +207,6 @@ namespace WarScrollGeneration
 
   WarScroll Sylvaneth_Wyldwood(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -252,7 +222,8 @@ WoodElvesFaction::WoodElvesFaction() :
     std::bind(&WarScrollGeneration::Araloth, m_Units.back()));
   m_Units.push_back(tr("Glade Captain Battle Standard Bearer"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Glade_Captain_Battle_Standard_Bearer, m_Units.back()));
+    std::bind(&WarScrollGeneration::Glade_Captain_Battle_Standard_Bearer,
+    m_Units.back()));
   m_Units.push_back(tr("Glade Lord"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Glade_Lord, m_Units.back()));
@@ -264,7 +235,8 @@ WoodElvesFaction::WoodElvesFaction() :
     std::bind(&WarScrollGeneration::Glade_Lord_on_Great_Stag, m_Units.back()));
   m_Units.push_back(tr("Glade Lord on Forest Dragon"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Glade_Lord_on_Forest_Dragon, m_Units.back()));
+    std::bind(&WarScrollGeneration::Glade_Lord_on_Forest_Dragon,
+    m_Units.back()));
   m_Units.push_back(tr("Mounted Glade Lord"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Mounted_Glade_Lord, m_Units.back()));
@@ -279,7 +251,8 @@ WoodElvesFaction::WoodElvesFaction() :
     std::bind(&WarScrollGeneration::Wild_Riders, m_Units.back()));
   m_Units.push_back(tr("The Sisters of Twilight on Forest Dragon"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::The_Sisters_of_Twilight_on_Forest_Dragon, m_Units.back()));
+    std::bind(&WarScrollGeneration::The_Sisters_of_Twilight_on_Forest_Dragon,
+    m_Units.back()));
   m_Units.push_back(tr("Spellweaver"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Spellweaver, m_Units.back()));
@@ -315,7 +288,8 @@ WoodElvesFaction::WoodElvesFaction() :
     std::bind(&WarScrollGeneration::Sisters_of_the_Thorn, m_Units.back()));
   m_Units.push_back(tr("Great Eagles"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Great_Eagles_in_Wood_Elves, m_Units.back()));
+    std::bind(&WarScrollGeneration::Great_Eagles_in_Wood_Elves,
+    m_Units.back()));
   m_Units.push_back(tr("Branchwraith"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Branchwraith, m_Units.back()));

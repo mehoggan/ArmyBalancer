@@ -4,7 +4,6 @@ namespace WarScrollGeneration
 {
   WarScroll Gorbad_Ironclaw(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -12,7 +11,6 @@ namespace WarScrollGeneration
 
   WarScroll Azhag_the_Slaughterer(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -20,7 +18,6 @@ namespace WarScrollGeneration
 
   WarScroll Orc_Warboss(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -28,7 +25,6 @@ namespace WarScrollGeneration
 
   WarScroll Orc_Warboss_on_Wyvern(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -36,7 +32,6 @@ namespace WarScrollGeneration
 
   WarScroll Orc_Great_Shaman(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -44,7 +39,6 @@ namespace WarScrollGeneration
 
   WarScroll Orc_Bully(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -52,7 +46,6 @@ namespace WarScrollGeneration
 
   WarScroll Orcs(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -60,7 +53,6 @@ namespace WarScrollGeneration
 
   WarScroll Orc_Arrer_Boyz(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -68,7 +60,6 @@ namespace WarScrollGeneration
 
   WarScroll Orc_Boar_Chariots(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -76,7 +67,6 @@ namespace WarScrollGeneration
 
   WarScroll Ruglud_s_Armoureed_Orcs(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -84,7 +74,6 @@ namespace WarScrollGeneration
 
   WarScroll Grimgor_Ironhide(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -92,7 +81,6 @@ namespace WarScrollGeneration
 
   WarScroll Black_Orc_Big_Boss(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -100,7 +88,6 @@ namespace WarScrollGeneration
 
   WarScroll Black_Orcs(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -108,7 +95,6 @@ namespace WarScrollGeneration
 
   WarScroll Wurrzag_da_Great_Green_Prophet(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -116,7 +102,6 @@ namespace WarScrollGeneration
 
   WarScroll Savage_Orc_Warboss(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -124,7 +109,6 @@ namespace WarScrollGeneration
 
   WarScroll Savage_Orc_Shaman(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -132,7 +116,6 @@ namespace WarScrollGeneration
 
   WarScroll Savage_Orcs(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -140,7 +123,6 @@ namespace WarScrollGeneration
 
   WarScroll Savage_Orc_Boar_Boyz(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -148,7 +130,6 @@ namespace WarScrollGeneration
 
   WarScroll Grom_the_Paunch(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -156,7 +137,6 @@ namespace WarScrollGeneration
 
   WarScroll Goblin_Warboss(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -164,7 +144,6 @@ namespace WarScrollGeneration
 
   WarScroll Goblin_Shaman(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -172,7 +151,6 @@ namespace WarScrollGeneration
 
   WarScroll Goblins(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -180,7 +158,6 @@ namespace WarScrollGeneration
 
   WarScroll Goblin_Wolf_Riders(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -188,7 +165,6 @@ namespace WarScrollGeneration
 
   WarScroll Goblin_Wolf_Chariots(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -196,7 +172,6 @@ namespace WarScrollGeneration
 
   WarScroll Goblin_Spear_Chukka(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -204,7 +179,6 @@ namespace WarScrollGeneration
 
   WarScroll Goblin_Rock_Lobber(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -212,7 +186,6 @@ namespace WarScrollGeneration
 
   WarScroll Doom_Diver_Catapult(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -220,7 +193,6 @@ namespace WarScrollGeneration
 
   WarScroll Nasty_Skulkers(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -228,7 +200,6 @@ namespace WarScrollGeneration
 
   WarScroll Skarsnik_Warlord_of_the_Eight_Peaks(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -236,7 +207,6 @@ namespace WarScrollGeneration
 
   WarScroll Night_Goblin_Warboss(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -244,7 +214,6 @@ namespace WarScrollGeneration
 
   WarScroll Night_Goblin_Warboss_on_Great_Cave_Squig(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -252,7 +221,6 @@ namespace WarScrollGeneration
 
   WarScroll Night_Goblin_Shaman(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -260,7 +228,6 @@ namespace WarScrollGeneration
 
   WarScroll Night_Goblins(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -268,7 +235,6 @@ namespace WarScrollGeneration
 
   WarScroll Night_Goblin_Fanatics(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -276,7 +242,6 @@ namespace WarScrollGeneration
 
   WarScroll Night_Goblin_Squig_Hoppers(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -284,7 +249,6 @@ namespace WarScrollGeneration
 
   WarScroll Night_Goblin_Squig_Herders(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -292,7 +256,6 @@ namespace WarScrollGeneration
 
   WarScroll Mangler_Squigs(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -300,7 +263,6 @@ namespace WarScrollGeneration
 
   WarScroll Cave_Squigs(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -308,7 +270,6 @@ namespace WarScrollGeneration
 
   WarScroll Goblin_Big_Boss_on_Gigantic_Spider(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -316,7 +277,6 @@ namespace WarScrollGeneration
 
   WarScroll Forest_Goblin_Spider_Riders(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -324,7 +284,6 @@ namespace WarScrollGeneration
 
   WarScroll Arachnarok_Spider(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -332,7 +291,6 @@ namespace WarScrollGeneration
 
   WarScroll Snotlings(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -340,7 +298,6 @@ namespace WarScrollGeneration
 
   WarScroll Snotling_Pump_Wagon(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -348,7 +305,6 @@ namespace WarScrollGeneration
 
   WarScroll Trolls_in_Orcs_and_Goblins(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -356,7 +312,6 @@ namespace WarScrollGeneration
 
   WarScroll Stone_Troll(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -364,7 +319,6 @@ namespace WarScrollGeneration
 
   WarScroll River_Trolls(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -372,7 +326,6 @@ namespace WarScrollGeneration
 
   WarScroll Giant_in_Orcs_and_Goblins(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -424,7 +377,8 @@ OrcsAndGoblinsFaction::OrcsAndGoblinsFaction() :
     std::bind(&WarScrollGeneration::Black_Orcs, m_Units.back()));
   m_Units.push_back(tr("Wurrzag, da Great Green Prophet"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Wurrzag_da_Great_Green_Prophet, m_Units.back()));
+    std::bind(&WarScrollGeneration::Wurrzag_da_Great_Green_Prophet,
+    m_Units.back()));
   m_Units.push_back(tr("Savage Orc Warboss"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Savage_Orc_Warboss, m_Units.back()));
@@ -469,13 +423,15 @@ OrcsAndGoblinsFaction::OrcsAndGoblinsFaction() :
     std::bind(&WarScrollGeneration::Nasty_Skulkers, m_Units.back()));
   m_Units.push_back(tr("Skarsnik, Warlord of the Eight Peaks"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Skarsnik_Warlord_of_the_Eight_Peaks, m_Units.back()));
+    std::bind(&WarScrollGeneration::Skarsnik_Warlord_of_the_Eight_Peaks,
+    m_Units.back()));
   m_Units.push_back(tr("Night Goblin Warboss"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Night_Goblin_Warboss, m_Units.back()));
   m_Units.push_back(tr("Night Goblin Warboss on Great Cave Squig"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Night_Goblin_Warboss_on_Great_Cave_Squig, m_Units.back()));
+    std::bind(&WarScrollGeneration::Night_Goblin_Warboss_on_Great_Cave_Squig,
+    m_Units.back()));
   m_Units.push_back(tr("Night Goblin Shaman"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Night_Goblin_Shaman, m_Units.back()));
@@ -487,10 +443,12 @@ OrcsAndGoblinsFaction::OrcsAndGoblinsFaction() :
     std::bind(&WarScrollGeneration::Night_Goblin_Fanatics, m_Units.back()));
   m_Units.push_back(tr("Night Goblin Squig Hoppers"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Night_Goblin_Squig_Hoppers, m_Units.back()));
+    std::bind(&WarScrollGeneration::Night_Goblin_Squig_Hoppers,
+    m_Units.back()));
   m_Units.push_back(tr("Night Goblin Squig Herders"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Night_Goblin_Squig_Herders, m_Units.back()));
+    std::bind(&WarScrollGeneration::Night_Goblin_Squig_Herders,
+    m_Units.back()));
   m_Units.push_back(tr("Mangler Squigs"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Mangler_Squigs, m_Units.back()));
@@ -499,10 +457,12 @@ OrcsAndGoblinsFaction::OrcsAndGoblinsFaction() :
     std::bind(&WarScrollGeneration::Cave_Squigs, m_Units.back()));
   m_Units.push_back(tr("Goblin Big Boss on Gigantic Spider"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Goblin_Big_Boss_on_Gigantic_Spider, m_Units.back()));
+    std::bind(&WarScrollGeneration::Goblin_Big_Boss_on_Gigantic_Spider,
+    m_Units.back()));
   m_Units.push_back(tr("Forest Goblin Spider Riders"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Forest_Goblin_Spider_Riders, m_Units.back()));
+    std::bind(&WarScrollGeneration::Forest_Goblin_Spider_Riders,
+    m_Units.back()));
   m_Units.push_back(tr("Arachnarok Spider"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Arachnarok_Spider, m_Units.back()));
@@ -514,7 +474,8 @@ OrcsAndGoblinsFaction::OrcsAndGoblinsFaction() :
     std::bind(&WarScrollGeneration::Snotling_Pump_Wagon, m_Units.back()));
   m_Units.push_back(tr("Trolls"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Trolls_in_Orcs_and_Goblins, m_Units.back()));
+    std::bind(&WarScrollGeneration::Trolls_in_Orcs_and_Goblins,
+    m_Units.back()));
   m_Units.push_back(tr("Stone Troll"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Stone_Troll, m_Units.back()));

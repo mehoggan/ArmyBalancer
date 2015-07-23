@@ -4,7 +4,6 @@ namespace WarScrollGeneration
 {
   WarScroll Keeper_of_Secrets(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -12,7 +11,6 @@ namespace WarScrollGeneration
 
   WarScroll The_Masque_of_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -20,7 +18,6 @@ namespace WarScrollGeneration
 
   WarScroll Herald_of_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -28,7 +25,6 @@ namespace WarScrollGeneration
 
   WarScroll Herald_of_Slaanesh_on_Seeker_Chariot(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -36,7 +32,6 @@ namespace WarScrollGeneration
 
   WarScroll Herald_of_Slaanesh_on_Exalted_Seeker_Chariot(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -44,7 +39,6 @@ namespace WarScrollGeneration
 
   WarScroll Daemonettes_of_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -52,7 +46,6 @@ namespace WarScrollGeneration
 
   WarScroll Seekers_of_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -60,7 +53,6 @@ namespace WarScrollGeneration
 
   WarScroll Fiends_of_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -68,7 +60,6 @@ namespace WarScrollGeneration
 
   WarScroll Seeker_Chariots_of_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -76,7 +67,6 @@ namespace WarScrollGeneration
 
   WarScroll Exalted_Seeker_Chariots_of_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -84,7 +74,6 @@ namespace WarScrollGeneration
 
   WarScroll Hellflayers_of_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -92,7 +81,6 @@ namespace WarScrollGeneration
 
   WarScroll Daemon_Prince_in_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -100,7 +88,6 @@ namespace WarScrollGeneration
 
   WarScroll Furies_in_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -108,7 +95,6 @@ namespace WarScrollGeneration
 
   WarScroll Soul_Grinder_in_Slaanesh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -130,10 +116,13 @@ DaemonsOfChaosSlaaneshFaction::DaemonsOfChaosSlaaneshFaction() :
     std::bind(&WarScrollGeneration::Herald_of_Slaanesh, m_Units.back()));
   m_Units.push_back(tr("Herald of Slaanesh on Seeker Chariot"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Herald_of_Slaanesh_on_Seeker_Chariot, m_Units.back()));
+    std::bind(&WarScrollGeneration::Herald_of_Slaanesh_on_Seeker_Chariot,
+    m_Units.back()));
   m_Units.push_back(tr("Herald of Slaanesh on Exalted Seeker Chariot"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Herald_of_Slaanesh_on_Exalted_Seeker_Chariot, m_Units.back()));
+    std::bind(
+      &WarScrollGeneration::Herald_of_Slaanesh_on_Exalted_Seeker_Chariot,
+      m_Units.back()));
   m_Units.push_back(tr("Daemonettes of Slaanesh"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Daemonettes_of_Slaanesh, m_Units.back()));
@@ -145,10 +134,12 @@ DaemonsOfChaosSlaaneshFaction::DaemonsOfChaosSlaaneshFaction() :
     std::bind(&WarScrollGeneration::Fiends_of_Slaanesh, m_Units.back()));
   m_Units.push_back(tr("Seeker Chariots of Slaanesh"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Seeker_Chariots_of_Slaanesh, m_Units.back()));
+    std::bind(&WarScrollGeneration::Seeker_Chariots_of_Slaanesh,
+    m_Units.back()));
   m_Units.push_back(tr("Exalted Seeker Chariots of Slaanesh"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Exalted_Seeker_Chariots_of_Slaanesh, m_Units.back()));
+    std::bind(&WarScrollGeneration::Exalted_Seeker_Chariots_of_Slaanesh,
+    m_Units.back()));
   m_Units.push_back(tr("Hellflayers of Slaanesh"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Hellflayers_of_Slaanesh, m_Units.back()));

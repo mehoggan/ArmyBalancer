@@ -4,7 +4,6 @@ namespace WarScrollGeneration
 {
   WarScroll Karl_Franz_on_Deathclaw(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -12,7 +11,6 @@ namespace WarScrollGeneration
 
   WarScroll Kurt_Helborg(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -20,7 +18,6 @@ namespace WarScrollGeneration
 
   WarScroll Balthasar_Gelt_the_Supreme_Patriarch(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -28,7 +25,6 @@ namespace WarScrollGeneration
 
   WarScroll Valten(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -36,7 +32,6 @@ namespace WarScrollGeneration
 
   WarScroll Marius_Leitdorf(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -44,7 +39,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_General(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -52,7 +46,6 @@ namespace WarScrollGeneration
 
   WarScroll General_of_the_Empire_on_Imperial_Griffon(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -60,7 +53,6 @@ namespace WarScrollGeneration
 
   WarScroll Ludwig_Schwarzhelm(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -68,7 +60,6 @@ namespace WarScrollGeneration
 
   WarScroll Markus_Wulfhart(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -76,7 +67,6 @@ namespace WarScrollGeneration
 
   WarScroll Grand_Master(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -84,7 +74,6 @@ namespace WarScrollGeneration
 
   WarScroll Demigryph_Knights(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -92,7 +81,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Knights(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -100,7 +88,6 @@ namespace WarScrollGeneration
 
   WarScroll Reiksguard_Knights(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -108,7 +95,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Crossbowmen(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -116,7 +102,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Handgunners(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -124,7 +109,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Archers(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -132,7 +116,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Greatswords(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -140,7 +123,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Pistoliers(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -148,7 +130,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Outriders(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -156,7 +137,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_State_Troops(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -164,7 +144,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Free_Company_Militia(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -172,7 +151,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Master_Engineer(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -180,7 +158,6 @@ namespace WarScrollGeneration
 
   WarScroll Master_Engineer_on_Mechanical_Steed(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -188,7 +165,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Cannon(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -196,7 +172,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Mortor(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -204,7 +179,6 @@ namespace WarScrollGeneration
 
   WarScroll Hellblaster_Volley_Gun(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -212,7 +186,6 @@ namespace WarScrollGeneration
 
   WarScroll Hellstorm_Rocket_Battery(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -220,7 +193,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Steam_Tank(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -228,7 +200,6 @@ namespace WarScrollGeneration
 
   WarScroll Volkmar_the_Grim(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -236,7 +207,6 @@ namespace WarScrollGeneration
 
   WarScroll The_War_Alter_of_Sigmar(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -244,7 +214,6 @@ namespace WarScrollGeneration
 
   WarScroll Luthor_Huss_Prophet_of_Sigmar(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -252,7 +221,6 @@ namespace WarScrollGeneration
 
   WarScroll Warrior_Priest(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -260,7 +228,6 @@ namespace WarScrollGeneration
 
   WarScroll Witch_Hunter(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -268,7 +235,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Flagellants_Warband(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -276,7 +242,6 @@ namespace WarScrollGeneration
 
   WarScroll Celestial_Hurricanum(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -284,7 +249,6 @@ namespace WarScrollGeneration
 
   WarScroll Empire_Battle_Wizard(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -292,7 +256,6 @@ namespace WarScrollGeneration
 
   WarScroll Amber_Battle_Wizard_on_Imperial_Griffon(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -300,7 +263,6 @@ namespace WarScrollGeneration
 
   WarScroll Luminark_of_Hysh(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -319,7 +281,8 @@ TheEmpireFaction::TheEmpireFaction() :
     std::bind(&WarScrollGeneration::Kurt_Helborg, m_Units.back()));
   m_Units.push_back(tr("Balthasar Gelt, the Supreme Patriarch"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Balthasar_Gelt_the_Supreme_Patriarch, m_Units.back()));
+    std::bind(&WarScrollGeneration::Balthasar_Gelt_the_Supreme_Patriarch,
+    m_Units.back()));
   m_Units.push_back(tr("Valten"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Valten, m_Units.back()));
@@ -331,7 +294,8 @@ TheEmpireFaction::TheEmpireFaction() :
     std::bind(&WarScrollGeneration::Empire_General, m_Units.back()));
   m_Units.push_back(tr("General of the Empire on Imperial Griffon"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::General_of_the_Empire_on_Imperial_Griffon, m_Units.back()));
+    std::bind(&WarScrollGeneration::General_of_the_Empire_on_Imperial_Griffon,
+    m_Units.back()));
   m_Units.push_back(tr("Ludwig Schwarzhelm"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Ludwig_Schwarzhelm, m_Units.back()));
@@ -373,13 +337,15 @@ TheEmpireFaction::TheEmpireFaction() :
     std::bind(&WarScrollGeneration::Empire_State_Troops, m_Units.back()));
   m_Units.push_back(tr("Empire Free Company Militia"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Empire_Free_Company_Militia, m_Units.back()));
+    std::bind(&WarScrollGeneration::Empire_Free_Company_Militia,
+    m_Units.back()));
   m_Units.push_back(tr("Empire Master Engineer"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Empire_Master_Engineer, m_Units.back()));
   m_Units.push_back(tr("Master Engineer on Mechanical Steed"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Master_Engineer_on_Mechanical_Steed, m_Units.back()));
+    std::bind(&WarScrollGeneration::Master_Engineer_on_Mechanical_Steed,
+    m_Units.back()));
   m_Units.push_back(tr("Empire Cannon"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Empire_Cannon, m_Units.back()));
@@ -403,7 +369,8 @@ TheEmpireFaction::TheEmpireFaction() :
     std::bind(&WarScrollGeneration::The_War_Alter_of_Sigmar, m_Units.back()));
   m_Units.push_back(tr("Luthor Huss, Prophet of Sigmar"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Luthor_Huss_Prophet_of_Sigmar, m_Units.back()));
+    std::bind(&WarScrollGeneration::Luthor_Huss_Prophet_of_Sigmar,
+    m_Units.back()));
   m_Units.push_back(tr("Warrior Priest"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Warrior_Priest, m_Units.back()));
@@ -412,7 +379,8 @@ TheEmpireFaction::TheEmpireFaction() :
     std::bind(&WarScrollGeneration::Witch_Hunter, m_Units.back()));
   m_Units.push_back(tr("Empire Flagellants Warband"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Empire_Flagellants_Warband, m_Units.back()));
+    std::bind(&WarScrollGeneration::Empire_Flagellants_Warband,
+    m_Units.back()));
   m_Units.push_back(tr("Celestial Hurricanum"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Celestial_Hurricanum, m_Units.back()));
@@ -421,7 +389,8 @@ TheEmpireFaction::TheEmpireFaction() :
     std::bind(&WarScrollGeneration::Empire_Battle_Wizard, m_Units.back()));
   m_Units.push_back(tr("Amber Battle Wizard on Imperial Griffon"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Amber_Battle_Wizard_on_Imperial_Griffon, m_Units.back()));
+    std::bind(&WarScrollGeneration::Amber_Battle_Wizard_on_Imperial_Griffon,
+    m_Units.back()));
   m_Units.push_back(tr("Luminark of Hysh"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Luminark_of_Hysh, m_Units.back()));

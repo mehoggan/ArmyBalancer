@@ -4,7 +4,6 @@ namespace WarScrollGeneration
 {
   WarScroll Bloodthirster_of_Insensate_Rage(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -12,7 +11,6 @@ namespace WarScrollGeneration
 
   WarScroll Bloodthirster_of_Unfettered_Fury(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -20,7 +18,6 @@ namespace WarScrollGeneration
 
   WarScroll Wrath_of_Khorne_Bloodthirster(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -28,7 +25,6 @@ namespace WarScrollGeneration
 
   WarScroll Skulltaker(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -36,7 +32,6 @@ namespace WarScrollGeneration
 
   WarScroll Herald_of_Khorne(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -44,7 +39,6 @@ namespace WarScrollGeneration
 
   WarScroll Herald_of_Khorne_on_Juggernaut(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -52,7 +46,6 @@ namespace WarScrollGeneration
 
   WarScroll Blood_Throne_of_Khorne(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -60,7 +53,6 @@ namespace WarScrollGeneration
 
   WarScroll Bloodletters_of_Khorne(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -68,7 +60,6 @@ namespace WarScrollGeneration
 
   WarScroll Bloodcrushers_of_Khorne(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -76,7 +67,6 @@ namespace WarScrollGeneration
 
   WarScroll Karanak(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -84,7 +74,6 @@ namespace WarScrollGeneration
 
   WarScroll Flesh_Hounds_of_Khorne(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -92,7 +81,6 @@ namespace WarScrollGeneration
 
   WarScroll Skull_Cannons_of_Khorne(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -100,7 +88,6 @@ namespace WarScrollGeneration
 
   WarScroll Daemon_Prince_in_Khorne(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -108,7 +95,6 @@ namespace WarScrollGeneration
 
   WarScroll Furies_in_Khorne(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -116,7 +102,6 @@ namespace WarScrollGeneration
 
   WarScroll Soul_Grinder_in_Khorne(const QString &name)
   {
-    qDebug() << "Generating WarScroll for " << name;
     WarScroll ws;
     ws.setTitle(name);
     return ws;
@@ -129,13 +114,16 @@ DaemonsOfChaosKhorneFaction::DaemonsOfChaosKhorneFaction() :
   m_Units.push_back(tr(""));
   m_Units.push_back(tr("Bloodthirster of Insensate Rage"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Bloodthirster_of_Insensate_Rage, m_Units.back()));
+    std::bind(&WarScrollGeneration::Bloodthirster_of_Insensate_Rage,
+    m_Units.back()));
   m_Units.push_back(tr("Bloodthirster of Unfettered Fury"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Bloodthirster_of_Unfettered_Fury, m_Units.back()));
+    std::bind(&WarScrollGeneration::Bloodthirster_of_Unfettered_Fury,
+    m_Units.back()));
   m_Units.push_back(tr("Wrath of Khorne Bloodthirster"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Wrath_of_Khorne_Bloodthirster, m_Units.back()));
+    std::bind(&WarScrollGeneration::Wrath_of_Khorne_Bloodthirster,
+    m_Units.back()));
   m_Units.push_back(tr("Skulltaker"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Skulltaker, m_Units.back()));
@@ -144,7 +132,8 @@ DaemonsOfChaosKhorneFaction::DaemonsOfChaosKhorneFaction() :
     std::bind(&WarScrollGeneration::Herald_of_Khorne, m_Units.back()));
   m_Units.push_back(tr("Herald of Khorne on Juggernaut"));
   m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Herald_of_Khorne_on_Juggernaut, m_Units.back()));
+    std::bind(&WarScrollGeneration::Herald_of_Khorne_on_Juggernaut,
+    m_Units.back()));
   m_Units.push_back(tr("Blood Throne of Khorne"));
   m_NameToWarScroll.insert(m_Units.back(),
     std::bind(&WarScrollGeneration::Blood_Throne_of_Khorne, m_Units.back()));

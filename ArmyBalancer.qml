@@ -9,6 +9,21 @@ import ArmyBalancer 1.0
 
 Item
 {
+  id: root
+  objectName: "root"
+
+  function updateWarScrollList(aList)
+  {
+    var curr = selectWarScroll.currentIndex;
+    warScrollModel.clear();
+    for (var i = 0; i < aList.length; ++i) {
+      warScrollModel.append({'name': aList[i]});
+    }
+    var min = Math.min(aList.length - 1, curr)
+    console.log("min item is " + min)
+    selectWarScroll.currentIndex = min
+  }
+
   Rectangle
   {
     id: title
@@ -95,10 +110,15 @@ Item
         anchors.centerIn: parent.Center
         model: armyBalancer.factionList
 
-        onActivated:
+        onCurrentIndexChanged:
         {
-          armyBalancer.factionSelectionChanged(index)
+          armyBalancer.factionSelectionChanged(currentIndex)
         }
+      }
+
+      ListModel
+      {
+        id: warScrollModel
       }
 
       ComboBox
@@ -107,11 +127,11 @@ Item
         width: parent.width
         height: 25
         anchors.centerIn: parent.Center
-        model: armyBalancer.warScrolls
+        model: warScrollModel
 
-        onActivated:
+        onCurrentIndexChanged:
         {
-          armyBalancer.warScrollSelectionChanged(index)
+          armyBalancer.warScrollSelectionChanged(currentIndex)
         }
       }
     }
