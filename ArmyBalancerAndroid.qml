@@ -97,6 +97,7 @@ Item
         onActivated:
         {
           armyBalancer.factionSelectionChanged(index)
+          selectWarScroll.currentIndex = 0
         }
       }
 

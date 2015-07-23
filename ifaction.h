@@ -18,7 +18,7 @@ class IFaction :
 {
   Q_OBJECT
 protected:
-  typedef std::function<WarScroll()> WarScrollGenerator;
+  typedef std::function<WarScroll(QString)> WarScrollGenerator;
 
 public:
   explicit IFaction(QObject *parent = 0)

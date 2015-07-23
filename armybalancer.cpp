@@ -104,5 +104,7 @@ void ArmyBalancer::warScrollSelectionChanged(int index)
 {
   std::shared_ptr<IFaction> currentFaction = m_NameToFactionMap[
     m_FactionList.at(m_CurrentFactionIndex)];
-  Q_UNUSED(currentFaction);
+  WarScroll ws = m_WarScrollFactory.getSharedInstance().getWarScroll(
+    currentFaction->getName(), currentFaction->getUnits()[index]);
+  qDebug() << ws.getTitle() << " Selected";
 }

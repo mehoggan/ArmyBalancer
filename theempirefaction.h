@@ -14,7 +14,8 @@ public:
 
 private:
   QStringList m_Units;
-  QMap<QString, WarScrollGenerator> m_NameToWarScroll;
+  typedef QMap<QString, WarScrollGenerator> WarScrollGeneratorType;
+  WarScrollGeneratorType m_NameToWarScroll;
 };
 
 #endif // TheEmpire_H

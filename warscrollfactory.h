@@ -23,7 +23,7 @@ private:
   WarScrollFactory(WarScrollFactory &&other) = delete;
 
 private:
-  typedef QMap<QString, std::shared_ptr<WarScroll>> WarScrollDictionaryType;
+  typedef QMap<QString, WarScroll> WarScrollDictionaryType;
   typedef QMap<QString, WarScrollDictionaryType> FactionWarScrollDictionaryType;
   FactionWarScrollDictionaryType m_WarScrolls;
 };
