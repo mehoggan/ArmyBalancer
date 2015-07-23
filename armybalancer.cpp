@@ -75,7 +75,6 @@ void ArmyBalancer::setRootView(QQuickView *root)
 
 const QStringList &ArmyBalancer::getFactionList() const
 {
-  qDebug() << "Getting Faction List";
   return m_FactionList;
 }
 
@@ -87,7 +86,6 @@ void ArmyBalancer::setFactionList(const QStringList &factionList)
 
 const QStringList &ArmyBalancer::getWarScrolls() const
 {
-  qDebug() << "Getting WarScrolls";
   return m_CurrentWarScrolls;
 }
 
@@ -96,7 +94,6 @@ void ArmyBalancer::setWarScrolls(const QStringList &warScrolls)
   m_CurrentWarScrolls = warScrolls;
   emit warScrollsChanged();
 
-  qDebug() << "Setting War Scrolls";
   if (m_Root) {
     QVariantList list;
     foreach (const QString &scroll, warScrolls) {
@@ -129,6 +126,7 @@ void ArmyBalancer::warScrollSelectionChanged(int index)
   if (index == 0) {
     return;
   }
+
   std::shared_ptr<IFaction> currentFaction = m_NameToFactionMap[
     m_FactionList.at(m_CurrentFactionIndex)];
   WarScroll ws = m_WarScrollFactory.getSharedInstance().getWarScroll(
