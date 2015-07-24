@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>ArmyBalancer.qml</file>
+        <file>WarScrollForm.qml</file>
     </qresource>
 </RCC>

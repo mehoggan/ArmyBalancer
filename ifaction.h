@@ -3,12 +3,13 @@
 
 #include <QObject>
 
-#include <QList>
+#include <list>
 #include <QQuickView>
-#include <QStringList>
 
 #include <functional>
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "warscroll.h"
 #include "warscrollfactory.h"
@@ -18,7 +19,7 @@ class IFaction :
 {
   Q_OBJECT
 protected:
-  typedef std::function<WarScroll(QString)> WarScrollGenerator;
+  typedef std::function<WarScroll(std::string)> WarScrollGenerator;
 
 public:
   explicit IFaction(QObject *parent = 0)
@@ -28,9 +29,9 @@ public:
   virtual ~IFaction()
   {}
 
-  virtual QString getName() const = 0;
-  virtual const QStringList &getUnits() const = 0;
-  virtual QList<WarScroll> getWarScrolls() const = 0;
+  virtual std::string getName() const = 0;
+  virtual const std::vector<std::string> &getUnits() const = 0;
+  virtual void getWarScrolls(std::list<WarScroll> &warScrolls) = 0;
 };
 
 #endif // IFACTION_H

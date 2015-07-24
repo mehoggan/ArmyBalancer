@@ -9,21 +9,23 @@ WarScrollFactory &WarScrollFactory::getSharedInstance()
   return s_WarScrollFactory;
 }
 
-WarScroll WarScrollFactory::getWarScroll(const QString &factionName,
-  const QString &unitName)
+WarScroll WarScrollFactory::getWarScroll(const std::string &factionName,
+  const std::string &unitName)
 {
   FactionWarScrollDictionaryType::const_iterator it =
     m_WarScrolls.find(factionName);
   if (it != m_WarScrolls.end()) {
-    WarScrollDictionaryType::const_iterator wsit = it->find(unitName);
-    if (wsit != it->end()) {
-      return *wsit;
+    WarScrollDictionaryType::const_iterator wsit = it->second.find(unitName);
+    if (wsit != it->second.end()) {
+      return wsit->second;
     } else {
-      qWarning() << (QString("Failed to Find War Scroll for ") + factionName);
+      qWarning() << (QString("Failed to Find War Scroll for ") +
+        factionName.c_str());
       return WarScroll();
     }
   } else {
-    qWarning() << (QString("Failed to Find War Scroll for ") + unitName);
+    qWarning() << (QString("Failed to Find War Scroll for ") +
+      unitName.c_str());
     Q_ASSERT(false);
   }
   return WarScroll();
@@ -34,9 +36,12 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType beastmenDictionary;
     BeastmenFaction beastmen;
-    QList<WarScroll> beastmenWarScrolls = beastmen.getWarScrolls();
-    foreach(const WarScroll &ws, beastmenWarScrolls) {
-      beastmenDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> beastmenWarScrolls;
+    beastmen.getWarScrolls(beastmenWarScrolls);
+    for (WarScroll ws : beastmenWarScrolls) {
+      std::string key = ws.getTitle();
+      key = key = key;
+      beastmenDictionary.insert(std::make_pair(key, ws));
     }
     m_WarScrolls[beastmen.getName()] = beastmenDictionary;
   }
@@ -44,9 +49,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType bretonniaDictionary;
     BretonniaFaction bretonnia;
-    QList<WarScroll> bretonniaWarScrolls = bretonnia.getWarScrolls();
-    foreach(const WarScroll &ws, bretonniaWarScrolls) {
-      bretonniaDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> bretonniaWarScrolls;
+    bretonnia.getWarScrolls(bretonniaWarScrolls);
+    for (const WarScroll &ws : bretonniaWarScrolls) {
+      bretonniaDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[bretonnia.getName()] = bretonniaDictionary;
   }
@@ -54,10 +60,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType daemonsOfChaosKhorneDictionary;
     DaemonsOfChaosKhorneFaction daemonsOfChaosKhorne;
-    QList<WarScroll> daemonsOfChaosKhorneWarScrolls =
-      daemonsOfChaosKhorne.getWarScrolls();
-    foreach(const WarScroll &ws, daemonsOfChaosKhorneWarScrolls) {
-      daemonsOfChaosKhorneDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> daemonsOfChaosKhorneWarScrolls;
+    daemonsOfChaosKhorne.getWarScrolls(daemonsOfChaosKhorneWarScrolls);
+    for (const WarScroll &ws : daemonsOfChaosKhorneWarScrolls) {
+      daemonsOfChaosKhorneDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[daemonsOfChaosKhorne.getName()] =
       daemonsOfChaosKhorneDictionary;
@@ -66,10 +72,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType daemonsOfChaosNurgleDictionary;
     DaemonsOfChaosNurgleFaction daemonsOfChaosNurgle;
-    QList<WarScroll> daemonsOfChaosNurgleWarScrolls =
-      daemonsOfChaosNurgle.getWarScrolls();
-    foreach(const WarScroll &ws, daemonsOfChaosNurgleWarScrolls) {
-      daemonsOfChaosNurgleDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> daemonsOfChaosNurgleWarScrolls;
+    daemonsOfChaosNurgle.getWarScrolls(daemonsOfChaosNurgleWarScrolls);
+    for (const WarScroll &ws : daemonsOfChaosNurgleWarScrolls) {
+      daemonsOfChaosNurgleDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[daemonsOfChaosNurgle.getName()] =
       daemonsOfChaosNurgleDictionary;
@@ -78,10 +84,11 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType daemonsOfChaosSlaaneshDictionary;
     DaemonsOfChaosSlaaneshFaction daemonsOfChaosSlaanesh;
-    QList<WarScroll> daemonsOfChaosSlaaneshWarScrolls =
-      daemonsOfChaosSlaanesh.getWarScrolls();
-    foreach(const WarScroll &ws, daemonsOfChaosSlaaneshWarScrolls) {
-      daemonsOfChaosSlaaneshDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> daemonsOfChaosSlaaneshWarScrolls;
+    daemonsOfChaosSlaanesh.getWarScrolls(daemonsOfChaosSlaaneshWarScrolls);
+    for (const WarScroll &ws : daemonsOfChaosSlaaneshWarScrolls) {
+      daemonsOfChaosSlaaneshDictionary.insert(std::make_pair(ws.getTitle(),
+      ws));
     }
     m_WarScrolls[daemonsOfChaosSlaanesh.getName()] =
       daemonsOfChaosSlaaneshDictionary;
@@ -90,10 +97,11 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType daemonsOfChaosTzeentchDictionary;
     DaemonsOfChaosTzeentchFaction daemonsOfChaosTzeentch;
-    QList<WarScroll> daemonsOfChaosTzeentchWarScrolls =
-      daemonsOfChaosTzeentch.getWarScrolls();
-    foreach(const WarScroll &ws, daemonsOfChaosTzeentchWarScrolls) {
-      daemonsOfChaosTzeentchDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> daemonsOfChaosTzeentchWarScrolls;
+    daemonsOfChaosTzeentch.getWarScrolls(daemonsOfChaosTzeentchWarScrolls);
+    for (const WarScroll &ws : daemonsOfChaosTzeentchWarScrolls) {
+      daemonsOfChaosTzeentchDictionary.insert(std::make_pair(ws.getTitle(),
+      ws));
     }
     m_WarScrolls[daemonsOfChaosTzeentch.getName()] =
       daemonsOfChaosTzeentchDictionary;
@@ -102,9 +110,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType darkelvesDictionary;
     DarkElvesFaction darkelves;
-    QList<WarScroll> darkelvesWarScrolls = darkelves.getWarScrolls();
-    foreach(const WarScroll &ws, darkelvesWarScrolls) {
-      darkelvesDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> darkelvesWarScrolls;
+    darkelves.getWarScrolls(darkelvesWarScrolls);
+    for (const WarScroll &ws : darkelvesWarScrolls) {
+      darkelvesDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[darkelves.getName()] = darkelvesDictionary;
   }
@@ -112,9 +121,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType dwarfsDictionary;
     DwarfsFaction dwarfs;
-    QList<WarScroll> dwarfsWarScrolls = dwarfs.getWarScrolls();
-    foreach(const WarScroll &ws, dwarfsWarScrolls) {
-      dwarfsDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> dwarfsWarScrolls;
+    dwarfs.getWarScrolls(dwarfsWarScrolls);
+    for (const WarScroll &ws : dwarfsWarScrolls) {
+      dwarfsDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[dwarfs.getName()] = dwarfsDictionary;
   }
@@ -122,9 +132,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType highElvesDictionary;
     HighElvesFaction highElves;
-    QList<WarScroll> highElvesWarScrolls = highElves.getWarScrolls();
-    foreach(const WarScroll &ws, highElvesWarScrolls) {
-      highElvesDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> highElvesWarScrolls;
+    highElves.getWarScrolls(highElvesWarScrolls);
+    for (const WarScroll &ws : highElvesWarScrolls) {
+      highElvesDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[highElves.getName()] = highElvesDictionary;
   }
@@ -132,9 +143,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType lizardmenDictionary;
     LizardmenFaction lizardmen;
-    QList<WarScroll> lizardmenWarScrolls = lizardmen.getWarScrolls();
-    foreach(const WarScroll &ws, lizardmenWarScrolls) {
-      lizardmenDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> lizardmenWarScrolls;
+    lizardmen.getWarScrolls(lizardmenWarScrolls);
+    for (const WarScroll &ws : lizardmenWarScrolls) {
+      lizardmenDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[lizardmen.getName()] = lizardmenDictionary;
   }
@@ -142,9 +154,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType ogreKingdomsDictionary;
     OgreKingdomsFaction ogreKingdoms;
-    QList<WarScroll> ogreKingdomsWarScrolls = ogreKingdoms.getWarScrolls();
-    foreach(const WarScroll &ws, ogreKingdomsWarScrolls) {
-      ogreKingdomsDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> ogreKingdomsWarScrolls;
+    ogreKingdoms.getWarScrolls(ogreKingdomsWarScrolls);
+    for (const WarScroll &ws : ogreKingdomsWarScrolls) {
+      ogreKingdomsDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[ogreKingdoms.getName()] = ogreKingdomsDictionary;
   }
@@ -152,9 +165,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType orcsAndGoblinsDictionary;
     OrcsAndGoblinsFaction orcsAndGoblins;
-    QList<WarScroll> orcsAndGoblinsWarScrolls = orcsAndGoblins.getWarScrolls();
-    foreach(const WarScroll &ws, orcsAndGoblinsWarScrolls) {
-      orcsAndGoblinsDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> orcsAndGoblinsWarScrolls;
+    orcsAndGoblins.getWarScrolls(orcsAndGoblinsWarScrolls);
+    for (const WarScroll &ws : orcsAndGoblinsWarScrolls) {
+      orcsAndGoblinsDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[orcsAndGoblins.getName()] = orcsAndGoblinsDictionary;
   }
@@ -162,9 +176,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType skavenDictionary;
     SkavenFaction skaven;
-    QList<WarScroll> skavenWarScrolls = skaven.getWarScrolls();
-    foreach(const WarScroll &ws, skavenWarScrolls) {
-      skavenDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> skavenWarScrolls;
+    skaven.getWarScrolls(skavenWarScrolls);
+    for (const WarScroll &ws : skavenWarScrolls) {
+      skavenDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[skaven.getName()] = skavenDictionary;
   }
@@ -172,9 +187,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType theEmpireDictionary;
     TheEmpireFaction theEmpire;
-    QList<WarScroll> theEmpireWarScrolls = theEmpire.getWarScrolls();
-    foreach(const WarScroll &ws, theEmpireWarScrolls) {
-      theEmpireDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> theEmpireWarScrolls;
+    theEmpire.getWarScrolls(theEmpireWarScrolls);
+    for (const WarScroll &ws : theEmpireWarScrolls) {
+      theEmpireDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[theEmpire.getName()] = theEmpireDictionary;
   }
@@ -182,9 +198,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType tombKingsDictionary;
     TombKingsFaction tombKings;
-    QList<WarScroll> tombKingsWarScrolls = tombKings.getWarScrolls();
-    foreach(const WarScroll &ws, tombKingsWarScrolls) {
-      tombKingsDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> tombKingsWarScrolls;
+    tombKings.getWarScrolls(tombKingsWarScrolls);
+    for (const WarScroll &ws : tombKingsWarScrolls) {
+      tombKingsDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[tombKings.getName()] = tombKingsDictionary;
   }
@@ -192,9 +209,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType vampireCountsDictionary;
     VampireCountsFaction vampireCounts;
-    QList<WarScroll> vampireCountsWarScrolls = vampireCounts.getWarScrolls();
-    foreach(const WarScroll &ws, vampireCountsWarScrolls) {
-      vampireCountsDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> vampireCountsWarScrolls;
+    vampireCounts.getWarScrolls(vampireCountsWarScrolls);
+    for (const WarScroll &ws : vampireCountsWarScrolls) {
+      vampireCountsDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[vampireCounts.getName()] = vampireCountsDictionary;
   }
@@ -202,10 +220,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType warriorsOfChaosDictionary;
     WarriorsOfChaosFaction warriorsOfChaos;
-    QList<WarScroll> warriorsOfChaosWarScrolls =
-      warriorsOfChaos.getWarScrolls();
-    foreach(const WarScroll &ws, warriorsOfChaosWarScrolls) {
-      warriorsOfChaosDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> warriorsOfChaosWarScrolls;
+    warriorsOfChaos.getWarScrolls(warriorsOfChaosWarScrolls);
+    for (const WarScroll &ws : warriorsOfChaosWarScrolls) {
+      warriorsOfChaosDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[warriorsOfChaos.getName()] = warriorsOfChaosDictionary;
   }
@@ -213,9 +231,10 @@ WarScrollFactory::WarScrollFactory()
   {
     WarScrollDictionaryType woodElvesDictionary;
     WoodElvesFaction woodElves;
-    QList<WarScroll> woodElvesWarScrolls = woodElves.getWarScrolls();
-    foreach(const WarScroll &ws, woodElvesWarScrolls) {
-      woodElvesDictionary[ws.getTitle()] = ws;
+    std::list<WarScroll> woodElvesWarScrolls;
+    woodElves.getWarScrolls(woodElvesWarScrolls);
+    for (const WarScroll &ws : woodElvesWarScrolls) {
+      woodElvesDictionary.insert(std::make_pair(ws.getTitle(), ws));
     }
     m_WarScrolls[woodElves.getName()] = woodElvesDictionary;
   }

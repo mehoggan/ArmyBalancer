@@ -2,70 +2,70 @@
 
 namespace WarScrollGeneration
 {
-  WarScroll Great_Unclean_One(const QString &name)
+  WarScroll Great_Unclean_One(const std::string &name)
   {
     WarScroll ws;
     ws.setTitle(name);
     return ws;
   }
 
-  WarScroll Epidemius(const QString &name)
+  WarScroll Epidemius(const std::string &name)
   {
     WarScroll ws;
     ws.setTitle(name);
     return ws;
   }
 
-  WarScroll Herald_of_Nurgle(const QString &name)
+  WarScroll Herald_of_Nurgle(const std::string &name)
   {
     WarScroll ws;
     ws.setTitle(name);
     return ws;
   }
 
-  WarScroll Plaguebearers_of_Nurgle(const QString &name)
+  WarScroll Plaguebearers_of_Nurgle(const std::string &name)
   {
     WarScroll ws;
     ws.setTitle(name);
     return ws;
   }
 
-  WarScroll Plague_Drones_of_Nurgle(const QString &name)
+  WarScroll Plague_Drones_of_Nurgle(const std::string &name)
   {
     WarScroll ws;
     ws.setTitle(name);
     return ws;
   }
 
-  WarScroll Nurglings(const QString &name)
+  WarScroll Nurglings(const std::string &name)
   {
     WarScroll ws;
     ws.setTitle(name);
     return ws;
   }
 
-  WarScroll Beasts_of_Nurgle(const QString &name)
+  WarScroll Beasts_of_Nurgle(const std::string &name)
   {
     WarScroll ws;
     ws.setTitle(name);
     return ws;
   }
 
-  WarScroll Daemon_Prince_in_Nurgle(const QString &name)
+  WarScroll Daemon_Prince_in_Nurgle(const std::string &name)
   {
     WarScroll ws;
     ws.setTitle(name);
     return ws;
   }
 
-  WarScroll Furies_in_Nurgle(const QString &name)
+  WarScroll Furies_in_Nurgle(const std::string &name)
   {
     WarScroll ws;
     ws.setTitle(name);
     return ws;
   }
 
-  WarScroll Soul_Grinder_in_Nurgle(const QString &name)
+  WarScroll Soul_Grinder_in_Nurgle(const std::string &name)
   {
     WarScroll ws;
     ws.setTitle(name);
@@ -76,49 +76,52 @@ namespace WarScrollGeneration
 DaemonsOfChaosNurgleFaction::DaemonsOfChaosNurgleFaction() :
   IFaction(nullptr)
 {
-  m_Units.push_back(tr(""));
-  m_Units.push_back(tr("Great Unclean One"));
-  m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Great_Unclean_One, m_Units.back()));
-  m_Units.push_back(tr("Epidemius"));
-  m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Epidemius, m_Units.back()));
-  m_Units.push_back(tr("Herald of Nurgle"));
-  m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Herald_of_Nurgle, m_Units.back()));
-  m_Units.push_back(tr("Plaguebearers of Nurgle"));
-  m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Plaguebearers_of_Nurgle, m_Units.back()));
-  m_Units.push_back(tr("Plague Drones of Nurgle"));
-  m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Plague_Drones_of_Nurgle, m_Units.back()));
-  m_Units.push_back(tr("Nurglings"));
-  m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Nurglings, m_Units.back()));
-  m_Units.push_back(tr("Beasts of Nurgle"));
-  m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Beasts_of_Nurgle, m_Units.back()));
-  m_Units.push_back(tr("Daemon Prince"));
-  m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Daemon_Prince_in_Nurgle, m_Units.back()));
-  m_Units.push_back(tr("Furies"));
-  m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Furies_in_Nurgle, m_Units.back()));
-  m_Units.push_back(tr("Soul Grinder"));
-  m_NameToWarScroll.insert(m_Units.back(),
-    std::bind(&WarScrollGeneration::Soul_Grinder_in_Nurgle, m_Units.back()));
+  m_Units.push_back("");
+  m_Units.push_back("Great Unclean One");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Great_Unclean_One, m_Units.back())));
+  m_Units.push_back("Epidemius");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Epidemius, m_Units.back())));
+  m_Units.push_back("Herald of Nurgle");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Herald_of_Nurgle, m_Units.back())));
+  m_Units.push_back("Plaguebearers of Nurgle");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Plaguebearers_of_Nurgle, m_Units.back())));
+  m_Units.push_back("Plague Drones of Nurgle");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Plague_Drones_of_Nurgle, m_Units.back())));
+  m_Units.push_back("Nurglings");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Nurglings, m_Units.back())));
+  m_Units.push_back("Beasts of Nurgle");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Beasts_of_Nurgle, m_Units.back())));
+  m_Units.push_back("Daemon Prince");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Daemon_Prince_in_Nurgle, m_Units.back())));
+  m_Units.push_back("Furies");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Furies_in_Nurgle, m_Units.back())));
+  m_Units.push_back("Soul Grinder");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Soul_Grinder_in_Nurgle, m_Units.back())));
 }
 
-const QStringList &DaemonsOfChaosNurgleFaction::getUnits() const
+const std::vector<std::string> &DaemonsOfChaosNurgleFaction::getUnits() const
 {
   return m_Units;
 }
 
-QList<WarScroll> DaemonsOfChaosNurgleFaction::getWarScrolls() const
+void DaemonsOfChaosNurgleFaction::getWarScrolls(
+  std::list<WarScroll>& warScrolls)
 {
-  QList<WarScroll> warScrolls;
-  for (auto ws : m_NameToWarScroll.toStdMap()) {
-    warScrolls.push_back(ws.second(ws.first));
+  for (const std::string &unit : m_Units) {
+    if (unit.empty()) {
+      continue;
+    }
+    WarScroll ws = m_NameToWarScroll[unit](unit);
+    warScrolls.push_back(ws);
   }
-  return warScrolls;
 }

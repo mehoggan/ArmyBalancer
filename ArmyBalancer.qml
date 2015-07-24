@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
 
 import ArmyBalancer 1.0
+import "./"
 
 Item
 {
@@ -20,8 +21,18 @@ Item
       warScrollModel.append({'name': aList[i]});
     }
     var min = Math.min(aList.length - 1, curr)
-    console.log("min item is " + min)
     selectWarScroll.currentIndex = min
+  }
+
+  function addToCurrentPoints(val)
+  {
+    console.info("Adding " + val + " to points")
+    pointsText.text = Number(pointsText.text) + val
+  }
+
+  function clearCurrentPoints()
+  {
+    pointsText.text = "0"
   }
 
   Rectangle
@@ -52,8 +63,9 @@ Item
       width: parent.width
       height: parent.height
       color: "#FFD700"
-      font.pointSize: 49
+      font.pointSize: 44
       text: "Army Balancer"
+      font.family: "Courier"
       verticalAlignment: Text.AlignVCenter
       horizontalAlignment: Text.AlignHCenter
     }
@@ -208,6 +220,8 @@ Item
             }
             TextArea
             {
+              id: pointsText
+              objectName: "pointsText"
               text: "0"
               font.pointSize: 72
               textColor: "#FFFFFF"
@@ -239,6 +253,7 @@ Item
               selectWarScroll.currentText != "") {
               viewRemoveColumn.visible = false
               mainColumn.visible = false
+              armyBalancer.warScrollSeleted();
               addColumn.visible = true
             }
           }
@@ -253,6 +268,7 @@ Item
             viewRemoveColumn.visible = true
             mainColumn.visible = false
             addColumn.visible = false
+            armyBalancer.clearCurrentWarScroll();
           }
         }
         Button
@@ -262,8 +278,7 @@ Item
           text: "Clear"
 
           onClicked: {
-            // TODO: Call ArmyBalancer.clearCurrentArmy or something of this
-            // nature.
+            armyBalancer.clearCurrentWarScrolls();
           }
         }
       }
@@ -282,11 +297,12 @@ Item
         width: parent.width
         height: 0.90 * parent.height
 
-        Rectangle
+        WarScrollForm
         {
+          id: warScrollForm
+          objectName: "warScrollForm"
           width: parent.width
           height: parent.height
-          color: "#77FF0000"
         }
       }
 
@@ -305,6 +321,7 @@ Item
             mainColumn.visible = true
             addColumn.visible = false
             viewRemoveColumn.visible = false
+            armyBalancer.clearCurrentWarScroll();
           }
         }
         Button
@@ -314,9 +331,19 @@ Item
           text: "Add to Army"
 
           onClicked: {
-            mainColumn.visible = true
-            addColumn.visible = false
-            viewRemoveColumn.visible = false
+            if ("" + warScrollForm.spinBox.value === "") {
+              console.error("Invalid value")
+            } else if (Number(warScrollForm.spinBox.value) >=
+              warScrollForm.spinBox.minimumValue &&
+              Number(warScrollForm.spinBox.value) <=
+              warScrollForm.spinBox.maximumValue) {
+              mainColumn.visible = true
+              addColumn.visible = false
+              viewRemoveColumn.visible = false
+              armyBalancer.warScrollAccepted()
+            } else {
+              console.error("Invalid value")
+            }
           }
         }
       }

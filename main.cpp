@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
   qmlRegisterType<ArmyBalancer>("ArmyBalancer", 1, 0, "ArmyBalancer");
 
   QQuickView * quickView = new QQuickView;
-  quickView->setSource(QUrl(QStringLiteral("qrc:/ArmyBalancer.qml")));
+  quickView->setSource(QUrl("qrc:/ArmyBalancer.qml"));
   quickView->setMinimumSize(QSize(500, 800));
 
   QObject *root = quickView->rootObject();

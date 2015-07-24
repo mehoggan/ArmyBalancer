@@ -8,13 +8,13 @@ class LizardmenFaction : public IFaction
 public:
   LizardmenFaction();
 
-  virtual QString getName() const override {return "Lizardmen";}
-  virtual const QStringList &getUnits() const override;
-  virtual QList<WarScroll> getWarScrolls() const override;
+  virtual std::string getName() const override {return "Lizardmen";}
+  virtual const std::vector<std::string> &getUnits() const override;
+  virtual void getWarScrolls(std::list<WarScroll> &warScrolls) override;
 
 private:
-  QStringList m_Units;
-  typedef QMap<QString, WarScrollGenerator> WarScrollGeneratorType;
+  std::vector<std::string> m_Units;
+  typedef std::map<std::string, WarScrollGenerator> WarScrollGeneratorType;
   WarScrollGeneratorType m_NameToWarScroll;
 };
 

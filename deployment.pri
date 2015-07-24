@@ -13,7 +13,7 @@ android-no-sdk {
     export(target.path)
     INSTALLS += target
 } else:unix {
-    isEmpty(target.path) {
+    empty(target.path) {
         qnx {
             target.path = /tmp/$${TARGET}/bin
         } else {

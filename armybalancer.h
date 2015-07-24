@@ -3,12 +3,13 @@
 
 #include <QQuickItem>
 
-#include <QMap>
 #include <QQmlContext>
 #include <QQuickView>
-#include <QStringList>
 
+#include <map>
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "factions.h"
 #include "warscrollfactory.h"
@@ -40,19 +41,27 @@ signals:
 public slots:
   void factionSelectionChanged(int index);
   void warScrollSelectionChanged(int index);
+  void warScrollSeleted();
+  void warScrollAccepted();
+  void clearCurrentWarScroll();
+  void clearCurrentWarScrolls();
 
 private:
-  void getNextWarScrolls(QStringList &output, const QString &factionName);
+  void getNextWarScrolls(std::vector<std::string> &output,
+    const std::string &factionName);
 
 private:
   int m_CurrentFactionIndex;
+  int m_CurrentWarScrollIndex;
   QQuickView *m_Root;
   QStringList m_FactionList;
   QStringList m_CurrentWarScrolls;
 
-  typedef QMap<QString, std::shared_ptr<IFaction>> FactionMapType;
+  typedef std::map<std::string, std::shared_ptr<IFaction>> FactionMapType;
   FactionMapType m_NameToFactionMap;
   WarScrollFactory &m_WarScrollFactory;
+  WarScroll m_CurrentWarScroll;
+  QMultiMap<std::string, WarScroll> m_CurrentWarScrollsAdded;
 };
 
 #endif // FACTIONBALANCER_H
