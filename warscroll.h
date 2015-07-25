@@ -144,6 +144,8 @@ public:
   void setGrandAllianceType(GrandAllianceType a) {m_AllianceType = a;}
 
   void addWeaponUpgrade(const WeaponUpgrade &upgrade);
+  const std::list<WeaponUpgrade> getWeaponUpgrades() const
+  {return m_WeaponUpgrades;}
 };
 
 #endif // WARSCROLL_H

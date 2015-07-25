@@ -176,6 +176,25 @@ void ArmyBalancer::warScrollSeleted()
       "setMinMaxUnitCount",
       Q_ARG(QVariant, QVariant::fromValue(min)),
       Q_ARG(QVariant, QVariant::fromValue(max)));
+
+    if (m_Root) {
+      QVariantList list;
+      const std::list<WarScroll::WeaponUpgrade> &upgrades =
+        m_CurrentWarScroll.getWeaponUpgrades();
+      for(const WarScroll::WeaponUpgrade &upgrade : upgrades) {
+        const std::string &weapon = upgrade.getWeapon().getName();
+        if (weapon.empty()) {
+          const std::string &ability = upgrade.getAbility().getName();
+          list.append(ability.c_str());
+        } else {
+          list.append(weapon.c_str());
+        }
+      }
+      QMetaObject::invokeMethod(
+        m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
+        "addUpgrades",
+        Q_ARG(QVariant, QVariant::fromValue(list)));
+    }
   }
 }
 
@@ -202,6 +221,13 @@ void ArmyBalancer::clearCurrentWarScroll()
   m_CurrentWarScroll = WarScroll();
   qDebug() << "Cleared Warscoll --" << m_CurrentWarScroll.getTitle().c_str()
     << "--";
+  if (m_Root) {
+    QVariantList list;
+    QMetaObject::invokeMethod(
+    m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
+    "addUpgrades",
+    Q_ARG(QVariant, QVariant::fromValue(list)));
+  }
 }
 
 void ArmyBalancer::clearCurrentWarScrolls()
@@ -213,4 +239,5 @@ void ArmyBalancer::clearCurrentWarScrolls()
     QVariant val = m_CurrentWarScroll.getPointsCost();
     QMetaObject::invokeMethod(m_Root->rootObject(), "clearCurrentPoints");
   }
+  clearCurrentWarScroll();
 }

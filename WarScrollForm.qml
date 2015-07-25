@@ -17,6 +17,35 @@ Rectangle
     unitCapSetter.maximumValue = max
   }
 
+  function addUpgrades(aList)
+  {
+    aWarScrollUpgradeModel.clear();
+    for (var i = 0; i < aList.length; ++i) {
+      aWarScrollUpgradeModel.append({'name': aList[i]});
+    }
+    console.log("Done building upgrades")
+  }
+
+  function finalizeWarScroll()
+  {
+    var count = unitCapSetter.value
+
+    var list = aWarScrollUpgradeView
+    console.info("There are ", list.count, " children.")
+    for (var i = 0; i < list.count; ++i)
+    {
+      var item = list.contentItem.children[i]
+      var chi1 = item.children[0]
+      var chi2 = chi1.children[0]
+      var chi3 = chi2.children[0]
+      var chi4 = chi3.children[0]
+      if (chi4.checked === 'true') {
+        console.log(chi3.text)
+      }
+    }
+    console.log("There were ", count, " added.");
+  }
+
   id: warScrollFormInternal
   objectName: "warScrollFormInternal"
   width: parent.width
@@ -27,19 +56,16 @@ Rectangle
   {
     width: parent.width
     height: parent.height
-    TextArea
+    Text
     {
       id: warScrollTitle
       objectName: "warScrollTitle"
       text: ""
       font.pointSize: 18
-      textColor: "#FFFFFF"
       font.family: "Courier"
       width: parent.width
       height: 0.14 * parent.height
-      backgroundVisible: false;
       verticalAlignment: TextEdit.AlignVCenter
-      readOnly: true
     }
 
     Row
@@ -47,20 +73,17 @@ Rectangle
       width: parent.width
       height: 0.07 * parent.height
 
-      TextArea
+      Text
       {
         id: unitCap
         objectName: "unitCap"
         text: "Model Count"
-        font.pointSize: 10
-        textColor: "#FFFFFF"
+        font.pointSize: 16
         font.family: "Courier"
         width: 0.40 * parent.width
         height: parent.height
-        backgroundVisible: false;
         horizontalAlignment: TextEdit.AlignHCenter
         verticalAlignment: TextEdit.AlignVCenter
-        readOnly: true
       }
 
       SpinBox
@@ -75,6 +98,93 @@ Rectangle
         maximumValue: 1
         font.pointSize: 18
         font.family: "Courier"
+      }
+    }
+
+    Row
+    {
+      width: parent.width
+      height: 0.10 * parent.height
+
+      Text
+      {
+        text: "Upgrades"
+        font.pointSize: 16
+        font.family: "Courier"
+        width: parent.width
+        height: parent.height
+        horizontalAlignment: TextEdit.AlignHCenter
+        verticalAlignment: TextEdit.AlignVCenter
+      }
+    }
+
+    Row
+    {
+      width: parent.width
+      height: 0.69 * parent.height
+
+      ExclusiveGroup {
+        id: exclusiveUpgrades
+      }
+
+      Rectangle
+      {
+        width: parent.width
+        height: parent.height
+        color: "#00000000"
+
+        Component
+        {
+          id: warScrollDelegate
+          Rectangle
+          {
+            width: parent.width
+            height: 35
+            color: "#00000000"
+            Column
+            {
+              width: parent.width
+              height: parent.height
+              Row
+              {
+                width: parent.width
+                height: parent.height
+                Text
+                {
+                  id: warScrollDelegateName
+                  width: parent.width
+                  height: parent.height
+                  font.pointSize: 12
+                  font.family: "Courier"
+                  text: 'Weapon Upgrade: ' + name
+                  verticalAlignment: TextEdit.AlignVCenter
+
+                  RadioButton
+                  {
+                    id: warScrollDelegateSelected
+                    anchors.right: parent.right
+                    exclusiveGroup: exclusiveUpgrades
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        ListModel
+        {
+          id: aWarScrollUpgradeModel
+        }
+
+        ListView
+        {
+          id: aWarScrollUpgradeView
+          anchors.fill: parent
+          model: aWarScrollUpgradeModel
+          delegate: warScrollDelegate
+          highlight: Rectangle { color: "#00000000" }
+          focus: false
+        }
       }
     }
   }

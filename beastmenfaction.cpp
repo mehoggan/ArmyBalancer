@@ -63,6 +63,7 @@ namespace WarScrollGeneration
       WarScroll::Ability());
     greatWeaponUpgrade.registerAbilityToReplace(
       WarScroll::Ability("Dual-axes"));
+    ws.addWeaponUpgrade(greatWeaponUpgrade);
 
     return ws;
   }

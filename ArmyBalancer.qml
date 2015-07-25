@@ -123,15 +123,13 @@ Item
         width: parent.width
         height: 0.10 * parent.height
 
-        TextArea
+        Text
         {
           width: 0.20 *parent.width
           height: parent.height
           font.pointSize: 12
-          textColor: "#000000"
           font.family: "Courier"
           text: "Faction"
-          backgroundVisible: false;
           horizontalAlignment: TextEdit.AlignHCenter
           verticalAlignment: TextEdit.AlignVCenter
         }
@@ -161,15 +159,13 @@ Item
         width: parent.width
         height: 0.10 * parent.height
 
-        TextArea
+        Text
         {
           width: 0.20 *parent.width
           height: parent.height
           font.pointSize: 12
-          textColor: "#000000"
           font.family: "Courier"
           text: "War Scroll"
-          backgroundVisible: false;
           horizontalAlignment: TextEdit.AlignHCenter
           verticalAlignment: TextEdit.AlignVCenter
         }
@@ -205,33 +201,27 @@ Item
             width: parent.width
             height: parent.height
 
-            TextArea
+            Text
             {
               text: "Point Balance"
               font.pointSize: 24
-              textColor: "#FFFFFF"
               font.family: "Courier"
               width: parent.width
               height: 0.25 * parent.height
-              backgroundVisible: false;
               horizontalAlignment: TextEdit.AlignHCenter
               verticalAlignment: TextEdit.AlignVCenter
-              readOnly: true
             }
-            TextArea
+            Text
             {
               id: pointsText
               objectName: "pointsText"
               text: "0"
               font.pointSize: 72
-              textColor: "#FFFFFF"
               font.family: "Courier"
               width: parent.width
               height: 0.75 * parent.height
-              backgroundVisible: false;
               horizontalAlignment: TextEdit.AlignHCenter
               verticalAlignment: TextEdit.AlignVCenter
-              readOnly: true
             }
           }
         }
@@ -340,6 +330,7 @@ Item
               mainColumn.visible = true
               addColumn.visible = false
               viewRemoveColumn.visible = false
+              warScrollForm.finalizeWarScroll()
               armyBalancer.warScrollAccepted()
             } else {
               console.error("Invalid value")
