@@ -330,8 +330,8 @@ Item
               mainColumn.visible = true
               addColumn.visible = false
               viewRemoveColumn.visible = false
-              warScrollForm.finalizeWarScroll()
-              armyBalancer.warScrollAccepted()
+              var data = warScrollForm.finalizeWarScroll();
+              armyBalancer.warScrollAccepted(data);
             } else {
               console.error("Invalid value")
             }
@@ -357,7 +357,11 @@ Item
         {
           width: parent.width
           height: parent.height
-          color: "#77FF0000"
+          WarScrollList
+          {
+            id: currentWarScrolls
+            objectName: "currentWarScrolls"
+          }
         }
       }
 

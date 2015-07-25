@@ -28,22 +28,25 @@ Rectangle
 
   function finalizeWarScroll()
   {
+    var data = {}
     var count = unitCapSetter.value
+    data["unitCount"] = count;
 
     var list = aWarScrollUpgradeView
-    console.info("There are ", list.count, " children.")
     for (var i = 0; i < list.count; ++i)
     {
-      var item = list.contentItem.children[i]
-      var chi1 = item.children[0]
-      var chi2 = chi1.children[0]
-      var chi3 = chi2.children[0]
-      var chi4 = chi3.children[0]
-      if (chi4.checked === 'true') {
-        console.log(chi3.text)
+      var item = list.contentItem.children[i];
+      var chi1 = item.children[0];
+      var chi2 = chi1.children[0];
+      var chi3 = chi2.children[0];
+      var chi4 = chi3.children[0];
+      if (chi4.checked) {
+        var upgradeName = chi3.text.replace("Weapon Upgrade: ", "");
+        data["weaponUpgrade"] = upgradeName
+        break;
       }
     }
-    console.log("There were ", count, " added.");
+    return data;
   }
 
   id: warScrollFormInternal

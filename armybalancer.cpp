@@ -2,6 +2,7 @@
 
 #include <QDate>
 
+#include <iostream>
 #include <utility>
 
 ArmyBalancer::ArmyBalancer(QQuickItem *parent)
@@ -198,22 +199,58 @@ void ArmyBalancer::warScrollSeleted()
   }
 }
 
-void ArmyBalancer::warScrollAccepted()
+void ArmyBalancer::warScrollAccepted(QVariantMap data)
 {
   Q_ASSERT(!m_CurrentWarScroll.getTitle().empty());
   std::string title = m_CurrentWarScroll.getTitle();
-  // TODO: Get the data from ui and cram it into current war scroll
-  m_CurrentWarScrollsAdded.insert(title, m_CurrentWarScroll);
-  qDebug() << "War Scroll Accepted " << m_CurrentWarScroll.getTitle().c_str();
+
+  QVariantMap::const_iterator unitCountIt = data.find("unitCount");
+  if (unitCountIt != data.end()) {
+    bool ok = false;
+    int unitCount = unitCountIt->toInt(&ok);
+    Q_ASSERT(ok);
+    m_CurrentWarScroll.setUnitCount(unitCount);
+  } else {
+    Q_ASSERT(false && "Failed to get unit count from xml");
+  }
+
+  QVariantMap::const_iterator upgradeNameIt = data.find("weaponUpgrade");
+  if (upgradeNameIt != data.end()) {
+    QString weaponUpgrade = upgradeNameIt->toString();
+    Q_ASSERT(!weaponUpgrade.isEmpty());
+    const WarScroll::WeaponUpgrade & upgrade =
+      m_CurrentWarScroll.getWeaponUpgrade(weaponUpgrade.toStdString());
+    Q_ASSERT(!upgrade.getWeapon().getName().empty() ||
+      !upgrade.getAbility().getName().empty());
+    m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
+  }
+
+  WarScroll tmpWarScroll = m_CurrentWarScroll;
+  tmpWarScroll.refreshPointsCost();
+  tmpWarScroll.regenGuid();
+  std::cout << tmpWarScroll << std::endl;
+  m_CurrentWarScrollsAdded.insert(std::make_pair(
+    tmpWarScroll.getGuid().toString().toStdString(), tmpWarScroll));
+  qDebug() << "War Scroll Accepted " << tmpWarScroll.getTitle().c_str();
   qDebug() << "\t Current War Scrolls " << m_CurrentWarScrollsAdded.size();
 
   if (m_Root) {
-    m_CurrentWarScroll.refreshPointsCost();
-    QVariant val = m_CurrentWarScroll.getPointsCost();
+    QVariant val = tmpWarScroll.getPointsCost();
     QMetaObject::invokeMethod(m_Root->rootObject(), "addToCurrentPoints",
       Q_ARG(QVariant, QVariant::fromValue(val)));
   }
   clearCurrentWarScroll();
+
+  if (m_Root) {
+    QVariantMap toAdd;
+    toAdd.insert("name", QString(tmpWarScroll.getTitle().c_str()));
+    toAdd.insert("guid", QVariant(tmpWarScroll.getGuid().toString()));
+    toAdd.insert("unit", QVariant(tmpWarScroll.getUnitCount()));
+    QMetaObject::invokeMethod(
+    m_Root->rootObject()->findChild<QObject *>("currentWarScrolls"),
+    "addNewUnit",
+    Q_ARG(QVariant, QVariant::fromValue(toAdd)));
+  }
 }
 
 void ArmyBalancer::clearCurrentWarScroll()
@@ -239,5 +276,29 @@ void ArmyBalancer::clearCurrentWarScrolls()
     QVariant val = m_CurrentWarScroll.getPointsCost();
     QMetaObject::invokeMethod(m_Root->rootObject(), "clearCurrentPoints");
   }
+
   clearCurrentWarScroll();
+
+  if (m_Root) {
+    QMetaObject::invokeMethod(
+      m_Root->rootObject()->findChild<QObject *>("currentWarScrolls"),
+      "clearAllUnits");
+  }
+}
+
+void ArmyBalancer::removeCurrentWarScroll(QVariant guid)
+{
+  std::string guidStr = guid.toString().toStdString();
+  auto it = m_CurrentWarScrollsAdded.find(guidStr);
+  if (it != m_CurrentWarScrollsAdded.end()) {
+    if (m_Root) {
+      QVariant val = -it->second.getPointsCost();
+      QMetaObject::invokeMethod(m_Root->rootObject(), "addToCurrentPoints",
+        Q_ARG(QVariant, QVariant::fromValue(val)));
+    }
+
+    qDebug() << "War Scroll Removed " << it->second.getTitle().c_str();
+    m_CurrentWarScrollsAdded.erase(it);
+  }
+  qDebug() << "\t Current War Scrolls " << m_CurrentWarScrollsAdded.size();
 }

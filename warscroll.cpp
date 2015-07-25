@@ -24,6 +24,7 @@ void WarScroll::WeaponUpgrade::registerAbilityToReplace(const Ability &ability)
 WarScroll::WarScroll()
   : m_MinUnitCount(1)
   , m_MaxUnitCount(1)
+  , m_UnitCount(1)
   , m_PointsCost(0)
 {}
 
@@ -32,12 +33,14 @@ WarScroll::WarScroll(const WarScroll &rhs)
   , m_Characteristics(rhs.m_Characteristics)
   , m_MinUnitCount(rhs.m_MinUnitCount)
   , m_MaxUnitCount(rhs.m_MaxUnitCount)
+  , m_UnitCount(rhs.m_UnitCount)
   , m_PointsCost(rhs.m_PointsCost)
   , m_Abilities(rhs.m_Abilities)
   , m_Weapons(rhs.m_Weapons)
   , m_Keywords(rhs.m_Keywords)
   , m_AllianceType(rhs.m_AllianceType)
   , m_WeaponUpgrades(rhs.m_WeaponUpgrades)
+  , m_Guid(QUuid())
 {}
 
 WarScroll &WarScroll::operator=(const WarScroll &rhs)
@@ -46,12 +49,14 @@ WarScroll &WarScroll::operator=(const WarScroll &rhs)
   m_Characteristics = rhs.m_Characteristics;
   m_MinUnitCount = rhs.m_MinUnitCount;
   m_MaxUnitCount = rhs.m_MaxUnitCount;
+  m_UnitCount = rhs.m_UnitCount;
   m_PointsCost = rhs.m_PointsCost;
   m_Abilities = rhs.m_Abilities;
   m_Weapons = rhs.m_Weapons;
   m_Keywords = rhs.m_Keywords;
   m_AllianceType = rhs.m_AllianceType;
   m_WeaponUpgrades = rhs.m_WeaponUpgrades;
+  m_Guid = QUuid();
 
   return (*this);
 }
@@ -89,6 +94,11 @@ void WarScroll::setMinMaxUnitCount(int minUnitCount, int maxUnitCount)
   Q_ASSERT(minUnitCount <= maxUnitCount);
   m_MinUnitCount = minUnitCount;
   m_MaxUnitCount = maxUnitCount;
+  if (m_UnitCount < m_MinUnitCount) {
+    m_UnitCount = m_MinUnitCount;
+  } else if (m_UnitCount > m_MaxUnitCount) {
+    m_UnitCount = m_MaxUnitCount;
+  }
 }
 
 void WarScroll::refreshPointsCost()
@@ -145,4 +155,44 @@ bool WarScroll::keyWordExists(const std::string &keyWord)
 void WarScroll::addWeaponUpgrade(const WarScroll::WeaponUpgrade &upgrade)
 {
   m_WeaponUpgrades.push_back(upgrade);
+}
+
+const WarScroll::WeaponUpgrade &WarScroll::getWeaponUpgrade(
+  const std::string &weaponUpgrade) const
+{
+  for (const WeaponUpgrade &weaponUpgradeI : m_WeaponUpgrades) {
+    if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() ||
+      weaponUpgrade == weaponUpgradeI.getAbility().getName()) {
+      return weaponUpgradeI;
+    }
+  }
+  return m_EmptyUpgrade;
+}
+
+void WarScroll::applyWeaponUpgrade(
+  const WarScroll::WeaponUpgrade &weaponUpgrade)
+{
+  const std::list<Weapon> &weaponsToReplace =
+    weaponUpgrade.weaponsToReplace();
+  for (const Weapon &weapon : weaponsToReplace) {
+    WeaponIterator it = m_Weapons.find(weapon.getName());
+    if (it != m_Weapons.end()) {
+      m_Weapons.erase(it);
+      m_Weapons.insert(std::make_pair(weaponUpgrade.getWeapon().getName(),
+        weaponUpgrade.getWeapon()));
+      break;
+    }
+  }
+
+  const std::list<Ability> &abilitiesToReplace =
+    weaponUpgrade.abilitiesToReplace();
+  for (const Ability &ability : abilitiesToReplace) {
+    AbilityIterator it = m_Abilities.find(ability.getName());
+    if (it != m_Abilities.end()) {
+      m_Abilities.erase(it);
+      m_Abilities.insert(std::make_pair(weaponUpgrade.getAbility().getName(),
+        weaponUpgrade.getAbility()));
+      break;
+    }
+  }
 }

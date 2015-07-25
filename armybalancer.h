@@ -42,9 +42,10 @@ public slots:
   void factionSelectionChanged(int index);
   void warScrollSelectionChanged(int index);
   void warScrollSeleted();
-  void warScrollAccepted();
+  void warScrollAccepted(QVariantMap data);
   void clearCurrentWarScroll();
   void clearCurrentWarScrolls();
+  void removeCurrentWarScroll(QVariant guid);
 
 private:
   void getNextWarScrolls(std::vector<std::string> &output,
@@ -61,7 +62,7 @@ private:
   FactionMapType m_NameToFactionMap;
   WarScrollFactory &m_WarScrollFactory;
   WarScroll m_CurrentWarScroll;
-  QMultiMap<std::string, WarScroll> m_CurrentWarScrollsAdded;
+  std::map<std::string, WarScroll> m_CurrentWarScrollsAdded;
 };
 
 #endif // FACTIONBALANCER_H
