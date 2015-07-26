@@ -17,13 +17,20 @@ Rectangle
     unitCapSetter.maximumValue = max
   }
 
-  function addUpgrades(aList)
+  function addArsenalUpgrades(aList)
   {
     aWarScrollUpgradeModel.clear();
     for (var i = 0; i < aList.length; ++i) {
-      aWarScrollUpgradeModel.append({'name': aList[i]});
+      aWarScrollUpgradeModel.append({'name' : aList[i]});
     }
-    console.log("Done building upgrades")
+  }
+
+  function addUnitUpgrades(aList)
+  {
+    aWarScrollUnitUpgradeModel.clear();
+    for (var i = 0; i < aList.length; ++i) {
+      aWarScrollUnitUpgradeModel.append({'name' : aList[i]});
+    }
   }
 
   function finalizeWarScroll()
@@ -32,20 +39,35 @@ Rectangle
     var count = unitCapSetter.value
     data["unitCount"] = count;
 
-    var list = aWarScrollUpgradeView
-    for (var i = 0; i < list.count; ++i)
+    var arsenalUgradeList = aWarScrollUpgradeView
+    for (var i = 0; i < arsenalUgradeList.count; ++i)
     {
-      var item = list.contentItem.children[i];
-      var chi1 = item.children[0];
-      var chi2 = chi1.children[0];
-      var chi3 = chi2.children[0];
-      var chi4 = chi3.children[0];
-      if (chi4.checked) {
-        var upgradeName = chi3.text.replace("Weapon Upgrade: ", "");
-        data["weaponUpgrade"] = upgradeName
+      var arsenalItem = arsenalUgradeList.contentItem.children[i];
+      var arsenalChi1 = arsenalItem.children[0];
+      var arsenalChi2 = arsenalChi1.children[0];
+      var arsenalChi3 = arsenalChi2.children[0];
+      var arsenalChi4 = arsenalChi3.children[0];
+      if (arsenalChi4.checked) {
+        var arsenalUpgradeName = arsenalChi3.text
+        data["weaponUpgrade"] = arsenalUpgradeName
         break;
       }
     }
+
+    var unitUpgradeList = aWarScrollUnitUpgradeView
+    for (var j = 0; j < unitUpgradeList.count; ++j)
+    {
+      var unitUgradeItem = unitUpgradeList.contentItem.children[j];
+      var unitUpgradeChi1 = unitUgradeItem.children[0];
+      var unitUpgradeChi2 = unitUpgradeChi1.children[0];
+      var unitUpgradeChi3 = unitUpgradeChi2.children[0];
+      var unitUpgradeChi4 = unitUpgradeChi3.children[0];
+      if (unitUpgradeChi4.checked) {
+        var unitUpgradeName = unitUpgradeChi3.text
+        data["unitUpgrade" + j] = unitUpgradeName
+      }
+    }
+
     return data;
   }
 
@@ -111,7 +133,7 @@ Rectangle
 
       Text
       {
-        text: "Upgrades"
+        text: "Arsenal Upgrades"
         font.pointSize: 16
         font.family: "Courier"
         width: parent.width
@@ -124,7 +146,7 @@ Rectangle
     Row
     {
       width: parent.width
-      height: 0.69 * parent.height
+      height: 0.25 * parent.height
 
       ExclusiveGroup {
         id: exclusiveUpgrades
@@ -142,7 +164,7 @@ Rectangle
           Rectangle
           {
             width: parent.width
-            height: 35
+            height: 70
             color: "#00000000"
             Column
             {
@@ -159,7 +181,7 @@ Rectangle
                   height: parent.height
                   font.pointSize: 12
                   font.family: "Courier"
-                  text: 'Weapon Upgrade: ' + name
+                  text: name
                   verticalAlignment: TextEdit.AlignVCenter
 
                   RadioButton
@@ -185,6 +207,88 @@ Rectangle
           anchors.fill: parent
           model: aWarScrollUpgradeModel
           delegate: warScrollDelegate
+          highlight: Rectangle { color: "#00000000" }
+          focus: false
+        }
+      }
+    }
+
+    Row
+    {
+      width: parent.width
+      height: 0.10 * parent.height
+
+      Text
+      {
+        text: "Unit Upgrades"
+        font.pointSize: 16
+        font.family: "Courier"
+        width: parent.width
+        height: parent.height
+        horizontalAlignment: TextEdit.AlignHCenter
+        verticalAlignment: TextEdit.AlignVCenter
+      }
+    }
+
+    Row
+    {
+      width: parent.width
+      height: 0.25 * parent.height
+
+      Rectangle
+      {
+        width: parent.width
+        height: parent.height
+        color: "#00000000"
+
+        Component
+        {
+          id: warScrollUnitUpgradeDelegate
+          Rectangle
+          {
+            width: parent.width
+            height: 70
+            color: "#00000000"
+            Column
+            {
+              width: parent.width
+              height: parent.height
+              Row
+              {
+                width: parent.width
+                height: parent.height
+                Text
+                {
+                  id: warScrollUnitUpgradeDelegateName
+                  width: parent.width
+                  height: parent.height
+                  font.pointSize: 12
+                  font.family: "Courier"
+                  text: name
+                  verticalAlignment: TextEdit.AlignVCenter
+
+                  CheckBox
+                  {
+                    id: warScrollDelegateSelected
+                    anchors.right: parent.right
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        ListModel
+        {
+          id: aWarScrollUnitUpgradeModel
+        }
+
+        ListView
+        {
+          id: aWarScrollUnitUpgradeView
+          anchors.fill: parent
+          model: aWarScrollUnitUpgradeModel
+          delegate: warScrollUnitUpgradeDelegate
           highlight: Rectangle { color: "#00000000" }
           focus: false
         }

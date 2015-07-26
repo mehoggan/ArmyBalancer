@@ -26,7 +26,6 @@ Item
 
   function addToCurrentPoints(val)
   {
-    console.info("Adding " + val + " to points")
     pointsText.text = Number(pointsText.text) + val
   }
 

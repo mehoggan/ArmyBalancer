@@ -21,11 +21,24 @@ void WarScroll::WeaponUpgrade::registerAbilityToReplace(const Ability &ability)
   m_AbilitiesToReplace.push_back(ability);
 }
 
+void WarScroll::WeaponUpgrade::registerCharacteristicToIncrease(
+  const std::string& name, int val)
+{
+  m_CharacteristicsToUpdate.push_back(std::make_pair(name, val));
+}
+
+void WarScroll::UnitUpgrade::registerCharacteristicToIncrease(
+  const std::string& name, int val)
+{
+  m_CharacteristicsToUpdate.push_back(std::make_pair(name, val));
+}
+
 WarScroll::WarScroll()
   : m_MinUnitCount(1)
   , m_MaxUnitCount(1)
   , m_UnitCount(1)
   , m_PointsCost(0)
+  , m_CanFly(false)
 {}
 
 WarScroll::WarScroll(const WarScroll &rhs)
@@ -37,6 +50,10 @@ WarScroll::WarScroll(const WarScroll &rhs)
   , m_PointsCost(rhs.m_PointsCost)
   , m_Abilities(rhs.m_Abilities)
   , m_Weapons(rhs.m_Weapons)
+  , m_Spells(rhs.m_Spells)
+  , m_AppliedUpgrades(rhs.m_AppliedUpgrades)
+  , m_RegisteredUpgrades(rhs.m_RegisteredUpgrades)
+  , m_CanFly(rhs.m_CanFly)
   , m_Keywords(rhs.m_Keywords)
   , m_AllianceType(rhs.m_AllianceType)
   , m_WeaponUpgrades(rhs.m_WeaponUpgrades)
@@ -53,6 +70,10 @@ WarScroll &WarScroll::operator=(const WarScroll &rhs)
   m_PointsCost = rhs.m_PointsCost;
   m_Abilities = rhs.m_Abilities;
   m_Weapons = rhs.m_Weapons;
+  m_Spells = rhs.m_Spells;
+  m_AppliedUpgrades = rhs.m_AppliedUpgrades;
+  m_RegisteredUpgrades = rhs.m_RegisteredUpgrades;
+  m_CanFly = rhs.m_CanFly;
   m_Keywords = rhs.m_Keywords;
   m_AllianceType = rhs.m_AllianceType;
   m_WeaponUpgrades = rhs.m_WeaponUpgrades;
@@ -76,17 +97,19 @@ int WarScroll::getCharacteristic(const std::string &characteristic) const
   if (it != m_Characteristics.end()) {
     return it->second;
   }
-  return -1;
+  return 0;
 }
 
-void WarScroll::incrementCharacteristic(const std::string &characteristic)
+void WarScroll::incrementCharacteristic(const std::string &characteristic,
+  int val)
 {
-  ++m_Characteristics[characteristic];
+  m_Characteristics[characteristic] += val;
 }
 
-void WarScroll::decrementCharacteristic(const std::string &characteristic)
+void WarScroll::decrementCharacteristic(const std::string &characteristic,
+  int val)
 {
-  --m_Characteristics[characteristic];
+  m_Characteristics[characteristic] -= val;
 }
 
 void WarScroll::setMinMaxUnitCount(int minUnitCount, int maxUnitCount)
@@ -132,6 +155,37 @@ const WarScroll::Weapon &WarScroll::getWeapon(const std::string &name) const
 void WarScroll::addWeapon(const WarScroll::Weapon &weapon)
 {
   m_Weapons.insert(std::make_pair(weapon.getName(), weapon));
+}
+
+const WarScroll::Spell &WarScroll::getSpell(const std::string &name) const
+{
+  for (const Spell &spell : m_Spells) {
+    if (spell.getName() == name) {
+      return spell;
+    }
+  }
+  return m_EmptySpell;
+}
+
+void WarScroll::addSpell(const WarScroll::Spell &spell, int cost)
+{
+  m_Spells.push_back(spell);
+  m_Spells.back().setPointCost(cost);
+}
+
+void WarScroll::registerUnitUpgrade(const WarScroll::UnitUpgrade &upgrade)
+{
+  m_RegisteredUpgrades.push_back(upgrade);
+}
+
+void WarScroll::applyRegisteredUpgrade(const std::string &upgradeName)
+{
+  for (const UnitUpgrade &upgrade : m_RegisteredUpgrades) {
+    if (upgrade.getName() == upgradeName) {
+      m_AppliedUpgrades.push_back(upgrade);
+      break;
+    }
+  }
 }
 
 void WarScroll::addKeyWord(const std::string &keyWord)
