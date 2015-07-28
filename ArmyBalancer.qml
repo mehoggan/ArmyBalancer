@@ -406,6 +406,10 @@ Item
             mainColumn.visible = true
             addColumn.visible = false
             viewRemoveColumn.visible = false
+            warScrollValues.visible = false
+            warScrollList.visible = true
+            viewScrollButton.displayMode = true
+            viewScrollButton.text = "View Scroll"
           }
         }
 

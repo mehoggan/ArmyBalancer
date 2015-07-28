@@ -30,7 +30,7 @@ namespace WarScrollGeneration
     ws.setTitle(name);
     ws.setCharacteristics(6, 5, 7, 3);
     ws.addWeapon(WarScroll::Weapon("Scourge", 3, 5, 3, 4, 0, 1));
-    ws.addWeapon(WarScroll::Weapon("Gor Blade", 1, 6, 3, 3, 1));
+    ws.addWeapon(WarScroll::Weapon("Gor Blade", 1, 6, 3, 3, 0, 1));
     ws.addAbility(WarScroll::Ability("The Dark Mail", 2));
     ws.addAbility(WarScroll::Ability("The Scourge", 0));
     ws.addAbility(WarScroll::Ability("Hatred of Heros", 1));
@@ -91,7 +91,7 @@ namespace WarScrollGeneration
     ws.setCanFly(true);
     ws.addAbility(WarScroll::Ability("Unholy Power", 1));
     ws.addAbility(WarScroll::Ability("Harbinger of Disaster", 3));
-    ws.addSpell(WarScroll::Spell("Carrion Wiletide", 24, 24, 2, 5, 0, 1));
+    ws.addSpell(WarScroll::Spell("Carrion Wiletide", 24, 24, 2, 5, 0, 1), 6);
     ws.addKeyWords({"CHAOS", "BEASTMEN", "BRAYHERD", "HERO", "WIZARD",
       "GREAT BRAY-SHAMAN", "MALAGOR"});
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
@@ -105,7 +105,7 @@ namespace WarScrollGeneration
     ws.setCharacteristics(6, 5, 6, 6);
     ws.addWeapon(WarScroll::Weapon("Fetish Staff", 2, 1, 4, 4, 1, 3));
     ws.addAbility(WarScroll::Ability("Infuse with Bestial Vigour", 1));
-    ws.addSpell(WarScroll::Spell("Savage Dominion"), 3);
+    ws.addSpell(WarScroll::Spell("Savage Dominion"), 9, 3);
     ws.addKeyWords({"CHAOS", "BEASTMEN", "BRAYHERD", "HERO", "WIZARD",
       "GREAT BRAY-SHAMAN"});
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
@@ -120,7 +120,7 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Twisted Staff", 2, 2, 4, 4, 1, 3));
     ws.addAbility(WarScroll::Ability("Spirit-essence of Chaos", 2));
     ws.addAbility(WarScroll::Ability("Aura of Transmutation", 3));
-    ws.addSpell(WarScroll::Spell("Devolve"), 3);
+    ws.addSpell(WarScroll::Spell("Devolve"), 6, 3);
     ws.addKeyWords({"CHAOS", "BEASTMAN", "BRAYHERD", "HERO", "WIZARD",
       "MORGHUR"});
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
@@ -132,7 +132,7 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
     ws.setCharacteristics(6, 1, 5, 5);
-    ws.setMinMaxUnitCount(5, 500);
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
     ws.addAbility(WarScroll::Ability("Anarchy and Mayhem", 2));                 // Conditional on Unit Size > 20
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Foe-Render",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
@@ -161,7 +161,7 @@ namespace WarScrollGeneration
     ws.setTitle(name);
     ws.setCharacteristics(6, 1, 6, 4);
     ws.addWeapon(WarScroll::Weapon("Bestigor Great Axe", 1, 2, 4, 3, 1, 1));
-    ws.setMinMaxUnitCount(5, 500);
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Gouge Horn",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Banner Bearer",
@@ -184,7 +184,7 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Ungor Crew Shortspear", 2, 1, 5, 4, 0, 1));
     ws.addWeapon(WarScroll::Weapon("Tuskgors' Tusks and Hooves", 1, 4, 4, 3, 0,
       1));
-    ws.setMinMaxUnitCount(1, 500);
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
     ws.addAbility(WarScroll::Ability("Tuskgor Charge", 1));
     ws.addKeyWords({"CHAOS", "BEASTMEN", "BRAYHERD", "TUSKGOR CHARIOTS"});
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
@@ -196,7 +196,7 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
     ws.setCharacteristics(6, 1, 4, 6);
-    ws.setMinMaxUnitCount(10, 500);
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Halfhorn",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
@@ -231,7 +231,7 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
     ws.setCharacteristics(6, 1, 4, 6);
-    ws.setMinMaxUnitCount(10, 500);
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
 
     ws.addWeapon(WarScroll::Weapon("Raider Bow", 18, 1, 4, 4, 0, 1));
     ws.addWeapon(WarScroll::Weapon("Ungor Dagger", 1, 1, 5, 5, 0, 1));
@@ -256,6 +256,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(7, 8, 7, 5);
+    ws.addAbility(WarScroll::Ability("Bloodgreed", 3));
+    ws.addAbility(WarScroll::Ability("Slaughterer's Call", 3, true));
+
+    WarScroll::WeaponUpgrade doombullBullSheildUpgrade(
+      WarScroll::Weapon("Doombull Axe", 1, 4, 3, 3, 1, 2),
+      WarScroll::Ability("Bullshield", 2));
+    doombullBullSheildUpgrade.registerCharacteristicToIncrease("Save", -1);
+    ws.addWeaponUpgrade(doombullBullSheildUpgrade);
+    WarScroll::WeaponUpgrade extraDoombullAxeUpgrade(
+      WarScroll::Weapon("Doombull Axe", 1, 5, 3, 3, 1, 2),
+      WarScroll::Ability("Slaughter Storm", 2));
+    ws.addWeaponUpgrade(extraDoombullAxeUpgrade);
+    WarScroll::WeaponUpgrade doombullGreatAxeUpgrade(
+      WarScroll::Weapon("Doombull Great Axe", 1, 3, 3, 3, 2, 3),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(doombullGreatAxeUpgrade);
+
+    ws.addKeyWords({"CHAOS", "BULLGOR", "WARHERD", "HERO", "DOOMBULL"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -265,6 +284,33 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(7, 4, 6, 5);
+    ws.setMinMaxUnitCount(3, IFaction::s_MaxUnitSize);
+
+    ws.addAbility(WarScroll::Ability("Bloodgreed", 3));
+
+    WarScroll::WeaponUpgrade minotaurBullSheildUpgrade(
+      WarScroll::Weapon("Minotaur Axe", 1, 3, 4, 3, 1, 2),
+      WarScroll::Ability("Bullshield", 2));
+    minotaurBullSheildUpgrade.registerCharacteristicToIncrease("Save", -1);
+    ws.addWeaponUpgrade(minotaurBullSheildUpgrade);
+    WarScroll::WeaponUpgrade extraMinotaurAxeUpgrade(
+      WarScroll::Weapon("Minotaur Axe", 1, 3, 4, 3, 1, 2),
+      WarScroll::Ability("Dual Axes", 1));
+    ws.addWeaponUpgrade(extraMinotaurAxeUpgrade);
+    WarScroll::WeaponUpgrade minotaurGreatAxeUpgrade(
+      WarScroll::Weapon("Minotaur Great Axe", 1, 2, 4, 3, 2, 3),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(minotaurGreatAxeUpgrade);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Bloodkine",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Warherd Drummer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Warherd Banner Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+
+    ws.addKeyWords({"CHAOS", "BULLGOR", "WARHERD", "MINOTAURS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -274,6 +320,15 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(8, 12, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Hurl Boulder", 18, 1, 4, 2, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Massive Horns", 2, 8, 4, 3, 1, 1));
+
+    ws.addAbility(WarScroll::Ability("Soul-eater", 3));
+    ws.addAbility(WarScroll::Ability("Ghostsight", 1));
+
+    ws.addKeyWords({"CHAOS, BULLGOR", "WARHERD", "MONSTER", "CYGOR"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -283,6 +338,15 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(8, 12, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Ghorgon Blades", 2, 5, 3, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Huge Slavering Maw", 1, 1, 4, 2, 1, 6));
+
+    ws.addAbility(WarScroll::Ability("Ravenous Bloodgreed", 2));
+    ws.addAbility(WarScroll::Ability("Strength from Flesh", 3));
+
+    ws.addKeyWords({"CHAOS", "BULLGOR", "WARHERD", "MONSTER", "GHORGON"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -292,6 +356,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(12, 2, 3, 5);
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Gor Spear", 2, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Charging Spear", 1));
+    ws.addAbility(WarScroll::Ability("Drunken Courage"));
+
+    WarScroll::UnitUpgrade shieldUnitUpgrade("Beastbucklers",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eShield, 2);
+    shieldUnitUpgrade.registerCharacteristicToIncrease("Save", -1);
+    ws.registerUnitUpgrade(shieldUnitUpgrade);
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Gorehoof",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Centigor Banner Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Brayhorn",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addKeyWords({"CHAOS", "CENTIGORS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -301,6 +385,16 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(12, 5, 4, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Mansmasher", 1, 3, 3, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Drunken Courage", 1));
+    ws.addAbility(WarScroll::Ability("Sons of Ghorros", 1));
+    ws.addAbility(WarScroll::Ability("Skull of the Unicorn Lord", 2));
+    ws.addAbility(WarScroll::Ability("Father of Beasts", 2, true));
+
+    ws.addKeyWords({"CHAOS", "CENTIGOR", "HERO", "GHORROS WARHOOF"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -310,6 +404,14 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(10, 4, 6, 5);
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Tusks and Hooves", 1, 4, 4, 3, 1, 1));
+
+    ws.addAbility(WarScroll::Ability("Uncontrollable Stampede", 1));
+
+    ws.addKeyWords({"CHAOS", "RAZORGORS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -319,6 +421,14 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(10, 1, 4, 6);
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Slavering Jaws", 1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Outrunners of Chaos", 1));
+
+    ws.addKeyWords({"CHAOS", "CHAOS WARHOUNDS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -328,6 +438,13 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(16, 1, 3, 6);
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+    ws.setCanFly(true);
+
+    ws.addWeapon(WarScroll::Weapon("Claws and Fangs", 1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Prey Upon the Weak", 1));
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -337,6 +454,15 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(12, 5, 10, 5);
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Freakish Mutations", 1, 12, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Cursed of the Dark Gods", 2));
+    ws.addAbility(WarScroll::Ability("Writhing Tentacles", 2));
+
+    ws.addKeyWords({"CHAOS", "MORTAL", "SLAVE TO DARKNESS", "CHAOS SPAWN"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -346,6 +472,18 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(8, 12, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Massive Club", 3, 18, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("'Eadbutt", 1, 1, 4, 3, 3, 6));
+    ws.addWeapon(WarScroll::Weapon("Mighty Kick", 2, 1, 3, 3, 2, 3));
+
+    ws.addAbility(WarScroll::Ability("Timber", 2));
+    ws.addAbility(WarScroll::Ability("Stuff'Em In Me Bag", 1));
+    ws.addAbility(WarScroll::Ability("Drunken Stagger", 1));
+
+    ws.addKeyWords(
+      {"DESTRUCTION", "GARGANT", "ALEGUZZLER", "MONSTER", "GIANT"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -355,6 +493,17 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(12, 10, 6, 5);
+    ws.setCanFly(true);
+
+    ws.addWeapon(WarScroll::Weapon("Slythey Tongue", 9, 1, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Vorpal Claws", 1, 6, 3, 3, 2, 1));
+    ws.addWeapon(WarScroll::Weapon("Spiked Tail", 3, 1, 4, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Aura of Madness", 3));
+    ws.addAbility(WarScroll::Ability("Spurting Bile Blood", 3));
+
+    ws.addKeyWords({"CHAOS", "MONSTER", "JABBERSLYTHE"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;

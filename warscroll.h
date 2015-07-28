@@ -87,7 +87,7 @@ public:
         << "\tAttacks: " << weapon.m_InitialAttacks << std::endl
         << "\tTo Hit: " << weapon.m_InitialToHit << std::endl
         << "\tTo Wound: " << weapon.m_InitialToWound << std::endl
-        << "\tTo Rend: " << weapon.m_InitialToWound << std::endl
+        << "\tTo Rend: " << weapon.m_InitialToRend << std::endl
         << "\tTo Damage: " << weapon.m_InitialDamage << std::endl;
       return out;
     }
@@ -103,8 +103,8 @@ public:
     int m_InitialToWound;
     int m_InitialToRend;
     int m_InitialDamage;
-
     int m_PointCost;
+    int m_ToCast;
 
   public:
     Spell(std::string name = "", int range = -1, int attacks = -1,
@@ -117,6 +117,7 @@ public:
       , m_InitialToRend(toRend)
       , m_InitialDamage(toDamage)
       , m_PointCost(0)
+      , m_ToCast(12)
     {}
 
     const std::string &getName() const {return m_Name;}
@@ -127,17 +128,31 @@ public:
     int getToRend() const {return m_InitialToRend;}
     int getDamage() const {return m_InitialDamage;}
     void setPointCost(int cost) {m_PointCost = cost;}
+    void setToCast(int cast) {m_ToCast = cast;}
 
     friend std::ostream &operator<<(std::ostream &out, const Spell &spell)
     {
-      out << "\tName: " << spell.m_Name << std::endl
-        << "\tRange: " << spell.m_InitialRange << std::endl
-        << "\tAttacks: " << spell.m_InitialAttacks << std::endl
-        << "\tTo Hit: " << spell.m_InitialToHit << std::endl
-        << "\tTo Wound: " << spell.m_InitialToWound << std::endl
-        << "\tTo Rend: " << spell.m_InitialToWound << std::endl
-        << "\tTo Damage: " << spell.m_InitialDamage << std::endl
-        << "\tPoint Cost: " << spell.m_PointCost << std::endl;
+      out << "\tName: " << spell.m_Name << std::endl;
+      if (spell.m_InitialRange >= 0) {
+        out << "\tRange: " << spell.m_InitialRange << std::endl;
+      }
+      if (spell.m_InitialAttacks >= 0) {
+        out << "\tAttacks: " << spell.m_InitialAttacks << std::endl;
+      }
+      if (spell.m_InitialToHit >= 0) {
+        out << "\tTo Hit: " << spell.m_InitialToHit << std::endl;
+      }
+      if (spell.m_InitialToWound >= 0) {
+        out << "\tTo Wound: " << spell.m_InitialToWound << std::endl;
+      }
+      if (spell.m_InitialToRend >= 0) {
+        out << "\tTo Rend: " << spell.m_InitialToRend << std::endl;
+      }
+      if (spell.m_InitialDamage >= 0) {
+        out << "\tTo Damage: " << spell.m_InitialDamage << std::endl;
+      }
+      out << "\tPoint Cost: " << spell.m_PointCost << std::endl;
+      out << "\tTo Cast: " << spell.m_ToCast << std::endl;
       return out;
     }
   };
@@ -279,7 +294,7 @@ public:
 
   const std::list<Spell> &getSpells() {return m_Spells;}
   const Spell &getSpell(const std::string &name) const;
-  void addSpell(const Spell &spell, int cost = 0);
+  void addSpell(const Spell &spell, int toCast, int cost = 0);
 
   const std::list<UnitUpgrade> getRegisteredUnitUpgrades() const
   {return m_RegisteredUpgrades;}
@@ -330,7 +345,7 @@ public:
       << "\tUnit Count: " << ws.m_UnitCount << std::endl
       << "\tPoint Count: " << ws.m_PointsCost << std::endl
       << std::endl;
-    out << (ws.m_CanFly ? "Flyer\n" : "");
+    out << (ws.m_CanFly ? "\tFlyer\n" : "");
 
 
     bool first = true;
@@ -346,7 +361,7 @@ public:
       out << it.second;
       out << std::endl;
     }
-    out << "\t" << "Ablities:" << std::endl;
+    out << "\t" << "Abilities:" << std::endl;
     for (auto it : ws.m_Abilities) {
       out << it.second;
       out << std::endl;

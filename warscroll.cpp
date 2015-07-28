@@ -168,10 +168,11 @@ const WarScroll::Spell &WarScroll::getSpell(const std::string &name) const
   return m_EmptySpell;
 }
 
-void WarScroll::addSpell(const WarScroll::Spell &spell, int cost)
+void WarScroll::addSpell(const WarScroll::Spell &spell, int toCast, int cost)
 {
   m_Spells.push_back(spell);
   m_Spells.back().setPointCost(cost);
+  m_Spells.back().setToCast(toCast);
 }
 
 void WarScroll::registerUnitUpgrade(const WarScroll::UnitUpgrade &upgrade)

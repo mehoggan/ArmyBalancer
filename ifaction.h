@@ -18,6 +18,9 @@ class IFaction :
   public QObject
 {
   Q_OBJECT
+public:
+  static const int s_MaxUnitSize = 500;
+
 protected:
   typedef std::function<WarScroll(std::string)> WarScrollGenerator;
 
