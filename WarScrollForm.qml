@@ -39,7 +39,8 @@ Rectangle
     var count = unitCapSetter.value
     data["unitCount"] = count;
 
-    var arsenalUgradeList = aWarScrollUpgradeView
+    var arsenalUgradeList = aWarScrollUpgradeView;
+    var itemSelected = false;
     for (var i = 0; i < arsenalUgradeList.count; ++i)
     {
       var arsenalItem = arsenalUgradeList.contentItem.children[i];
@@ -48,10 +49,21 @@ Rectangle
       var arsenalChi3 = arsenalChi2.children[0];
       var arsenalChi4 = arsenalChi3.children[0];
       if (arsenalChi4.checked) {
+        itemSelected = true;
         var arsenalUpgradeName = arsenalChi3.text
         data["weaponUpgrade"] = arsenalUpgradeName
         break;
       }
+    }
+
+    if (!itemSelected && arsenalUgradeList.count > 0) {
+      var arsenalItemTest = arsenalUgradeList.contentItem.children[0];
+      var arsenalChi1Test = arsenalItemTest.children[0];
+      var arsenalChi2Test = arsenalChi1Test.children[0];
+      var arsenalChi3Test = arsenalChi2Test.children[0];
+      var arsenalChi4Test = arsenalChi3Test.children[0];
+      var arsenalUpgradeNameTest = arsenalChi3Test.text
+      data["weaponUpgrade"] = arsenalUpgradeNameTest
     }
 
     var unitUpgradeList = aWarScrollUnitUpgradeView
@@ -146,7 +158,7 @@ Rectangle
     Row
     {
       width: parent.width
-      height: 0.25 * parent.height
+      height: 0.20 * parent.height
 
       ExclusiveGroup {
         id: exclusiveUpgrades
@@ -233,7 +245,7 @@ Rectangle
     Row
     {
       width: parent.width
-      height: 0.25 * parent.height
+      height: 0.20 * parent.height
 
       Rectangle
       {

@@ -188,7 +188,12 @@ void ArmyBalancer::warScrollSeleted()
           const std::string &ability = upgrade.getAbility().getName();
           list.append(ability.c_str());
         } else {
-          list.append(weapon.c_str());
+          if (upgrade.getAbility().getName().empty()) {
+            list.append(weapon.c_str());
+          } else {
+            list.append((weapon + "/" +
+              upgrade.getAbility().getName()).c_str());
+          }
         }
       }
       QMetaObject::invokeMethod(
@@ -234,14 +239,28 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
     if (upgradeNameIt != data.end()) {
       QString weaponUpgrade = upgradeNameIt->toString();
       Q_ASSERT(!weaponUpgrade.isEmpty());
-      const WarScroll::WeaponUpgrade &upgrade =
-        m_CurrentWarScroll.getWeaponUpgrade(weaponUpgrade.toStdString());
-      Q_ASSERT(!upgrade.getWeapon().getName().empty() ||
-        !upgrade.getAbility().getName().empty());
-      m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
 
-      for (const auto &i : upgrade.getCharacteristicsToUpdate()) {
-        m_CurrentWarScroll.incrementCharacteristic(i.first, i.second);
+      std::vector<std::string> tokens;
+      std::istringstream iss(weaponUpgrade.toStdString());
+      std::string s;
+      while (getline(iss, s, '/')) {
+        tokens.push_back(s);
+      }
+
+      if (tokens.size() < 2) {
+        const WarScroll::WeaponUpgrade &upgrade =
+          m_CurrentWarScroll.getWeaponUpgrade(tokens[0], "");
+        m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
+        for (const auto &i : upgrade.getCharacteristicsToUpdate()) {
+          m_CurrentWarScroll.incrementCharacteristic(i.first, i.second);
+        }
+      } else {
+        const WarScroll::WeaponUpgrade &upgrade =
+          m_CurrentWarScroll.getWeaponUpgrade(tokens[0], tokens[1]);
+        m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
+        for (const auto &i : upgrade.getCharacteristicsToUpdate()) {
+          m_CurrentWarScroll.incrementCharacteristic(i.first, i.second);
+        }
       }
     }
   }
@@ -348,5 +367,18 @@ void ArmyBalancer::removeCurrentWarScroll(QVariant guid)
         Q_ARG(QVariant, QVariant::fromValue(val)));
     }
     m_CurrentWarScrollsAdded.erase(it);
+  }
+}
+
+QVariant ArmyBalancer::getCurrentScrollText(QVariant guid)
+{
+  std::string guidStr = guid.toString().toStdString();
+  auto it = m_CurrentWarScrollsAdded.find(guidStr);
+  if (it != m_CurrentWarScrollsAdded.end()) {
+    std::string str = it->second.toString();
+    QString val(str.c_str());
+    return QVariant::fromValue(val);
+  } else {
+    return QVariant::fromValue(QString(""));
   }
 }

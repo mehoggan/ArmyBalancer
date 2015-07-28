@@ -46,26 +46,23 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
     ws.setCharacteristics(6, 5, 7, 4);
-    ws.addWeapon(WarScroll::Weapon("Man-ripper Axe", 1, 6, 3, 3, 1, 1));
-    ws.addAbility(WarScroll::Ability("Dual-axes", 1));
     ws.addAbility(WarScroll::Ability("Hatred of Heros", 1));
     ws.addAbility(WarScroll::Ability("Grisly Trophy", 2, true));
     ws.addKeyWords({"CHAOS", "BEASTMEN", "BRAYHERD", "HERO", "BEASTLORD"});
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
+    WarScroll::WeaponUpgrade dualAxesUpgrade(
+      WarScroll::Weapon("Man-ripper Axe", 1, 6, 3, 3, 1, 1),
+      WarScroll::Ability("Dual-axes", 1));
+    ws.addWeaponUpgrade(dualAxesUpgrade);
     WarScroll::WeaponUpgrade shieldUpgrade(
-      WarScroll::Weapon(),
+      WarScroll::Weapon("Man-ripper Axe", 1, 6, 3, 3, 1, 1),
       WarScroll::Ability("Brayshield", 2));
-    shieldUpgrade.registerAbilityToReplace(WarScroll::Ability("Dual-axes"));
     shieldUpgrade.registerCharacteristicToIncrease("Save", -1);
     ws.addWeaponUpgrade(shieldUpgrade);
     WarScroll::WeaponUpgrade greatWeaponUpgrade(
       WarScroll::Weapon("Man-render Great Axe", 1, 3, 3, 3, 2, 2),
       WarScroll::Ability());
-    greatWeaponUpgrade.registerAbilityToReplace(
-      WarScroll::Ability("Dual-axes"));
-    greatWeaponUpgrade.registerWeaponToReplace(
-      WarScroll::Weapon("Man-ripper Axes"));
     ws.addWeaponUpgrade(greatWeaponUpgrade);
 
     return ws;
@@ -135,7 +132,6 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
     ws.setCharacteristics(6, 1, 5, 5);
-    ws.addWeapon(WarScroll::Weapon("Gor Blade", 1, 1, 4, 4, 0, 1));
     ws.setMinMaxUnitCount(5, 500);
     ws.addAbility(WarScroll::Ability("Anarchy and Mayhem", 2));                 // Conditional on Unit Size > 20
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Foe-Render",
@@ -144,9 +140,12 @@ namespace WarScrollGeneration
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Banner Bearer",
       WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
-    ws.addAbility(WarScroll::Ability("Rend and Tear", 1));
+    WarScroll::WeaponUpgrade dualAxeUpgrade(
+      WarScroll::Weapon("Gor Blade", 1, 1, 4, 4, 0, 1),
+      WarScroll::Ability("Rend and Tear", 1));
+    ws.addWeaponUpgrade(dualAxeUpgrade);
     WarScroll::WeaponUpgrade shieldUpgrade(
-      WarScroll::Weapon(),
+      WarScroll::Weapon("Gor Blade", 1, 1, 4, 4, 0, 1),
       WarScroll::Ability("Beastshields", 1));
     shieldUpgrade.registerAbilityToReplace(WarScroll::Ability("Rend and Tear"));
     shieldUpgrade.registerCharacteristicToIncrease("Save", -1);
@@ -197,7 +196,6 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
     ws.setCharacteristics(6, 1, 4, 6);
-    ws.addWeapon(WarScroll::Weapon("Ungor Maul", 1, 1, 4, 4, 0, 1));
     ws.setMinMaxUnitCount(10, 500);
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Halfhorn",
@@ -213,11 +211,16 @@ namespace WarScrollGeneration
 
     ws.addAbility(WarScroll::Ability("Baying Hatred", 2));                      // Dependent on unit size >= 20
 
+    WarScroll::WeaponUpgrade maulUpgrade(
+      WarScroll::Weapon("Ungor Maul", 1, 1, 4, 4, 0, 1),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(maulUpgrade);
     WarScroll::WeaponUpgrade spearUpgrade(
       WarScroll::Weapon("Ungor Shortspear", 2, 1, 5, 4, 0, 1),
       WarScroll::Ability());
-    spearUpgrade.registerWeaponToReplace(WarScroll::Weapon("Ungor Maul"));
     ws.addWeaponUpgrade(spearUpgrade);
+
+    ws.addKeyWords({"CHAOS", "BEASTMEN", "BRAYHERD", "UNGOR"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -227,6 +230,23 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(6, 1, 4, 6);
+    ws.setMinMaxUnitCount(10, 500);
+
+    ws.addWeapon(WarScroll::Weapon("Raider Bow", 18, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Ungor Dagger", 1, 1, 5, 5, 0, 1));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Halfhorn",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Banner Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Brayhorn",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("Vile Invaders", 1));
+    ws.addAbility(WarScroll::Ability("Baying Hatred", 2));                      // Dependent on unit size >= 20
+
+    ws.addKeyWords({"CHAOS", "BEASTMEN", "BRAYHERD", "UNGOR RAIDERS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;

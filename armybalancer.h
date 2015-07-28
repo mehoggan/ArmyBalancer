@@ -46,6 +46,7 @@ public slots:
   void clearCurrentWarScroll();
   void clearCurrentWarScrolls();
   void removeCurrentWarScroll(QVariant guid);
+  QVariant getCurrentScrollText(QVariant guid);
 
 private:
   void getNextWarScrolls(std::vector<std::string> &output,

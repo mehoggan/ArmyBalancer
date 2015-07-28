@@ -7,10 +7,13 @@ import QtGraphicalEffects 1.0
 
 Rectangle
 {
+  property alias unitList: currentWarScrollsView
+
   function addNewUnit(aMap)
   {
     currentWarScrollsModel.append({'name' : aMap['name'],
-      'guid' : aMap['guid'], 'unit' : aMap['unit']})
+      'guid' : aMap['guid'], 'unit' : aMap['unit'],
+      'index' : currentWarScrollsModel.count})
   }
 
   function removeUnit(aGuid)
@@ -31,6 +34,17 @@ Rectangle
   function clearAllUnits()
   {
     currentWarScrollsModel.clear();
+  }
+
+  function getCurrentSelectedUnit()
+  {
+    if (typeof currentWarScrollsView.model.get(
+      currentWarScrollsView.currentIndex) != 'undefined') {
+      return currentWarScrollsView.model.get(
+        currentWarScrollsView.currentIndex).guid
+    } else {
+      return 'not_valid'
+    }
   }
 
   width: parent.width
@@ -63,6 +77,14 @@ Rectangle
       id: currentWarScrollDelegate
       Rectangle
       {
+        MouseArea
+        {
+          anchors.fill: parent
+          onClicked:
+          {
+            currentWarScrollsView.currentIndex = index
+          }
+        }
         width: parent.width
         height: 75
         color: "#CCCCCCCC"
@@ -141,8 +163,22 @@ Rectangle
       anchors.fill: parent
       model: currentWarScrollsModel
       delegate: currentWarScrollDelegate
-      highlight: Rectangle { color: "#00000000" }
-      focus: false
+      highlight: Rectangle { color: "#77440000" }
+      focus: true
+      interactive: true
+
+      property string currentWarScroll: ""
+
+      onCurrentItemChanged:
+      {
+        currentWarScroll = model.get(currentWarScrollsView.currentIndex).guid
+        console.log(currentWarScroll, " selected");
+      }
+
+      function currentWarScrollsView()
+      {
+        currentWarScrollsView.currentIndex = 0;
+      }
     }
   }
 }

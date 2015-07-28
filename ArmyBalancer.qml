@@ -349,8 +349,34 @@ Item
 
       Row
       {
+        id: warScrollValues
         width: parent.width
         height: 0.90 * parent.height
+        visible: false
+
+        Rectangle
+        {
+          width: parent.width
+          height: parent.height
+          TextArea
+          {
+            id: warScrollData
+            width: parent.width
+            height: parent.height
+            text: ""
+            font.pointSize: 9
+            font.family: "Courier"
+            backgroundVisible: false
+          }
+        }
+      }
+
+      Row
+      {
+        id: warScrollList
+        width: parent.width
+        height: 0.90 * parent.height
+        visible: true
 
         Rectangle
         {
@@ -372,7 +398,7 @@ Item
 
         Button
         {
-          width: parent.width
+          width: 0.50 * parent.width
           height: parent.height
           text: "Done"
 
@@ -380,6 +406,32 @@ Item
             mainColumn.visible = true
             addColumn.visible = false
             viewRemoveColumn.visible = false
+          }
+        }
+
+        Button
+        {
+          id: viewScrollButton
+          width: 0.50 * parent.width
+          height: parent.height
+          text: "View Scroll"
+          property bool displayMode: true
+
+          onClicked: {
+            console.log("Test ", displayMode)
+            if (displayMode) {
+              warScrollValues.visible = true
+              warScrollList.visible = false
+              displayMode = false
+              viewScrollButton.text = "Back"
+              var guid = currentWarScrolls.getCurrentSelectedUnit()
+              warScrollData.text = armyBalancer.getCurrentScrollText(guid);
+            } else {
+              warScrollValues.visible = false
+              warScrollList.visible = true
+              displayMode = true
+              viewScrollButton.text = "View Scroll"
+            }
           }
         }
       }

@@ -1,5 +1,6 @@
 ﻿#include "warscroll.h"
 
+#include <sstream>
 #include <utility>
 
 WarScroll::WeaponUpgrade::WeaponUpgrade()
@@ -212,11 +213,11 @@ void WarScroll::addWeaponUpgrade(const WarScroll::WeaponUpgrade &upgrade)
 }
 
 const WarScroll::WeaponUpgrade &WarScroll::getWeaponUpgrade(
-  const std::string &weaponUpgrade) const
+  const std::string &weaponUpgrade, const std::string &abilityUpgrade) const
 {
   for (const WeaponUpgrade &weaponUpgradeI : m_WeaponUpgrades) {
-    if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() ||
-      weaponUpgrade == weaponUpgradeI.getAbility().getName()) {
+    if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() &&
+      abilityUpgrade == weaponUpgradeI.getAbility().getName()) {
       return weaponUpgradeI;
     }
   }
@@ -232,10 +233,12 @@ void WarScroll::applyWeaponUpgrade(
     WeaponIterator it = m_Weapons.find(weapon.getName());
     if (it != m_Weapons.end()) {
       m_Weapons.erase(it);
-      m_Weapons.insert(std::make_pair(weaponUpgrade.getWeapon().getName(),
-        weaponUpgrade.getWeapon()));
       break;
     }
+  }
+  if (!weaponUpgrade.getWeapon().getName().empty()) {
+    m_Weapons.insert(std::make_pair(weaponUpgrade.getWeapon().getName(),
+      weaponUpgrade.getWeapon()));
   }
 
   const std::list<Ability> &abilitiesToReplace =
@@ -244,9 +247,18 @@ void WarScroll::applyWeaponUpgrade(
     AbilityIterator it = m_Abilities.find(ability.getName());
     if (it != m_Abilities.end()) {
       m_Abilities.erase(it);
-      m_Abilities.insert(std::make_pair(weaponUpgrade.getAbility().getName(),
-        weaponUpgrade.getAbility()));
       break;
     }
   }
+  if (!weaponUpgrade.getAbility().getName().empty()) {
+    m_Abilities.insert(std::make_pair(weaponUpgrade.getAbility().getName(),
+    weaponUpgrade.getAbility()));
+  }
+}
+
+std::string WarScroll::toString() const
+{
+  std::ostringstream out;
+  out << (*this);
+  return out.str();
 }

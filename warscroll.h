@@ -301,8 +301,11 @@ public:
   void addWeaponUpgrade(const WeaponUpgrade &upgrade);
   const std::list<WeaponUpgrade> getWeaponUpgrades() const
   {return m_WeaponUpgrades;}
-  const WeaponUpgrade &getWeaponUpgrade(const std::string &weaponUpgrade) const;
+  const WeaponUpgrade &getWeaponUpgrade(const std::string &weaponUpgrade,
+    const std::string &abilityUpgrade) const;
   void applyWeaponUpgrade(const WeaponUpgrade &weaponUpgrade);
+
+  std::string toString() const;
 
   void regenGuid()
   {
