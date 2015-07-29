@@ -252,10 +252,19 @@ void WarScroll::addWeaponUpgrade(const WarScroll::WeaponUpgrade &upgrade)
 const WarScroll::WeaponUpgrade &WarScroll::getWeaponUpgrade(
   const std::string &weaponUpgrade, const std::string &abilityUpgrade) const
 {
-  for (const WeaponUpgrade &weaponUpgradeI : m_WeaponUpgrades) {
-    if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() ||
-      abilityUpgrade == weaponUpgradeI.getAbility().getName()) {
-      return weaponUpgradeI;
+  if (!weaponUpgrade.empty() && !abilityUpgrade.empty()) {
+    for (const WeaponUpgrade &weaponUpgradeI : m_WeaponUpgrades) {
+      if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() ||
+        abilityUpgrade == weaponUpgradeI.getAbility().getName()) {
+          return weaponUpgradeI;
+      }
+    }
+  } else {
+    for (const WeaponUpgrade &weaponUpgradeI : m_WeaponUpgrades) {
+      if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() &&
+        abilityUpgrade == weaponUpgradeI.getAbility().getName()) {
+          return weaponUpgradeI;
+      }
     }
   }
   return m_EmptyUpgrade;
