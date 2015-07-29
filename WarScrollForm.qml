@@ -33,6 +33,14 @@ Rectangle
     }
   }
 
+  function addMountUpgrades(aList)
+  {
+    aWarScrollMountUpgradeModel.clear();
+    for (var i = 0; i < aList.length; ++i) {
+      aWarScrollMountUpgradeModel.append({'name' : aList[i]});
+    }
+  }
+
   function finalizeWarScroll()
   {
     var data = {}
@@ -80,6 +88,29 @@ Rectangle
       }
     }
 
+    var mountUgradeList = aWarScrollMountUpgradeView;
+    var moustSelected = false;
+    var testCount = mountUgradeList.count;
+    for (var i = 0; i < mountUgradeList.count; ++i)
+    {
+      var mountItem = mountUgradeList.contentItem.children[i];
+      console.log(mountItem.text);
+      var mountChi1 = mountItem.children[0];
+      console.log(mountChi1);
+      var mountChi2 = mountChi1.children[0];
+      console.log(mountChi2);
+      var mountChi3 = mountChi2.children[0];
+      console.log(mountChi3);
+      var mountChi4 = mountChi3.children[0];
+      console.log(mountChi4);
+      if (mountChi4.checked) {
+        itemSelected = true;
+        var mountUpgradeName = mountChi3.text
+        data["mountUpgrade"] = mountUpgradeName
+        break;
+      }
+    }
+
     return data;
   }
 
@@ -98,7 +129,7 @@ Rectangle
       id: warScrollTitle
       objectName: "warScrollTitle"
       text: ""
-      font.pointSize: 18
+      font.pointSize: 12
       font.family: "Courier"
       width: parent.width
       height: 0.14 * parent.height
@@ -115,7 +146,7 @@ Rectangle
         id: unitCap
         objectName: "unitCap"
         text: "Model Count"
-        font.pointSize: 16
+        font.pointSize: 10
         font.family: "Courier"
         width: 0.40 * parent.width
         height: parent.height
@@ -133,7 +164,7 @@ Rectangle
         stepSize: 1
         minimumValue: 1
         maximumValue: 1
-        font.pointSize: 18
+        font.pointSize: 12
         font.family: "Courier"
       }
     }
@@ -141,24 +172,7 @@ Rectangle
     Row
     {
       width: parent.width
-      height: 0.10 * parent.height
-
-      Text
-      {
-        text: "Arsenal Upgrades"
-        font.pointSize: 16
-        font.family: "Courier"
-        width: parent.width
-        height: parent.height
-        horizontalAlignment: TextEdit.AlignHCenter
-        verticalAlignment: TextEdit.AlignVCenter
-      }
-    }
-
-    Row
-    {
-      width: parent.width
-      height: 0.20 * parent.height
+      height: 0.25 * parent.height
 
       ExclusiveGroup {
         id: exclusiveUpgrades
@@ -191,7 +205,7 @@ Rectangle
                   id: warScrollDelegateName
                   width: parent.width
                   height: parent.height
-                  font.pointSize: 12
+                  font.pointSize: 8
                   font.family: "Courier"
                   text: name
                   verticalAlignment: TextEdit.AlignVCenter
@@ -213,14 +227,21 @@ Rectangle
           id: aWarScrollUpgradeModel
         }
 
-        ListView
+        GroupBox
         {
-          id: aWarScrollUpgradeView
-          anchors.fill: parent
-          model: aWarScrollUpgradeModel
-          delegate: warScrollDelegate
-          highlight: Rectangle { color: "#00000000" }
-          focus: false
+          title: "Weapons"
+          width: parent.width
+          height: parent.height
+
+          ListView
+          {
+            id: aWarScrollUpgradeView
+            anchors.fill: parent
+            model: aWarScrollUpgradeModel
+            delegate: warScrollDelegate
+            highlight: Rectangle { color: "#00000000" }
+            focus: false
+          }
         }
       }
     }
@@ -228,24 +249,7 @@ Rectangle
     Row
     {
       width: parent.width
-      height: 0.10 * parent.height
-
-      Text
-      {
-        text: "Unit Upgrades"
-        font.pointSize: 16
-        font.family: "Courier"
-        width: parent.width
-        height: parent.height
-        horizontalAlignment: TextEdit.AlignHCenter
-        verticalAlignment: TextEdit.AlignVCenter
-      }
-    }
-
-    Row
-    {
-      width: parent.width
-      height: 0.20 * parent.height
+      height: 0.25 * parent.height
 
       Rectangle
       {
@@ -274,7 +278,7 @@ Rectangle
                   id: warScrollUnitUpgradeDelegateName
                   width: parent.width
                   height: parent.height
-                  font.pointSize: 12
+                  font.pointSize: 8
                   font.family: "Courier"
                   text: name
                   verticalAlignment: TextEdit.AlignVCenter
@@ -295,14 +299,97 @@ Rectangle
           id: aWarScrollUnitUpgradeModel
         }
 
-        ListView
+        GroupBox
         {
-          id: aWarScrollUnitUpgradeView
-          anchors.fill: parent
-          model: aWarScrollUnitUpgradeModel
-          delegate: warScrollUnitUpgradeDelegate
-          highlight: Rectangle { color: "#00000000" }
-          focus: false
+          title: "Unit"
+          width: parent.width
+          height: parent.height
+
+          ListView
+          {
+            id: aWarScrollUnitUpgradeView
+            anchors.fill: parent
+            model: aWarScrollUnitUpgradeModel
+            delegate: warScrollUnitUpgradeDelegate
+            highlight: Rectangle { color: "#00000000" }
+            focus: false
+          }
+        }
+      }
+    }
+
+    Row
+    {
+      width: parent.width
+      height: 0.25 * parent.height
+
+      ExclusiveGroup {
+        id: exclusiveMountUpgrades
+      }
+
+      Rectangle
+      {
+        width: parent.width
+        height: parent.height
+        color: "#00000000"
+
+        Component
+        {
+          id: warScrollMountDelegate
+          Rectangle
+          {
+            width: parent.width
+            height: 70
+            color: "#00000000"
+            Column
+            {
+              width: parent.width
+              height: parent.height
+              Row
+              {
+                width: parent.width
+                height: parent.height
+                Text
+                {
+                  id: warScrollMountDelegateName
+                  width: parent.width
+                  height: parent.height
+                  font.pointSize: 8
+                  font.family: "Courier"
+                  text: name
+                  verticalAlignment: TextEdit.AlignVCenter
+
+                  RadioButton
+                  {
+                    id: warScrollMoustDelegateSelected
+                    anchors.right: parent.right
+                    exclusiveGroup: exclusiveUpgrades
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        ListModel
+        {
+          id: aWarScrollMountUpgradeModel
+        }
+
+        GroupBox
+        {
+          title: "Mounts"
+          width: parent.width
+          height: parent.height
+          ListView
+          {
+            id: aWarScrollMountUpgradeView
+            anchors.fill: parent
+            model: aWarScrollMountUpgradeModel
+            delegate: warScrollMountDelegate
+            highlight: Rectangle { color: "#00000000" }
+            focus: false
+          }
         }
       }
     }

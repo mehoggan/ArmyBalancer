@@ -62,7 +62,7 @@ Item
       width: parent.width
       height: parent.height
       color: "#FFD700"
-      font.pointSize: 44
+      font.pointSize: 28
       text: "Army Balancer"
       font.family: "Courier"
       verticalAlignment: Text.AlignVCenter
@@ -126,7 +126,7 @@ Item
         {
           width: 0.20 *parent.width
           height: parent.height
-          font.pointSize: 12
+          font.pointSize: 7
           font.family: "Courier"
           text: "Faction"
           horizontalAlignment: TextEdit.AlignHCenter
@@ -162,7 +162,7 @@ Item
         {
           width: 0.20 *parent.width
           height: parent.height
-          font.pointSize: 12
+          font.pointSize: 7
           font.family: "Courier"
           text: "War Scroll"
           horizontalAlignment: TextEdit.AlignHCenter
@@ -364,7 +364,7 @@ Item
             width: parent.width
             height: parent.height
             text: ""
-            font.pointSize: 9
+            font.pointSize: 7
             font.family: "Courier"
             backgroundVisible: false
           }
@@ -422,7 +422,6 @@ Item
           property bool displayMode: true
 
           onClicked: {
-            console.log("Test ", displayMode)
             if (displayMode) {
               warScrollValues.visible = true
               warScrollList.visible = false

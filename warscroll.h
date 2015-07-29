@@ -192,13 +192,15 @@ public:
   public:
     enum class UnitUpgradeType
     {
-      eChampion, eMusician, eBannerBearer, eShield, eNone
+      eChampion, eMusician, eBannerBearer, eShield, eMount, eNone
     };
+
   private:
     std::string m_Name;
     UnitUpgradeType m_Type;
     int m_PointsCost;
     std::list<std::pair<std::string, int>> m_CharacteristicsToUpdate;
+    bool m_CanFly;
 
   public:
     UnitUpgrade(std::string name = "",
@@ -206,11 +208,15 @@ public:
       : m_Name(name)
       , m_Type(type)
       , m_PointsCost(pointsCost)
+      , m_CanFly(false)
     {}
 
     const std::string &getName() const {return m_Name;}
     UnitUpgradeType getUpgradeType() const {return m_Type;}
     int getPointsCost() const {return m_PointsCost;}
+
+    bool providesCanFly() const {return m_CanFly;}
+    void setProvidesFly(bool fly) {m_CanFly = fly;}
 
     void registerCharacteristicToIncrease(const std::string& name, int val);
     const std::list<std::pair<std::string, int>> getCharacteristicsToUpdate()
@@ -238,6 +244,39 @@ public:
     }
   };
 
+  class MountUpgrade
+  {
+  private:
+    std::string m_Name;
+    std::list<std::pair<std::string, int>> m_CharacteristicsToUpdate;
+    std::list<Weapon> m_Weapons;
+    bool m_CanFly;
+
+  public:
+    MountUpgrade(std::string name = "", bool canFly = false)
+      : m_Name(name)
+      , m_CanFly(canFly)
+    {}
+
+    const std::string &getName() const {return m_Name;}
+
+    bool providesCanFly() const {return m_CanFly;}
+    void setProvidesFly(bool fly) {m_CanFly = fly;}
+
+    void registerCharacteristicToIncrease(const std::string& name, int val);
+    const std::list<std::pair<std::string, int>> getCharacteristicsToUpdate()
+      const {return m_CharacteristicsToUpdate;}
+
+    const std::list<Weapon> &getWeapons() const {return m_Weapons;}
+    void addWeapon(const Weapon &weapon);
+
+    friend std::ostream &operator<<(std::ostream &out,
+      const MountUpgrade &upgrade)
+    {
+      out << "\tName: " << upgrade.m_Name << std::endl;
+      return out;
+    }
+  };
 private:
   std::string m_Title;
   std::map<std::string, int> m_Characteristics;
@@ -252,6 +291,8 @@ private:
   std::list<Spell> m_Spells;
   std::list<UnitUpgrade> m_AppliedUpgrades;
   std::list<UnitUpgrade> m_RegisteredUpgrades;
+  std::list<MountUpgrade> m_AppliedMounts;
+  std::list<MountUpgrade> m_RegisteredMounts;
   bool m_CanFly;
   std::set<std::string> m_Keywords;
   GrandAllianceType m_AllianceType;
@@ -299,9 +340,16 @@ public:
   const std::list<UnitUpgrade> getRegisteredUnitUpgrades() const
   {return m_RegisteredUpgrades;}
   const std::list<UnitUpgrade> getAppliedUnitUpgrades() const
-  {return m_RegisteredUpgrades;}
+  {return m_AppliedUpgrades;}
   void registerUnitUpgrade(const UnitUpgrade &upgrade);
   void applyRegisteredUpgrade(const std::string &upgradeName);
+
+  const std::list<MountUpgrade> getRegisteredMountUpgrades() const
+  {return m_RegisteredMounts;}
+  const std::list<MountUpgrade> getAppliedMountUpgrades() const
+  {return m_AppliedMounts;}
+  void registerMountUpgrade(const MountUpgrade &upgrade);
+  void applyRegisteredMount(const std::string &mountName);
 
   bool getCanFly() const {return m_CanFly;}
   void setCanFly(bool canFly) {m_CanFly = canFly;}
@@ -346,16 +394,22 @@ public:
       << "\tPoint Count: " << ws.m_PointsCost << std::endl
       << std::endl;
     out << (ws.m_CanFly ? "\tFlyer\n" : "");
-
+    out << std::endl;
 
     bool first = true;
     for (auto it : ws.m_Characteristics) {
       if (first) {
         out << "\t";
+        first = false;
       }
       out << it.first << ": " << it.second << " ";
     }
     out << std::endl << std::endl;
+    out << "\t" << "Mounts:" << std::endl;
+    for (auto it : ws.m_AppliedMounts) {
+      out << it;
+      out << std::endl;
+    }
     out << "\t" << "Weapons:" << std::endl;
     for (auto it : ws.m_Weapons) {
       out << it.second;
@@ -381,6 +435,7 @@ public:
     for (const auto &key : ws.m_Keywords) {
       if (first) {
         out << "\t";
+        first = false;
       }
       out << key << " ";
     }

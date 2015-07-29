@@ -101,7 +101,7 @@ Rectangle
               id: currentWarScrollDelegateName
               width: parent.width
               height: parent.height
-              font.pointSize: 12
+              font.pointSize: 8
               font.family: "Courier"
               text: name + " -- count(" + unit + ")"
               verticalAlignment: TextEdit.AlignVCenter

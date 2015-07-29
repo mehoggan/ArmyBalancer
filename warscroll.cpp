@@ -34,6 +34,17 @@ void WarScroll::UnitUpgrade::registerCharacteristicToIncrease(
   m_CharacteristicsToUpdate.push_back(std::make_pair(name, val));
 }
 
+void WarScroll::MountUpgrade::registerCharacteristicToIncrease(
+  const std::string& name, int val)
+{
+  m_CharacteristicsToUpdate.push_back(std::make_pair(name, val));
+}
+
+void WarScroll::MountUpgrade::addWeapon(const WarScroll::Weapon &weapon)
+{
+  m_Weapons.push_back(weapon);
+}
+
 WarScroll::WarScroll()
   : m_MinUnitCount(1)
   , m_MaxUnitCount(1)
@@ -54,6 +65,8 @@ WarScroll::WarScroll(const WarScroll &rhs)
   , m_Spells(rhs.m_Spells)
   , m_AppliedUpgrades(rhs.m_AppliedUpgrades)
   , m_RegisteredUpgrades(rhs.m_RegisteredUpgrades)
+  , m_AppliedMounts(rhs.m_AppliedMounts)
+  , m_RegisteredMounts(rhs.m_RegisteredMounts)
   , m_CanFly(rhs.m_CanFly)
   , m_Keywords(rhs.m_Keywords)
   , m_AllianceType(rhs.m_AllianceType)
@@ -74,6 +87,8 @@ WarScroll &WarScroll::operator=(const WarScroll &rhs)
   m_Spells = rhs.m_Spells;
   m_AppliedUpgrades = rhs.m_AppliedUpgrades;
   m_RegisteredUpgrades = rhs.m_RegisteredUpgrades;
+  m_AppliedMounts = rhs.m_AppliedMounts;
+  m_RegisteredMounts = rhs.m_RegisteredMounts;
   m_CanFly = rhs.m_CanFly;
   m_Keywords = rhs.m_Keywords;
   m_AllianceType = rhs.m_AllianceType;
@@ -185,6 +200,21 @@ void WarScroll::applyRegisteredUpgrade(const std::string &upgradeName)
   for (const UnitUpgrade &upgrade : m_RegisteredUpgrades) {
     if (upgrade.getName() == upgradeName) {
       m_AppliedUpgrades.push_back(upgrade);
+      break;
+    }
+  }
+}
+
+void WarScroll::registerMountUpgrade(const WarScroll::MountUpgrade &upgrade)
+{
+  m_RegisteredMounts.push_back(upgrade);
+}
+
+void WarScroll::applyRegisteredMount(const std::string &mountName)
+{
+  for (const MountUpgrade &upgrade : m_RegisteredMounts) {
+    if (upgrade.getName() == mountName) {
+      m_AppliedMounts.push_back(upgrade);
       break;
     }
   }

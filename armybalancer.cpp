@@ -216,6 +216,20 @@ void ArmyBalancer::warScrollSeleted()
         "addUnitUpgrades",
         Q_ARG(QVariant, QVariant::fromValue(list)));
     }
+
+    if (m_Root) {
+      QVariantList list;
+      const std::list<WarScroll::MountUpgrade> &upgrades =
+        m_CurrentWarScroll.getRegisteredMountUpgrades();
+      for (const auto &mount : upgrades) {
+        const std::string &name = mount.getName();
+        list.append(name.c_str());
+      }
+      QMetaObject::invokeMethod(
+        m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
+        "addMountUpgrades",
+        Q_ARG(QVariant, QVariant::fromValue(list)));
+    }
   }
 }
 
@@ -268,6 +282,7 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
   {
     std::size_t unitUpgradeCount =
       m_CurrentWarScroll.getRegisteredUnitUpgrades().size();
+    bool unitCanFly = false;
     for (std::size_t i = 0; i < unitUpgradeCount; ++i) {
       std::stringstream ss;
       ss << i;
@@ -288,8 +303,35 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
               m_CurrentWarScroll.incrementCharacteristic(
                 upgradeCharacteristic.first, upgradeCharacteristic.second);
             }
+            unitCanFly |= currUnitUpgrade.providesCanFly();
             break;
           }
+        }
+      }
+    }
+    m_CurrentWarScroll.setCanFly(unitCanFly);
+  }
+
+  {
+    QVariantMap::const_iterator upgradeNameIt = data.find("mountUpgrade");
+    if (upgradeNameIt != data.end()) {
+      QString mountName = upgradeNameIt->toString();
+
+      const std::list<WarScroll::MountUpgrade> mounts =
+        m_CurrentWarScroll.getRegisteredMountUpgrades();
+      for (const auto &mount : mounts) {
+        if (mount.getName() == mountName.toStdString()) {
+          const std::list<WarScroll::Weapon> weapons = mount.getWeapons();
+          for (const auto &weapon : weapons) {
+            m_CurrentWarScroll.addWeapon(weapon);
+          }
+          for (const auto &stat : mount.getCharacteristicsToUpdate()) {
+            m_CurrentWarScroll.incrementCharacteristic(stat.first,
+              stat.second);
+          }
+          m_CurrentWarScroll.setCanFly(mount.providesCanFly());
+          m_CurrentWarScroll.applyRegisteredMount(mount.getName());
+          break;
         }
       }
     }
@@ -298,7 +340,6 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
   WarScroll tmpWarScroll = m_CurrentWarScroll;
   tmpWarScroll.refreshPointsCost();
   tmpWarScroll.regenGuid();
-  std::cout << tmpWarScroll << std::endl;
   m_CurrentWarScrollsAdded.insert(std::make_pair(
     tmpWarScroll.getGuid().toString().toStdString(), tmpWarScroll));
 
@@ -337,6 +378,13 @@ void ArmyBalancer::clearCurrentWarScroll()
     m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
     "addUnitUpgrades",
     Q_ARG(QVariant, QVariant::fromValue(list)));
+  }
+  if (m_Root) {
+    QVariantList list;
+    QMetaObject::invokeMethod(
+      m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
+      "addMountUpgrades",
+      Q_ARG(QVariant, QVariant::fromValue(list)));
   }
 }
 

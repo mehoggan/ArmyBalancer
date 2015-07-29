@@ -6,6 +6,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(14, 10, 9, 3);
+    ws.setCanFly(true);
+
+    ws.addWeapon(WarScroll::Weapon("The Sword of Couronne", 2, 6, 3, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Beaquis' Talaons", 2, 5, 4, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Beaquis' Razor-sharp Beak",
+      2, 1, 3, 3, 2, 6));
+
+    ws.addAbility(WarScroll::Ability("Regal Crown", 3));
+    ws.addAbility(WarScroll::Ability("The Lion's Shield", 3));
+    ws.addAbility(WarScroll::Ability("The Puissant Virtue", 1));
+    ws.addAbility(WarScroll::Ability("The Lady's Champion", 3));
+    ws.addAbility(WarScroll::Ability("King of the Realm", 2, true));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY", "HERO",
+      "KING LOUEN LEONCOEUR"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -13,6 +32,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(14, 5, 8, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Fay Enchantress' Blessed Blade",
+      1, 3, 4, 4, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Silvaron's Enchanted Horn",
+      1, 1, 4, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Silvaron's Silvershod Hooves",
+      1, 3, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Chalice of Potions", 3));
+    ws.addAbility(WarScroll::Ability("Grail Guardians", 1));
+    ws.addAbility(WarScroll::Ability("Spiteful Glance", 2));
+    ws.addAbility(WarScroll::Ability("Supreme Aura of the Lady", 2));
+
+    ws.addSpell(WarScroll::Spell("Favour of the Fay"), 6, 3);
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY", "HERO",
+      "WIZARD", "DAMSEL OF THE LADY", "FAY ENCHANTRESS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -20,6 +59,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(12, 5, 9, 3);
+    ws.setCanFly(true);
+
+    ws.addWeapon(WarScroll::Weapon("The Dolorous Blade", 1, 4, 3, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Shadow Steed", 1, 2, 4, 3, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Ethereal", 2));
+    ws.addAbility(WarScroll::Ability("The Foliate Shield", 1));
+    ws.addAbility((WarScroll::Ability("Summoned from the Mists", 2)));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY",
+      "GREEN KNIGHT"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -27,6 +80,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(12, 5, 9, 3);
+
+    ws.addWeapon(WarScroll::Weapon("Ducal Sword and Dragonbane Lance",
+      2, 5, 3, 4, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Steed's Hooves", 1, 2, 4, 4, 0, 1));
+    ws.addAbility(WarScroll::Ability("Courage of the Bretonni", 3));
+    ws.addAbility(WarScroll::Ability("Dragonbane Lance", 1));
+    ws.addAbility(WarScroll::Ability("Ducal Shield", 1));
+    ws.addAbility(WarScroll::Ability("Lord of the Realm", 2, true));
+
+    WarScroll::UnitUpgrade pegasusUpgrade("Pegasus",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMount, 3);
+    pegasusUpgrade.setProvidesFly(true);
+    pegasusUpgrade.registerCharacteristicToIncrease("Move", 4);
+    ws.registerUnitUpgrade(pegasusUpgrade);
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY", "HERO",
+      "BRETONNIAN LORD"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -34,6 +107,17 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(5, 5, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Relic Weapon", 1, 4, 3, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Paladin's Shield", 1));
+    ws.addAbility(WarScroll::Ability("Heroic Blow", 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY", "HERO",
+      "PALADIN"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -41,6 +125,18 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(10, 5, 7, 3);
+
+    ws.addWeapon(WarScroll::Weapon("Master-forged Sword", 1, 5, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Dietrier's Iron-shod Hooves",
+      1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("The Grail Banner", 3));
+    ws.addAbility(WarScroll::Ability("Follow Me to Glory", 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY", "HERO",
+      "TOTEM", "PALADIN", "PALADIN STANDARD BEARER"});
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -48,6 +144,28 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(5, 5, 6, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Staff of Purity", 1, 1, 4, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Steed's Hooves", 1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Aura of the Lady", 1));
+
+    ws.addSpell(WarScroll::Spell("Blessing of the Lady"), 5, 2);
+
+    WarScroll::MountUpgrade pegasusUpgrade("Pegasus", true);
+    pegasusUpgrade.registerCharacteristicToIncrease("Move", 11);
+    pegasusUpgrade.addWeapon(WarScroll::Weapon("Steed's Hooves",
+      1, 2, 4, 4, 0, 1));
+    ws.registerMountUpgrade(pegasusUpgrade);
+
+    WarScroll::MountUpgrade purebreadUpgrade("Purebred Horse");
+    purebreadUpgrade.registerCharacteristicToIncrease("Move", 7);
+    purebreadUpgrade.addWeapon(WarScroll::Weapon("Steed's Hooves",
+      1, 2, 4, 4, 0, 1));
+    ws.registerMountUpgrade(purebreadUpgrade);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -55,7 +173,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
-    ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -63,6 +182,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -70,6 +190,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -77,6 +198,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -84,6 +206,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -91,6 +214,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -98,6 +222,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -105,6 +230,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -112,6 +238,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 
@@ -119,6 +246,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
 }
