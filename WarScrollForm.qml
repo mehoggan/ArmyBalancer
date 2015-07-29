@@ -65,14 +65,6 @@ Rectangle
     }
   }
 
-  function addMountUpgrades(aList)
-  {
-    aWarScrollMountUpgradeModel.clear();
-    for (var i = 0; i < aList.length; ++i) {
-      aWarScrollMountUpgradeModel.append({'name' : aList[i]});
-    }
-  }
-
   function finalizeWarScroll()
   {
     var data = {}
