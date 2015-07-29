@@ -12,8 +12,7 @@ Rectangle
   function addNewUnit(aMap)
   {
     currentWarScrollsModel.append({'name' : aMap['name'],
-      'guid' : aMap['guid'], 'unit' : aMap['unit'],
-      'index' : currentWarScrollsModel.count})
+      'guid' : aMap['guid'], 'unit' : aMap['unit']})
   }
 
   function removeUnit(aGuid)
@@ -171,8 +170,15 @@ Rectangle
 
       onCurrentItemChanged:
       {
-        currentWarScroll = model.get(currentWarScrollsView.currentIndex).guid
-        console.log(currentWarScroll, " selected");
+        if (typeof model.get(currentWarScrollsView.currentIndex) != 'QString') {
+          currentWarScroll = ''
+        } else if (typeof currentWarScroll === 'undefined') {
+          currentWarScrollsView.currentIndex = 0;
+        } else {
+          currentWarScroll = model.get(currentWarScrollsView.currentIndex)
+          var currentWarScrollGuid = currentWarScrollGuid.guid
+          console.log(currentWarScrollGuid, " selected");
+        }
       }
 
       function currentWarScrollsView()

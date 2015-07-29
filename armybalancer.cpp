@@ -264,6 +264,13 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
       if (tokens.size() < 2) {
         const WarScroll::WeaponUpgrade &upgrade =
           m_CurrentWarScroll.getWeaponUpgrade(tokens[0], "");
+        if (upgrade.getWeapon().getName().empty() &&
+          upgrade.getAbility().getName().empty()) {
+          const_cast<WarScroll::WeaponUpgrade &>(upgrade) =
+            m_CurrentWarScroll.getWeaponUpgrade("", tokens[0]);
+        }
+        Q_ASSERT(!upgrade.getWeapon().getName().empty() ||
+          !upgrade.getAbility().getName().empty());
         m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
         for (const auto &i : upgrade.getCharacteristicsToUpdate()) {
           m_CurrentWarScroll.incrementCharacteristic(i.first, i.second);
@@ -282,7 +289,7 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
   {
     std::size_t unitUpgradeCount =
       m_CurrentWarScroll.getRegisteredUnitUpgrades().size();
-    bool unitCanFly = false;
+    bool unitCanFly = m_CurrentWarScroll.getCanFly();
     for (std::size_t i = 0; i < unitUpgradeCount; ++i) {
       std::stringstream ss;
       ss << i;
@@ -302,6 +309,11 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
             for (const auto &upgradeCharacteristic : characteristics) {
               m_CurrentWarScroll.incrementCharacteristic(
                 upgradeCharacteristic.first, upgradeCharacteristic.second);
+            }
+            const std::list<WarScroll::Ability> &abilities =
+              currUnitUpgrade.getAbilities();
+            for (const auto &ability : abilities) {
+              m_CurrentWarScroll.addAbility(ability);
             }
             unitCanFly |= currUnitUpgrade.providesCanFly();
             break;
@@ -413,6 +425,8 @@ void ArmyBalancer::removeCurrentWarScroll(QVariant guid)
       QVariant val = -it->second.getPointsCost();
       QMetaObject::invokeMethod(m_Root->rootObject(), "addToCurrentPoints",
         Q_ARG(QVariant, QVariant::fromValue(val)));
+      qDebug() << "Removing " << guid.toString() << " which points to " <<
+        it->second.getTitle().c_str();
     }
     m_CurrentWarScrollsAdded.erase(it);
   }

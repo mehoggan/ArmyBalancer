@@ -34,6 +34,12 @@ void WarScroll::UnitUpgrade::registerCharacteristicToIncrease(
   m_CharacteristicsToUpdate.push_back(std::make_pair(name, val));
 }
 
+
+void WarScroll::UnitUpgrade::addAbility(const WarScroll::Ability &ability)
+{
+  m_Abilities.push_back(ability);
+}
+
 void WarScroll::MountUpgrade::registerCharacteristicToIncrease(
   const std::string& name, int val)
 {
@@ -71,7 +77,7 @@ WarScroll::WarScroll(const WarScroll &rhs)
   , m_Keywords(rhs.m_Keywords)
   , m_AllianceType(rhs.m_AllianceType)
   , m_WeaponUpgrades(rhs.m_WeaponUpgrades)
-  , m_Guid(QUuid())
+  , m_Guid(rhs.m_Guid)
 {}
 
 WarScroll &WarScroll::operator=(const WarScroll &rhs)
@@ -93,7 +99,7 @@ WarScroll &WarScroll::operator=(const WarScroll &rhs)
   m_Keywords = rhs.m_Keywords;
   m_AllianceType = rhs.m_AllianceType;
   m_WeaponUpgrades = rhs.m_WeaponUpgrades;
-  m_Guid = QUuid();
+  m_Guid = rhs.m_Guid;
 
   return (*this);
 }
@@ -247,7 +253,7 @@ const WarScroll::WeaponUpgrade &WarScroll::getWeaponUpgrade(
   const std::string &weaponUpgrade, const std::string &abilityUpgrade) const
 {
   for (const WeaponUpgrade &weaponUpgradeI : m_WeaponUpgrades) {
-    if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() &&
+    if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() ||
       abilityUpgrade == weaponUpgradeI.getAbility().getName()) {
       return weaponUpgradeI;
     }

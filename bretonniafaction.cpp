@@ -165,6 +165,9 @@ namespace WarScrollGeneration
       1, 2, 4, 4, 0, 1));
     ws.registerMountUpgrade(purebreadUpgrade);
 
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY", "HERO",
+      "WIZARD", "DAMSEL OF THE LADY"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
@@ -173,6 +176,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(10, 2, 5, 4);
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Pendant Lance and Blade",
+      2, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Charger's Hooves", 1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Eager to Impress", 1));
+    ws.addAbility(WarScroll::Ability("Lances", 1));
+    ws.addAbility(WarScroll::Ability("Heraldic Shields", 1));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Cavalier",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Banner Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeter",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY",
+      "KNIGHTS ERRANT"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
@@ -182,6 +205,28 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(10, 2, 6, 4);
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Pendant Lance and Blade",
+      2, 1, 3, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Charger's Hooves", 1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Virtue of Knightly Temper", 1));
+    ws.addAbility(WarScroll::Ability("Massed Cavalry", 1));                     // Conditional on Unit Size > 10
+    ws.addAbility(WarScroll::Ability("Lances", 1));
+    ws.addAbility(WarScroll::Ability("Heraldic Shields", 1));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Gallant",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Banner Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeter",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY",
+      "KNIGHTS OF THE REALM"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
@@ -190,6 +235,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(10, 2, 7, 4);
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Knightly Greatblade", 1, 2, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Charger's Hooves", 1, 2, 4, 4, 1, 1));
+
+    ws.addAbility(WarScroll::Ability("The Questing Vow", 1));
+    ws.addAbility(WarScroll::Ability("Heraldic Shields", 1));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Paragon",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Banner Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Lutist",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY",
+      "QUESTING KNIGHTS"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
@@ -198,6 +262,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(10, 2, 7, 4);
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Sword and Sacred Lance", 1, 2, 3, 4, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Destrier's Iron-shod Hooves",
+      1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Grail Shields", 1));
+    ws.addAbility(WarScroll::Ability("Lances", 1));
+    ws.addAbility(WarScroll::Ability("The Grail Vow", 1));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Grail Banner Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeter",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY",
+      "GRAIL KNIGHTS"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
@@ -206,6 +289,27 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(16, 4, 6, 4);
+    ws.setMinMaxUnitCount(3, IFaction::s_MaxUnitSize);
+    ws.setCanFly(true);
+
+    ws.addWeapon(WarScroll::Weapon("Lance and Blade", 2, 2, 3, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Pegasus' Hooves", 1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Lances", 1));
+    ws.addAbility(WarScroll::Ability("Heraldic Shields", 1));
+    ws.addAbility(WarScroll::Ability("Swooping Charge", 1));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Gallant",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Banner Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeter",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY",
+      "PEGASUS KNIGHTS"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
@@ -214,6 +318,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(5, 1, 6, 5);
+    ws.setMinMaxUnitCount(6, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Reliquary Sword", 1, 1, 5, 4, 0, 1));
+
+    WarScroll::UnitUpgrade grailReliquaeUpgrade("Grail Reliquae",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 3);
+    grailReliquaeUpgrade.addAbility(WarScroll::Ability("Inspired Fervour", 2));
+    grailReliquaeUpgrade.addAbility(WarScroll::Ability("Pilgrim Shields", 2));
+    ws.registerUnitUpgrade(grailReliquaeUpgrade);
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "PEASANTRY",
+      "BATTLE PILGRIMS"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
@@ -222,6 +340,29 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(5, 1, 4, 6);
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Polearm", 2, 1, 5, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Rowdy Mob", 1));                          // Conditional on Unit Size > 10
+    ws.addAbility(WarScroll::Ability("Tower Shields", 1));
+    ws.addAbility(WarScroll::Ability("Virtue of Empathy, 1"));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Warden",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Drummer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeter",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Relic Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "PEASANTRY",
+      "MEN-AT-ARMS"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
@@ -230,6 +371,34 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(5, 1, 4, 6);
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Longbow", 20, 1, 5, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Skinning Knife", 1, 1, 5, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Arrowstorm", 2));                         // Conditional on Unit Size > 20
+    ws.addAbility(WarScroll::Ability("Virtue of Empathy", 1));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Villein",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Drummer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeter",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Relic Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Stakes",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Burning Braziers",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 1));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "PEASANTRY",
+      "PEASANT BOWMEN"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
@@ -238,6 +407,29 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(12, 2, 4, 6);
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Yeoman's Bow", 18, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Hunting Spear", 2, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Palfrey's Sharp Teeth", 1, 2, 4, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Scouts", 2));
+    ws.addAbility(WarScroll::Ability("Virtue of Empathy", 1));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Warden",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeter",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Wooden Shields",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eShield, 1));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "PEASANTRY",
+      "MOUNTED YEOMEN"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }
@@ -246,6 +438,18 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+    ws.setCharacteristics(4, 5, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Rocks and Masonry", 48, 2, 4, 3, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Crew's Tools", 1, 5, 5, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Siege Artillery", 1));
+    ws.addAbility(WarScroll::Ability("Virtue of Courage", 1));
+    ws.addAbility(WarScroll::Ability("Hard to Miss", 3));
+
+    ws.addKeyWords({"ORDER", "WARMACHINE", "FIELD TREBUCHET", "FREE PEOPLE",
+      "PEASANTRY", "CREW"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
     return ws;
   }

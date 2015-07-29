@@ -23,6 +23,14 @@ Rectangle
     for (var i = 0; i < aList.length; ++i) {
       aWarScrollUpgradeModel.append({'name' : aList[i]});
     }
+
+    if (aList.length === 0) {
+      aresenalRect.visible = false
+      aresenalRect.height = 0
+    } else {
+      aresenalRect.visible = true
+      aresenalRect.height = 0.25 * aresenalRect.parent.height
+    }
   }
 
   function addUnitUpgrades(aList)
@@ -30,6 +38,30 @@ Rectangle
     aWarScrollUnitUpgradeModel.clear();
     for (var i = 0; i < aList.length; ++i) {
       aWarScrollUnitUpgradeModel.append({'name' : aList[i]});
+    }
+
+    if (aList.length === 0) {
+      unitRect.visible = false
+      unitRect.height = 0
+    } else {
+      unitRect.visible = true
+      unitRect.height = 0.25 * unitRect.parent.height
+    }
+  }
+
+  function addMountUpgrades(aList)
+  {
+    aWarScrollMountUpgradeModel.clear();
+    for (var i = 0; i < aList.length; ++i) {
+      aWarScrollMountUpgradeModel.append({'name' : aList[i]});
+    }
+
+    if (aList.length === 0) {
+      mountRect.visible = false
+      mountRect.height = 0
+    } else {
+      mountRect.visible = true
+      mountRect.height = 0.25 * mountRect.parent.height
     }
   }
 
@@ -77,8 +109,8 @@ Rectangle
     var unitUpgradeList = aWarScrollUnitUpgradeView
     for (var j = 0; j < unitUpgradeList.count; ++j)
     {
-      var unitUgradeItem = unitUpgradeList.contentItem.children[j];
-      var unitUpgradeChi1 = unitUgradeItem.children[0];
+      var unitUpgradeItem = unitUpgradeList.contentItem.children[j];
+      var unitUpgradeChi1 = unitUpgradeItem.children[0];
       var unitUpgradeChi2 = unitUpgradeChi1.children[0];
       var unitUpgradeChi3 = unitUpgradeChi2.children[0];
       var unitUpgradeChi4 = unitUpgradeChi3.children[0];
@@ -90,19 +122,13 @@ Rectangle
 
     var mountUgradeList = aWarScrollMountUpgradeView;
     var moustSelected = false;
-    var testCount = mountUgradeList.count;
-    for (var i = 0; i < mountUgradeList.count; ++i)
+    for (var k = 0; k < mountUgradeList.count; ++k)
     {
-      var mountItem = mountUgradeList.contentItem.children[i];
-      console.log(mountItem.text);
+      var mountItem = mountUgradeList.contentItem.children[k];
       var mountChi1 = mountItem.children[0];
-      console.log(mountChi1);
       var mountChi2 = mountChi1.children[0];
-      console.log(mountChi2);
       var mountChi3 = mountChi2.children[0];
-      console.log(mountChi3);
       var mountChi4 = mountChi3.children[0];
-      console.log(mountChi4);
       if (mountChi4.checked) {
         itemSelected = true;
         var mountUpgradeName = mountChi3.text
@@ -171,6 +197,7 @@ Rectangle
 
     Row
     {
+      id: aresenalRect
       width: parent.width
       height: 0.25 * parent.height
 
@@ -214,6 +241,7 @@ Rectangle
                   {
                     id: warScrollDelegateSelected
                     anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
                     exclusiveGroup: exclusiveUpgrades
                   }
                 }
@@ -229,6 +257,7 @@ Rectangle
 
         GroupBox
         {
+          id: aWarScrollUpgradeGroupBox
           title: "Weapons"
           width: parent.width
           height: parent.height
@@ -248,6 +277,7 @@ Rectangle
 
     Row
     {
+      id: unitRect
       width: parent.width
       height: 0.25 * parent.height
 
@@ -287,6 +317,7 @@ Rectangle
                   {
                     id: warScrollDelegateSelected
                     anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
                   }
                 }
               }
@@ -301,6 +332,7 @@ Rectangle
 
         GroupBox
         {
+          id: aWarScrollUnitUpgradeGroupBox
           title: "Unit"
           width: parent.width
           height: parent.height
@@ -320,6 +352,7 @@ Rectangle
 
     Row
     {
+      id: mountRect
       width: parent.width
       height: 0.25 * parent.height
 
@@ -363,6 +396,7 @@ Rectangle
                   {
                     id: warScrollMoustDelegateSelected
                     anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
                     exclusiveGroup: exclusiveUpgrades
                   }
                 }
@@ -378,6 +412,7 @@ Rectangle
 
         GroupBox
         {
+          id: aWarScrollMountUpgradeGroupBox
           title: "Mounts"
           width: parent.width
           height: parent.height

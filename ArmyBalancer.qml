@@ -364,7 +364,7 @@ Item
             width: parent.width
             height: parent.height
             text: ""
-            font.pointSize: 7
+            font.pointSize: 11
             font.family: "Courier"
             backgroundVisible: false
           }

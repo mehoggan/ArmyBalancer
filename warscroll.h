@@ -192,7 +192,7 @@ public:
   public:
     enum class UnitUpgradeType
     {
-      eChampion, eMusician, eBannerBearer, eShield, eMount, eNone
+      eChampion, eMusician, eBannerBearer, eShield, eMount, eOther, eNone
     };
 
   private:
@@ -200,6 +200,7 @@ public:
     UnitUpgradeType m_Type;
     int m_PointsCost;
     std::list<std::pair<std::string, int>> m_CharacteristicsToUpdate;
+    std::list<Ability> m_Abilities;
     bool m_CanFly;
 
   public:
@@ -221,6 +222,9 @@ public:
     void registerCharacteristicToIncrease(const std::string& name, int val);
     const std::list<std::pair<std::string, int>> getCharacteristicsToUpdate()
       const {return m_CharacteristicsToUpdate;}
+
+    const std::list<Ability> getAbilities() const {return m_Abilities;}
+    void addAbility(const Ability &ability);
 
     friend std::ostream &operator<<(std::ostream &out,
       const UnitUpgrade &upgrade)
@@ -405,27 +409,37 @@ public:
       out << it.first << ": " << it.second << " ";
     }
     out << std::endl << std::endl;
-    out << "\t" << "Mounts:" << std::endl;
+    if (!ws.m_AppliedMounts.empty()) {
+      out << "\t" << "Mounts:" << std::endl;
+    }
     for (auto it : ws.m_AppliedMounts) {
       out << it;
       out << std::endl;
     }
-    out << "\t" << "Weapons:" << std::endl;
+    if (!ws.m_Weapons.empty()) {
+      out << "\t" << "Weapons:" << std::endl;
+    }
     for (auto it : ws.m_Weapons) {
       out << it.second;
       out << std::endl;
     }
-    out << "\t" << "Abilities:" << std::endl;
+    if (!ws.m_Abilities.empty()) {
+      out << "\t" << "Abilities:" << std::endl;
+    }
     for (auto it : ws.m_Abilities) {
       out << it.second;
       out << std::endl;
     }
-    out << "\t" << "Spells:" << std::endl;
+    if (!ws.m_Spells.empty()) {
+      out << "\t" << "Spells:" << std::endl;
+    }
     for (const auto &spell : ws.m_Spells) {
       out << spell;
       out << std::endl;
     }
-    out << "\t" << "Unit Upgrades:" << std::endl;
+    if (!ws.m_AppliedUpgrades.empty()) {
+      out << "\t" << "Unit Upgrades:" << std::endl;
+    }
     for (const auto &upgrade : ws.m_AppliedUpgrades) {
       out << upgrade;
       out << std::endl;
