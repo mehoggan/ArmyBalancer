@@ -282,10 +282,10 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Khorne", 2));
 
     ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
-      WarScroll::Weapon("Daemonic Axe", 2, 4, 4, 3, 2, 3),
+      WarScroll::Weapon("Daemonic Axe", 2, 4, 3, 3, 2, 3),
       WarScroll::Ability()));
     ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
-      WarScroll::Weapon("Hellforged Sword", 2, 4, 3, 3, 1, 3),
+      WarScroll::Weapon("Hellforged Sword", 2, 4, 2, 3, 1, 3),
       WarScroll::Ability()));
 
     WarScroll::MountUpgrade wingsUpgrade("Wings", true);
