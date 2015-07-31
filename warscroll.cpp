@@ -40,6 +40,11 @@ void WarScroll::UnitUpgrade::addAbility(const WarScroll::Ability &ability)
   m_Abilities.push_back(ability);
 }
 
+void WarScroll::UnitUpgrade::addWeapon(const WarScroll::Weapon &weapon)
+{
+  m_Weapons.push_back(weapon);
+}
+
 void WarScroll::MountUpgrade::registerCharacteristicToIncrease(
   const std::string& name, int val)
 {

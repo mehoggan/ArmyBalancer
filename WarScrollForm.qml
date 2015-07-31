@@ -389,7 +389,7 @@ Rectangle
                     id: warScrollMoustDelegateSelected
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    exclusiveGroup: exclusiveUpgrades
+                    exclusiveGroup: exclusiveMountUpgrades
                   }
                 }
               }

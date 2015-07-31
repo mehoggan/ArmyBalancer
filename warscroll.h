@@ -201,6 +201,7 @@ public:
     int m_PointsCost;
     std::list<std::pair<std::string, int>> m_CharacteristicsToUpdate;
     std::list<Ability> m_Abilities;
+    std::list<Weapon> m_Weapons;
     bool m_CanFly;
 
   public:
@@ -225,6 +226,9 @@ public:
 
     const std::list<Ability> getAbilities() const {return m_Abilities;}
     void addAbility(const Ability &ability);
+
+    const std::list<Weapon> getWeapons() const {return m_Weapons;}
+    void addWeapon(const Weapon &weapon);
 
     friend std::ostream &operator<<(std::ostream &out,
       const UnitUpgrade &upgrade)

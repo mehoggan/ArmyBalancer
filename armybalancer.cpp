@@ -315,6 +315,18 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
             for (const auto &ability : abilities) {
               m_CurrentWarScroll.addAbility(ability);
             }
+            const std::list<WarScroll::Weapon> &weapons =
+              currUnitUpgrade.getWeapons();
+            for (const auto &weapon : weapons) {
+              m_CurrentWarScroll.addWeapon(weapon);
+            }
+            if (currUnitUpgrade.getUpgradeType() ==
+              WarScroll::UnitUpgrade::UnitUpgradeType::eMount) {
+              m_CurrentWarScroll.registerMountUpgrade(WarScroll::MountUpgrade(
+                currUnitUpgrade.getName()));
+              m_CurrentWarScroll.applyRegisteredMount(
+                currUnitUpgrade.getName());
+            }
             unitCanFly |= currUnitUpgrade.providesCanFly();
             break;
           }
