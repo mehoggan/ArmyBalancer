@@ -30,7 +30,7 @@ namespace WarScrollGeneration
     ws.setCanFly(true);
 
     ws.addWeapon(WarScroll::Weapon("Lash of Khorne", 8, 4, 4, 3, 1, 3));
-    ws.addWeapon(WarScroll::Weapon("Mighty Axe of Khorne", 2, 6, 3, 2, 3));
+    ws.addWeapon(WarScroll::Weapon("Mighty Axe of Khorne", 2, 6, 3, 2, 2, 3));
 
     ws.addAbility(WarScroll::Ability("Drawn In for the Kill", 1));
     ws.addAbility(WarScroll::Ability("The Land Rebels", 2));

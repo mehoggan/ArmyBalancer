@@ -162,10 +162,12 @@ public:
   private:
     Weapon m_Weapon;
     Ability m_Ability;
+    Weapon m_SecondaryWeapon;
 
     std::list<Weapon> m_WeaponsToReplace;
     std::list<Ability> m_AbilitiesToReplace;
     std::list<std::pair<std::string, int>> m_CharacteristicsToUpdate;
+    std::list<Ability> m_AbilitiesToAdd;
 
   public:
     WeaponUpgrade();
@@ -185,6 +187,13 @@ public:
     {return m_WeaponsToReplace;}
     const std::list<Ability> &abilitiesToReplace() const
     {return m_AbilitiesToReplace;}
+
+    const Weapon &getSecondaryWeapon() const {return m_SecondaryWeapon;}
+    void setSecondaryWeapon(const Weapon &weapon) {m_SecondaryWeapon = weapon;}
+
+    const std::list<Ability> &getAbilitiesToAdd() const
+    {return m_AbilitiesToAdd;}
+    void addAbility(const Ability &ability);
   };
 
   class UnitUpgrade
@@ -373,7 +382,8 @@ public:
   const std::list<WeaponUpgrade> getWeaponUpgrades() const
   {return m_WeaponUpgrades;}
   const WeaponUpgrade &getWeaponUpgrade(const std::string &weaponUpgrade,
-    const std::string &abilityUpgrade) const;
+    const std::string &abilityUpgrade,
+    const std::string &secondaryweapon) const;
   void applyWeaponUpgrade(const WeaponUpgrade &weaponUpgrade);
 
   std::string toString() const;
@@ -404,15 +414,14 @@ public:
     out << (ws.m_CanFly ? "\tFlyer\n" : "");
     out << std::endl;
 
-    bool first = true;
-    for (auto it : ws.m_Characteristics) {
-      if (first) {
-        out << "\t";
-        first = false;
-      }
-      out << it.first << ": " << it.second << " ";
+    if (ws.m_Characteristics.size() == 4) {
+      WarScroll &tmpWs = const_cast<WarScroll &>(ws);
+      out << "\t" <<
+        "Move: " << tmpWs.m_Characteristics["Move"] << " " <<
+        "Wounds: " << tmpWs.m_Characteristics["Wounds"] << " " <<
+        "Bravery: " << tmpWs.m_Characteristics["Bravery"] << " " <<
+        "Save: " << tmpWs.m_Characteristics["Save"] << std::endl;
     }
-    out << std::endl << std::endl;
     if (!ws.m_AppliedMounts.empty()) {
       out << "\t" << "Mounts:" << std::endl;
     }
@@ -448,16 +457,14 @@ public:
       out << upgrade;
       out << std::endl;
     }
-    first = true;
     out << "\t" << "Keywords:" << std::endl;
     for (const auto &key : ws.m_Keywords) {
-      if (first) {
-        out << "\t";
-        first = false;
-      }
-      out << key << " ";
+      out << "\t";
+      out << key << ((key == *(ws.m_Keywords.rbegin())) ? " " : ", ");
+      out << std::endl;
     }
-    out << std::endl << "\t" << ws.m_Guid.toString().toStdString() << std::endl;
+    //out << std::endl << "\t" << ws.m_Guid.toString().toStdString() <<
+      //std::endl;
     return out;
   }
 };

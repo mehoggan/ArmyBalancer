@@ -34,7 +34,7 @@ namespace WarScrollGeneration
 
     ws.addWeapon(WarScroll::Weapon("Staff of Tzeentch", 3, 2, 4, 2, 0, 2));
     ws.addWeapon(WarScroll::Weapon("Curved Beak and Wicked Talons",
-      1, 4, 3, 1, 1));
+      1, 4, 4, 3, 1, 1));
 
     ws.setCanFly(true);
 

@@ -28,6 +28,11 @@ void WarScroll::WeaponUpgrade::registerCharacteristicToIncrease(
   m_CharacteristicsToUpdate.push_back(std::make_pair(name, val));
 }
 
+void WarScroll::WeaponUpgrade::addAbility(const Ability &ability)
+{
+  m_AbilitiesToAdd.push_back(ability);
+}
+
 void WarScroll::UnitUpgrade::registerCharacteristicToIncrease(
   const std::string& name, int val)
 {
@@ -255,20 +260,27 @@ void WarScroll::addWeaponUpgrade(const WarScroll::WeaponUpgrade &upgrade)
 }
 
 const WarScroll::WeaponUpgrade &WarScroll::getWeaponUpgrade(
-  const std::string &weaponUpgrade, const std::string &abilityUpgrade) const
+  const std::string &weaponUpgrade, const std::string &abilityUpgrade,
+  const std::string &secondaryWeapon) const
 {
   if (!weaponUpgrade.empty() && !abilityUpgrade.empty()) {
     for (const WeaponUpgrade &weaponUpgradeI : m_WeaponUpgrades) {
-      if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() ||
-        abilityUpgrade == weaponUpgradeI.getAbility().getName()) {
+      if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() &&
+        abilityUpgrade == weaponUpgradeI.getAbility().getName() &&
+        secondaryWeapon == weaponUpgradeI.getSecondaryWeapon().getName()) {
           return weaponUpgradeI;
       }
     }
   } else {
     for (const WeaponUpgrade &weaponUpgradeI : m_WeaponUpgrades) {
       if (weaponUpgrade == weaponUpgradeI.getWeapon().getName() &&
-        abilityUpgrade == weaponUpgradeI.getAbility().getName()) {
-          return weaponUpgradeI;
+        !weaponUpgradeI.getWeapon().getName().empty() &&
+        weaponUpgradeI.getSecondaryWeapon().getName() == secondaryWeapon) {
+        return weaponUpgradeI;
+      } else if (abilityUpgrade == weaponUpgradeI.getAbility().getName() &&
+        !weaponUpgradeI.getAbility().getName().empty() &&
+        weaponUpgradeI.getSecondaryWeapon().getName() == secondaryWeapon) {
+        return weaponUpgradeI;
       }
     }
   }
@@ -304,6 +316,11 @@ void WarScroll::applyWeaponUpgrade(
   if (!weaponUpgrade.getAbility().getName().empty()) {
     m_Abilities.insert(std::make_pair(weaponUpgrade.getAbility().getName(),
     weaponUpgrade.getAbility()));
+  }
+  if (!weaponUpgrade.getSecondaryWeapon().getName().empty()) {
+    m_Weapons.insert(std::make_pair(
+      weaponUpgrade.getSecondaryWeapon().getName(),
+      weaponUpgrade.getSecondaryWeapon()));
   }
 }
 

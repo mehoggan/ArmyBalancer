@@ -13,7 +13,7 @@ namespace WarScrollGeneration
 
     ws.addAbility(WarScroll::Ability("Dark Temptations", 2));
     ws.addAbility(WarScroll::Ability("Delicate Precision", 1));
-    ws.addAbility(WarScroll::Ability("Command Ability", 2, true));
+    ws.addAbility(WarScroll::Ability("Excess of Violence", 2, true));
 
     ws.addSpell(WarScroll::Spell("Summon Daemons"), 7, 3);
     ws.addSpell(WarScroll::Spell("Cacophonic Choir"), 6, 2);
@@ -34,7 +34,7 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Staff of Masks", 1, 1, 3, 5, 0, 1));
 
     ws.addAbility(WarScroll::Ability("Unnatural Reflexes", 2));
-    ws.addAbility(WarScroll::Ability("The endless Dance", 1));
+    ws.addAbility(WarScroll::Ability("The Endless Dance", 1));
     ws.addAbility(WarScroll::Ability("Infernal Choreographer", 1));
 
     ws.addKeyWords({"CHAOS", "DAEMON", "DAEMONETTE", "SLAANESH", "HERO",
@@ -152,7 +152,7 @@ namespace WarScrollGeneration
     ws.setCharacteristics(14, 2, 10, 5);
 
     ws.addWeapon(WarScroll::Weapon("Piercing Claws", 1, 2, 4, 4, 1, 1));
-    ws.addWeapon(WarScroll::Weapon("Poisoned Tongue", 1, 2, 4, 4, 1));
+    ws.addWeapon(WarScroll::Weapon("Poisoned Tongue", 1, 2, 4, 4, 0, 1));
 
     ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
 

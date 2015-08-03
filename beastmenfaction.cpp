@@ -132,7 +132,9 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
     ws.setCharacteristics(6, 1, 5, 5);
-    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
     ws.addAbility(WarScroll::Ability("Anarchy and Mayhem", 2));                 // Conditional on Unit Size > 20
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Foe-Render",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
@@ -140,6 +142,7 @@ namespace WarScrollGeneration
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Banner Bearer",
       WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+
     WarScroll::WeaponUpgrade dualAxeUpgrade(
       WarScroll::Weapon("Gor Blade", 1, 1, 4, 4, 0, 1),
       WarScroll::Ability("Rend and Tear", 1));
@@ -150,6 +153,7 @@ namespace WarScrollGeneration
     shieldUpgrade.registerAbilityToReplace(WarScroll::Ability("Rend and Tear"));
     shieldUpgrade.registerCharacteristicToIncrease("Save", -1);
     ws.addWeaponUpgrade(shieldUpgrade);
+
     ws.addKeyWords({"CHAOS", "BEASTMEN", "BRAYHERD", "GORS"});
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
     return ws;
@@ -244,7 +248,7 @@ namespace WarScrollGeneration
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 
     ws.addAbility(WarScroll::Ability("Vile Invaders", 1));
-    ws.addAbility(WarScroll::Ability("Baying Hatred", 2));                      // Dependent on unit size >= 20
+    ws.addAbility(WarScroll::Ability("Baying Anger", 2));                       // Dependent on unit size >= 20
 
     ws.addKeyWords({"CHAOS", "BEASTMEN", "BRAYHERD", "UNGOR RAIDERS"});
 

@@ -188,11 +188,21 @@ void ArmyBalancer::warScrollSeleted()
           const std::string &ability = upgrade.getAbility().getName();
           list.append(ability.c_str());
         } else {
-          if (upgrade.getAbility().getName().empty()) {
+          if (upgrade.getAbility().getName().empty() &&
+            upgrade.getSecondaryWeapon().getName().empty()) {
             list.append(weapon.c_str());
-          } else {
+          } else if (upgrade.getAbility().getName().empty() &&
+            !upgrade.getSecondaryWeapon().getName().empty()) {
+            list.append((weapon + "//" +
+              upgrade.getSecondaryWeapon().getName()).c_str());
+          } else if (!upgrade.getAbility().getName().empty() &&
+            upgrade.getSecondaryWeapon().getName().empty()){
             list.append((weapon + "/" +
               upgrade.getAbility().getName()).c_str());
+          } else {
+            list.append((weapon + "/" +
+              upgrade.getAbility().getName() + "/" +
+              upgrade.getSecondaryWeapon().getName()).c_str());
           }
         }
       }
@@ -261,13 +271,13 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
         tokens.push_back(s);
       }
 
-      if (tokens.size() < 2) {
+      if (tokens.size() == 1) {
         const WarScroll::WeaponUpgrade &upgrade =
-          m_CurrentWarScroll.getWeaponUpgrade(tokens[0], "");
+          m_CurrentWarScroll.getWeaponUpgrade(tokens[0], "", "");
         if (upgrade.getWeapon().getName().empty() &&
           upgrade.getAbility().getName().empty()) {
           const_cast<WarScroll::WeaponUpgrade &>(upgrade) =
-            m_CurrentWarScroll.getWeaponUpgrade("", tokens[0]);
+            m_CurrentWarScroll.getWeaponUpgrade("", tokens[0], "");
         }
         Q_ASSERT(!upgrade.getWeapon().getName().empty() ||
           !upgrade.getAbility().getName().empty());
@@ -275,12 +285,28 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
         for (const auto &i : upgrade.getCharacteristicsToUpdate()) {
           m_CurrentWarScroll.incrementCharacteristic(i.first, i.second);
         }
-      } else {
+        for (const auto &i : upgrade.getAbilitiesToAdd()) {
+          m_CurrentWarScroll.addAbility(i);
+        }
+      } else if (tokens.size() == 2){
         const WarScroll::WeaponUpgrade &upgrade =
-          m_CurrentWarScroll.getWeaponUpgrade(tokens[0], tokens[1]);
+          m_CurrentWarScroll.getWeaponUpgrade(tokens[0], tokens[1], "");
         m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
         for (const auto &i : upgrade.getCharacteristicsToUpdate()) {
           m_CurrentWarScroll.incrementCharacteristic(i.first, i.second);
+        }
+        for (const auto &i : upgrade.getAbilitiesToAdd()) {
+          m_CurrentWarScroll.addAbility(i);
+        }
+      } else {
+        const WarScroll::WeaponUpgrade &upgrade =
+          m_CurrentWarScroll.getWeaponUpgrade(tokens[0], tokens[1], tokens[2]);
+        m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
+        for (const auto &i : upgrade.getCharacteristicsToUpdate()) {
+          m_CurrentWarScroll.incrementCharacteristic(i.first, i.second);
+        }
+        for (const auto &i : upgrade.getAbilitiesToAdd()) {
+          m_CurrentWarScroll.addAbility(i);
         }
       }
     }

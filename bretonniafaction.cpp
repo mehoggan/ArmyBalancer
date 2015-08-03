@@ -147,7 +147,6 @@ namespace WarScrollGeneration
     ws.setCharacteristics(5, 5, 6, 6);
 
     ws.addWeapon(WarScroll::Weapon("Staff of Purity", 1, 1, 4, 3, 1, 3));
-    ws.addWeapon(WarScroll::Weapon("Steed's Hooves", 1, 2, 4, 4, 0, 1));
 
     ws.addAbility(WarScroll::Ability("Aura of the Lady", 1));
 
@@ -446,6 +445,7 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Siege Artillery", 1));
     ws.addAbility(WarScroll::Ability("Virtue of Courage", 1));
     ws.addAbility(WarScroll::Ability("Hard to Miss", 3));
+    ws.addAbility(WarScroll::Ability("Arcing Shot", 3));
 
     ws.addKeyWords({"ORDER", "WARMACHINE", "FIELD TREBUCHET", "FREE PEOPLE",
       "PEASANTRY", "CREW"});
