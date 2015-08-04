@@ -66,7 +66,7 @@ namespace WarScrollGeneration
 
     ws.setCharacteristics(4, 5, 8, 3);
 
-    ws.addWeapon(WarScroll::Weapon(1, 4, 3, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Hammer of Angrund", 1, 4, 3, 3, 1, 3));
 
     ws.addAbility(WarScroll::Ability("Belgar's Oath Stone", 2));
     ws.addAbility(WarScroll::Ability("Revenge Incarnate", 1));
@@ -308,13 +308,17 @@ namespace WarScrollGeneration
 
     ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
 
-    // TODO Unit Upgrades with upgrades.
-    WarScroll::UnitUpgrade ironbeardUpgrade("Ironbeard",
+    WarScroll::UnitUpgrade ironbeardWithBothUpgrade(
+      "Ironbeard",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 2);
-    ironbeardUpgrade.addWeapon(WarScroll::Weapon("Drakefire Pistol",
-      1, 1, 4, 4, 0, 1)); // <-- Missed ability if two pistols given
-    ironbeardUpgrade.addAbility(WarScroll::Ability("Cinderblast Bomb", 1));
-    ws.registerUnitUpgrade(ironbeardUpgrade);
+    ironbeardWithBothUpgrade.addWeapon(
+      WarScroll::Weapon("Drakefire Pistol", 1, 1, 4, 4, 0, 1));
+    ironbeardWithBothUpgrade.addWeapon(
+      WarScroll::Weapon("Drakefire Pistol", 8, 1, 4, 3, 1, 1));
+    ironbeardWithBothUpgrade.addAbility(WarScroll::Ability(
+      "Cinderblast Bomb", 1));
+    ws.registerUnitUpgrade(ironbeardWithBothUpgrade);
+
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Icon Bearer",
       WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Drummer",
@@ -332,6 +336,15 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 1, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Drakegun", 16, 1, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Mailed Fist", 1, 1, 4, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+
     return ws;
   }
 

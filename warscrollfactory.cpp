@@ -239,4 +239,3 @@ WarScrollFactory::WarScrollFactory()
     m_WarScrolls[woodElves.getName()] = woodElvesDictionary;
   }
 }
-

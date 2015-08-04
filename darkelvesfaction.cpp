@@ -858,22 +858,19 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Witch Elves' Sacrificial Knives",
       1, 6, 3, 4, 0, 1));
 
-    // TODO: Only Hellebron or Death Hag not both.
-    // TODO: Only one Hellebron on Cauldron allowed.
-    WarScroll::UnitUpgrade hellebronUpgrade("Hellebron",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 3);
+    WarScroll::MountUpgrade hellebronUpgrade("Hellebron", 3);
     hellebronUpgrade.addWeapon(WarScroll::Weapon("Hellebron's Deathsword",
       1, 2, 3, 3, 1, 3));
     hellebronUpgrade.addWeapon(WarScroll::Weapon("Hellebron's Cursed Blade",
       1, 2, 3, 4, 0, 1));
     hellebronUpgrade.addAbility(WarScroll::Ability("Amulet of Dark Fire", 2));
     hellebronUpgrade.addAbility(WarScroll::Ability("Orgy of Slaughter", 3));
-    ws.registerUnitUpgrade(hellebronUpgrade);
-    WarScroll::UnitUpgrade deathHagUpgrade("Death Hag",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 2);
+    hellebronUpgrade.setMakesUnitUnique(true);
+    ws.registerMountUpgrade(hellebronUpgrade);
+    WarScroll::MountUpgrade deathHagUpgrade("Death Hag", 2);
     deathHagUpgrade.addWeapon(WarScroll::Weapon("Death Hag's Blade of Khaine",
       1, 4, 3, 4, 0, 1));
-    ws.registerUnitUpgrade(deathHagUpgrade);
+    ws.registerMountUpgrade(deathHagUpgrade);
 
     ws.addAbility(WarScroll::Ability("Bloodshield", 1));
     ws.addAbility(WarScroll::Ability("Witchbrew", 2));

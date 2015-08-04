@@ -1,6 +1,7 @@
 ﻿#include "armybalancer.h"
 
 #include <QDate>
+#include <QMessageBox>
 
 #include <iostream>
 #include <sstream>
@@ -339,12 +340,22 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
             const std::list<WarScroll::Ability> &abilities =
               currUnitUpgrade.getAbilities();
             for (const auto &ability : abilities) {
-              m_CurrentWarScroll.addAbility(ability);
+              if (currUnitUpgrade.getUpgradeType() ==
+                WarScroll::UnitUpgrade::UnitUpgradeType::eChampion) {
+                m_CurrentWarScroll.addChampionAbility(ability);
+              } else {
+                m_CurrentWarScroll.addAbility(ability);
+              }
             }
             const std::list<WarScroll::Weapon> &weapons =
               currUnitUpgrade.getWeapons();
             for (const auto &weapon : weapons) {
-              m_CurrentWarScroll.addWeapon(weapon);
+              if (currUnitUpgrade.getUpgradeType() ==
+                WarScroll::UnitUpgrade::UnitUpgradeType::eChampion) {
+                m_CurrentWarScroll.addChampionWeapon(weapon);
+              } else {
+                m_CurrentWarScroll.addWeapon(weapon);
+              }
             }
             if (currUnitUpgrade.getUpgradeType() ==
               WarScroll::UnitUpgrade::UnitUpgradeType::eMount) {
@@ -354,6 +365,22 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
                 currUnitUpgrade.getName());
             }
             unitCanFly |= currUnitUpgrade.providesCanFly();
+
+            if (currUnitUpgrade.makesUnitUnique()) {
+              m_CurrentWarScroll.setIsUnique(true);
+              for (const std::map<std::string, WarScroll>::value_type &scroll :
+                m_CurrentWarScrollsAdded) {
+                if (scroll.second.getTitle() == m_CurrentWarScroll.getTitle()) {
+                  if (scroll.second.getIsUnique()) {
+                    QMessageBox::warning(nullptr, "Mulitiples Not Allowed",
+                      tr("Multiples of %1 not allowed.").
+                      arg(scroll.second.getTitle().c_str()));
+                    clearCurrentWarScroll();
+                    return;
+                  }
+                }
+              }
+            }
             break;
           }
         }
@@ -375,12 +402,33 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
           for (const auto &weapon : weapons) {
             m_CurrentWarScroll.addWeapon(weapon);
           }
+          const std::list<WarScroll::Ability> abilities = mount.getAbilities();
+          for (const auto &ability : abilities) {
+            m_CurrentWarScroll.addAbility(ability);
+          }
           for (const auto &stat : mount.getCharacteristicsToUpdate()) {
             m_CurrentWarScroll.incrementCharacteristic(stat.first,
               stat.second);
           }
           m_CurrentWarScroll.setCanFly(mount.providesCanFly());
           m_CurrentWarScroll.applyRegisteredMount(mount.getName());
+
+          if (mount.makesUnitUnique()) {
+            m_CurrentWarScroll.setIsUnique(true);
+            for (const std::map<std::string, WarScroll>::value_type &scroll :
+              m_CurrentWarScrollsAdded) {
+              if (scroll.second.getTitle() == m_CurrentWarScroll.getTitle()) {
+                if (scroll.second.getIsUnique()) {
+                  QMessageBox::warning(nullptr, "Mulitiples Not Allowed",
+                    tr("Multiples of %1 not allowed.").
+                    arg(scroll.second.getTitle().c_str()));
+                  clearCurrentWarScroll();
+                  return;
+                }
+              }
+            }
+          }
+
           break;
         }
       }

@@ -212,6 +212,7 @@ public:
     std::list<Ability> m_Abilities;
     std::list<Weapon> m_Weapons;
     bool m_CanFly;
+    bool m_MakesScrollUnique;
 
   public:
     UnitUpgrade(std::string name = "",
@@ -220,6 +221,7 @@ public:
       , m_Type(type)
       , m_PointsCost(pointsCost)
       , m_CanFly(false)
+      , m_MakesScrollUnique(false)
     {}
 
     const std::string &getName() const {return m_Name;}
@@ -228,6 +230,10 @@ public:
 
     bool providesCanFly() const {return m_CanFly;}
     void setProvidesFly(bool fly) {m_CanFly = fly;}
+
+    bool makesUnitUnique() const {return m_MakesScrollUnique;}
+    void setMakesUnitUnique(bool makesUnique)
+    {m_MakesScrollUnique = makesUnique;}
 
     void registerCharacteristicToIncrease(const std::string& name, int val);
     const std::list<std::pair<std::string, int>> getCharacteristicsToUpdate()
@@ -266,16 +272,23 @@ public:
   private:
     std::string m_Name;
     std::list<std::pair<std::string, int>> m_CharacteristicsToUpdate;
+    std::list<Ability> m_Abilities;
     std::list<Weapon> m_Weapons;
     bool m_CanFly;
+    bool m_MakesScrollUnique;
 
   public:
     MountUpgrade(std::string name = "", bool canFly = false)
       : m_Name(name)
       , m_CanFly(canFly)
+      , m_MakesScrollUnique(false)
     {}
 
     const std::string &getName() const {return m_Name;}
+
+    bool makesUnitUnique() const {return m_MakesScrollUnique;}
+    void setMakesUnitUnique(bool makesUnique)
+    {m_MakesScrollUnique = makesUnique;}
 
     bool providesCanFly() const {return m_CanFly;}
     void setProvidesFly(bool fly) {m_CanFly = fly;}
@@ -287,6 +300,9 @@ public:
     const std::list<Weapon> &getWeapons() const {return m_Weapons;}
     void addWeapon(const Weapon &weapon);
 
+    const std::list<Ability> getAbilities() const {return m_Abilities;}
+    void addAbility(const Ability &ability);
+
     friend std::ostream &operator<<(std::ostream &out,
       const MountUpgrade &upgrade)
     {
@@ -296,6 +312,7 @@ public:
   };
 private:
   std::string m_Title;
+  bool m_IsUnique;
   std::map<std::string, int> m_Characteristics;
   int m_MinUnitCount;
   int m_MaxUnitCount;
@@ -308,6 +325,8 @@ private:
   std::list<Spell> m_Spells;
   std::list<UnitUpgrade> m_AppliedUpgrades;
   std::list<UnitUpgrade> m_RegisteredUpgrades;
+  std::list<Weapon> m_ChampionWeapons;
+  std::list<Ability> m_ChampionAbilities;
   std::list<MountUpgrade> m_AppliedMounts;
   std::list<MountUpgrade> m_RegisteredMounts;
   bool m_CanFly;
@@ -326,6 +345,9 @@ public:
 
   std::string getTitle() const {return m_Title;}
   void setTitle(const std::string& title) {m_Title = title;}
+
+  bool getIsUnique() const {return m_IsUnique;}
+  void setIsUnique(bool isUnique) {m_IsUnique = isUnique;}
 
   void setCharacteristics(int move, int wounds, int bravery, int save);
   int getCharacteristic(const std::string &characteristic) const;
@@ -360,6 +382,12 @@ public:
   {return m_AppliedUpgrades;}
   void registerUnitUpgrade(const UnitUpgrade &upgrade);
   void applyRegisteredUpgrade(const std::string &upgradeName);
+
+  const std::list<Weapon> &getChampionWeapons() {return m_ChampionWeapons;}
+  void addChampionWeapon(const Weapon& weapon);
+
+  const std::list<Ability> &getChampionAbilities() {return m_ChampionAbilities;}
+  void addChampionAbility(const Ability& weapon);
 
   const std::list<MountUpgrade> getRegisteredMountUpgrades() const
   {return m_RegisteredMounts;}
@@ -455,6 +483,20 @@ public:
     }
     for (const auto &upgrade : ws.m_AppliedUpgrades) {
       out << upgrade;
+      out << std::endl;
+    }
+    if (!ws.m_ChampionWeapons.empty()) {
+      out << "\t" << "Champion's Weapons:" << std::endl;
+    }
+    for (const auto &weapon : ws.m_ChampionWeapons) {
+      out << weapon;
+      out << std::endl;
+    }
+    if (!ws.m_ChampionAbilities.empty()) {
+      out << "\t" << "Champion's Abilities:" << std::endl;
+    }
+    for (const auto &ability : ws.m_ChampionAbilities) {
+      out << ability;
       out << std::endl;
     }
     out << "\t" << "Keywords:" << std::endl;

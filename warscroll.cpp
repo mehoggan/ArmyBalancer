@@ -61,8 +61,14 @@ void WarScroll::MountUpgrade::addWeapon(const WarScroll::Weapon &weapon)
   m_Weapons.push_back(weapon);
 }
 
+void WarScroll::MountUpgrade::addAbility(const Ability &ability)
+{
+  m_Abilities.push_back(ability);
+}
+
 WarScroll::WarScroll()
-  : m_MinUnitCount(1)
+  : m_IsUnique(false)
+  , m_MinUnitCount(1)
   , m_MaxUnitCount(1)
   , m_UnitCount(1)
   , m_PointsCost(0)
@@ -71,6 +77,7 @@ WarScroll::WarScroll()
 
 WarScroll::WarScroll(const WarScroll &rhs)
   : m_Title(rhs.m_Title)
+  , m_IsUnique(rhs.m_IsUnique)
   , m_Characteristics(rhs.m_Characteristics)
   , m_MinUnitCount(rhs.m_MinUnitCount)
   , m_MaxUnitCount(rhs.m_MaxUnitCount)
@@ -81,6 +88,8 @@ WarScroll::WarScroll(const WarScroll &rhs)
   , m_Spells(rhs.m_Spells)
   , m_AppliedUpgrades(rhs.m_AppliedUpgrades)
   , m_RegisteredUpgrades(rhs.m_RegisteredUpgrades)
+  , m_ChampionWeapons(rhs.m_ChampionWeapons)
+  , m_ChampionAbilities(rhs.m_ChampionAbilities)
   , m_AppliedMounts(rhs.m_AppliedMounts)
   , m_RegisteredMounts(rhs.m_RegisteredMounts)
   , m_CanFly(rhs.m_CanFly)
@@ -93,6 +102,7 @@ WarScroll::WarScroll(const WarScroll &rhs)
 WarScroll &WarScroll::operator=(const WarScroll &rhs)
 {
   m_Title = rhs.m_Title;
+  m_IsUnique = rhs.m_IsUnique;
   m_Characteristics = rhs.m_Characteristics;
   m_MinUnitCount = rhs.m_MinUnitCount;
   m_MaxUnitCount = rhs.m_MaxUnitCount;
@@ -103,6 +113,8 @@ WarScroll &WarScroll::operator=(const WarScroll &rhs)
   m_Spells = rhs.m_Spells;
   m_AppliedUpgrades = rhs.m_AppliedUpgrades;
   m_RegisteredUpgrades = rhs.m_RegisteredUpgrades;
+  m_ChampionWeapons = rhs.m_ChampionWeapons;
+  m_ChampionAbilities = rhs.m_ChampionAbilities;
   m_AppliedMounts = rhs.m_AppliedMounts;
   m_RegisteredMounts = rhs.m_RegisteredMounts;
   m_CanFly = rhs.m_CanFly;
@@ -219,6 +231,16 @@ void WarScroll::applyRegisteredUpgrade(const std::string &upgradeName)
       break;
     }
   }
+}
+
+void WarScroll::addChampionWeapon(const Weapon& weapon)
+{
+  m_ChampionWeapons.push_back(weapon);
+}
+
+void WarScroll::addChampionAbility(const Ability& ability)
+{
+  m_ChampionAbilities.push_back(ability);
 }
 
 void WarScroll::registerMountUpgrade(const WarScroll::MountUpgrade &upgrade)
