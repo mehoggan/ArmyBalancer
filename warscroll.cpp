@@ -66,6 +66,17 @@ void WarScroll::MountUpgrade::addAbility(const Ability &ability)
   m_Abilities.push_back(ability);
 }
 
+void WarScroll::ChampionWithOptions::addWeapon(const WarScroll::Weapon &weapon)
+{
+  m_Weapons.push_back(weapon);
+}
+
+void WarScroll::ChampionWithOptions::addAbility(
+  const WarScroll::Ability &ability)
+{
+  m_Abilities.push_back(ability);
+}
+
 WarScroll::WarScroll()
   : m_IsUnique(false)
   , m_MinUnitCount(1)
@@ -88,10 +99,10 @@ WarScroll::WarScroll(const WarScroll &rhs)
   , m_Spells(rhs.m_Spells)
   , m_AppliedUpgrades(rhs.m_AppliedUpgrades)
   , m_RegisteredUpgrades(rhs.m_RegisteredUpgrades)
-  , m_ChampionWeapons(rhs.m_ChampionWeapons)
-  , m_ChampionAbilities(rhs.m_ChampionAbilities)
   , m_AppliedMounts(rhs.m_AppliedMounts)
   , m_RegisteredMounts(rhs.m_RegisteredMounts)
+  , m_AppliedChampionWithOptions(rhs.m_AppliedChampionWithOptions)
+  , m_RegisteredChampionWithOptions(rhs.m_RegisteredChampionWithOptions)
   , m_CanFly(rhs.m_CanFly)
   , m_Keywords(rhs.m_Keywords)
   , m_AllianceType(rhs.m_AllianceType)
@@ -113,9 +124,9 @@ WarScroll &WarScroll::operator=(const WarScroll &rhs)
   m_Spells = rhs.m_Spells;
   m_AppliedUpgrades = rhs.m_AppliedUpgrades;
   m_RegisteredUpgrades = rhs.m_RegisteredUpgrades;
-  m_ChampionWeapons = rhs.m_ChampionWeapons;
-  m_ChampionAbilities = rhs.m_ChampionAbilities;
   m_AppliedMounts = rhs.m_AppliedMounts;
+  m_RegisteredChampionWithOptions = rhs.m_RegisteredChampionWithOptions;
+  m_AppliedChampionWithOptions = rhs.m_AppliedChampionWithOptions;
   m_RegisteredMounts = rhs.m_RegisteredMounts;
   m_CanFly = rhs.m_CanFly;
   m_Keywords = rhs.m_Keywords;
@@ -173,6 +184,7 @@ void WarScroll::refreshPointsCost()
   m_PointsCost = 1;
 }
 
+#pragma warning(disable : 4715)
 const WarScroll::Ability &WarScroll::getAbility(const std::string &name) const
 {
   std::map<std::string, Ability>::const_iterator it = m_Abilities.find(name);
@@ -181,12 +193,14 @@ const WarScroll::Ability &WarScroll::getAbility(const std::string &name) const
   }
   Q_ASSERT(false && "Failed to find ability");
 }
+#pragma warning(default : 4715)
 
 void WarScroll::addAbility(const WarScroll::Ability &ability)
 {
   m_Abilities.insert(std::make_pair(ability.getName(), ability));
 }
 
+#pragma warning(disable : 4715)
 const WarScroll::Weapon &WarScroll::getWeapon(const std::string &name) const
 {
   std::map<std::string, Weapon>::const_iterator it = m_Weapons.find(name);
@@ -195,6 +209,7 @@ const WarScroll::Weapon &WarScroll::getWeapon(const std::string &name) const
   }
   Q_ASSERT(false && "Failed to find ability");
 }
+#pragma warning(default : 4715)
 
 void WarScroll::addWeapon(const WarScroll::Weapon &weapon)
 {
@@ -233,16 +248,6 @@ void WarScroll::applyRegisteredUpgrade(const std::string &upgradeName)
   }
 }
 
-void WarScroll::addChampionWeapon(const Weapon& weapon)
-{
-  m_ChampionWeapons.push_back(weapon);
-}
-
-void WarScroll::addChampionAbility(const Ability& ability)
-{
-  m_ChampionAbilities.push_back(ability);
-}
-
 void WarScroll::registerMountUpgrade(const WarScroll::MountUpgrade &upgrade)
 {
   m_RegisteredMounts.push_back(upgrade);
@@ -253,6 +258,23 @@ void WarScroll::applyRegisteredMount(const std::string &mountName)
   for (const MountUpgrade &upgrade : m_RegisteredMounts) {
     if (upgrade.getName() == mountName) {
       m_AppliedMounts.push_back(upgrade);
+      break;
+    }
+  }
+}
+
+void WarScroll::registerChampionWithOptions(
+  const WarScroll::ChampionWithOptions &upgrade)
+{
+  m_RegisteredChampionWithOptions.push_back(upgrade);
+}
+
+void WarScroll::applyRegisteredChampionWithOptions(
+  const std::string &championName)
+{
+  for (const ChampionWithOptions &upgrade : m_RegisteredChampionWithOptions) {
+    if (upgrade.getName() == championName) {
+      m_AppliedChampionWithOptions.push_back(upgrade);
       break;
     }
   }

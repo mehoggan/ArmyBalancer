@@ -310,6 +310,46 @@ public:
       return out;
     }
   };
+
+  class ChampionWithOptions
+  {
+  private:
+    std::string m_Name;
+    int m_PointsCost;
+    std::list<Weapon> m_Weapons;
+    std::list<Ability> m_Abilities;
+
+  public:
+    ChampionWithOptions(std::string name = "", int pointsCost = -1)
+      : m_Name(name)
+      , m_PointsCost(pointsCost)
+    {}
+
+    const std::string &getName() const {return m_Name;}
+    int getPointsCost() const {return m_PointsCost;}
+
+    const std::list<Weapon> &getWeapons() const {return m_Weapons;}
+    void addWeapon(const Weapon &weapon);
+
+    const std::list<Ability> &getAbilities() const {return m_Abilities;}
+    void addAbility(const Ability &ability);
+
+    friend std::ostream &operator<<(std::ostream &out,
+      const ChampionWithOptions &upgrade)
+    {
+      out << "\tName: " << upgrade.m_Name << std::endl;
+      for (const auto &weapon : upgrade.m_Weapons) {
+        out << weapon;
+        out << std::endl;
+      }
+      for (const auto &ability : upgrade.m_Abilities) {
+        out << ability;
+        out << std::endl;
+      }
+      return out;
+    }
+  };
+
 private:
   std::string m_Title;
   bool m_IsUnique;
@@ -325,10 +365,10 @@ private:
   std::list<Spell> m_Spells;
   std::list<UnitUpgrade> m_AppliedUpgrades;
   std::list<UnitUpgrade> m_RegisteredUpgrades;
-  std::list<Weapon> m_ChampionWeapons;
-  std::list<Ability> m_ChampionAbilities;
   std::list<MountUpgrade> m_AppliedMounts;
   std::list<MountUpgrade> m_RegisteredMounts;
+  std::list<ChampionWithOptions> m_AppliedChampionWithOptions;
+  std::list<ChampionWithOptions> m_RegisteredChampionWithOptions;
   bool m_CanFly;
   std::set<std::string> m_Keywords;
   GrandAllianceType m_AllianceType;
@@ -383,18 +423,19 @@ public:
   void registerUnitUpgrade(const UnitUpgrade &upgrade);
   void applyRegisteredUpgrade(const std::string &upgradeName);
 
-  const std::list<Weapon> &getChampionWeapons() {return m_ChampionWeapons;}
-  void addChampionWeapon(const Weapon& weapon);
-
-  const std::list<Ability> &getChampionAbilities() {return m_ChampionAbilities;}
-  void addChampionAbility(const Ability& weapon);
-
   const std::list<MountUpgrade> getRegisteredMountUpgrades() const
   {return m_RegisteredMounts;}
   const std::list<MountUpgrade> getAppliedMountUpgrades() const
   {return m_AppliedMounts;}
   void registerMountUpgrade(const MountUpgrade &upgrade);
   void applyRegisteredMount(const std::string &mountName);
+
+  const std::list<ChampionWithOptions> getRegisteredChampionWithOptions() const
+  {return m_RegisteredChampionWithOptions;}
+  const std::list<ChampionWithOptions> getAppliedChampionWithOptions() const
+  {return m_AppliedChampionWithOptions;}
+  void registerChampionWithOptions(const ChampionWithOptions &upgrade);
+  void applyRegisteredChampionWithOptions(const std::string &championName);
 
   bool getCanFly() const {return m_CanFly;}
   void setCanFly(bool canFly) {m_CanFly = canFly;}
@@ -485,18 +526,11 @@ public:
       out << upgrade;
       out << std::endl;
     }
-    if (!ws.m_ChampionWeapons.empty()) {
-      out << "\t" << "Champion's Weapons:" << std::endl;
-    }
-    for (const auto &weapon : ws.m_ChampionWeapons) {
-      out << weapon;
-      out << std::endl;
-    }
-    if (!ws.m_ChampionAbilities.empty()) {
+    if (!ws.m_AppliedChampionWithOptions.empty()) {
       out << "\t" << "Champion's Abilities:" << std::endl;
     }
-    for (const auto &ability : ws.m_ChampionAbilities) {
-      out << ability;
+    for (const auto &champion : ws.m_AppliedChampionWithOptions) {
+      out << champion;
       out << std::endl;
     }
     out << "\t" << "Keywords:" << std::endl;

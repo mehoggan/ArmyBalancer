@@ -858,7 +858,7 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Witch Elves' Sacrificial Knives",
       1, 6, 3, 4, 0, 1));
 
-    WarScroll::MountUpgrade hellebronUpgrade("Hellebron", 3);
+    WarScroll::MountUpgrade hellebronUpgrade("Hellebron");
     hellebronUpgrade.addWeapon(WarScroll::Weapon("Hellebron's Deathsword",
       1, 2, 3, 3, 1, 3));
     hellebronUpgrade.addWeapon(WarScroll::Weapon("Hellebron's Cursed Blade",
@@ -867,7 +867,7 @@ namespace WarScrollGeneration
     hellebronUpgrade.addAbility(WarScroll::Ability("Orgy of Slaughter", 3));
     hellebronUpgrade.setMakesUnitUnique(true);
     ws.registerMountUpgrade(hellebronUpgrade);
-    WarScroll::MountUpgrade deathHagUpgrade("Death Hag", 2);
+    WarScroll::MountUpgrade deathHagUpgrade("Death Hag");
     deathHagUpgrade.addWeapon(WarScroll::Weapon("Death Hag's Blade of Khaine",
       1, 4, 3, 4, 0, 1));
     ws.registerMountUpgrade(deathHagUpgrade);

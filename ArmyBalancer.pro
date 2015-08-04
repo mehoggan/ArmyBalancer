@@ -24,7 +24,7 @@ SOURCES += main.cpp \
   warriorsofchaosfaction.cpp \
   woodelvesfaction.cpp \
   warscrollfactory.cpp \
-    warscroll.cpp
+  warscroll.cpp
 
 RESOURCES += qml.qrc
 
@@ -57,5 +57,5 @@ HEADERS += \
   woodelvesfaction.h \
   factions.h \
   warscrollfactory.h \
-    warscroll.h
+  warscroll.h
 

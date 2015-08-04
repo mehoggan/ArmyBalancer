@@ -215,17 +215,32 @@ void ArmyBalancer::warScrollSeleted()
 
     if (m_Root) {
       QVariantList list;
+      QVariantList championList;
       const std::list<WarScroll::UnitUpgrade> &upgrades =
         m_CurrentWarScroll.getRegisteredUnitUpgrades();
       for (const WarScroll::UnitUpgrade &upgrade : upgrades) {
         Q_ASSERT(!upgrade.getName().empty());
         const std::string &unitUpgrade = upgrade.getName();
-        list.append(unitUpgrade.c_str());
+
+        if (upgrade.getUpgradeType() ==
+          WarScroll::UnitUpgrade::UnitUpgradeType::eChampion &&
+          !m_CurrentWarScroll.getRegisteredChampionWithOptions().empty()) {
+          for (const auto &champion :
+            m_CurrentWarScroll.getRegisteredChampionWithOptions()) {
+            championList.append(champion.getName().c_str());
+          }
+        } else {
+          list.append(unitUpgrade.c_str());
+        }
       }
       QMetaObject::invokeMethod(
         m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
         "addUnitUpgrades",
         Q_ARG(QVariant, QVariant::fromValue(list)));
+      QMetaObject::invokeMethod(
+        m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
+          "addChampionOption",
+          Q_ARG(QVariant, QVariant::fromValue(championList)));
     }
 
     if (m_Root) {
@@ -337,25 +352,11 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
               m_CurrentWarScroll.incrementCharacteristic(
                 upgradeCharacteristic.first, upgradeCharacteristic.second);
             }
-            const std::list<WarScroll::Ability> &abilities =
-              currUnitUpgrade.getAbilities();
-            for (const auto &ability : abilities) {
-              if (currUnitUpgrade.getUpgradeType() ==
-                WarScroll::UnitUpgrade::UnitUpgradeType::eChampion) {
-                m_CurrentWarScroll.addChampionAbility(ability);
-              } else {
-                m_CurrentWarScroll.addAbility(ability);
-              }
+            for (const auto &ability : currUnitUpgrade.getAbilities()) {
+              m_CurrentWarScroll.addAbility(ability);
             }
-            const std::list<WarScroll::Weapon> &weapons =
-              currUnitUpgrade.getWeapons();
-            for (const auto &weapon : weapons) {
-              if (currUnitUpgrade.getUpgradeType() ==
-                WarScroll::UnitUpgrade::UnitUpgradeType::eChampion) {
-                m_CurrentWarScroll.addChampionWeapon(weapon);
-              } else {
-                m_CurrentWarScroll.addWeapon(weapon);
-              }
+            for (const auto &weapon :  currUnitUpgrade.getWeapons()) {
+              m_CurrentWarScroll.addWeapon(weapon);
             }
             if (currUnitUpgrade.getUpgradeType() ==
               WarScroll::UnitUpgrade::UnitUpgradeType::eMount) {
@@ -435,6 +436,24 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
     }
   }
 
+  {
+    QVariantMap::const_iterator championUpgrade = data.find("championUpgrade");
+    if (championUpgrade != data.end()) {
+      QString championName = championUpgrade->toString();
+
+      const std::list<WarScroll::ChampionWithOptions> champions =
+        m_CurrentWarScroll.getRegisteredChampionWithOptions();
+
+      for (const auto &champion : champions) {
+        if (champion.getName() == championName.toStdString()) {
+          m_CurrentWarScroll.applyRegisteredChampionWithOptions(
+            champion.getName());
+          break;
+        }
+      }
+    }
+  }
+
   WarScroll tmpWarScroll = m_CurrentWarScroll;
   tmpWarScroll.refreshPointsCost();
   tmpWarScroll.regenGuid();
@@ -482,6 +501,13 @@ void ArmyBalancer::clearCurrentWarScroll()
     QMetaObject::invokeMethod(
       m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
       "addMountUpgrades",
+      Q_ARG(QVariant, QVariant::fromValue(list)));
+  }
+  if (m_Root) {
+    QVariantList list;
+    QMetaObject::invokeMethod(
+      m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
+      "addChampionOption",
       Q_ARG(QVariant, QVariant::fromValue(list)));
   }
 }

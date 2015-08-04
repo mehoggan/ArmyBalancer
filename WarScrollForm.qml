@@ -65,6 +65,22 @@ Rectangle
     }
   }
 
+  function addChampionOption(aList)
+  {
+    aWarScrollChampionUpgradeModel.clear();
+    for (var i = 0; i < aList.length; ++i) {
+      aWarScrollChampionUpgradeModel.append({'name' : aList[i]});
+    }
+
+    if (aList.length === 0) {
+      championRect.visible = false
+      championRect.height = 0
+    } else {
+      championRect.visible = true
+      championRect.height = 0.25 * championRect.parent.height
+    }
+  }
+
   function finalizeWarScroll()
   {
     var data = {}
@@ -125,6 +141,22 @@ Rectangle
         itemSelected = true;
         var mountUpgradeName = mountChi3.text
         data["mountUpgrade"] = mountUpgradeName
+        break;
+      }
+    }
+
+    var championUgradeList = aWarScrollChampionUpgradeView;
+    for (var k = 0; k < championUgradeList.count; ++k)
+    {
+      var championItem = championUgradeList.contentItem.children[k];
+      var championChi1 = championItem.children[0];
+      var championChi2 = championChi1.children[0];
+      var championChi3 = championChi2.children[0];
+      var championChi4 = championChi3.children[0];
+      if (championChi4.checked) {
+        itemSelected = true;
+        var championUpgradeName = championChi3.text
+        data["championUpgrade"] = championUpgradeName
         break;
       }
     }
@@ -414,6 +446,85 @@ Rectangle
             anchors.fill: parent
             model: aWarScrollMountUpgradeModel
             delegate: warScrollMountDelegate
+            highlight: Rectangle { color: "#00000000" }
+            focus: false
+          }
+        }
+      }
+    }
+
+    Row
+    {
+      id: championRect
+      width: parent.width
+      height: 0.25 * parent.height
+
+      ExclusiveGroup {
+        id: exclusiveChampionUpgrades
+      }
+
+      Rectangle
+      {
+        width: parent.width
+        height: parent.height
+        color: "#00000000"
+
+        Component
+        {
+          id: warScrollChampionDelegate
+          Rectangle
+          {
+            width: parent.width
+            height: 70
+            color: "#00000000"
+            Column
+            {
+              width: parent.width
+              height: parent.height
+              Row
+              {
+                width: parent.width
+                height: parent.height
+                Text
+                {
+                  id: warScrollChampionDelegateName
+                  width: parent.width
+                  height: parent.height
+                  font.pointSize: 8
+                  font.family: "Courier"
+                  text: name
+                  verticalAlignment: TextEdit.AlignVCenter
+
+                  RadioButton
+                  {
+                    id: warScrollMoustDelegateSelected
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    exclusiveGroup: exclusiveChampionUpgrades
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        ListModel
+        {
+          id: aWarScrollChampionUpgradeModel
+        }
+
+        GroupBox
+        {
+          id: aWarScrollChampionUpgradeGroupBox
+          title: "Champions"
+          width: parent.width
+          height: parent.height
+          ListView
+          {
+            id: aWarScrollChampionUpgradeView
+            anchors.fill: parent
+            model: aWarScrollChampionUpgradeModel
+            delegate: warScrollChampionDelegate
             highlight: Rectangle { color: "#00000000" }
             focus: false
           }
