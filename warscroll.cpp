@@ -61,6 +61,11 @@ void WarScroll::MountUpgrade::addWeapon(const WarScroll::Weapon &weapon)
   m_Weapons.push_back(weapon);
 }
 
+void WarScroll::MountUpgrade::addRiderWeaponToReplace(const Weapon &weapon)
+{
+  m_RiderWeaponsToReplace.push_back(weapon);
+}
+
 void WarScroll::MountUpgrade::addAbility(const Ability &ability)
 {
   m_Abilities.push_back(ability);
@@ -184,7 +189,9 @@ void WarScroll::refreshPointsCost()
   m_PointsCost = 1;
 }
 
+#ifdef Q_OS_WIN32
 #pragma warning(disable : 4715)
+#endif
 const WarScroll::Ability &WarScroll::getAbility(const std::string &name) const
 {
   std::map<std::string, Ability>::const_iterator it = m_Abilities.find(name);
@@ -193,14 +200,18 @@ const WarScroll::Ability &WarScroll::getAbility(const std::string &name) const
   }
   Q_ASSERT(false && "Failed to find ability");
 }
+#ifdef Q_OS_WIN32
 #pragma warning(default : 4715)
+#endif
 
 void WarScroll::addAbility(const WarScroll::Ability &ability)
 {
   m_Abilities.insert(std::make_pair(ability.getName(), ability));
 }
 
+#ifdef Q_OS_WIN32
 #pragma warning(disable : 4715)
+#endif
 const WarScroll::Weapon &WarScroll::getWeapon(const std::string &name) const
 {
   std::map<std::string, Weapon>::const_iterator it = m_Weapons.find(name);
@@ -209,11 +220,23 @@ const WarScroll::Weapon &WarScroll::getWeapon(const std::string &name) const
   }
   Q_ASSERT(false && "Failed to find ability");
 }
+#ifdef Q_OS_WIN32
 #pragma warning(default : 4715)
+#endif
 
 void WarScroll::addWeapon(const WarScroll::Weapon &weapon)
 {
   m_Weapons.insert(std::make_pair(weapon.getName(), weapon));
+}
+
+void WarScroll::removeWeapon(const WarScroll::Weapon &weapon)
+{
+  auto it = m_Weapons.find(weapon.getName());
+  if (it != m_Weapons.end()) {
+    if (weapon == it->second) {
+      m_Weapons.erase(it);
+    }
+  }
 }
 
 const WarScroll::Spell &WarScroll::getSpell(const std::string &name) const

@@ -6,6 +6,32 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(15, 13, 8, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Deathclaw's Deadly Beak",
+      2, 2, 3, 3, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Deathclaw's Razor Claws",
+      2, 6, 3, 3, 1, 2));
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("The Reikland Runefang", 1, 4, 3, 3, 1, 3),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Ghal Maraz", 1, 3, 4, 3, 2, 3),
+      WarScroll::Ability()));
+
+    ws.addAbility(WarScroll::Ability("Piercing Bloodroar", 1));
+    ws.addAbility(WarScroll::Ability("The Silver Seal", 2));
+    ws.addAbility(WarScroll::Ability("Loyal Beast", 2));
+    ws.addAbility(WarScroll::Ability("Stirring Valour", 3));
+    ws.addAbility(WarScroll::Ability("Leader of Men", 2, true));
+
+    ws.setCanFly(true);
+
+    ws.addKeyWords({"ORDER", "HUMAN", "GRIFFON", "FREE PEOPLE", "MONSTER",
+      "HERO", "KARL FRANZ ON DEATHCLAW"});
+
     return ws;
   }
 
@@ -13,6 +39,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(10, 5, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("The Solland Runefang", 1, 4, 3, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Krieglust's Hooves", 1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Laurels of Victory", 1));
+    ws.addAbility(WarScroll::Ability("Pride fo the Reiksguard", 1));
+    ws.addAbility(WarScroll::Ability("The Reiksmarshal", 1, true));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "KNIGHTLY ORDERS",
+      "HERO", "GRAND MASTER", "KURT HELBORG"});
+
     return ws;
   }
 
@@ -20,6 +59,23 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(12, 5, 8, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Staff of Volans", 1, 2, 4, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Pegasus' Iron-hard Hooves",
+      1, 2, 4, 4, 0, 1));
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Amulet of Sea Gold", 1));
+    ws.addAbility(WarScroll::Ability("Alchemist Supreme", 1));
+
+    ws.addSpell(WarScroll::Spell("Searing Doom"), 6, 2);
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "HERO", "WIZARD",
+      "BALTHASAR GELT"});
+
     return ws;
   }
 
@@ -27,6 +83,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 5, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Blacksmith's Hammers", 1, 6, 3, 4, 0, 1));
+
+    WarScroll::MountUpgrade mountUpgrade("Warhorse");
+    mountUpgrade.addWeapon(WarScroll::Weapon("Ghal Maraz", 1, 3, 4, 3, 2, 3));
+    mountUpgrade.addWeapon(WarScroll::Weapon("Warhorses's Steel-shod Hooves",
+      1, 2, 4, 4, 0, 1));
+    mountUpgrade.registerCharacteristicToIncrease("Move", 5);
+    mountUpgrade.registerCharacteristicToIncrease("Save", -1);
+    mountUpgrade.addRiderWeaponToReplace(WarScroll::Weapon(
+      "Blacksmith's Hammers", 1, 6, 3, 4, 0, 1));
+    ws.registerMountUpgrade(mountUpgrade);
+
+    ws.addAbility(WarScroll::Ability("Iron Resolve", 3));
+    ws.addAbility(WarScroll::Ability("Marked for Greatness", 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "HERO", "VALTEN"});
+
     return ws;
   }
 
@@ -34,6 +110,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(10, 6, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("The Averland Runefang", 1, 3, 3, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Stiletto Dagger", 1, 2, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Daisy's Steel-shod Hooves",
+      1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("The Mad Count", 1));
+    ws.addAbility(WarScroll::Ability("Lunatic Ravings", 2, true));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "HERO", "EMPIRE GENERAL",
+      "Marius Leitdorf"});
+
     return ws;
   }
 
@@ -41,6 +131,9 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+
+
     return ws;
   }
 

@@ -418,6 +418,9 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
             m_CurrentWarScroll.incrementCharacteristic(stat.first,
               stat.second);
           }
+          for (const auto &weapon : mount.getRiderWeaponsToReplace()) {
+            m_CurrentWarScroll.removeWeapon(weapon);
+          }
           m_CurrentWarScroll.setCanFly(mount.providesCanFly());
           m_CurrentWarScroll.applyRegisteredMount(mount.getName());
 

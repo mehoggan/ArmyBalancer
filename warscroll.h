@@ -80,6 +80,17 @@ public:
     int getToRend() const {return m_InitialToRend;}
     int getDamage() const {return m_InitialDamage;}
 
+    friend bool operator==(const Weapon &lhs, const Weapon &rhs)
+    {
+      return (lhs.m_Name == rhs.m_Name &&
+        lhs.m_InitialDamage == rhs.m_InitialDamage &&
+        lhs.m_InitialAttacks == rhs.m_InitialAttacks &&
+        lhs.m_InitialToHit == rhs.m_InitialToHit &&
+        lhs.m_InitialToWound == rhs.m_InitialToWound &&
+        lhs.m_InitialToRend == rhs.m_InitialToRend &&
+        lhs.m_InitialDamage == rhs.m_InitialDamage);
+    }
+
     friend std::ostream &operator<<(std::ostream &out, const Weapon &weapon)
     {
       out << "\tName: " << weapon.m_Name << std::endl
@@ -278,6 +289,7 @@ public:
     std::list<std::pair<std::string, int>> m_CharacteristicsToUpdate;
     std::list<Ability> m_Abilities;
     std::list<Weapon> m_Weapons;
+    std::list<Weapon> m_RiderWeaponsToReplace;
     bool m_CanFly;
     bool m_MakesScrollUnique;
 
@@ -303,6 +315,10 @@ public:
 
     const std::list<Weapon> &getWeapons() const {return m_Weapons;}
     void addWeapon(const Weapon &weapon);
+
+    const std::list<Weapon> &getRiderWeaponsToReplace() const
+    {return m_RiderWeaponsToReplace;}
+    void addRiderWeaponToReplace(const Weapon &weapon);
 
     const std::list<Ability> getAbilities() const {return m_Abilities;}
     void addAbility(const Ability &ability);
@@ -415,6 +431,7 @@ public:
   std::map<std::string, Weapon> &getWeapons() {return m_Weapons;}
   const Weapon &getWeapon(const std::string &name) const;
   void addWeapon(const Weapon &weapon);
+  void removeWeapon(const Weapon &weapon);
 
   const std::list<Spell> &getSpells() {return m_Spells;}
   const Spell &getSpell(const std::string &name) const;
