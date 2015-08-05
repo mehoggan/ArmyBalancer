@@ -163,6 +163,7 @@ public:
     Weapon m_Weapon;
     Ability m_Ability;
     Weapon m_SecondaryWeapon;
+    Weapon m_TertiaryWeapon;
 
     std::list<Weapon> m_WeaponsToReplace;
     std::list<Ability> m_AbilitiesToReplace;
@@ -190,6 +191,9 @@ public:
 
     const Weapon &getSecondaryWeapon() const {return m_SecondaryWeapon;}
     void setSecondaryWeapon(const Weapon &weapon) {m_SecondaryWeapon = weapon;}
+
+    const Weapon &getTertiaryWeapon() const {return m_TertiaryWeapon;}
+    void setTertiaryWeapon(const Weapon &weapon) {m_TertiaryWeapon = weapon;}
 
     const std::list<Ability> &getAbilitiesToAdd() const
     {return m_AbilitiesToAdd;}

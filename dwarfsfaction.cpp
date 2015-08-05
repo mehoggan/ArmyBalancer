@@ -9,8 +9,8 @@ namespace WarScrollGeneration
 
     ws.setCharacteristics(4, 8, 9, 4);
 
-    ws.addWeapon(WarScroll::Weapon("The Axe of Grimmir", 1, 4, 3, 3, 2, 3));
-    ws.addWeapon(WarScroll::Weapon("Runic Hammer", 1, 4, 3, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("The Axe of Grimnir", 1, 4, 3, 3, 2, 3));
+    ws.addWeapon(WarScroll::Weapon("Runic Hammers", 1, 4, 3, 4, 0, 1));
 
     ws.addAbility(WarScroll::Ability("The Armour of Skaldour", 1));
     ws.addAbility(WarScroll::Ability("Great Book of Grudges", 1));
@@ -33,6 +33,7 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Runic Hammers", 1, 4, 3, 4, 1, 1));
 
     ws.addAbility(WarScroll::Ability("Anvil of Doom", 3));
+    ws.addAbility(WarScroll::Ability("Master Runes of Spellbreaking", 2));
     ws.addAbility(WarScroll::Ability("Strike the Runes", 3));
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "PRIEST",
@@ -68,6 +69,7 @@ namespace WarScrollGeneration
 
     ws.addWeapon(WarScroll::Weapon("Hammer of Angrund", 1, 4, 3, 3, 1, 3));
 
+    ws.addAbility(WarScroll::Ability("Shield of Defiance", 2));
     ws.addAbility(WarScroll::Ability("Belgar's Oath Stone", 2));
     ws.addAbility(WarScroll::Ability("Revenge Incarnate", 1));
     ws.addAbility(WarScroll::Ability("Oath of Vengeance", 1, true));
@@ -156,10 +158,11 @@ namespace WarScrollGeneration
       WarScroll::Ability());
     ws.addWeaponUpgrade(greatRuneWeapon);
     WarScroll::WeaponUpgrade pistolHammerUpgrade(
-      WarScroll::Weapon("Rune Weapon", 1, 4, 3, 3, 1, 1),
+      WarScroll::Weapon("Rune Weapon", 1, 4, 3, 3, 1, 3),
       WarScroll::Ability());
     pistolHammerUpgrade.setSecondaryWeapon(WarScroll::Weapon("Dwarf Pistol",
       8, 1, 3, 3, 1, 1));
+    ws.addWeaponUpgrade(pistolHammerUpgrade);
 
     WarScroll::UnitUpgrade shieldbearersUpgrade("Shieldbearers",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMount, 3);
@@ -244,7 +247,7 @@ namespace WarScrollGeneration
     WarScroll::WeaponUpgrade dwarfHandgunUpgrade(
       WarScroll::Weapon("Dwarf Handgun", 16, 1, 3, 3, 1, 1),
       WarScroll::Ability());
-    ws.addWeaponUpgrade(dualDwarfPistols);
+    ws.addWeaponUpgrade(dwarfHandgunUpgrade);
 
     ws.addAbility(WarScroll::Ability("Engineer", 1));
 
@@ -380,7 +383,10 @@ namespace WarScrollGeneration
     option4.addWeapon(WarScroll::Weapon("Drakefire Pistol", 8, 2, 4, 3, 1, 1));
     option4.addWeapon(WarScroll::Weapon("Drakefire Pistol", 1, 2, 4, 4, 0, 1));
     option4.addAbility(WarScroll::Ability("Brace of Drakefire Pistols", 1));
+    ws.registerChampionWithOptions(option4);
 
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Iron Warden",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 2));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Icon Bearer",
       WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblowers",
@@ -480,6 +486,26 @@ namespace WarScrollGeneration
 
     ws.addWeapon(WarScroll::Weapon("Miner's Pickaxe", 1, 1, 4, 3, 1, 1));
 
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    WarScroll::WeaponUpgrade noMinningCart(
+      WarScroll::Weapon("No Minning Cart", 0, 0, 7, 7, 0, 0),
+      WarScroll::Ability());
+    WarScroll::WeaponUpgrade minningCart(
+      WarScroll::Weapon("Mule's Bite", 1, 1, 5, 6, 1, 1),
+      WarScroll::Ability());
+    minningCart.setSecondaryWeapon(WarScroll::Weapon("Blasting Charges",
+      6, 1, 4, 3, 2, 1));
+    ws.addWeaponUpgrade(minningCart);
+    WarScroll::WeaponUpgrade minningCartWithSteamHarpoon(
+      WarScroll::Weapon("Mule's Bite", 1, 1, 5, 6, 1, 1),
+      WarScroll::Ability(WarScroll::Ability("Steam Harpoon", 2)));
+    minningCartWithSteamHarpoon.setSecondaryWeapon(
+      WarScroll::Weapon("Blasting Charges", 6, 1, 4, 3, 2, 1));
+    minningCartWithSteamHarpoon.setTertiaryWeapon(
+      WarScroll::Weapon("Steam Harpoon", 16, 1, 4, 3, 1, 3));
+    ws.addWeaponUpgrade(minningCartWithSteamHarpoon);
+
     WarScroll::ChampionWithOptions prospectorWithPickAxe("Prospector", 1);
     prospectorWithPickAxe.addWeapon(WarScroll::Weapon("Miner's Pickaxe",
       1, 2, 4, 3, 1, 1));
@@ -492,25 +518,7 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Prospector",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    WarScroll::UnitUpgrade minningCart("Minning Cart",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eMount, 2);
-    minningCart.addWeapon(WarScroll::Weapon("Mule's Bite", 1, 1, 5, 6, 1, 1));
-    minningCart.addWeapon(WarScroll::Weapon("Blasting Charges",
-      6, 1, 4, 3, 2, 1));
-    minningCart.addAbility(WarScroll::Ability("Steam Harpoon", 2));
-    ws.registerUnitUpgrade(minningCart);
-    WarScroll::UnitUpgrade minningCartWithSteamHarpoon(
-      "Minning Cart with Steam Harpoon",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eMount, 2);
-    minningCartWithSteamHarpoon.addWeapon(WarScroll::Weapon("Mule's Bite",
-      1, 1, 5, 6, 1, 1));
-    minningCartWithSteamHarpoon.addWeapon(WarScroll::Weapon("Blasting Charges",
-      6, 1, 4, 3, 2, 1));
-    minningCartWithSteamHarpoon.addWeapon(WarScroll::Weapon("Steam Harpoon",
-      16, 1, 4, 3, 1, 3));
-    minningCartWithSteamHarpoon.addAbility(WarScroll::Ability("Steam Harpoon",
-      2));
-    ws.registerUnitUpgrade(minningCartWithSteamHarpoon);
+
     WarScroll::UnitUpgrade runicIconBearer("Standard Bearer/Runic Icon",
       WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2);
     runicIconBearer.addAbility(WarScroll::Ability("Runic Icon", 2));
@@ -533,6 +541,35 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 1, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Dwarf Crossbow", 20, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Ranger's Axe", 1, 1, 4, 4, 0, 1));
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Vetran",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    WarScroll::UnitUpgrade runicIcon("Standard Bearer/Runic Icon",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+    runicIcon.addAbility(WarScroll::Ability("Runic Icon", 2));
+    ws.registerUnitUpgrade(runicIcon);
+    WarScroll::UnitUpgrade clanBanner("Standard Bearer/Clan Banner",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+    clanBanner.addAbility(WarScroll::Ability("Clan Banner", 2));
+    ws.registerUnitUpgrade(clanBanner);
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Drummers",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    WarScroll::UnitUpgrade dwarfBucklers("Dwarf Bucklers",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eShield, 1);
+    dwarfBucklers.addAbility(WarScroll::Ability("Dwarf Bucklers", 1));
+    ws.registerUnitUpgrade(dwarfBucklers);
+
+    ws.addAbility(WarScroll::Ability("Volley Fire", 2));
+
+    ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "QUARRELLERS"});
+
     return ws;
   }
 
@@ -540,6 +577,27 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 1, 10, 6);
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.addWeapon(WarScroll::Weapon("Slayer Axes", 1, 2, 3, 4, 0, 1));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Giant Slayer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Icon Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+
+    ws.addAbility(WarScroll::Ability("Seeking a Glorious Death", 2));
+    ws.addAbility(WarScroll::Ability("Deathblow", 1));
+    ws.addAbility(WarScroll::Ability("Slayer Oath", 2));
+    ws.addAbility(WarScroll::Ability("The Slayer King", 1));
+
+    ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "SLAYERS"});
+
     return ws;
   }
 
@@ -547,6 +605,45 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 1, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Dwarf Handgun", 16, 1, 4, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Gun-butts", 1, 1, 4, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Vetran",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    WarScroll::UnitUpgrade runicIcon("Standard Bearer/Runic Icon",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+    runicIcon.addAbility(WarScroll::Ability("Runic Icon", 2));
+    ws.registerUnitUpgrade(runicIcon);
+    WarScroll::UnitUpgrade clanBanner("Standard Bearer/Clan Banner",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2);
+    clanBanner.addAbility(WarScroll::Ability("Clan Banner", 2));
+    ws.registerUnitUpgrade(clanBanner);
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Drummers",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Dwarf Bucklers",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eShield, 1));
+    
+    WarScroll::ChampionWithOptions veteran("Veteran", 1);
+    veteran.addWeapon(WarScroll::Weapon("Dwarf Handgun", 16, 1, 3, 3, 1, 1));
+    veteran.addWeapon(WarScroll::Weapon("Gun-butts", 1, 1, 4, 5, 0, 1));
+    ws.registerChampionWithOptions(veteran);
+    WarScroll::ChampionWithOptions veteranBraceofDwarfPistols(
+      "Veteran with Brace of Dwarf Pistols", 1);
+    veteranBraceofDwarfPistols.addWeapon(WarScroll::Weapon(
+      "Brace of Dwarf Pistols", 8, 2, 4, 3, 1, 1));
+    veteranBraceofDwarfPistols.addWeapon(WarScroll::Weapon(
+      "Brace of Dwarf Pistols", 1, 2, 4, 4, 0, 1));
+    ws.registerChampionWithOptions(veteranBraceofDwarfPistols);
+
+    ws.addAbility(WarScroll::Ability("Precision Fire", 1));
+    
+    ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "THUNDERERS"});
+
     return ws;
   }
 
@@ -554,6 +651,29 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(14, 4, 6, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Rotor Blades", 1, 3, 5, 4, 0, 1));
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.setCanFly(true);
+
+    WarScroll::WeaponUpgrade brimstoneGun(
+      WarScroll::Weapon("Brimstone Gun", 16, 3, 3, 3, 1, 1),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(brimstoneGun);
+    WarScroll::WeaponUpgrade steamGun(
+      WarScroll::Weapon("Steam Gun", 6, 20, 3, 4, 1, 1),
+      WarScroll::Ability("Steam Gun Ability", 3));
+    ws.addWeaponUpgrade(steamGun);
+
+    ws.addAbility(WarScroll::Ability("Guild Bombs", 2));
+
+    ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "WAR MACHINE",
+      "GYROCOPTERS"});
+
     return ws;
   }
 
@@ -561,6 +681,21 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(12, 5, 6, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Rotor Blades", 1, 3, 5, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Clattergun", 20, 4, 4, 3, 1, 1));
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Grudgebuster Bombs", 2));
+
+    ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "WAR MACHINE",
+      "GYROBOMBERS"});
+
     return ws;
   }
 
@@ -568,6 +703,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 4, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Runic Bolts", 38, 2, 3, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Crew's Tools", 1, 3, 4, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Duardin Artillery", 1));
+    ws.addAbility(WarScroll::Ability("Penetrating Shot", 2));
+    ws.addAbility(WarScroll::Ability("Rune of Skewering", 1));
+
+    ws.addKeyWords({"ORDER", "WAR MACHINE", "DWARF BOLT THROWER", "DUARDIN",
+      "DISPOSSESSED", "CREW"});
+
     return ws;
   }
 
@@ -575,6 +723,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 4, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Runic Bolts", 32, 2, 4, 2, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Crew's Tools", 1, 3, 4, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Duardin Artillery", 1));
+    ws.addAbility(WarScroll::Ability("Explosive Shells", 2));
+    ws.addAbility(WarScroll::Ability("Rune of Accuracy", 1));
+
+    ws.addKeyWords({"ORDER", "WAR MACHINE", "DWARF CANNON", "DUARDIN",
+      "DISPOSSESSED", "CREW"});
+
     return ws;
   }
 
@@ -582,6 +743,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 5, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Flaming Burst", 24, 1, 0, 0, 0, 0));
+    ws.addWeapon(WarScroll::Weapon("Crew's Tools", 1, 3, 4, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Duardin Artillery", 1));
+    ws.addAbility(WarScroll::Ability("Flame Burst", 2));
+    ws.addAbility(WarScroll::Ability("Rune of Burning", 1));
+
+    ws.addKeyWords({"ORDER", "WAR MACHINE", "FLAME CANNON", "DUARDIN",
+      "DISPOSSESSED", "CREW"});
+
     return ws;
   }
 
@@ -589,6 +763,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 4, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Barrage of Shots", 28, 6, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Crew's Tools", 1, 3, 4, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Duardin Artillery", 1));
+    ws.addAbility(WarScroll::Ability("Organ Fire", 2));
+    ws.addAbility(WarScroll::Ability("Rune of Burning", 1));
+
+    ws.addKeyWords({"ORDER", "WAR MACHINE", "ORGAN GUN", "DUARDIN",
+      "DISPOSSESSED", "CREW"});
+
     return ws;
   }
 
@@ -596,6 +783,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 4, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Grudge Rock", 40, 1, 3, 3, 2, 3));
+    ws.addWeapon(WarScroll::Weapon("Crew's Tools", 1, 3, 4, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Duardin Artillery", 1));
+    ws.addAbility(WarScroll::Ability("Lobbed Shot", 2));
+    ws.addAbility(WarScroll::Ability("Settling a Grudge", 2));
+    ws.addAbility(WarScroll::Ability("Rune of Reloading", 1));
+
+    ws.addKeyWords({"ORDER", "WAR MACHINE", "GRUDGE THROWER", "DUARDIN",
+      "DISPOSSESSED", "CREW"});
+
     return ws;
   }
 }

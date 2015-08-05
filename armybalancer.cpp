@@ -324,6 +324,13 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
         for (const auto &i : upgrade.getAbilitiesToAdd()) {
           m_CurrentWarScroll.addAbility(i);
         }
+
+        if (!upgrade.getSecondaryWeapon().getName().empty()) {
+          m_CurrentWarScroll.addWeapon(upgrade.getSecondaryWeapon());
+        }
+        if (!upgrade.getTertiaryWeapon().getName().empty()) {
+          m_CurrentWarScroll.addWeapon(upgrade.getTertiaryWeapon());
+        }
       }
     }
   }
