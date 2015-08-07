@@ -66,9 +66,20 @@ void WarScroll::MountUpgrade::addRiderWeaponToReplace(const Weapon &weapon)
   m_RiderWeaponsToReplace.push_back(weapon);
 }
 
+void WarScroll::MountUpgrade::addRiderAbilityToRemove(const Ability &ability)
+{
+  m_RiderAbilitiesToRemove.push_back(ability);
+}
+
 void WarScroll::MountUpgrade::addAbility(const Ability &ability)
 {
   m_Abilities.push_back(ability);
+}
+
+void WarScroll::MountUpgrade::setCharacteristics(
+  const Characteristic& characteristic)
+{
+  m_CharacteristicsToSet.push_back(characteristic);
 }
 
 void WarScroll::ChampionWithOptions::addWeapon(const WarScroll::Weapon &weapon)
@@ -142,6 +153,57 @@ WarScroll &WarScroll::operator=(const WarScroll &rhs)
   return (*this);
 }
 
+void WarScroll::setMove(int move)
+{
+  auto it = m_Characteristics.find("Move");
+  if (it != m_Characteristics.end()) {
+    m_Characteristics["Move"] = move;
+  } else {
+    m_Characteristics.insert(std::make_pair("Move", move));
+  }
+}
+
+void WarScroll::setWounds(int wounds)
+{
+  auto it = m_Characteristics.find("Wounds");
+  if (it != m_Characteristics.end()) {
+    m_Characteristics["Wounds"] = wounds;
+  } else {
+    m_Characteristics.insert(std::make_pair("Wounds", wounds));
+  }
+}
+
+void WarScroll::setBravery(int bravery)
+{
+  auto it = m_Characteristics.find("Bravery");
+  if (it != m_Characteristics.end()) {
+    m_Characteristics["Bravery"] = bravery;
+  } else {
+    m_Characteristics.insert(std::make_pair("Bravery", bravery));
+  }
+}
+
+void WarScroll::setSave(int save)
+{
+  auto it = m_Characteristics.find("Save");
+  if (it != m_Characteristics.end()) {
+    m_Characteristics["Save"] = save;
+  } else {
+    m_Characteristics.insert(std::make_pair("Save", save));
+  }
+}
+
+void WarScroll::setCharacteristic(const Characteristic &characteristic)
+{
+  std::string stat = std::get<0>(characteristic);
+  auto it = m_Characteristics.find(stat);
+  if (it != m_Characteristics.end()) {
+    m_Characteristics[stat] = std::get<1>(characteristic);
+  } else {
+    m_Characteristics.insert(std::make_pair(stat, std::get<1>(characteristic)));
+  }
+}
+
 void WarScroll::setCharacteristics(int move, int wounds, int bravery, int save)
 {
   m_Characteristics.insert(std::make_pair("Move", move));
@@ -207,6 +269,16 @@ const WarScroll::Ability &WarScroll::getAbility(const std::string &name) const
 void WarScroll::addAbility(const WarScroll::Ability &ability)
 {
   m_Abilities.insert(std::make_pair(ability.getName(), ability));
+}
+
+void WarScroll::removeAbility(const Ability &ability)
+{
+  auto it = m_Abilities.find(ability.getName());
+  if (it != m_Abilities.end()) {
+    if (ability == it->second) {
+      m_Abilities.erase(it);
+    }
+  }
 }
 
 #ifdef Q_OS_WIN32

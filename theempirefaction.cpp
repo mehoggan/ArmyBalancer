@@ -132,7 +132,82 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
 
+    ws.setCharacteristics(5, 5, 7, 4);
 
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Great Weapon", 1, 3, 3, 3, 2, 3),
+      WarScroll::Ability()));
+    WarScroll::WeaponUpgrade imperialWeaponUpgrade(
+      WarScroll::Weapon("Sigmarite Weapon", 1, 5, 3, 4, 1, 1),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(imperialWeaponUpgrade);
+    WarScroll::WeaponUpgrade imperialShieldUpgrade(
+      WarScroll::Weapon("Sigmarite Weapon", 1, 5, 3, 4, 1, 1),
+      WarScroll::Ability("Imperial Shield", 2));
+    imperialShieldUpgrade.registerCharacteristicToIncrease("Save", -1);
+    ws.addWeaponUpgrade(imperialShieldUpgrade);
+    WarScroll::WeaponUpgrade pistolUpgrade(
+      WarScroll::Weapon("Sigmarite Weapon", 1, 5, 3, 4, 1, 1),
+      WarScroll::Ability());
+    pistolUpgrade.setSecondaryWeapon(WarScroll::Weapon(
+      "Pistol", 9, 1, 4, 3, 1, 1));
+    pistolUpgrade.registerCharacteristicToIncrease("Save", -1);
+    ws.addWeaponUpgrade(pistolUpgrade);
+
+    WarScroll::MountUpgrade warHorse("Warhorse");
+    warHorse.addWeapon(WarScroll::Weapon(
+      "Warhorse's Steel-shod Hooves", 1, 2, 4, 4, 0, 1));
+    warHorse.registerCharacteristicToIncrease("Move", 7);
+    ws.registerMountUpgrade(warHorse);
+
+    WarScroll::MountUpgrade warHorseWithLanceAndShield(
+      "Warhorse with Lance and Shield");
+    warHorseWithLanceAndShield.addWeapon(WarScroll::Weapon(
+      "Imperial Lance", 2, 3, 3, 4, 1, 2));
+    warHorseWithLanceAndShield.addWeapon(WarScroll::Weapon(
+      "Warhorse's Steel-shod Hooves", 1, 2, 4, 4, 0, 1));
+    warHorseWithLanceAndShield.addAbility(WarScroll::Ability(
+      "Imperial Shield", 2));
+    warHorseWithLanceAndShield.addAbility(WarScroll::Ability(
+      "Charging Lance", 1));
+    warHorseWithLanceAndShield.addAbility(WarScroll::Ability(
+      "Imperial Shield", 2));
+    warHorseWithLanceAndShield.registerCharacteristicToIncrease("Save", -1);
+    warHorseWithLanceAndShield.registerCharacteristicToIncrease("Move", 7);
+    warHorseWithLanceAndShield.addRiderWeaponToReplace(WarScroll::Weapon(
+      "Sigmarite Weapon", 1, 5, 3, 4, 1, 1));
+    warHorseWithLanceAndShield.addRiderWeaponToReplace(WarScroll::Weapon(
+      "Great Weapon", 1, 3, 3, 3, 2, 3));
+    warHorseWithLanceAndShield.addRiderWeaponToReplace(WarScroll::Weapon(
+      "Pistol", 9, 1, 4, 3, 1, 1));
+    warHorseWithLanceAndShield.addRiderAbilityToRemove(WarScroll::Ability(
+      "Imperial Shield", 2));
+    ws.registerMountUpgrade(warHorseWithLanceAndShield);
+
+    WarScroll::MountUpgrade warHorseWithLance("Warhorse with Lance");
+    warHorseWithLance.addWeapon(WarScroll::Weapon(
+      "Imperial Lance", 2, 3, 3, 4, 1, 2));
+    warHorseWithLance.addWeapon(WarScroll::Weapon(
+      "Warhorse's Steel-shod Hooves", 1, 2, 4, 4, 0, 1));
+    warHorseWithLance.addAbility(WarScroll::Ability("Charging Lance", 1));
+    warHorseWithLance.registerCharacteristicToIncrease("Move", 7);
+    warHorseWithLance.addRiderWeaponToReplace(WarScroll::Weapon(
+      "Sigmarite Weapon", 1, 5, 3, 4, 1, 1));
+    warHorseWithLance.addRiderWeaponToReplace(WarScroll::Weapon(
+      "Great Weapon", 1, 3, 3, 3, 2, 3));
+    warHorseWithLance.addRiderWeaponToReplace(WarScroll::Weapon(
+      "Pistol", 9, 1, 4, 3, 1, 1));
+    warHorseWithLance.addRiderAbilityToRemove(WarScroll::Ability(
+      "Imperial Shield", 2));
+    warHorseWithLance.setCharacteristics(std::make_tuple("Save", 4));
+    ws.registerMountUpgrade(warHorseWithLance);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Stately War Banner",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+
+    ws.addAbility(WarScroll::Ability("Hold the Line", 1, true));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "HERO", "EMPIRE GENERAL"});
 
     return ws;
   }
@@ -141,6 +216,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(15, 13, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Imperial Griffon's Deadly Beak",
+      2, 2, 3, 3, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Imperial Griffon's Razor Claws",
+      2, 6, 4, 3, 1, 2));
+
+    
+
+
+    ws.setCanFly(true);
+
     return ws;
   }
 

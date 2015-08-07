@@ -6,12 +6,15 @@
 
 #include <functional>
 #include <set>
+#include <tuple>
 
 class WarScrollFactory;
 
 class WarScroll
 {
 public:
+  typedef std::tuple<std::string, int> Characteristic;
+
   enum class GrandAllianceType
   {
     eChaos,
@@ -37,6 +40,12 @@ public:
     const std::string &getName() const {return m_Name;}
     int getValue() const {return m_Value;}
     bool getIsCommandAbility() const {return m_IsCommandAbility;}
+
+    friend bool operator==(const Ability &lhs, const Ability &rhs)
+    {
+      return (lhs.m_Name == rhs.m_Name && lhs.m_Value == rhs.m_Value &&
+        lhs.m_IsCommandAbility == rhs.m_IsCommandAbility);
+    }
 
     friend std::ostream &operator<<(std::ostream &out, const Ability &ability)
     {
@@ -284,16 +293,23 @@ public:
 
   class MountUpgrade
   {
+  public:
+    typedef std::list<WarScroll::Characteristic> RiderCharacteristics;
+
   private:
     std::string m_Name;
     std::list<std::pair<std::string, int>> m_CharacteristicsToUpdate;
     std::list<Ability> m_Abilities;
     std::list<Weapon> m_Weapons;
     std::list<Weapon> m_RiderWeaponsToReplace;
+    std::list<Ability> m_RiderAbilitiesToRemove;
+    RiderCharacteristics m_CharacteristicsToSet;
     bool m_CanFly;
     bool m_MakesScrollUnique;
 
   public:
+    typedef std::list<Characteristic> RiderCharacteristics;
+
     MountUpgrade(std::string name = "", bool canFly = false)
       : m_Name(name)
       , m_CanFly(canFly)
@@ -320,8 +336,16 @@ public:
     {return m_RiderWeaponsToReplace;}
     void addRiderWeaponToReplace(const Weapon &weapon);
 
+    const std::list<Ability> &getRiderAbilitiesToRemove() const
+    {return m_RiderAbilitiesToRemove;}
+    void addRiderAbilityToRemove(const Ability &ability);
+
     const std::list<Ability> getAbilities() const {return m_Abilities;}
     void addAbility(const Ability &ability);
+
+    void setCharacteristics(const Characteristic& characteristic);
+    const RiderCharacteristics &getChacarteristicsToSet() const
+    {return m_CharacteristicsToSet;}
 
     friend std::ostream &operator<<(std::ostream &out,
       const MountUpgrade &upgrade)
@@ -409,6 +433,11 @@ public:
   bool getIsUnique() const {return m_IsUnique;}
   void setIsUnique(bool isUnique) {m_IsUnique = isUnique;}
 
+  void setMove(int move);
+  void setWounds(int wounds);
+  void setBravery(int bravery);
+  void setSave(int save);
+  void setCharacteristic(const Characteristic &characteristic);
   void setCharacteristics(int move, int wounds, int bravery, int save);
   int getCharacteristic(const std::string &characteristic) const;
   void incrementCharacteristic(const std::string &characteristic, int val);
@@ -427,6 +456,7 @@ public:
   std::map<std::string, Ability> &getAbilities() {return m_Abilities;}
   const Ability &getAbility(const std::string &name) const;
   void addAbility(const Ability &ability);
+  void removeAbility(const Ability &ability);
 
   std::map<std::string, Weapon> &getWeapons() {return m_Weapons;}
   const Weapon &getWeapon(const std::string &name) const;

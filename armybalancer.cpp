@@ -406,6 +406,19 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
         m_CurrentWarScroll.getRegisteredMountUpgrades();
       for (const auto &mount : mounts) {
         if (mount.getName() == mountName.toStdString()) {
+          // Remove old things first in the case that mount adds them back
+          for (const auto &weapon : mount.getRiderWeaponsToReplace()) {
+            m_CurrentWarScroll.removeWeapon(weapon);
+          }
+          for (const auto &ability : mount.getRiderAbilitiesToRemove()) {
+            m_CurrentWarScroll.removeAbility(ability);
+          }
+          for (const auto &characteristic :
+            mount.getChacarteristicsToSet()){
+            m_CurrentWarScroll.setCharacteristic(characteristic);
+          }
+          // Now that old abilities and weapons gone it is now okay to add
+          // all the new items.
           const std::list<WarScroll::Weapon> weapons = mount.getWeapons();
           for (const auto &weapon : weapons) {
             m_CurrentWarScroll.addWeapon(weapon);
@@ -417,9 +430,6 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
           for (const auto &stat : mount.getCharacteristicsToUpdate()) {
             m_CurrentWarScroll.incrementCharacteristic(stat.first,
               stat.second);
-          }
-          for (const auto &weapon : mount.getRiderWeaponsToReplace()) {
-            m_CurrentWarScroll.removeWeapon(weapon);
           }
           m_CurrentWarScroll.setCanFly(mount.providesCanFly());
           m_CurrentWarScroll.applyRegisteredMount(mount.getName());
