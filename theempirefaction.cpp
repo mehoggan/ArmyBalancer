@@ -576,8 +576,49 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
 
-    
+    ws.setCharacteristics(12, 2, 5, 5);
 
+    ws.addWeapon(WarScroll::Weapon("Brace of Pistols", 9, 2, 5, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Brace of Pistols", 1, 2, 5, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Steed's Stamping Hooves",
+      1, 2, 4, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeters",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Outrider",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    WarScroll::ChampionWithOptions outriderWithBraceOfPistols(
+      "Outrider with Brace of Pistols", 1);
+    outriderWithBraceOfPistols.addWeapon(WarScroll::Weapon(
+      "Brace of Pistols", 9, 3, 4, 3, 1, 1));
+    outriderWithBraceOfPistols.addWeapon(WarScroll::Weapon(
+      "Brace of Pistols", 1, 3, 4, 3, 1, 1));
+    outriderWithBraceOfPistols.addWeapon(WarScroll::Weapon(
+      "Cavalry Sabre", 1, 1, 4, 4, 0, 1));
+    outriderWithBraceOfPistols.addWeapon(WarScroll::Weapon(
+      "Steed's Stamping Hooves", 1, 2, 4, 5, 0, 1));
+    outriderWithBraceOfPistols.addAbility(WarScroll::Ability(
+      "Repeater Pistol", 1));
+    ws.registerChampionWithOptions(outriderWithBraceOfPistols);
+
+    WarScroll::ChampionWithOptions outriderWithRepeaterHandgun(
+      "Outrider with Repater Handgun", 1);
+    outriderWithRepeaterHandgun.addWeapon(WarScroll::Weapon(
+      "Repeater Handgun", 14, 3, 4, 3, 1, 1));
+    outriderWithRepeaterHandgun.addWeapon(WarScroll::Weapon(
+      "Cavalry Sabre", 1, 1, 4, 4, 0, 1));
+    outriderWithRepeaterHandgun.addWeapon(WarScroll::Weapon(
+      "Steed's Stamping Hooves", 1, 2, 4, 5, 0, 1));
+    ws.registerChampionWithOptions(outriderWithRepeaterHandgun);
+
+    ws.addAbility(WarScroll::Ability("Reckless Riders", 1));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "STATE REGIMENT",
+      "EMPIRE PISTOLIERS"});
+    
     return ws;
   }
 
@@ -585,6 +626,64 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(12, 2, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Repeater Handgun", 14, 3, 5, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Cavalry Sabre", 1, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Steed's Stamping Hooves",
+      1, 2, 4, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeters",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Outrider",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    WarScroll::ChampionWithOptions sharpshooterWithRepeaterHandgun(
+      "Outrider with Repater Handgun", 1);
+    sharpshooterWithRepeaterHandgun.addWeapon(WarScroll::Weapon(
+      "Repeater Handgun", 14, 3, 4, 3, 1, 1));
+    sharpshooterWithRepeaterHandgun.addWeapon(WarScroll::Weapon(
+      "Cavalry Sabre", 1, 2, 4, 4, 0, 1));
+    sharpshooterWithRepeaterHandgun.addWeapon(WarScroll::Weapon(
+      "Steed's Stamping Hooves", 1, 2, 4, 5, 0, 1));
+    sharpshooterWithRepeaterHandgun.addAbility(WarScroll::Ability(
+      "Expert Gunners", 1));
+    ws.registerChampionWithOptions(sharpshooterWithRepeaterHandgun);
+
+    WarScroll::ChampionWithOptions sharpshooterWithBraceOfPistols(
+      "Outrider with Brace of Pistols", 1);
+    sharpshooterWithBraceOfPistols.addWeapon(WarScroll::Weapon(
+      "Brace of Pistols", 9, 3, 4, 3, 1, 1));
+    sharpshooterWithBraceOfPistols.addWeapon(WarScroll::Weapon(
+      "Brace of Pistols", 1, 3, 4, 3, 1, 1));
+    sharpshooterWithBraceOfPistols.addWeapon(WarScroll::Weapon(
+      "Cavalry Sabre", 1, 2, 4, 4, 0, 1));
+    sharpshooterWithBraceOfPistols.addWeapon(WarScroll::Weapon(
+      "Steed's Stamping Hooves", 1, 2, 4, 5, 0, 1));
+    sharpshooterWithBraceOfPistols.addAbility(WarScroll::Ability(
+      "Repeater Pistol", 1));
+    sharpshooterWithBraceOfPistols.addAbility(WarScroll::Ability(
+      "Expert Gunners", 1));
+    ws.registerChampionWithOptions(sharpshooterWithBraceOfPistols);
+
+    WarScroll::ChampionWithOptions sharpshooterWithGenadeLaunchingBlunderbuss(
+      "Sharpshooter with Grenade Launching Blunderbuss", 1);
+    sharpshooterWithGenadeLaunchingBlunderbuss.addWeapon(WarScroll::Weapon(
+      "Grenade Launching Bluderbuss", 10, 1, 4, 3, 2, 3));
+    sharpshooterWithGenadeLaunchingBlunderbuss.addWeapon(WarScroll::Weapon(
+      "Cavalry Sabre", 1, 2, 4, 4, 0, 1));
+    sharpshooterWithGenadeLaunchingBlunderbuss.addWeapon(WarScroll::Weapon(
+      "Steed's Stamping Hooves", 1, 2, 4, 5, 0, 1));
+    sharpshooterWithGenadeLaunchingBlunderbuss.addAbility(WarScroll::Ability(
+      "Expert Gunners", 1));
+    ws.registerChampionWithOptions(sharpshooterWithGenadeLaunchingBlunderbuss);
+
+    ws.addKeyWords({ "ORDER", "HUMAN", "FREE PEOPLE", "STATE REGIMENT",
+      "EMPIRE OUTRIDERS" });
+
     return ws;
   }
 
@@ -592,6 +691,37 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 1, 5, 5);
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    WarScroll::WeaponUpgrade halberdUpgrade(
+      WarScroll::Weapon("Halberd", 1, 1, 4, 4, 1, 1),
+      WarScroll::Ability());
+    WarScroll::WeaponUpgrade spearUpgrade(
+      WarScroll::Weapon("Spear", 2, 1, 4, 4, 0, 1),
+      WarScroll::Ability());
+    WarScroll::WeaponUpgrade swordUpgrade(
+      WarScroll::Weapon("Sword", 1, 1, 4, 4, 0, 1),
+      WarScroll::Ability("Parry", 1));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Sergeant",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Drummers",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+    WarScroll::UnitUpgrade shield("Shield",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eShield, 1);
+    shield.addAbility(WarScroll::Ability("Shield", 1));
+    ws.registerUnitUpgrade(shield);
+
+    ws.addAbility(WarScroll::Ability("Massed Ranks", 1));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "STATE REGIMENT",
+      "STATE TROOPS"});
+
     return ws;
   }
 
@@ -599,6 +729,22 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 1, 5, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Militia Weapon", 14, 1, 5, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Militia Weapon", 1, 1, 4, 4, 0, 1));
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Militia Leader",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.addAbility(WarScroll::Ability("Reckless Mob", 1));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "EMPIRE FREE COMPANY",
+      "MILITIA"});
+
     return ws;
   }
 
@@ -606,6 +752,52 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 5, 6, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Engineer's Telescope or Tool",
+      1, 2, 5, 5, 0, 1));
+
+    WarScroll::WeaponUpgrade pistolAndRepeaterHandgun(
+      WarScroll::Weapon("Pistol", 9, 1, 4, 3, 1, 1),
+      WarScroll::Ability());
+    pistolAndRepeaterHandgun.setSecondaryWeapon(WarScroll::Weapon(
+      "Repeater Handgun", 14, 3, 4, 3, 1, 1));
+    ws.addWeaponUpgrade(pistolAndRepeaterHandgun);
+
+    WarScroll::WeaponUpgrade pistolAndArtisanRepeaterPistol(
+      WarScroll::Weapon("Pistol", 9, 1, 4, 3, 1, 1),
+      WarScroll::Ability());
+    pistolAndArtisanRepeaterPistol.setSecondaryWeapon(WarScroll::Weapon(
+      "Artisian Repeater Pistol", 9, 3, 4, 3, 1, 1));
+    ws.addWeaponUpgrade(pistolAndArtisanRepeaterPistol);
+
+    WarScroll::WeaponUpgrade pistolAndRepeaterHandgunWithLongRifle(
+      WarScroll::Weapon("Pistol", 9, 1, 4, 3, 1, 1),
+      WarScroll::Ability());
+    pistolAndRepeaterHandgunWithLongRifle.setSecondaryWeapon(
+      WarScroll::Weapon("Repeater Handgun", 14, 3, 4, 3, 1, 1));
+    pistolAndRepeaterHandgunWithLongRifle.setTertiaryWeapon(
+      WarScroll::Weapon("Hochland Long Rifle", 30, 1, 3, 3, 1, 2));
+    ws.addWeaponUpgrade(pistolAndRepeaterHandgunWithLongRifle);
+
+    WarScroll::WeaponUpgrade pistolAndArtisanRepeaterPistolWithLongRifle(
+      WarScroll::Weapon("Pistol", 9, 1, 4, 3, 1, 1),
+      WarScroll::Ability());
+    pistolAndArtisanRepeaterPistolWithLongRifle.setSecondaryWeapon(
+      WarScroll::Weapon("Artisian Repeater Pistol", 9, 3, 4, 3, 1, 1));
+    pistolAndArtisanRepeaterPistolWithLongRifle.setTertiaryWeapon(
+      WarScroll::Weapon("Hochland Long Rifle", 30, 1, 3, 3, 1, 2));
+    ws.addWeaponUpgrade(pistolAndArtisanRepeaterPistolWithLongRifle);
+
+    WarScroll::UnitUpgrade pigeonBomb("Pigeon Bombs",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 2);
+    pigeonBomb.addAbility(WarScroll::Ability());
+    ws.registerUnitUpgrade(pigeonBomb);
+
+    ws.addKeyWords({ "ORDER", "HUMAN", "FREE PEOPLE", "HERO", "ENGINEER",
+      "EMPIRE MASTER ENGINEER" });
+
     return ws;
   }
 
@@ -613,6 +805,38 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 5, 6, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Mechanical Steed's Steel Hooves",
+      1, 2, 5, 4, 1, 1));
+
+    WarScroll::WeaponUpgrade imperialHandgun(
+      WarScroll::Weapon("Imperial Handgun", 16, 1, 4, 3, 1, 1),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(imperialHandgun);
+
+    WarScroll::WeaponUpgrade grenadeLaunchingBlunderBuss(
+      WarScroll::Weapon("Grenade Launching Blunderbuss", 10, 1, 4, 3, 2, 3),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(grenadeLaunchingBlunderBuss);
+
+    WarScroll::WeaponUpgrade repeaterHandGun(
+      WarScroll::Weapon("Repeater Handgun", 14, 3, 4, 3, 1, 1),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(repeaterHandGun);
+
+    WarScroll::WeaponUpgrade hochlandLongRifle(
+      WarScroll::Weapon("Hochland Long Rifle", 30, 1, 3, 3, 1, 2),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(hochlandLongRifle);
+
+    ws.addAbility(WarScroll::Ability("Range-finding Optics", 1));
+    ws.addAbility(WarScroll::Ability("Clockwork Charge", 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "HERO", "ENGINEER",
+      "MASTER ENGINEER ON MECHANICAL STEED"});
+
     return ws;
   }
 
@@ -620,6 +844,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 4, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Cannon Ball", 40, 2, 4, 2, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Crew's Tools", 1, 3, 5, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Crewed Artillery", 1));
+    ws.addAbility(WarScroll::Ability("Grapeshot", 2));
+    ws.addAbility(WarScroll::Ability("Artillery Master", 1));
+
+    ws.addKeyWords({"ORDER", "WAR MACHINE", "EMPIRE CANNON", "HUMAN",
+      "FREE PEOPLE", "CREW"});
+
     return ws;
   }
 
@@ -627,6 +864,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 4, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Mortar Shell", 30, 1, 2, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Crew's Tools", 1, 3, 5, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Crewed Artillery", 1));
+    ws.addAbility(WarScroll::Ability("Artillery Barrage", 1));
+    ws.addAbility(WarScroll::Ability("High Explosive", 2));
+    ws.addAbility(WarScroll::Ability("My Own Recipe", 2)); // HUMAN ENGINEER
+
+    ws.addKeyWords({"ORDER", "WAR MACHINE", "EMPIRE EMPIRE", "HUMAN",
+      "FREE PEOPLE", "CREW"});
+
     return ws;
   }
 
@@ -634,6 +885,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 4, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Volley of Shots", 26, 6, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Crew's Tools", 1, 3, 5, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Point Blank", 1));
+    ws.addAbility(WarScroll::Ability("Crewed Artillery", 1));
+    ws.addAbility(WarScroll::Ability("Hellblaster Volley", 3));
+    ws.addAbility(WarScroll::Ability("Working Like Clockwork", 2)); // HUMAN ENGINEER
+
+    ws.addKeyWords({"ORDER", "WAR MACHINE", "HELBLASTER VOLLEY GUN", "HUMAN",
+      "FREE PEOPLE", "CREW"});
+
     return ws;
   }
 
@@ -641,6 +906,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 4, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Volley of Shots", 36, 3, 5, 3, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Crew's Tools", 1, 3, 5, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Crewed Artillery", 1));
+    ws.addAbility(WarScroll::Ability("Arcing Ordanance", 1));
+    ws.addAbility(WarScroll::Ability("Rocket Salvo", 2));
+    ws.addAbility(WarScroll::Ability("I Meant to Hit That One, Honest", 2)); // HUMAN ENGINEER
+
+    ws.addKeyWords({"ORDER", "WAR MACHINE", "HELLSTORM ROCKET BATTERY",
+      "HUMAN", "FREE PEOPLE", "CREW"});
+
     return ws;
   }
 
@@ -648,6 +927,36 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(12, 12, 8, 3);
+
+    ws.addWeapon(WarScroll::Weapon("Crushing Wheels and Ironclad bulk",
+      1, 6, 4, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Commander's Sword or Rod",
+      1, 2, 5, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Steam Cannon", 30, 1, 4, 2, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Steam Gun", 8, 12, 4, 2, 0, 1));
+
+    WarScroll::UnitUpgrade repeaterHandGun("Repeater Handgun",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 1);
+    repeaterHandGun.addWeapon(WarScroll::Weapon(
+      "Repeater Handgun", 14, 3, 4, 3, 1, 1));
+    ws.registerUnitUpgrade(repeaterHandGun);
+
+    WarScroll::UnitUpgrade hochlandLongRiffle("Hochland Long Rifle",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 1);
+    hochlandLongRiffle.addWeapon(WarScroll::Weapon(
+      "Hochland Long Rifle", 30, 1, 3, 3, 1, 2));
+    ws.registerUnitUpgrade(hochlandLongRiffle);
+
+    ws.addAbility(WarScroll::Ability("More Pressure", 2));
+    ws.addAbility(WarScroll::Ability("Steel Behemoth", 2));
+    ws.addAbility(WarScroll::Ability("Bouncing Cannon Balls", 1));
+    ws.addAbility(WarScroll::Ability("I'll Fix It", 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "WAR MACINE",
+      "EMPIRE STEAM TANK"});
+
     return ws;
   }
 
@@ -655,6 +964,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 5, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Sigmarite Warhammer", 1, 2, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("The Staff of Command", 2, 4, 4, 3, 1, 1));
+
+    ws.addAbility(WarScroll::Ability("Grand Theogonist", 2));
+    ws.addAbility(WarScroll::Ability("The Jade Griffon", 2));
+    ws.addAbility(WarScroll::Ability("Battle Prayers", 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "CELESTIAL", "FREE PEOPLE", "HERO",
+      "PRIEST", "VOLKMAR THE GRIM"});
+
     return ws;
   }
 
@@ -662,6 +984,36 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(10, 11, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Warhorses' Steel-shod Hooves",
+      1, 4, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Light of Banishment",
+      20, 3, 3, 2, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Sigmarite Greathammer",
+      1, 2, 4, 3, 1, 1));
+
+    WarScroll::MountUpgrade volkmarTheGrim("Volkmar the Grim");
+    volkmarTheGrim.addWeapon(WarScroll::Weapon("Sigmarite Warhammer",
+      1, 2, 4, 4, 0, 1));
+    volkmarTheGrim.addWeapon(WarScroll::Weapon("The Staff of Command",
+      2, 4, 4, 3, 1, 1));
+    volkmarTheGrim.addRiderWeaponToReplace(WarScroll::Weapon(
+      "Sigmarite Greathammer", 1, 2, 4, 3, 1, 1));
+    ws.registerMountUpgrade(volkmarTheGrim);
+
+    ws.addAbility(WarScroll::Ability("Divine Power", 2));
+    ws.addAbility(WarScroll::Ability("The Horn of Sigismund", 2));
+    ws.addAbility(WarScroll::Ability("Sigmar's Shield", 2));
+    ws.addAbility(WarScroll::Ability("The Power of Faith", 3));
+    ws.addAbility(WarScroll::Ability("Light of Banishment", 3));
+    ws.addAbility(WarScroll::Ability("Battle Prayers", 2));
+    ws.addAbility(WarScroll::Ability("The Jade Griffon", 3));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "CELESTIAL", "FREE PEOPLE", "TOTEM",
+      "HERO", "PRIEST", "WAR ALTAR OF SIGMAR", "VOLKMAR THE GRIM"});
+
     return ws;
   }
 
@@ -669,6 +1021,21 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(10, 5, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Sigmarite Greathammer",
+      1, 2, 4, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Warhorse's Steel-shod Hooves",
+      1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Divine Power", 1));
+    ws.addAbility(WarScroll::Ability("Prophet of Sigmar", 1));
+    ws.addAbility(WarScroll::Ability("Battle Prayers", 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "CELESTIAL", "FREE PEOPLE",
+      "HERO", "PRIEST", "LUTHOR HUSS"});
+
     return ws;
   }
 
