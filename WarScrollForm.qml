@@ -81,6 +81,23 @@ Rectangle
     }
   }
 
+  function addMagicSpecializations(aList)
+  {
+    aWarScrollMagicalSpecializationUpgradeModel.clear();
+    for (var i = 0; i < aList.length; ++i) {
+      aWarScrollMagicalSpecializationUpgradeModel.append({'name' : aList[i]});
+    }
+
+    if (aList.length === 0) {
+      magicalSpecializationRect.visible = false
+      magicalSpecializationRect.height = 0
+    } else {
+      magicalSpecializationRect.visible = true
+      magicalSpecializationRect.height =
+        0.25 * magicalSpecializationRect.parent.height
+    }
+  }
+
   function finalizeWarScroll()
   {
     var data = {}
@@ -159,6 +176,33 @@ Rectangle
         data["championUpgrade"] = championUpgradeName
         break;
       }
+    }
+
+    var magicUpgradeList = aWarScrollMagicalSpecializationUpgradeView;
+    var magicSelected = false;
+    for (var l = 0; l < magicUpgradeList.count; ++l)
+    {
+      var magicItem = magicUpgradeList.contentItem.children[l];
+      var magicChi1 = magicItem.children[0];
+      var magicChi2 = magicChi1.children[0];
+      var magicChi3 = magicChi2.children[0];
+      var magicChi4 = magicChi3.children[0];
+      if (magicChi4.checked) {
+        magicSelected = true;
+        var magicUpgradeName = magicChi3.text
+        data["magicUpgrade"] = magicUpgradeName
+        break;
+      }
+    }
+
+    if (!magicSelected && magicUpgradeList.count > 0) {
+      var magicItemTest = magicUpgradeList.contentItem.children[0];
+      var magicChi1Test = magicItemTest.children[0];
+      var magicChi2Test = magicChi1Test.children[0];
+      var magicChi3Test = magicChi2Test.children[0];
+      var magicChi4Test = magicChi3Test.children[0];
+      var magicUpgradeNameTest = magicChi3Test.text
+      data["magicUpgrade"] = magicUpgradeNameTest
     }
 
     return data;
@@ -525,6 +569,85 @@ Rectangle
             anchors.fill: parent
             model: aWarScrollChampionUpgradeModel
             delegate: warScrollChampionDelegate
+            highlight: Rectangle { color: "#00000000" }
+            focus: false
+          }
+        }
+      }
+    }
+
+    Row
+    {
+      id: magicalSpecializationRect
+      width: parent.width
+      height: 0.25 * parent.height
+
+      ExclusiveGroup {
+        id: exclusiveMagicalSpecializationUpgrades
+      }
+
+      Rectangle
+      {
+        width: parent.width
+        height: parent.height
+        color: "#00000000"
+
+        Component
+        {
+          id: warScrollMagicalSpecializationDelegate
+          Rectangle
+          {
+            width: parent.width
+            height: 70
+            color: "#00000000"
+            Column
+            {
+              width: parent.width
+              height: parent.height
+              Row
+              {
+                width: parent.width
+                height: parent.height
+                Text
+                {
+                  id: warScrollMagicalSpecializationDelegateName
+                  width: parent.width
+                  height: parent.height
+                  font.pointSize: 8
+                  font.family: "Courier"
+                  text: name
+                  verticalAlignment: TextEdit.AlignVCenter
+
+                  RadioButton
+                  {
+                    id: warScrollMoustDelegateSelected
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    exclusiveGroup: exclusiveMagicalSpecializationUpgrades
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        ListModel
+        {
+          id: aWarScrollMagicalSpecializationUpgradeModel
+        }
+
+        GroupBox
+        {
+          id: aWarScrollMagicalSpecializationUpgradeGroupBox
+          title: "MagicalSpecializations"
+          width: parent.width
+          height: parent.height
+          ListView
+          {
+            id: aWarScrollMagicalSpecializationUpgradeView
+            anchors.fill: parent
+            model: aWarScrollMagicalSpecializationUpgradeModel
+            delegate: warScrollMagicalSpecializationDelegate
             highlight: Rectangle { color: "#00000000" }
             focus: false
           }

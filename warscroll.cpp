@@ -76,6 +76,11 @@ void WarScroll::MountUpgrade::addAbility(const Ability &ability)
   m_Abilities.push_back(ability);
 }
 
+void WarScroll::MountUpgrade::addSpell(const Spell &spell)
+{
+  m_Spells.push_back(spell);
+}
+
 void WarScroll::MountUpgrade::setCharacteristics(
   const Characteristic& characteristic)
 {
@@ -119,6 +124,8 @@ WarScroll::WarScroll(const WarScroll &rhs)
   , m_RegisteredMounts(rhs.m_RegisteredMounts)
   , m_AppliedChampionWithOptions(rhs.m_AppliedChampionWithOptions)
   , m_RegisteredChampionWithOptions(rhs.m_RegisteredChampionWithOptions)
+  , m_AppliedMagicalSpecilizations(rhs.m_AppliedMagicalSpecilizations)
+  , m_RegisteredMagicalSpecilizations(rhs.m_RegisteredMagicalSpecilizations)
   , m_CanFly(rhs.m_CanFly)
   , m_Keywords(rhs.m_Keywords)
   , m_AllianceType(rhs.m_AllianceType)
@@ -143,6 +150,8 @@ WarScroll &WarScroll::operator=(const WarScroll &rhs)
   m_AppliedMounts = rhs.m_AppliedMounts;
   m_RegisteredChampionWithOptions = rhs.m_RegisteredChampionWithOptions;
   m_AppliedChampionWithOptions = rhs.m_AppliedChampionWithOptions;
+  m_AppliedMagicalSpecilizations = rhs.m_AppliedMagicalSpecilizations;
+  m_RegisteredMagicalSpecilizations = rhs.m_RegisteredMagicalSpecilizations;
   m_RegisteredMounts = rhs.m_RegisteredMounts;
   m_CanFly = rhs.m_CanFly;
   m_Keywords = rhs.m_Keywords;
@@ -328,6 +337,11 @@ void WarScroll::addSpell(const WarScroll::Spell &spell, int toCast, int cost)
   m_Spells.back().setToCast(toCast);
 }
 
+void WarScroll::addSpell(const WarScroll::Spell &spell)
+{
+  m_Spells.push_back(spell);
+}
+
 void WarScroll::registerUnitUpgrade(const WarScroll::UnitUpgrade &upgrade)
 {
   m_RegisteredUpgrades.push_back(upgrade);
@@ -370,6 +384,24 @@ void WarScroll::applyRegisteredChampionWithOptions(
   for (const ChampionWithOptions &upgrade : m_RegisteredChampionWithOptions) {
     if (upgrade.getName() == championName) {
       m_AppliedChampionWithOptions.push_back(upgrade);
+      break;
+    }
+  }
+}
+
+void WarScroll::registerMagicalSpecialization(
+  const MagicalSpecialization &upgrade)
+{
+  m_RegisteredMagicalSpecilizations.push_back(upgrade);
+}
+
+void WarScroll::applyRegisteredMagicalSpecialization(
+  const std::string &specialization)
+{
+  for (const MagicalSpecialization &upgrade
+    : m_RegisteredMagicalSpecilizations) {
+    if (upgrade.getName() == specialization) {
+      m_AppliedMagicalSpecilizations.push_back(upgrade);
       break;
     }
   }

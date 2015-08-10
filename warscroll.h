@@ -177,6 +177,25 @@ public:
     }
   };
 
+  class MagicalSpecialization
+  {
+  private:
+    std::string m_Name;
+    Spell m_Spell;
+
+  public:
+    MagicalSpecialization()
+    {}
+
+    MagicalSpecialization(const std::string &name, const Spell &spell)
+      : m_Name(name)
+      , m_Spell(spell)
+    {}
+
+    const std::string &getName() const {return m_Name;}
+    const Spell &getSpell() const {return m_Spell;}
+  };
+
   class WeaponUpgrade
   {
   private:
@@ -303,6 +322,7 @@ public:
     std::list<Weapon> m_Weapons;
     std::list<Weapon> m_RiderWeaponsToReplace;
     std::list<Ability> m_RiderAbilitiesToRemove;
+    std::list<Spell> m_Spells;
     RiderCharacteristics m_CharacteristicsToSet;
     bool m_CanFly;
     bool m_MakesScrollUnique;
@@ -342,6 +362,9 @@ public:
 
     const std::list<Ability> getAbilities() const {return m_Abilities;}
     void addAbility(const Ability &ability);
+
+    const std::list<Spell> getSpells() const {return m_Spells;}
+    void addSpell(const Spell &spell);
 
     void setCharacteristics(const Characteristic& characteristic);
     const RiderCharacteristics &getChacarteristicsToSet() const
@@ -413,6 +436,8 @@ private:
   std::list<MountUpgrade> m_RegisteredMounts;
   std::list<ChampionWithOptions> m_AppliedChampionWithOptions;
   std::list<ChampionWithOptions> m_RegisteredChampionWithOptions;
+  std::list<MagicalSpecialization> m_AppliedMagicalSpecilizations;
+  std::list<MagicalSpecialization> m_RegisteredMagicalSpecilizations;
   bool m_CanFly;
   std::set<std::string> m_Keywords;
   GrandAllianceType m_AllianceType;
@@ -466,6 +491,7 @@ public:
   const std::list<Spell> &getSpells() {return m_Spells;}
   const Spell &getSpell(const std::string &name) const;
   void addSpell(const Spell &spell, int toCast, int cost = 0);
+  void addSpell(const WarScroll::Spell &spell);
 
   const std::list<UnitUpgrade> getRegisteredUnitUpgrades() const
   {return m_RegisteredUpgrades;}
@@ -487,6 +513,19 @@ public:
   {return m_AppliedChampionWithOptions;}
   void registerChampionWithOptions(const ChampionWithOptions &upgrade);
   void applyRegisteredChampionWithOptions(const std::string &championName);
+
+  const std::list<MagicalSpecialization>
+  getRegisteredMagicalSpecializations() const
+  {
+    return m_RegisteredMagicalSpecilizations;
+  }
+  const std::list<MagicalSpecialization>
+  getAppliedMagicalSpecializations() const
+  {
+    return m_AppliedMagicalSpecilizations;
+  }
+  void registerMagicalSpecialization(const MagicalSpecialization &upgrade);
+  void applyRegisteredMagicalSpecialization(const std::string &specialization);
 
   bool getCanFly() const {return m_CanFly;}
   void setCanFly(bool canFly) {m_CanFly = canFly;}

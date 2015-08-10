@@ -1043,6 +1043,29 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 5, 7, 4);
+
+    WarScroll::WeaponUpgrade warhammerShield(
+      WarScroll::Weapon("Sigmarite Warhammer", 1, 4, 4, 4, 0, 1),
+      WarScroll::Ability("Sigmarite Shield", 2));
+    warhammerShield.registerCharacteristicToIncrease("Save", -1);
+    ws.addWeaponUpgrade(warhammerShield);
+    WarScroll::WeaponUpgrade greatHammer(
+      WarScroll::Weapon("Sigmarite Greathammer", 1, 2, 4, 3, 1, 1),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(greatHammer);
+    WarScroll::WeaponUpgrade dualWarhammer(
+      WarScroll::Weapon("Sigmarite Warhammer", 1, 4, 4, 4, 0, 1),
+      WarScroll::Ability("Sigmarite Warhammers", 1));
+    ws.addWeaponUpgrade(dualWarhammer);
+
+    ws.addAbility(WarScroll::Ability("Divine Power", 1));
+    ws.addAbility(WarScroll::Ability("Battle Prayers", 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "CELESTIAL", "FREE PEOPLE", "HERO",
+      "PRIEST", "WARRIOR PRIEST"});
+
     return ws;
   }
 
@@ -1050,6 +1073,28 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 5, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Baroque Pistol", 9, 1, 3, 3, 1, 1));
+
+    WarScroll::WeaponUpgrade dualPistolRapier(
+      WarScroll::Weapon("Baroque Pistol", 9, 2, 3, 3, 1, 1),
+      WarScroll::Ability("Baroque Pistols", 1));
+    dualPistolRapier.registerWeaponToReplace(WarScroll::Weapon(
+      "Baroque Pistol", 9, 1, 3, 3, 1, 1));
+    ws.addWeaponUpgrade(dualPistolRapier);
+    WarScroll::WeaponUpgrade silverGreatsword(
+      WarScroll::Weapon("Silver Greatsword", 1, 3, 3, 3, 1, 1),
+      WarScroll::Ability());
+    ws.addWeaponUpgrade(silverGreatsword);
+
+    ws.addAbility(WarScroll::Ability("Grim Resolve", 2));
+    ws.addAbility(WarScroll::Ability("Sigmar's Judgement", 1));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "CELESTIAL", "FREE PEOPLE", "HERO",
+      "WITCH HUNTER"});
+
     return ws;
   }
 
@@ -1057,6 +1102,24 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 1, 8, 7);
+
+    ws.addWeapon(WarScroll::Weapon("Castigating Flails and Clubs",
+      1, 2, 5, 4, 0, 1));
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Prophet of Doom",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.addAbility(WarScroll::Ability("Glorious Martyrs", 2));
+    ws.addAbility(WarScroll::Ability("Fanatical Fury", 1));
+    ws.addAbility(WarScroll::Ability("Reckless Abondon", 1));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "CELESTIAL", "FREE PEOPLE",
+      "FLAGELLANTS"});
+
     return ws;
   }
 
@@ -1064,6 +1127,30 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(10, 11, 6, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Storm of Shemtek", 18, 6, 6, 1, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Acolytes' Arcane Tools", 1, 4, 5, 5, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Warhorses' Steel-shod Hooves",
+      1, 4, 4, 4, 0, 1));
+
+    WarScroll::MountUpgrade celestialWizard("Celestial Wizard");
+    celestialWizard.addWeapon(WarScroll::Weapon("Wizard's Staff",
+      2, 1, 4, 3, 1, 3));
+    WarScroll::Spell comet("Comet of Casandora");
+    comet.setPointCost(2);
+    comet.setToCast(6);
+    celestialWizard.addSpell(comet);
+    ws.registerMountUpgrade(celestialWizard);
+
+    ws.addAbility(WarScroll::Ability("Locus of Azyr", 2));
+    ws.addAbility(WarScroll::Ability("Portents of Battle", 2));
+    ws.addAbility(WarScroll::Ability("Storm of Shemtek", 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "CELESTIAL", "FREE PEOPLE", "WAR MACHINE", 
+      "CELESTIAL HURRICANUM", "HERO", "WIZARD"});
+
     return ws;
   }
 
@@ -1071,6 +1158,77 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 5, 6, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Wizard's Staff", 2, 1, 4, 3, 1, 3));
+   
+    WarScroll::MountUpgrade horse("Horse");
+    horse.registerCharacteristicToIncrease("Move", 7);
+    horse.addWeapon(WarScroll::Weapon("Horse's Stamping Hooves",
+      1, 2, 4, 5, 0, 1));
+    ws.registerMountUpgrade(horse);
+
+    {
+      WarScroll::Spell spell("Chain Lightning");
+      spell.setPointCost(2);
+      spell.setToCast(6);
+      ws.registerMagicalSpecialization(WarScroll::MagicalSpecialization(
+        "Heavens", spell));
+    }
+    {
+      WarScroll::Spell spell("Fireball");
+      spell.setPointCost(2);
+      spell.setToCast(5);
+      ws.registerMagicalSpecialization(WarScroll::MagicalSpecialization(
+        "Bright", spell));
+    }
+    {
+      WarScroll::Spell spell("Soul Steal");
+      spell.setPointCost(2);
+      spell.setToCast(5);
+      ws.registerMagicalSpecialization(WarScroll::MagicalSpecialization(
+        "Amethyst", spell));
+    }
+    {
+      WarScroll::Spell spell("Light of Battle");
+      spell.setPointCost(2);
+      spell.setToCast(4);
+      ws.registerMagicalSpecialization(WarScroll::MagicalSpecialization(
+        "White", spell));
+    }
+    {
+      WarScroll::Spell spell("Final Transmutation");
+      spell.setPointCost(2);
+      spell.setToCast(6);
+      ws.registerMagicalSpecialization(WarScroll::MagicalSpecialization(
+        "Gold", spell));
+    }
+    {
+      WarScroll::Spell spell("Mystifying Miasma");
+      spell.setPointCost(2);
+      spell.setToCast(6);
+      ws.registerMagicalSpecialization(WarScroll::MagicalSpecialization(
+        "Grey", spell));
+    }
+    {
+      WarScroll::Spell spell("Wildform");
+      spell.setPointCost(2);
+      spell.setToCast(6);
+      ws.registerMagicalSpecialization(WarScroll::MagicalSpecialization(
+        "Amber", spell));
+    }
+    {
+      WarScroll::Spell spell("Lifebloom");
+      spell.setPointCost(2);
+      spell.setToCast(5);
+      ws.registerMagicalSpecialization(WarScroll::MagicalSpecialization(
+        "Jade", spell));
+    }
+
+    ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "HERO", "WIZARD",
+      "EMPIRE BATTLE WIZARD"});
+
     return ws;
   }
 
@@ -1078,6 +1236,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(15, 13, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Beaststaff", 2, 1, 4, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Imperial Griffon's Twin Beaks",
+      2, 4, 3, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Imperial Griffon's Razor Claws",
+      2, 6, 4, 3, 1, 2));
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Amber Wizard", 1));
+    ws.addAbility(WarScroll::Ability("Two Headed", 1));
+
+    ws.addSpell(WarScroll::Spell("Amber Spear"), 7, 1);
+
+    ws.addKeyWords({"ORDER", "HUMAN", "GRIFFON", "FREE PEOPLE", "MONSTER",
+      "HERO", "WIZARD", "AMBER WIZARD"});
+
     return ws;
   }
 
@@ -1085,6 +1262,29 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(10, 11, 6, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Searing Beam of Light", 30, 1, 3, 3, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Acolytes' Arcane Tools", 1, 4, 5, 5, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Warhorses' Steel-shod Hooves",
+      1, 4, 4, 4, 0, 1));
+
+    WarScroll::MountUpgrade celestialWizard("White Wizard");
+    celestialWizard.addWeapon(WarScroll::Weapon("Wizard's Staff",
+      2, 1, 4, 3, 1, 3));
+    WarScroll::Spell burningGaze("Burning Gaze");
+    burningGaze.setPointCost(2);
+    burningGaze.setToCast(6);
+    celestialWizard.addSpell(burningGaze);
+    ws.registerMountUpgrade(celestialWizard);
+
+    ws.addAbility(WarScroll::Ability("Locus of Hysh", 2));
+    ws.addAbility(WarScroll::Ability("Aura of Protection", 2));
+
+    ws.addKeyWords({"ORDER", "HUMAN", "LIGHT", "FREE PEOPLE", "WAR MACHINE",
+      "LUMINARK OF HYSH", "HERO", "WIZARD"});
+
     return ws;
   }
 }

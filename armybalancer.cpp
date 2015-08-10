@@ -256,6 +256,20 @@ void ArmyBalancer::warScrollSeleted()
         "addMountUpgrades",
         Q_ARG(QVariant, QVariant::fromValue(list)));
     }
+
+    if (m_Root) {
+      QVariantList list;
+      const std::list<WarScroll::MagicalSpecialization> &upgrades =
+        m_CurrentWarScroll.getRegisteredMagicalSpecializations();
+      for (const auto &magicSpecialization : upgrades) {
+        const std::string &name = magicSpecialization.getName();
+        list.append(name.c_str());
+      }
+      QMetaObject::invokeMethod(
+        m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
+        "addMagicSpecializations",
+        Q_ARG(QVariant, QVariant::fromValue(list)));
+    }
   }
 }
 
@@ -461,7 +475,7 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
     if (championUpgrade != data.end()) {
       QString championName = championUpgrade->toString();
 
-      const std::list<WarScroll::ChampionWithOptions> champions =
+      const std::list<WarScroll::ChampionWithOptions> &champions =
         m_CurrentWarScroll.getRegisteredChampionWithOptions();
 
       for (const auto &champion : champions) {
@@ -469,6 +483,24 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
           m_CurrentWarScroll.applyRegisteredChampionWithOptions(
             champion.getName());
           break;
+        }
+      }
+    }
+  }
+
+  {
+    QVariantMap::const_iterator magicUpgrade = data.find("magicUpgrade");
+    if (magicUpgrade != data.end()) {
+      QString magicUpgradeName = magicUpgrade->toString();
+
+      const std::list<WarScroll::MagicalSpecialization> &magics =
+        m_CurrentWarScroll.getRegisteredMagicalSpecializations();
+
+      for (const auto &magic : magics) {
+        if (magic.getName() == magicUpgradeName.toStdString()) {
+          m_CurrentWarScroll.applyRegisteredMagicalSpecialization(
+            magic.getName());
+          m_CurrentWarScroll.addSpell(magic.getSpell());
         }
       }
     }
@@ -528,6 +560,13 @@ void ArmyBalancer::clearCurrentWarScroll()
     QMetaObject::invokeMethod(
       m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
       "addChampionOption",
+      Q_ARG(QVariant, QVariant::fromValue(list)));
+  }
+  if (m_Root) {
+    QVariantList list;
+    QMetaObject::invokeMethod(
+      m_Root->rootObject()->findChild<QObject *>("warScrollForm"),
+      "addMagicSpecializations",
       Q_ARG(QVariant, QVariant::fromValue(list)));
   }
 }
