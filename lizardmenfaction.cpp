@@ -6,6 +6,22 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 10, 10, 4);
+    ws.addWeapon(WarScroll::Weapon("Ancient Spirits' Spectral Claws",
+      3, 12, 3, 3, 1, 1));
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Dead for Innumerable Ages", 3));
+    ws.addSpell(WarScroll::Spell("Celestial Deliverance"), 7, 2);
+    ws.addSpell(WarScroll::Spell("Comet's Call"), 7, 2);
+
+    ws.addAbility(WarScroll::Ability("Impeccable Foresight", 2));
+
+    ws.addKeyWords({"ORDER", "CELESTIAL", "SERAPHON", "SLANN", "HERO",
+      "WIZARD", "LORD KROAK"});
+
     return ws;
   }
 
@@ -13,6 +29,23 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 7, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Azure Lightning", 3, 6, 4, 3, 1, 1));
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Celestial Configuration", 3));
+    ws.addAbility(WarScroll::Ability("Arcane Vassal", 2));
+
+    ws.addSpell(WarScroll::Spell("Light of the Heavens"), 6, 1);
+
+    ws.addAbility(WarScroll::Ability("Gift from the Heavens", 2, true));
+
+    ws.addKeyWords({"ORDER", "CELESTIAL", "SERAPHON", "SLANN", "HERO",
+      "WIZARD", "SLANN MAGE-PRIEST"});
+
     return ws;
   }
 
@@ -20,6 +53,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(10, 12, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Sunbolt Gauntlet", 18, 6, 3, 4, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Sunstone Spear", 2, 3, 3, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Carnosaur's Clawed Forelimbs",
+      2, 2, 3, 3, 0, 2));
+    ws.addWeapon(WarScroll::Weapon("Carnosaur's Massive Jaws",
+      2, 5, 4, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Pinned Down", 2));
+    ws.addAbility(WarScroll::Ability("Blood Frenzy", 2));
+    ws.addAbility(WarScroll::Ability("Bloodroar", 3));
+    ws.addAbility(WarScroll::Ability("Blazing Sunbolts", 2));
+    ws.addAbility(WarScroll::Ability("Ancient Warlord", 2));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "CARNOSAUR",
+      "SAURUS", "MONSTER", "HERO", "KROQ-GAR"});
+
     return ws;
   }
 
@@ -27,6 +79,32 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 7, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Fearsome Jaws and Stardrake Shield",
+      1, 1, 4, 3, 0, 1));
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Suntooth Maul", 1, 2, 3, 4, 1, 3),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Celestite Warblade", 1, 4, 3, 3, 0, 1),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Celestite War-spear", 2, 4, 4, 3, 1, 1),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Celestite Greatblade", 1, 2, 4, 3, 1, 2),
+      WarScroll::Ability()));
+
+    ws.addAbility(WarScroll::Ability("Stardrake Shields", 2));
+    ws.addAbility(WarScroll::Ability("Wrath of the Seraphon", 1));
+    ws.addAbility(WarScroll::Ability("Paragon of Order", 2, true));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SAURUS",
+      "HERO", "SAURUS OLDBLOOD"});
+
     return ws;
   }
 

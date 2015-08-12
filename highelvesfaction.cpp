@@ -735,6 +735,18 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 5, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("The Phoenix Blade", 2, 4, 3, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Witness to Destiny", 2));
+    ws.addAbility(WarScroll::Ability("Mark of Asuryan", 1));
+    ws.addAbility(WarScroll::Ability("Captain of the Phoenix Guard", 2, true));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO",
+      "ANOINTED OF ASURYAN", "CARADRYAN"});
+
     return ws;
   }
 
@@ -742,6 +754,17 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 5, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Great Phoenix Halberd", 2, 4, 3, 3, 1, 1));
+
+    ws.addAbility(WarScroll::Ability("Witness to Destiny", 2));
+    ws.addAbility(WarScroll::Ability("Blesing of Asuryan", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO",
+      "ANOINTED OF ASURYAN"});
+
     return ws;
   }
 
@@ -749,6 +772,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 1, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Phoenix Halberd", 2, 2, 3, 3, 0, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Keeper of the Flame",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Drummers",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("Witness to Destiny", 2));
+    ws.addAbility(WarScroll::Ability("Aura of Dread", 1));
+    ws.addAbility(WarScroll::Ability("Emboldened", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "PHOENIX", "GUARD"});
+
     return ws;
   }
 
@@ -756,6 +799,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(16, 12, 8, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Flaming Talons", 2, 6, 4, 3, 1, 2));
+
+    WarScroll::MountUpgrade anointedOfAsuryan("Anointed of Asuryan");
+    anointedOfAsuryan.addWeapon(WarScroll::Weapon("Great Phoenix Halberd",
+      2, 4, 3, 3, 1, 1));
+    anointedOfAsuryan.addAbility(WarScroll::Ability("Witness to Destiny", 2));
+    ws.registerMountUpgrade(anointedOfAsuryan);
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Phoenix Reborn", 3));
+    ws.addAbility(WarScroll::Ability("Wake of Fire", 3));
+    ws.addAbility(WarScroll::Ability("Attuned to Magic", 3));
+
+    ws.addKeyWords({"ORDER", "MONSTER", "FLAMESPYRE PHOENIX", "AELF",
+      "HIGHBORN", "HERO", "MONSTER", "ANOINTED OF ASURYAN"});
+
     return ws;
   }
 
@@ -763,6 +826,34 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(16, 12, 9, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Ice-hard Talons", 2, 8, 3, 3, 1, 2));
+
+    WarScroll::MountUpgrade anointedOfAsuryan("Anointed of Asuryan");
+    anointedOfAsuryan.addWeapon(WarScroll::Weapon("Great Phoenix Halberd",
+      2, 4, 3, 3, 1, 1));
+    anointedOfAsuryan.addAbility(WarScroll::Ability("Witness to Destiny", 2));
+    ws.registerMountUpgrade(anointedOfAsuryan);
+
+    WarScroll::MountUpgrade caradryan("Caradryan");
+    anointedOfAsuryan.addWeapon(WarScroll::Weapon("The Phoenix Blade",
+      2, 4, 3, 3, 1, 3));
+    anointedOfAsuryan.addAbility(WarScroll::Ability("Witness to Destiny", 2));
+    anointedOfAsuryan.addAbility(WarScroll::Ability("Mark of Asuryan", 1));
+    anointedOfAsuryan.addAbility(WarScroll::Ability(
+      "Captain of the Phoenix Guard", 2, true));
+    ws.registerMountUpgrade(anointedOfAsuryan);
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Blizzard Aura", 1));
+    ws.addAbility(WarScroll::Ability("Attuned to Magic", 1));
+
+    ws.addKeyWords({"ORDER", "MONSTER", "FROSTHEART PHOENIX", "AELF", 
+      "HIGHBORN", "HERO", "MONSTER", "ANOINTED OF ASURYAN", "CARADRYAN"});
+
     return ws;
   }
 
@@ -770,6 +861,18 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 5, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Greatsword of Hoeth", 1, 2, 3, 3, 1, 1));
+
+    ws.addAbility(WarScroll::Ability("Deflect Shots", 1));
+
+    ws.addSpell(WarScroll::Spell("Hand of Glory"), 5, 2);
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "WIZARD",
+      "LOREMASTER OF HOETH"});
+
     return ws;
   }
 
@@ -777,6 +880,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 1, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Greatsword of Hoeth", 1, 2, 3, 3, 1, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Bladelord",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Bladelord",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("A Blur of Blades", 2));
+    ws.addAbility(WarScroll::Ability("Deflect Shots", 2));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN",
+      "HIGH ELF SWORDMASTERS OF HOETH"});
+
     return ws;
   }
 
@@ -784,6 +907,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 4, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Woodman's Axe", 1, 3, 4, 3, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Chayal", 1, 2, 3, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Pelt of Charandis", 1));
+    ws.addAbility(WarScroll::Ability("Ultimate Bodyguard", 1));
+    ws.addAbility(WarScroll::Ability("Slay the Beasts", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "WHITE LION",
+      "KORHIL"});
+
     return ws;
   }
 
@@ -791,6 +927,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 1, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Chracian Great Axe", 1, 2, 3, 3, 1, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Guardian",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("Lion Cloak", 1));
+    ws.addAbility(WarScroll::Ability("Unflinching Courage", 2));
+    ws.addAbility(WarScroll::Ability("Captain of the White Lions", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "WHITE LIONS"});
+
     return ws;
   }
 
@@ -798,6 +954,21 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(9, 6, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Chracian Great Axes", 1, 4, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("War Lions' Fangs and Claws",
+      1, 4, 4, 3, 0, 1));
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.addAbility(WarScroll::Ability("Lion Cloak", 1));
+    ws.addAbility(WarScroll::Ability("Unbridled Ferocity", 1));
+    ws.addAbility(WarScroll::Ability("Captain of the White Lions", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "WHITE LION"});
+
     return ws;
   }
 
@@ -805,6 +976,37 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 5, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Ithilmar Blade", 1, 3, 4, 4, 0, 1));
+    ws.addAbility(WarScroll::Ability("Enchanted Shield", 1));
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Ithilmar Blade", 1, 3, 4, 4, 0, 1),
+        WarScroll::Ability());
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Seaspear Trident", 2, 2, 4, 3, 0, 2),
+        WarScroll::Ability());
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon(),
+        WarScroll::Ability("Sea Drake Pennant", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    ws.addAbility(WarScroll::Ability("Stand Fast!", 1, true));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "LOTHERN SEA HELM"});
+
     return ws;
   }
 
@@ -812,6 +1014,45 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(16, 8, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Ithilmar Blade", 1, 3, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Sea Guard's Sea Blade", 1, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Swiftfeather Roc's Raking Talons",
+      3, 3, 3, 4, 1, 1));
+
+    ws.addAbility(WarScroll::Ability("Enchanted Shield", 1));
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Ithilmar Blade", 1, 3, 4, 4, 0, 1),
+        WarScroll::Ability());
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Seaspear Trident", 2, 2, 4, 3, 0, 2),
+        WarScroll::Ability());
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon(),
+        WarScroll::Ability("Sea Drake Pennant", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Windrider", 2));
+    ws.addAbility(WarScroll::Ability("Fleet of Wing", 2));
+    ws.addAbility(WarScroll::Ability("Swoop and Attack", 1, true));
+
+    ws.addKeyWords({ "ORDER", "AELF", "HIGHBORN", "HERO", "LOTHERN SEA HELM" });
+
     return ws;
   }
 
@@ -819,6 +1060,27 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 1, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Lothern Sea Bow", 16, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Silverwood Spear", 2, 1, 4, 4, 0, 1));
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Sea Master",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("Elven Shield", 1));
+    ws.addAbility(WarScroll::Ability("Sea Guard Soldiery", 1));
+    ws.addAbility(WarScroll::Ability("Naval Discipline", 2));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN" "LOTHERN SEA GUARD"});
+
     return ws;
   }
 
@@ -826,6 +1088,43 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(16, 8, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Crew's Sea Blades and Spears",
+      2, 2, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Swiftfeather Roc's Raking Talons",
+      3, 3, 3, 4, 1, 1));
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    {
+      WarScroll::WeaponUpgrade weapon(
+        WarScroll::Weapon("Lothern Sea Bows", 16, 3, 4, 4, 0, 1),
+        WarScroll::Ability("Sea Blades and Spear", 1));
+      weapon.registerWeaponToReplace(WarScroll::Weapon(
+        "Crew's Sea Blades and Spears", 2, 2, 4, 4, 0, 1));
+      weapon.setSecondaryWeapon(WarScroll::Weapon(
+        "Crew's Sea Blades and Spears", 2, 3, 4, 4, 0, 1));
+      ws.addWeaponUpgrade(weapon);
+    }
+
+    {
+      WarScroll::WeaponUpgrade weapon(
+        WarScroll::Weapon("Eagle Eye Bolt Thrower", 16, 1, 4, 3, 1, 3),
+        WarScroll::Ability());
+      ws.addWeaponUpgrade(weapon);
+    }
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Elven Shield", 1));
+    ws.addAbility(WarScroll::Ability("Fleet of Wing", 2));
+    ws.addAbility(WarScroll::Ability("Sky Chariot", 2));
+    ws.addAbility(WarScroll::Ability("Naval Discipline", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGBORN", "LOTHERN SKYCUTTERS"});
+
     return ws;
   }
 }
