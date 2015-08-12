@@ -428,7 +428,7 @@ private:
   typedef std::map<std::string, Ability>::iterator AbilityIterator;
   std::map<std::string, Ability> m_Abilities;
   typedef std::map<std::string, Weapon>::iterator WeaponIterator;
-  std::map<std::string, Weapon> m_Weapons;
+  std::multimap<std::string, Weapon> m_Weapons;
   std::list<Spell> m_Spells;
   std::list<UnitUpgrade> m_AppliedUpgrades;
   std::list<UnitUpgrade> m_RegisteredUpgrades;
@@ -483,7 +483,7 @@ public:
   void addAbility(const Ability &ability);
   void removeAbility(const Ability &ability);
 
-  std::map<std::string, Weapon> &getWeapons() {return m_Weapons;}
+  std::multimap<std::string, Weapon> &getWeapons() {return m_Weapons;}
   const Weapon &getWeapon(const std::string &name) const;
   void addWeapon(const Weapon &weapon);
   void removeWeapon(const Weapon &weapon);

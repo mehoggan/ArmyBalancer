@@ -166,47 +166,19 @@ namespace WarScrollGeneration
 
     {
       WarScroll::MountUpgrade elvenPurebread(
-        "Elven Purebred using Starblade");
+        "Elven Purebred");
       elvenPurebread.registerCharacteristicToIncrease("Move", 6);
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Starblade", 1, 6, 3, 4, 0, 1));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Enchanted Polearm", 1, 3, 3, 3, 1, 3));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Reaver Bow", 20, 3, 3, 3, 0, 1));
       elvenPurebread.addRiderAbilityToRemove(WarScroll::Ability(
         "Enchanted Shield", 1));
       elvenPurebread.addAbility(WarScroll::Ability("Elven Purebred", 1));
       elvenPurebread.addWeapon(WarScroll::Weapon(
         "Purebreed's Ithilmar-shod Hooves", 1, 2, 4, 4, 0, 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Starblade", 1, 6, 3, 4, 0, 1));
       ws.registerMountUpgrade(elvenPurebread);
     }
 
     {
       WarScroll::MountUpgrade elvenPurebread(
-        "Elven Purebred using Enchanted Polearm");
-      elvenPurebread.registerCharacteristicToIncrease("Move", 6);
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Starblade", 1, 6, 3, 4, 0, 1));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Enchanted Polearm", 1, 3, 3, 3, 1, 3));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Reaver Bow", 20, 3, 3, 3, 0, 1));
-      elvenPurebread.addRiderAbilityToRemove(WarScroll::Ability(
-        "Enchanted Shield", 1));
-      elvenPurebread.addAbility(WarScroll::Ability("Elven Purebred", 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Purebreed's Ithilmar-shod Hooves", 1, 2, 4, 4, 0, 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Enchanted Polearm", 1, 3, 3, 3, 1, 3));
-      ws.registerMountUpgrade(elvenPurebread);
-    }
-
-    {
-      WarScroll::MountUpgrade elvenPurebread(
-        "Elven Purebred using Star Lance");
+        "Elven Purebred with Lance");
       elvenPurebread.registerCharacteristicToIncrease("Move", 6);
       elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
         "Starblade", 1, 6, 3, 4, 0, 1));
@@ -227,49 +199,7 @@ namespace WarScrollGeneration
 
     {
       WarScroll::MountUpgrade elvenPurebread(
-        "Elven Purebred using Starblade and Shield");
-      elvenPurebread.registerCharacteristicToIncrease("Move", 6);
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Starblade", 1, 6, 3, 4, 0, 1));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Enchanted Polearm", 1, 3, 3, 3, 1, 3));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Reaver Bow", 20, 3, 3, 3, 0, 1));
-      elvenPurebread.addRiderAbilityToRemove(WarScroll::Ability(
-        "Enchanted Shield", 1));
-      elvenPurebread.addAbility(WarScroll::Ability("Elven Purebred", 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Purebreed's Ithilmar-shod Hooves", 1, 2, 4, 4, 0, 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Starblade", 1, 6, 3, 4, 0, 1));
-      elvenPurebread.addAbility(WarScroll::Ability("Enchanted Shield", 1));
-      ws.registerMountUpgrade(elvenPurebread);
-    }
-
-    {
-      WarScroll::MountUpgrade elvenPurebread(
-        "Elven Purebred using Enchanted Polearm and Shield");
-      elvenPurebread.registerCharacteristicToIncrease("Move", 6);
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Starblade", 1, 6, 3, 4, 0, 1));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Enchanted Polearm", 1, 3, 3, 3, 1, 3));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Reaver Bow", 20, 3, 3, 3, 0, 1));
-      elvenPurebread.addRiderAbilityToRemove(WarScroll::Ability(
-        "Enchanted Shield", 1));
-      elvenPurebread.addAbility(WarScroll::Ability("Elven Purebred", 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Purebreed's Ithilmar-shod Hooves", 1, 2, 4, 4, 0, 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Enchanted Polearm", 1, 3, 3, 3, 1, 3));
-      elvenPurebread.addAbility(WarScroll::Ability("Enchanted Shield", 1));
-      ws.registerMountUpgrade(elvenPurebread);
-    }
-
-    {
-      WarScroll::MountUpgrade elvenPurebread(
-        "Elven Purebred using Star Lance and Shield");
+        "Elven Purebred with Lance and Shield");
       elvenPurebread.registerCharacteristicToIncrease("Move", 6);
       elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
         "Starblade", 1, 6, 3, 4, 0, 1));
@@ -284,58 +214,14 @@ namespace WarScrollGeneration
         "Purebreed's Ithilmar-shod Hooves", 1, 2, 4, 4, 0, 1));
       elvenPurebread.addWeapon(WarScroll::Weapon(
         "Star Lance", 2, 3, 3, 4, 1, 2));
-      elvenPurebread.addAbility(WarScroll::Ability("Enchanted Shield", 1));
       elvenPurebread.addAbility(WarScroll::Ability("Star Lance", 1));
+      elvenPurebread.addAbility(WarScroll::Ability("Enchanted Shield", 1));
       ws.registerMountUpgrade(elvenPurebread);
     }
 
     {
       WarScroll::MountUpgrade elvenPurebread(
-        "Elven Purebred using Starblade and Reaver Bow");
-      elvenPurebread.registerCharacteristicToIncrease("Move", 6);
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Starblade", 1, 6, 3, 4, 0, 1));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Enchanted Polearm", 1, 3, 3, 3, 1, 3));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Reaver Bow", 20, 3, 3, 3, 0, 1));
-      elvenPurebread.addRiderAbilityToRemove(WarScroll::Ability(
-        "Enchanted Shield", 1));
-      elvenPurebread.addAbility(WarScroll::Ability("Elven Purebred", 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Purebreed's Ithilmar-shod Hooves", 1, 2, 4, 4, 0, 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Starblade", 1, 6, 3, 4, 0, 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Reaver Bow", 20, 3, 3, 3, 0, 1));
-      ws.registerMountUpgrade(elvenPurebread);
-    }
-
-    {
-      WarScroll::MountUpgrade elvenPurebread(
-        "Elven Purebred using Enchanted Polearm and Reaver Bow");
-      elvenPurebread.registerCharacteristicToIncrease("Move", 6);
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Starblade", 1, 6, 3, 4, 0, 1));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Enchanted Polearm", 1, 3, 3, 3, 1, 3));
-      elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
-        "Reaver Bow", 20, 3, 3, 3, 0, 1));
-      elvenPurebread.addRiderAbilityToRemove(WarScroll::Ability(
-        "Enchanted Shield", 1));
-      elvenPurebread.addAbility(WarScroll::Ability("Elven Purebred", 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Purebreed's Ithilmar-shod Hooves", 1, 2, 4, 4, 0, 1));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Enchanted Polearm", 1, 3, 3, 3, 1, 3));
-      elvenPurebread.addWeapon(WarScroll::Weapon(
-        "Reaver Bow", 20, 3, 3, 3, 0, 1));
-      ws.registerMountUpgrade(elvenPurebread);
-    }
-
-    {
-      WarScroll::MountUpgrade elvenPurebread(
-        "Elven Purebred using Star Lance and Reaver Bow");
+        "Elven Purebred with Lance and Reaver Bow");
       elvenPurebread.registerCharacteristicToIncrease("Move", 6);
       elvenPurebread.addRiderWeaponToReplace(WarScroll::Weapon(
         "Starblade", 1, 6, 3, 4, 0, 1));
@@ -372,6 +258,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(16, 10, 8, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Starwood Lance", 2, 2, 3, 4, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Starblade", 1, 4, 3, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Griffon's Razor-sharp Beak",
+      2, 1, 3, 3, 1, 6));
+    ws.addWeapon(WarScroll::Weapon("Griffon's Wicked Talons",
+      2, 6, 4, 3, 1, 1));
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Predatory Leap", 2));
+    ws.addAbility(WarScroll::Ability("Starwood Lance", 1));
+    ws.addAbility(WarScroll::Ability("Glittering Charge", 1, true));
+
+    ws.addKeyWords({"ORDER", "AELF", "GRIFFON", "HIGHBORN", "HERO", "MONSTER",
+      "HIGH ELF PRINCE"});
+
     return ws;
   }
 
@@ -379,6 +284,54 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(14, 14, 8, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Dragon's Claws",
+      2, 6, 4, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Dragon's Fearsome Jaws",
+      3, 3, 4, 2, 2, 6));
+
+    {
+      WarScroll::WeaponUpgrade weaponUpgrade(
+        WarScroll::Weapon("Dragon Blade", 2, 4, 3, 3, 1, 3),
+        WarScroll::Ability("Enchanted Shield", 1));
+      ws.addWeaponUpgrade(weaponUpgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade weaponUpgrade(
+        WarScroll::Weapon("Dragon Lance", 2, 3, 3, 3, 1, 2),
+        WarScroll::Ability("Enchanted Shield", 1));
+      weaponUpgrade.addAbility(WarScroll::Ability("Dragon Lance", 1));
+      ws.addWeaponUpgrade(weaponUpgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade weaponUpgrade(
+        WarScroll::Weapon("Dragon Blade", 2, 4, 3, 3, 1, 3),
+        WarScroll::Ability());
+      weaponUpgrade.setSecondaryWeapon(WarScroll::Weapon(
+        "Reaver Bow", 20, 3, 3, 3, 0, 1));
+      ws.addWeaponUpgrade(weaponUpgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade weaponUpgrade(
+        WarScroll::Weapon("Dragon Lance", 2, 3, 3, 3, 1, 2),
+        WarScroll::Ability());
+      weaponUpgrade.setSecondaryWeapon(WarScroll::Weapon(
+        "Reaver Bow", 20, 3, 3, 3, 0, 1));
+      weaponUpgrade.addAbility(WarScroll::Ability("Dragon Lance", 1));
+      ws.addWeaponUpgrade(weaponUpgrade);
+    }
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Elven War Horn", 1));
+    ws.addAbility(WarScroll::Ability("Dragonfire", 3));
+    ws.addAbility(WarScroll::Ability("First Amongst Equals", 2, true));
+
+    ws.addKeyWords({"ORDER", "AELF", "DRAGON", "HIGHBORN", "HERO", "MONSTER",
+      "HIGH ELF PRINCE"});
+
     return ws;
   }
 
@@ -386,6 +339,38 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(14, 14, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Dragon's Claws", 2, 6, 4, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Dragon's Fearsome Jaws", 3, 3, 4, 2, 2, 6));
+
+    {
+      WarScroll::WeaponUpgrade weaponUpgrade(
+        WarScroll::Weapon("Magestaff", 2, 1, 4, 3, 1, 3),
+        WarScroll::Ability("Book of Hoeth", 0));
+      ws.addWeaponUpgrade(weaponUpgrade);
+    }
+
+    {
+      WarScroll::WeaponUpgrade weaponUpgrade(
+        WarScroll::Weapon("Magestaff", 2, 1, 4, 3, 1, 3),
+        WarScroll::Ability());
+      weaponUpgrade.setSecondaryWeapon(WarScroll::Weapon("Sword of Saphery",
+        1, 3, 4, 4, 0, 1));
+      ws.addWeaponUpgrade(weaponUpgrade);
+    }
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Talisman of Arcane Power", 1));
+    ws.addAbility(WarScroll::Ability("Dragonfire", 3));
+
+    ws.addSpell(WarScroll::Spell("Drain Magic"), 4, 2);
+
+    ws.addKeyWords({"ORDER", "AELF", "DRAGON", "HIGHBORN", "HERO", "WIZARD",
+      "MONSTER", "HIGH ELF ARCHMAGE"});
+
     return ws;
   }
 
@@ -393,6 +378,23 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 5, 7, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Seerstaff", 2, 1, 4, 3, 1, 1));
+
+    WarScroll::MountUpgrade steed("Elven Steed");
+    steed.registerCharacteristicToIncrease("Move", 8);
+    steed.addWeapon(WarScroll::Weapon("Elven Steed's Swift Hooves",
+      1, 2, 4, 5, 0, 1));
+    ws.registerMountUpgrade(steed);
+
+    ws.addAbility(WarScroll::Ability("Talisman of Arcane Power", 1));
+    ws.addSpell(WarScroll::Spell("Shield of Saphery"), 7, 3);
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "WIZARD",
+      "HIGH ELF MAGE"});
+
     return ws;
   }
 
@@ -400,6 +402,23 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(14, 14, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Mage's Sunstaff", 2, 1, 4, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Dragon's Claws", 2, 6, 4, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Dragon's Fearsome Jaws", 3, 3, 4, 2, 2, 6));
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Warrior Mage", 1));
+    ws.addAbility(WarScroll::Ability("Dragonfire", 3));
+
+    ws.addSpell(WarScroll::Spell("Flames of the Phoenix"), 7, 3);
+
+    ws.addKeyWords({"ORDER", "AELF", "DRAGON", "HIGHBORN", "HERO", "WIZARD",
+      "MONSTER", "DRAGON MAGE"});
+
     return ws;
   }
 
@@ -407,6 +426,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 1, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Silverwood Spear", 2, 1, 4, 4, 0, 1));
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Sentinel",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("Elven Shield", 1));
+    ws.addAbility(WarScroll::Ability("Militia", 1));
+    ws.addAbility(WarScroll::Ability("Spear Phalanx", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HIGH ELF SPEARMEN"});
+
     return ws;
   }
 
@@ -414,6 +453,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 1, 6, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Silverwood Longbow", 20, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Silverwood Longbow", 1, 1, 5, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hawkeye",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("Elven Archery", 1));
+    ws.addAbility(WarScroll::Ability("Storm of Arrows", 2));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HIGH ELF ARCHERS"});
+
     return ws;
   }
 
@@ -421,6 +480,29 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(12 ,2, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Ithilmar Lance and Sword",
+      1, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Elven Purebreed's Swift Hooves",
+      1, 2, 4, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("High Helm",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("Elven Shield", 1));
+    ws.addAbility(WarScroll::Ability("Lance Charge", 1));
+    ws.addAbility(WarScroll::Ability("Knights of Ulthuan", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "SILVER HELMS"});
+
     return ws;
   }
 
@@ -428,6 +510,24 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(14, 2, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Reaver Cavalry Bow", 16, 2, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Starwood Spear", 1, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Ellyrian Purebreed's Swift Hooves",
+      1, 2, 4, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Harbinger",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.addAbility(WarScroll::Ability("Ellyrian Purebreeds", 2));
+    ws.addAbility(WarScroll::Ability("Swift Volleys", 2));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "ELLYRIAN REAVERS"});
+
     return ws;
   }
 
@@ -435,6 +535,28 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(12, 2, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Drake Lance and Sword", 1, 2, 3, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Purebreed's Ithilmar-shod Hooves",
+      1, 2, 4, 4, 0, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Drakemaster",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("Lance Charge", 1));
+    ws.addAbility(WarScroll::Ability("Drake Shield", 1));
+    ws.addAbility(WarScroll::Ability("Arrogant Pride", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "DRAGON PRINCES OF CALEDOR"});
+
     return ws;
   }
 
@@ -442,6 +564,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(12, 5, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Charioteer's Bows", 18, 2, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Tiranoc Spears", 2, 2, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Ellyrian Purebreeds' Swift Hooves",
+      1, 4, 4, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Graceful Charge", 1));
+    ws.addAbility(WarScroll::Ability("Swift and Deadly", 2));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "TIRANOC CHARIOTS"});
+
     return ws;
   }
 
@@ -449,6 +584,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(4, 4, 10, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Ithilmar Bolt", 36, 1, 3, 3, 2, 3));
+    ws.addWeapon(WarScroll::Weapon("Repeating Bolts", 36, 6, 4, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Ithilmar Blade", 1, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Crewed War Machine", 1));
+    ws.addAbility(WarScroll::Ability("Bolt Selection", 1));
+
+    ws.addKeyWords({"ORDER", "WAR MACHINE", "REPEATER BOLT THROWER", "AELF",
+      "HIGHBORN", "CREW"});
+
     return ws;
   }
 
@@ -456,6 +604,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(16, 4, 6, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Beak and Talons", 2, 4, 3, 0, 1));
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Death fro the Skies", 2));
+    ws.addAbility(WarScroll::Ability("Soar Away", 3));
+
+    ws.addKeyWords({"ORDER", "GREAT EAGLES"});
+
     return ws;
   }
 
@@ -463,6 +625,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 5, 8, 4);
+
+    ws.addWeapon(WarScroll::Weapon("The Moonbow", 24, 3, 3, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Ithilmar Longsword", 1, 4, 3, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("One With the Shadows", 2));
+    ws.addAbility(WarScroll::Ability("The Shadow Crown", 1));
+    ws.addAbility(WarScroll::Ability("The Stone of Midnight", 2));
+    ws.addAbility(WarScroll::Ability("Vengeance From Afar", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "ALITH"});
+
     return ws;
   }
 
@@ -470,6 +645,23 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 1, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Nagarythe Bow", 1, 3, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Shadow Blade", 1, 2, 3, 4, 0, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Shadow Walker",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.addAbility(WarScroll::Ability("One With the Shadows", 2));
+    ws.addAbility(WarScroll::Ability("Strke Unseen", 2));
+    ws.addAbility(WarScroll::Ability("The Shadow King's Warriors", 2));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "SHADOW", "WARRIORS"});
+
     return ws;
   }
 
@@ -477,6 +669,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 5, 8, 5);
+
+    ws.addWeapon(WarScroll::Weapon("The Stave of Avelorn", 2, 1, 4, 3, 0, 3));
+
+    ws.addAbility(WarScroll::Ability("The Everqueen", 3));
+    ws.addAbility(WarScroll::Ability("Bane of Chaos", 2));
+    ws.addAbility(WarScroll::Ability("Star of Avelorn", 2));
+
+    ws.addSpell(WarScroll::Spell("Boon of Life"), 6, 3);
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "WIZARD",
+      "ALARIELLE THE RADIANT"});
+
     return ws;
   }
 
@@ -484,6 +690,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 5, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Bow of Isha", 18, 2, 3, 3, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Guardian Spear", 2, 4, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Arrows of Isha", 2));
+    ws.addAbility(WarScroll::Ability("Quicksilver Shot", 1));
+    ws.addAbility(WarScroll::Ability("The Everqueen's Favour", 2));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO",
+      "HANDMAIDEN OF THE EVERQUEEN"});
+
     return ws;
   }
 
@@ -491,6 +710,24 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 1, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Bow of Avelorn", 18, 1, 3, 3, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Ithilmar Sword", 1, 1, 4, 4, 0, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("High Sister",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.addAbility(WarScroll::Ability("Arrows of Isha", 2));
+    ws.addAbility(WarScroll::Ability("Quicksilver Shot", 1));
+    ws.addAbility(WarScroll::Ability("Loose Until the Last", 2));
+    ws.addAbility(WarScroll::Ability("Paragons of the Maiden Guard", 1));
+
+    ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "SISTERS OF AVELORN"});
+
     return ws;
   }
 
