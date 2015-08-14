@@ -445,7 +445,8 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
             m_CurrentWarScroll.incrementCharacteristic(stat.first,
               stat.second);
           }
-          m_CurrentWarScroll.setCanFly(mount.providesCanFly());
+          m_CurrentWarScroll.setCanFly(mount.providesCanFly() ||
+            m_CurrentWarScroll.getCanFly());
           m_CurrentWarScroll.applyRegisteredMount(mount.getName());
 
           if (mount.makesUnitUnique()) {

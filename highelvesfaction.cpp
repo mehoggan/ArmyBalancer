@@ -838,13 +838,14 @@ namespace WarScrollGeneration
     ws.registerMountUpgrade(anointedOfAsuryan);
 
     WarScroll::MountUpgrade caradryan("Caradryan");
-    anointedOfAsuryan.addWeapon(WarScroll::Weapon("The Phoenix Blade",
+    caradryan.addWeapon(WarScroll::Weapon("The Phoenix Blade",
       2, 4, 3, 3, 1, 3));
-    anointedOfAsuryan.addAbility(WarScroll::Ability("Witness to Destiny", 2));
-    anointedOfAsuryan.addAbility(WarScroll::Ability("Mark of Asuryan", 1));
-    anointedOfAsuryan.addAbility(WarScroll::Ability(
-      "Captain of the Phoenix Guard", 2, true));
-    ws.registerMountUpgrade(anointedOfAsuryan);
+    caradryan.addAbility(WarScroll::Ability("Witness to Destiny", 2));
+    caradryan.addAbility(WarScroll::Ability("Mark of Asuryan", 1));
+    caradryan.addAbility(WarScroll::Ability("Captain of the Phoenix Guard", 2,
+      true));
+    caradryan.setMakesUnitUnique(true);
+    ws.registerMountUpgrade(caradryan);
 
     ws.setCanFly(true);
 
