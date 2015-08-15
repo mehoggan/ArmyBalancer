@@ -418,6 +418,28 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 4, 10, 5);
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Ornate Club", 1, 4, 4, 3, 0, 1),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Golden Sickle", 1, 4, 4, 4, 1, 1),
+      WarScroll::Ability()));
+
+    WarScroll::UnitUpgrade unitUpgrade("Blowpipe",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 2);
+    unitUpgrade.addWeapon(WarScroll::Weapon("Blowpipe", 16, 1, 4, 4, 0, 1));
+    ws.registerUnitUpgrade(unitUpgrade);
+
+    ws.addAbility(WarScroll::Ability("Marked for Greatness", 1));
+    ws.addAbility(WarScroll::Ability("Star-buckler", 2));
+    ws.addAbility(WarScroll::Ability("Skink War Leader", 1));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
+      "HERO", "SKINK CHIEF"});
+
     return ws;
   }
 
@@ -425,6 +447,37 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 1, 10, 6);
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Meteoric Javelins", 8, 1, 5, 4, 0, 1),
+      WarScroll::Ability("Star-buckler", 2)));
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Boltspitter", 16, 1, 5, 5, 0, 1),
+        WarScroll::Ability());
+      upgrade.setSecondaryWeapon(WarScroll::Weapon(
+        "Moonstone Club", 1, 1, 5, 4, 0, 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Boltspitter", 16, 1, 5, 5, 0, 1),
+      WarScroll::Ability("Star-buckler", 2)));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Moonstone Club", 1, 1, 5, 4, 0, 1),
+      WarScroll::Ability("Star-buckler", 2)));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Alpha",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.addAbility(WarScroll::Ability("Celestial Cohort", 1));
+    ws.addAbility(WarScroll::Ability("Wary Fighters", 2));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINKS"});
+
     return ws;
   }
 
@@ -432,6 +485,21 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 1, 10, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Dartpipe", 16, 2, 3, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Envenomed Dart", 1, 1, 5, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.addAbility(WarScroll::Ability("Chameleon Ambush", 3));
+    ws.addAbility(WarScroll::Ability("Disappear from Sight", 3));
+    ws.addAbility(WarScroll::Ability("Star-venom", 2));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
+      "CHAMELEON SKINKS"});
+
     return ws;
   }
 
@@ -439,6 +507,53 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(14, 3, 10, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Terradon's Razor-sharp Beak",
+      1, 4, 4, 4, 0, 1));
+
+    ws.setMinMaxUnitCount(3, IFaction::s_MaxUnitSize);
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Starstrike Javelins", 10, 2, 4, 3, 0, 1),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Sunleech Bolas", 5, 1, 4, 4, 0, 1),
+      WarScroll::Ability("Sunleech Bolas", 2)));
+
+    {
+      WarScroll::ChampionWithOptions unitLeader(
+        "Alpha Unit Leader with Starstrike Javelin", 1);
+      unitLeader.addWeapon(WarScroll::Weapon("Starstrike Javelin",
+        10, 2, 4, 3, 0, 1));
+      ws.registerChampionWithOptions(unitLeader);
+    }
+    {
+      WarScroll::ChampionWithOptions unitLeader(
+        "Alpha Unit Leader with Sunleech Bolas", 1);
+      unitLeader.addWeapon(WarScroll::Weapon("Sunleech Bolas",
+        10, 2, 3, 3, 0, 1));
+      unitLeader.addAbility(WarScroll::Ability("Sunleech Bolas", 2));
+      ws.registerChampionWithOptions(unitLeader);
+    }
+    {
+      WarScroll::ChampionWithOptions unitLeader(
+        "Master of the Skies", 1);
+      unitLeader.addWeapon(WarScroll::Weapon("Skyblade",
+        1, 3, 3, 4, 0, 1));
+      unitLeader.addAbility(WarScroll::Ability("Skyblade", 2));
+      ws.registerChampionWithOptions(unitLeader);
+    }
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Unit Leader",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.addAbility(WarScroll::Ability("Deadly Cargo", 1));
+    ws.addAbility(WarScroll::Ability("Swooping Dive", 1));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
+      "TERRADON RIDERS"});
+
     return ws;
   }
 
@@ -446,6 +561,30 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(14, 3, 10, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Moonstone War-spear", 2, 1, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Ripperdactyl's Slashing Claws",
+      1, 3, 3, 3, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Ripperdactyl's Vicious Beak",
+      1, 1, 4, 3, 0, 1));
+
+    ws.setMinMaxUnitCount(3, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Alpha",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Voracious", 3));
+    ws.addAbility(WarScroll::Ability("Star-bucklers", 2));
+    ws.addAbility(WarScroll::Ability("Swooping Dive", 1));
+    ws.addAbility(WarScroll::Ability("Toad Rage", 3));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
+      "RIPPERDACTYL RIDERS"});
+
     return ws;
   }
 
@@ -453,6 +592,18 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 1, 10, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Goad-spears", 2, 1, 5, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.addAbility(WarScroll::Ability("Aim for their Eyes", 1));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
+      "HANDLERS"});
+
     return ws;
   }
 
@@ -460,6 +611,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 3, 10, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Stream of Fire", 8, 1, 3, 3, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Corrosive Bite", 1, 3, 3, 3, 1, 1));
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.addAbility(WarScroll::Ability("Goaded to Fury", 2));
+    ws.addAbility(WarScroll::Ability("It Burns!", 2));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SALAMANDERS"});
+
     return ws;
   }
 
@@ -467,6 +631,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 3, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Volley of Spikes", 12, 12, 3, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Fierce Bite and Spiked Tail",
+      1, 3, 4, 3, 0, 1));
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+    ws.addAbility(WarScroll::Ability("Piercing Barbs", 1));
+    ws.addAbility(WarScroll::Ability("Instinctive Defence", 2));
+    ws.addAbility(WarScroll::Ability("Goaded to Anger", 2));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "RAZORDONS"});
+
     return ws;
   }
 
@@ -474,6 +652,27 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 4, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Drakebite Maul", 2, 4, 4, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Vice-like Jaws", 1, 1, 4, 3, 1, 1));
+
+    ws.setMinMaxUnitCount(3, IFaction::s_MaxUnitSize);
+
+    WarScroll::ChampionWithOptions moonHammer("Moon Hammer");
+    moonHammer.addWeapon(WarScroll::Weapon("Moon Hammer", 2, 10, 4, 3, 1, 2));
+    moonHammer.addAbility(WarScroll::Ability("Sweeping Blows", 3));
+    moonHammer.setEveryNModels(3);
+    ws.registerChampionWithOptions(moonHammer);
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Moon Hammer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.addAbility(WarScroll::Ability("Energy Transference", 1));
+    ws.addAbility(WarScroll::Ability("Jaws like a Steel Trap", 2));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "KROXIGOR"});
+
     return ws;
   }
 
@@ -481,6 +680,31 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 10, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Massive Horns", 2, 3, 3, 3, 3, 2));
+    ws.addWeapon(WarScroll::Weapon("Crushing Stomps", 1, 18, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Meteoric Javelins", 8, 4, 5, 4, 0, 1));
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Skystreak Bow", 25, 3, 4, 3, 1, 3),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Sunfire Throwers", 8, 10, 4, 3, 1, 3),
+      WarScroll::Ability("Gout of Sunfire", 2)));
+
+    ws.addAbility(WarScroll::Ability("Unstoppable Stampede", 1));
+    ws.addAbility(WarScroll::Ability("Steadfast Majesty", 1));
+
+    WarScroll::UnitUpgrade alpha("Skink Alpha",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1);
+    alpha.addAbility(WarScroll::Ability("Skink Alpha", 1));
+    ws.registerUnitUpgrade(alpha);
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
+      "MONSTER", "STEGADON"});
+
     return ws;
   }
 
@@ -488,6 +712,22 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 10, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Sharpened Horns", 2, 4, 3, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Crushing Stomps", 1, 18, 4, 4, 0, 1));
+
+    ws.addWeapon(WarScroll::Weapon("Meteroic Javelins", 8, 4, 5, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Unstoppable Stampede", 1));
+    ws.addAbility(WarScroll::Ability("Cosmic Engine", 3));
+    ws.addAbility(WarScroll::Ability("Steadfast Majesty", 1));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "STEGADON",
+      "SKINK", "MONSTER", "HERO", "PRIEST", "SKINK PRIEST",
+      "ENGINE OF THE GODS"});
+
     return ws;
   }
 
@@ -495,6 +735,24 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 8, 10, 3);
+
+    ws.addWeapon(WarScroll::Weapon("Bludgeoning Tail", 2, 3, 3, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Meteoric Javelins", 8, 4, 5, 4, 0, 1));
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Searing Beam", 20, 12, 4, 3, 1, 2),
+      WarScroll::Ability("Light of the Heavens", 1)));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Tides of Snakes", 0, 0, 0, 0, 0, 0),
+      WarScroll::Ability("Tide of Snakes", 3)));
+
+    ws.addAbility(WarScroll::Ability("Impervious Defence", 1));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
+      "MONSTER", "BASTILADON"});
+
     return ws;
   }
 
@@ -502,6 +760,23 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(10, 12, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Noxious Spittle", 18, 3, 3, 3, 0, 2));
+    ws.addWeapon(WarScroll::Weapon("Venomous Bite", 2, 6, 4, 2, 0, 2));
+    ws.addWeapon(WarScroll::Weapon("Troglodon's Clawed Forelimbs",
+      2, 2, 4, 3, 0, 2));
+    ws.addWeapon(WarScroll::Weapon("Skink Oracle's Divining Rod",
+      1, 1, 4, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Divining Rod", 1));
+    ws.addAbility(WarScroll::Ability("Primeval Roar", 1));
+    ws.addAbility(WarScroll::Ability("Drawn to the Screams", 2));
+
+    ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
+      "MONSTER", "TROGLODON"});
+
     return ws;
   }
 
@@ -509,6 +784,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 5, 10, 7);
+
+    ws.addWeapon(WarScroll::Weapon("Envenomed Teech and Fangs",
+      1, 5, 5, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.addAbility(WarScroll::Ability("Swarming Tide", 2));
+    ws.addAbility(WarScroll::Ability("Deadly Venom", 1));
+
+    ws.addKeyWords({"ORDER", "JUNGLE SWARMS"});
+
     return ws;
   }
 }

@@ -385,11 +385,13 @@ public:
     int m_PointsCost;
     std::list<Weapon> m_Weapons;
     std::list<Ability> m_Abilities;
+    int m_EveryNModel;
 
   public:
     ChampionWithOptions(std::string name = "", int pointsCost = -1)
       : m_Name(name)
       , m_PointsCost(pointsCost)
+      , m_EveryNModel(-1)
     {}
 
     const std::string &getName() const {return m_Name;}
@@ -400,6 +402,9 @@ public:
 
     const std::list<Ability> &getAbilities() const {return m_Abilities;}
     void addAbility(const Ability &ability);
+
+    int getEveryNModels() const {return m_EveryNModel;}
+    void setEveryNModels(int N) {m_EveryNModel = N;}
 
     friend std::ostream &operator<<(std::ostream &out,
       const ChampionWithOptions &upgrade)
