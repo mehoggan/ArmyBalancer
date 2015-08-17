@@ -6,6 +6,18 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(3, 9, 8, 4);
+
+    ws.addWeapon(WarScroll::Weapon("The Sceptre of Titans", 1, 4, 3, 3, 2, 6));
+
+    ws.addAbility(WarScroll::Ability("Too Rich To Walk", 1));
+    ws.addAbility(WarScroll::Ability("Overtyrant's Crown", 3));
+    ws.addAbility(WarScroll::Ability("Everyone Has Their Price", 3, true));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "TYRANT",
+      "GREASUS GOLDTOOTH"});
+
     return ws;
   }
 
@@ -13,6 +25,17 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 8, 10, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Stump Blades", 1, 12 ,4, 3, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Cauldron of the Great Maw", 3));
+    ws.addAbility(WarScroll::Ability("Prophet of the Great Maw", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "PRIEST",
+      "BUTCHER", "SKRAG THE SLAUGHTERER"});
+
     return ws;
   }
 
@@ -20,6 +43,36 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 8, 8, 4);
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Massive Ogre Club", 2, 4, 3, 3, 2, 3),
+        WarScroll::Ability());
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Club, Basher or Slicer", 1, 6, 3, 3, 1, 2),
+        WarScroll::Ability("Club'em then Club 'em Again", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Club, Basher or Slicer", 1, 6, 3, 3, 1, 2),
+        WarScroll::Ability()
+      );
+      upgrade.setSecondaryWeapon(WarScroll::Weapon("Brace of Ogre Pistols",
+        12, 2, 4, 3, 1, 3));
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    ws.addAbility(WarScroll::Ability("Big Name", 3));
+    ws.addAbility(WarScroll::Ability("Bully of the First Degree", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "TYRANT"});
+
     return ws;
   }
 
@@ -27,6 +80,18 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 7, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Great Gutgouger", 3, 3, 4, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Gutgouger", 1));
+    ws.addAbility(WarScroll::Ability("Slayer of Champions", 1));
+    ws.addAbility(WarScroll::Ability("The Gutsman", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO",
+      "BRAGG THE GUTSMAN"});
+
     return ws;
   }
 
@@ -34,6 +99,23 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 7, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Bruiser's Club or Blade",
+      1, 4, 3, 3, 1, 2));
+
+    WarScroll::UnitUpgrade pistol("Ogre Pistol",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1);
+    pistol.addWeapon(WarScroll::Weapon("Ogre Pistol", 12 , 1, 4, 3, 1, 3));
+    ws.registerUnitUpgrade(pistol);
+
+    ws.addAbility(WarScroll::Ability("Muscle-bound Bully", 1));
+    ws.addAbility(WarScroll::Ability("Banner of the Great Maw", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "TOTEM",
+      "BRUISER STANDARD BEARER"});
+
     return ws;
   }
 
@@ -41,6 +123,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 7, 8, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Butcher's Cleaver or Tenderiser",
+      1, 2, 4, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Bloodgruel", 3));
+
+    ws.addSpell(WarScroll::Spell("The Maw"), 7, 3);
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "WIZARD",
+    });
+
     return ws;
   }
 
@@ -48,6 +143,37 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 4, 6, 5);
+
+    {
+      ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+        WarScroll::Weapon("Ogre Club or Blade", 1, 3, 4, 3, 0, 2),
+        WarScroll::Ability("Iron Fists", 1)));
+    }
+    {
+      ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+        WarScroll::Weapon("Ogre Clubs and Blades", 1, 3, 4, 3, 0, 2),
+        WarScroll::Ability("Ogre Clubs and Blades", 1)));
+    }
+
+    ws.setMinMaxUnitCount(3, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Crusher",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Bellower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+    WarScroll::UnitUpgrade banner("Icon Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+    banner.addAbility(WarScroll::Ability("Tribal Banner", 1));
+    ws.registerUnitUpgrade(banner);
+
+    ws.addAbility(WarScroll::Ability("Bull Charge", 1));
+    ws.addAbility(WarScroll::Ability("Great Beast Skull", 1));
+    ws.addAbility(WarScroll::Ability("Look Out Gnoblar", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "OGRES"});
+
     return ws;
   }
 
@@ -55,6 +181,24 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 4, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Might Bashing Weapon", 2, 3, 4, 3, 1, 3));
+
+    ws.setMinMaxUnitCount(3, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Gutlord",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Bellower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Rune Maw Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+
+    ws.addAbility(WarScroll::Ability("Down to the Ironguts", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "IRONGUTS"});
+
     return ws;
   }
 
@@ -62,6 +206,23 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 4, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Leadbelcher Gun", 12, 3, 4, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Leadbelcher Gun", 1, 2, 4, 3, 1, 2));
+
+    ws.setMinMaxUnitCount(3, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Thunderfist",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Bellower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("Thunderous Blasts of Hot Metal", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "LEADBELCHERS"});
+
     return ws;
   }
 
@@ -69,6 +230,17 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 5, 8, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Long Claws", 1, 4, 4, 3, 0, 2));
+    ws.addWeapon(WarScroll::Weapon("Distensible Jaw", 1, 1, 4, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Ambushing Hunters", 2));
+    ws.addAbility(WarScroll::Ability("Insatiable Hunger", 2));
+
+    ws.addKeyWords({""});
+
     return ws;
   }
 

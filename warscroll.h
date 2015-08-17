@@ -328,8 +328,6 @@ public:
     bool m_MakesScrollUnique;
 
   public:
-    typedef std::list<Characteristic> RiderCharacteristics;
-
     MountUpgrade(std::string name = "", bool canFly = false)
       : m_Name(name)
       , m_CanFly(canFly)
