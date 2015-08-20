@@ -15,6 +15,7 @@ Rectangle
   {
     unitCapSetter.minimumValue = Math.max(0, min)
     unitCapSetter.maximumValue = max
+    unitCapSetter.value = unitCapSetter.minimumValue;
   }
 
   function addArsenalUpgrades(aList)

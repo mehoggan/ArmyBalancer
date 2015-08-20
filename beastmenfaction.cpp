@@ -91,7 +91,7 @@ namespace WarScrollGeneration
     ws.setCanFly(true);
     ws.addAbility(WarScroll::Ability("Unholy Power", 1));
     ws.addAbility(WarScroll::Ability("Harbinger of Disaster", 3));
-    ws.addSpell(WarScroll::Spell("Carrion Wiletide", 24, 24, 2, 5, 0, 1), 6);
+    ws.addSpell(WarScroll::Spell("Carrion Viletide", 24, 24, 2, 5, 0, 1), 6);
     ws.addKeyWords({"CHAOS", "BEASTMEN", "BRAYHERD", "HERO", "WIZARD",
       "GREAT BRAY-SHAMAN", "MALAGOR"});
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);

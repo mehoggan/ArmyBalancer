@@ -321,6 +321,18 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
 
+    ws.setCharacteristics(5, 7, 9, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Gitsnik", 1, 4, 3, 3, 2, 2));
+    ws.addWeapon(WarScroll::Weapon("Almighty 'Eadbutt", 1, 1, 3, 4, 0, 3));
+
+    ws.addAbility(WarScroll::Ability("I'm Da Best", 1));
+    ws.addAbility(WarScroll::Ability("Da Immortulz", 1));
+    ws.addAbility(WarScroll::Ability("Everyone Fights, or Else!", 2, true));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "IRONJAW", "HERO",
+      "BLACK ORC BIG BOSS", "GRIMGOR IRONHIDE"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
@@ -330,6 +342,33 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
 
+    ws.setCharacteristics(5, 6, 7, 4);
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Deff Choppa", 1, 6, 3, 3, 1, 1),
+        WarScroll::Ability("Tusker Shield", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Deff Choppa", 1, 6, 3, 3, 1, 1),
+        WarScroll::Ability("Chop Chop Chop", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Slaughter-choppa", 1, 3, 3, 3, 2, 3),
+        WarScroll::Ability());
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    ws.addAbility(WarScroll::Ability("I'm Da Best", 1));
+    ws.addAbility(WarScroll::Ability("Keepin' Order", 2, true));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "IRONJAW", "HERO",
+      "BLACK ORC BIG BOSS"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
@@ -338,6 +377,33 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 2, 6, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Array of Kill-choppas", 1, 2, 4, 3, 1, 1));
+
+    {
+      WarScroll::UnitUpgrade upgrade("Waaagh! Drummer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1);
+      ws.registerUnitUpgrade(upgrade);
+    }
+    {
+      WarScroll::UnitUpgrade upgrade("Black Orc Boss",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1);
+      ws.registerUnitUpgrade(upgrade);
+    }
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer);
+      ws.registerUnitUpgrade(upgrade);
+    }
+
+    ws.addAbility(WarScroll::Ability("Orc Banner", 2));
+    ws.addAbility(WarScroll::Ability("Icon of Mork (or possibly Gork)", 2));
+    ws.addAbility(WarScroll::Ability("We's da Best", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "IRONJAW", "BLACK ORCS"});
+
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
