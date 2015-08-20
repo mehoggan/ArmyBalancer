@@ -1025,7 +1025,7 @@ namespace WarScrollGeneration
 }
 
 DarkElvesFaction::DarkElvesFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Malekith, the Witch King");

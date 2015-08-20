@@ -1290,7 +1290,7 @@ namespace WarScrollGeneration
 }
 
 TheEmpireFaction::TheEmpireFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Karl Franz on Deathclaw");

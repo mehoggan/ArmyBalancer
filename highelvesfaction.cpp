@@ -21,6 +21,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "HIGH ELF PRINCE",
       "TYRION"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -41,6 +43,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "WIZARD",
       "HIGH ELF MAGE", "TECLIS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -69,6 +73,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "GRIFFON", "HIGHBORN", "HERO", "WIZARD",
       "MONSTER", "HIGH ELF PRINCE", "ELTHARION ON STORMWING"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -94,6 +100,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "DRAGON", "HIGHBORN", "HERO", "MONSTER",
       "HIGH ELF PRINCE", "PRINCE IMRIK"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -112,6 +120,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "HIGH ELF PRINCE",
       "PRINCE ALTHRAN"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -251,6 +261,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "HIGH ELF PRINCE"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -276,6 +288,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "GRIFFON", "HIGHBORN", "HERO", "MONSTER",
       "HIGH ELF PRINCE"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -332,6 +346,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "DRAGON", "HIGHBORN", "HERO", "MONSTER",
       "HIGH ELF PRINCE"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -371,6 +387,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "DRAGON", "HIGHBORN", "HERO", "WIZARD",
       "MONSTER", "HIGH ELF ARCHMAGE"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -395,6 +413,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "WIZARD",
       "HIGH ELF MAGE"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -418,6 +438,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "DRAGON", "HIGHBORN", "HERO", "WIZARD",
       "MONSTER", "DRAGON MAGE"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -446,6 +468,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HIGH ELF SPEARMEN"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -472,6 +496,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Storm of Arrows", 2));
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HIGH ELF ARCHERS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -503,6 +529,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "SILVER HELMS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -527,6 +555,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Swift Volleys", 2));
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "ELLYRIAN REAVERS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -557,6 +587,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "DRAGON PRINCES OF CALEDOR"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -577,6 +609,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "TIRANOC CHARIOTS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -596,6 +630,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "WAR MACHINE", "REPEATER BOLT THROWER", "AELF",
       "HIGHBORN", "CREW"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -618,6 +654,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "GREAT EAGLES"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -637,6 +675,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Vengeance From Afar", 1));
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "ALITH"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -662,6 +702,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "SHADOW", "WARRIORS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -683,6 +725,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "WIZARD",
       "ALARIELLE THE RADIANT"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -702,6 +746,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO",
       "HANDMAIDEN OF THE EVERQUEEN"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -728,6 +774,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "SISTERS OF AVELORN"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -747,6 +795,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO",
       "ANOINTED OF ASURYAN", "CARADRYAN"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -764,6 +814,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO",
       "ANOINTED OF ASURYAN"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -792,6 +844,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "PHOENIX", "GUARD"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -818,6 +872,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "MONSTER", "FLAMESPYRE PHOENIX", "AELF",
       "HIGHBORN", "HERO", "MONSTER", "ANOINTED OF ASURYAN"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -855,6 +911,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "MONSTER", "FROSTHEART PHOENIX", "AELF", 
       "HIGHBORN", "HERO", "MONSTER", "ANOINTED OF ASURYAN", "CARADRYAN"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -873,6 +931,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "WIZARD",
       "LOREMASTER OF HOETH"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -901,6 +961,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN",
       "HIGH ELF SWORDMASTERS OF HOETH"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -920,6 +982,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "WHITE LION",
       "KORHIL"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -948,6 +1012,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "WHITE LIONS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -969,6 +1035,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Captain of the White Lions", 1));
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "WHITE LION"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -1007,6 +1075,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Stand Fast!", 1, true));
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "LOTHERN SEA HELM"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -1054,6 +1124,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({ "ORDER", "AELF", "HIGHBORN", "HERO", "LOTHERN SEA HELM" });
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -1081,6 +1153,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Naval Discipline", 2));
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN" "LOTHERN SEA GUARD"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -1126,12 +1200,14 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "AELF", "HIGBORN", "LOTHERN SKYCUTTERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 }
 
 HighElvesFaction::HighElvesFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Tyrion");

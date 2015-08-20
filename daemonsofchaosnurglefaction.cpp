@@ -251,7 +251,7 @@ namespace WarScrollGeneration
 }
 
 DaemonsOfChaosNurgleFaction::DaemonsOfChaosNurgleFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Great Unclean One");

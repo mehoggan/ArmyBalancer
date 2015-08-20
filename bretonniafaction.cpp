@@ -456,7 +456,7 @@ namespace WarScrollGeneration
 }
 
 BretonniaFaction::BretonniaFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("King Louen Leoncoeur");

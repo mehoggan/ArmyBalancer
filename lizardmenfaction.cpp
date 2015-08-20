@@ -22,6 +22,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "CELESTIAL", "SERAPHON", "SLANN", "HERO",
       "WIZARD", "LORD KROAK"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -45,6 +47,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "CELESTIAL", "SERAPHON", "SLANN", "HERO",
       "WIZARD", "SLANN MAGE-PRIEST"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -71,6 +75,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "CARNOSAUR",
       "SAURUS", "MONSTER", "HERO", "KROQ-GAR"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -105,6 +111,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SAURUS",
       "HERO", "SAURUS OLDBLOOD"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -128,6 +136,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SAURUS",
       "HERO", "SAURUS OLDBLOOD ON COLD ONE"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -146,6 +156,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SAURUS",
       "HERO", "CHAKAX"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -168,6 +180,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SAURUS",
       "HERO", "GOR-ROK"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -186,6 +200,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SAURUS",
       "HERO", "TOTEM", "SCAR-VETRAN WITH BATTLE STANDARD"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -223,6 +239,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON",
       "CARNOSAUR", "SAURUS", "MONSTER", "HERO", "SCAR-VETRAN"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -258,6 +276,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SAURUS",
       "SAURUS WARRIORS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -285,6 +305,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SAURUS",
       "TEMPLE GUARD"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -322,6 +344,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON",
       "SAURUS CAVALRY"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -342,6 +366,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "HERO", "PRIEST", "TEHENHAUIN"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -364,6 +390,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "HERO", "WIZARD", "TETTO'EKO"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -385,6 +413,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "HERO", "OXYOTL"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -410,6 +440,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "HERO", "PRIEST", "SKINK PRIEST"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -439,6 +471,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "HERO", "SKINK CHIEF"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -478,6 +512,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINKS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -499,6 +535,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "CHAMELEON SKINKS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -554,6 +592,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "TERRADON RIDERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -585,6 +625,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "RIPPERDACTYL RIDERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -603,6 +645,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "HANDLERS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -624,6 +668,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SALAMANDERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -644,6 +690,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Goaded to Anger", 2));
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "RAZORDONS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -672,6 +720,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Jaws like a Steel Trap", 2));
 
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "KROXIGOR"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -705,6 +755,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "MONSTER", "STEGADON"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -727,6 +779,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "STEGADON",
       "SKINK", "MONSTER", "HERO", "PRIEST", "SKINK PRIEST",
       "ENGINE OF THE GODS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -753,6 +807,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "MONSTER", "BASTILADON"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -777,6 +833,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DAEMON", "CELESTIAL", "SERAPHON", "SKINK",
       "MONSTER", "TROGLODON"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -797,12 +855,14 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "JUNGLE SWARMS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 }
 
 LizardmenFaction::LizardmenFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Lord Kroak");

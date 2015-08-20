@@ -319,7 +319,7 @@ namespace WarScrollGeneration
 }
 
 SkavenFaction::SkavenFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Thanquol and Boneripper");

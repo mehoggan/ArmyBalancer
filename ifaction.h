@@ -1,10 +1,7 @@
 ﻿#ifndef IFACTION_H
 #define IFACTION_H
 
-#include <QObject>
-
 #include <list>
-#include <QQuickView>
 
 #include <functional>
 #include <memory>
@@ -14,10 +11,8 @@
 #include "warscroll.h"
 #include "warscrollfactory.h"
 
-class IFaction :
-  public QObject
+class IFaction
 {
-  Q_OBJECT
 public:
   static const int s_MaxUnitSize = 500;
 
@@ -25,8 +20,7 @@ protected:
   typedef std::function<WarScroll(std::string)> WarScrollGenerator;
 
 public:
-  explicit IFaction(QObject *parent = 0)
-    : QObject(parent)
+  IFaction()
   {}
 
   virtual ~IFaction()

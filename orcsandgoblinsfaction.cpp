@@ -6,6 +6,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(9, 7, 8, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Morglor the Mangler", 1, 5, 3, 3, 2, 3));
+    ws.addWeapon(WarScroll::Weapon("Gnarla's Giant Tusks", 1, 2, 4, 3, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Greenskinz are da Best", 1));
+    ws.addAbility(WarScroll::Ability("Da Great Leader", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "GREENSKINZ", "HERO",
+      "ORC WARBOSS", "GORBAD IRONCLAW"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -13,6 +26,27 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(12, 12, 8, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Slagga's Slashas", 1, 6, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Skullmuncha's Horns, Claws and Teeth",
+      2, 6, 4, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Skullmuncha's Barbed, Venomous Tail",
+      3, 2, 4, 2, 1, 3));
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Agonising Venom", 2));
+    ws.addAbility(WarScroll::Ability("Slagga's Slashas", 2));
+    ws.addAbility(WarScroll::Ability("Get on Wiv It!", 3, true));
+
+    ws.addSpell(WarScroll::Spell("Life Drain"), 5, 1);
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "WYVERN", "GREENSKINZ", "MONSTER",
+      "HERO", "WIZARD", "ORC WARBOSS", "AZHAG THE SLAUGHTERER"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -20,6 +54,47 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 6, 7, 4);
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Boss Choppa", 1, 6, 3, 3, 1, 1),
+        WarScroll::Ability("Boss Shield", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Boss Choppa", 1, 8, 3, 3, 1, 1),
+        WarScroll::Ability("Choppa Boss", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Massive Choppa", 1, 3, 4, 3, 2, 3),
+        WarScroll::Ability());
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Great Waaagh! Banner", 2, 4, 4, 4, 0, 1),
+        WarScroll::Ability("Great Waaagh! Banner", 3));
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    WarScroll::UnitUpgrade mount("War Boar",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMount, 2);
+    mount.registerCharacteristicToIncrease("Move", 4);
+    mount.addWeapon(WarScroll::Weapon("War Boar's Tusks", 1, 2, 4, 4, 0, 1));
+    ws.registerUnitUpgrade(mount);
+
+    ws.addAbility(WarScroll::Ability("Waaagh!", 2, true));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "GREENSKINZ", "HERO",
+      "ORC WARBOSS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -27,6 +102,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(12, 10, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Boss Choppa", 1, 6, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("Wyvern's Horns, Claws and Teeth",
+      2, 5, 4, 3, 1, 2));
+    ws.addWeapon(WarScroll::Weapon("Wyvern's Barbed, Venomous Tail",
+      3, 2, 4, 2, 1, 3));
+
+    ws.setCanFly(true);
+
+    ws.addAbility(WarScroll::Ability("Agonising Venom", 2));
+    ws.addAbility(WarScroll::Ability("Boss Shield", 1));
+    ws.addAbility(WarScroll::Ability("Waaagh!", 2, true));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "WYVERN", "GREENSKINZ", "MONSTER",
+      "HERO", "ORC WARBOSS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -34,6 +128,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 4, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Totemic Staff", 2, 1, 4, 3, 0, 3));
+
+    WarScroll::UnitUpgrade mount("War Boar",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMount, 2);
+    mount.registerCharacteristicToIncrease("Move", 4);
+    mount.addWeapon(WarScroll::Weapon("War Boar's Tusks", 1, 2, 4, 4, 0, 1));
+    ws.registerUnitUpgrade(mount);
+
+    ws.addAbility(WarScroll::Ability("Waaagh!", 2, true));
+
+    ws.addSpell(WarScroll::Spell("Gaze of Mork"), 6, 2);
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "GREENSKINZ", "HERO", "WIZARD",
+      "ORC GREAT SHAMAN"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -41,6 +154,16 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 4, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Bully's Whip", 2, 2, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Get Back to Work, Maggots", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "GREENSKINZ", "HERO", "ORC BULLY"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -48,6 +171,43 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 1, 5, 5);
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Choppa", 1, 1, 4, 4, 1, 1),
+      WarScroll::Ability("Waaagh! Shield", 2)));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Pikstikka Spear", 2, 1, 4, 4, 0, 1),
+      WarScroll::Ability("Waaagh! Shield", 2)));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Choppa", 1, 1, 4, 4, 1, 1),
+      WarScroll::Ability("Choppas", 2)));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Orc Boss",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Waaagh! Drummer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+    {
+      WarScroll::UnitUpgrade upgrade("Orc Banner",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      upgrade.addAbility(WarScroll::Ability("Orc Banner", 1));
+      ws.registerUnitUpgrade(upgrade);
+    }
+    {
+      WarScroll::UnitUpgrade upgrade("Skull Icon",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      upgrade.addAbility(WarScroll::Ability("Skull Icon", 1));
+      ws.registerUnitUpgrade(upgrade);
+    }
+
+    ws.addAbility(WarScroll::Ability("Mob Rule", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "GREENSKINZ", "ORCS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -55,6 +215,52 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 1, 5, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Orc Bow", 18, 1, 5, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Cutta", 1, 1, 4, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(3, IFaction::s_MaxUnitSize);
+
+    ws.addAbility(WarScroll::Ability("Ready Boyz! Aim! Fire!", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "GREENSKINZ", "ORC ARRER BOYZ"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+    return ws;
+  }
+
+  WarScroll Orc_Boar_Boyz(const std::string &name)
+  {
+    WarScroll ws;
+    ws.setTitle(name);
+
+    ws.setCharacteristics(9, 2, 5, 5);
+
+    ws.addWeapon(WarScroll::Weapon("War Boar's Tusks", 1, 2, 4, 4, 0, 1));
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Pigstikka Spear", 2, 1, 4, 4, 0, 1),
+      WarScroll::Ability("Tusker Shield", 1)));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Choppa", 1, 1, 4, 4, 1, 1),
+      WarScroll::Ability("Tusker Shield", 1)));
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Orc Boar Boy Boss",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Glyph Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Waaagh! Horns",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addAbility(WarScroll::Ability("Tusker Charge", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "GREENSKINZ", "ORC BOAR BOYS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -62,6 +268,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(9, 6, 6, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Crew's Pigstikka Spears",
+      2, 2, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("War Boars' Tusks",
+      1, 4, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Scythed Wheels", 2));
+    ws.addAbility(WarScroll::Ability("Tusker Charge", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "GREENSKINZ", "ORC BOAR CHARIOTS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -69,6 +289,30 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 1, 5, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Orc Crossbow", 12, 1, 5, 3, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Cutta", 1, 1, 4, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Ruglud",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    WarScroll::ChampionWithOptions ruglud("Ruglud", 1);
+    ruglud.addWeapon(WarScroll::Weapon("Cutta", 2, 1, 4, 3, 0, 1));
+    ruglud.addWeapon(WarScroll::Weapon("Orc Crossbow", 12, 1, 5, 3, 0, 1));
+    ruglud.addAbility(WarScroll::Ability("Shoot'em Again Boyz", 2));
+    ws.registerChampionWithOptions(ruglud);
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Maggot",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Waaagh! Drummer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "GREENSKINZ",
+      "RUGLUD'S ARMOURED ORCS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -76,6 +320,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -83,6 +329,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -90,6 +338,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -97,6 +347,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -104,6 +356,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -111,6 +365,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -118,6 +374,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -125,6 +383,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -132,6 +392,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -139,6 +401,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -146,6 +410,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -153,6 +419,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -160,6 +428,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -167,6 +437,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -174,6 +446,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -181,6 +455,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -188,6 +464,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -195,6 +473,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -202,6 +482,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -209,6 +491,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -216,6 +500,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -223,6 +509,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -230,6 +518,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -237,6 +527,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -244,6 +536,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -251,6 +545,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -258,6 +554,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -265,6 +563,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -272,6 +572,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -279,6 +581,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -286,6 +590,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -293,6 +599,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -300,6 +608,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -307,6 +617,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -314,6 +626,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -321,6 +635,8 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 
@@ -328,12 +644,14 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
 }
 
 OrcsAndGoblinsFaction::OrcsAndGoblinsFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Gorbad Ironclaw");
@@ -360,6 +678,9 @@ OrcsAndGoblinsFaction::OrcsAndGoblinsFaction() :
   m_Units.push_back("Orc Arrer Boyz");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Orc_Arrer_Boyz, m_Units.back())));
+  m_Units.push_back("Orc Boar Boyz");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Orc_Boar_Boyz, m_Units.back())));
   m_Units.push_back("Orc Boar Chariots");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Orc_Boar_Chariots, m_Units.back())));

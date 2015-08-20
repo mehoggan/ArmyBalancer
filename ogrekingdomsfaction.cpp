@@ -18,6 +18,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "TYRANT",
       "GREASUS GOLDTOOTH"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -35,6 +37,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "PRIEST",
       "BUTCHER", "SKRAG THE SLAUGHTERER"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
 
     return ws;
   }
@@ -73,6 +77,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "TYRANT"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -91,6 +97,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO",
       "BRAGG THE GUTSMAN"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
 
     return ws;
   }
@@ -116,6 +124,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "TOTEM",
       "BRUISER STANDARD BEARER"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -133,8 +143,9 @@ namespace WarScrollGeneration
 
     ws.addSpell(WarScroll::Spell("The Maw"), 7, 3);
 
-    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "WIZARD",
-    });
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "HERO", "WIZARD",});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
 
     return ws;
   }
@@ -148,7 +159,7 @@ namespace WarScrollGeneration
 
     {
       ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
-        WarScroll::Weapon("Ogre Club or Blade", 1, 3, 4, 3, 0, 2),
+        WarScroll::Weapon("Ogre Clubs and Blades", 1, 3, 4, 3, 0, 2),
         WarScroll::Ability("Iron Fists", 1)));
     }
     {
@@ -173,6 +184,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Look Out Gnoblar", 1));
 
     ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "OGRES"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
 
     return ws;
   }
@@ -199,6 +212,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "IRONGUTS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -223,6 +238,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "LEADBELCHERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -239,7 +256,9 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Ambushing Hunters", 2));
     ws.addAbility(WarScroll::Ability("Insatiable Hunger", 2));
 
-    ws.addKeyWords({""});
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "GORGERS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
 
     return ws;
   }
@@ -248,6 +267,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(7, 9, 6, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Cannon of the Sky-Titans",
+      22, 1, 4, 2, 2, 6));
+    ws.addWeapon(WarScroll::Weapon("Ironblaster Gunner's Club",
+      1, 3, 4, 3, 0, 2));
+    ws.addWeapon(WarScroll::Weapon("Rhinox's Sharp Horns",
+      1, 1, 4, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Gnoblar Scrapper's Jagged Blade",
+      1, 1, 5, 5, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Rhinox Charge", 1));
+    ws.addAbility(WarScroll::Ability("Cannon Shell", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "GUTBUSTER", "IRONBLASTER"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -255,6 +293,24 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(7, 9, 4, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Scraplauncher",
+      33, 1, 3, 4, 0, 3));
+    ws.addWeapon(WarScroll::Weapon("Gnoblar Scrappers' Weapons",
+      1, 7, 5, 5, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Rhinox's Sharp Horns",
+      1, 1, 4, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Rhinox Charge", 1));
+    ws.addAbility(WarScroll::Ability("Deadly Rain of Scrap", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "GNOBLAR", "GUTBUSTER",
+      "GNOBLAR SCRAPLAUNCHER"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -262,6 +318,26 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 1, 3, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Sharp Stuff",
+      8, 1, 4, 6, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Motley Assortment of Weapons",
+      1, 1,5, 5, 0, 1));
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Groinbiter",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.addAbility(WarScroll::Ability("Screeching Horde", 1));
+    ws.addAbility(WarScroll::Ability("Trappers", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "GNOBLAR", "GNOBLAR FIGHTERS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -269,6 +345,20 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 7, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Fire Breath", 6, 1, 4, 0, 7, 3));
+    ws.addWeapon(WarScroll::Weapon("Basalt Hammer", 2, 2, 4, 3, 1, 3));
+
+    ws.addAbility(WarScroll::Ability("Fire Breath", 1));
+
+    ws.addSpell(WarScroll::Spell("Cascading Fire-Cloak"), 6, 2);
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "FIREBELLY", "HERO", "WIZARD"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -276,6 +366,22 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 7, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Great Throwing Spear", 9, 1, 4, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Hunter's Culling Club", 1, 4, 4, 3, 0, 2));
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hunter's Crossbow",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+
+    ws.addAbility(WarScroll::Ability("A Hunter of Beasts", 1));
+    ws.addAbility(WarScroll::Ability("Might Throw", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "BEASTCLAW", "HERO", "HUNTER"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -283,6 +389,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(9, 2, 5, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Elongated Tusks", 1, 3, 4, 3, 1, 1));
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.addAbility(WarScroll::Ability("Their Master's Voice", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "BEASTCLAW", "SABRETUSKS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -290,6 +409,74 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(9, 6, 6, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Mournfang's Tusks", 1, 4, 4, 3, 1, 1));
+
+    {
+      ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+        WarScroll::Weapon("Ogre Clubs and Blades", 1, 3, 4, 3, 0, 2),
+        WarScroll::Ability("Iron Fists", 1)));
+    }
+    {
+      ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+        WarScroll::Weapon("Ogre Clubs and Blades", 1, 3, 4, 3, 0, 2),
+        WarScroll::Ability("Ogre Clubs and Blades", 1)));
+    }
+
+    ws.setMinMaxUnitCount(2, IFaction::s_MaxUnitSize);
+
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Crusher",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
+    {
+      WarScroll::ChampionWithOptions crusher(
+        "Crusher with Ogre Clubs and Blades and Iron Fists", 1);
+      crusher.addWeapon(WarScroll::Weapon(
+        "Ogre Clubs and Blades", 1, 3, 4, 3, 0, 2));
+      crusher.addAbility(WarScroll::Ability("Iron Fists", 1));
+      ws.registerChampionWithOptions(crusher);
+    }
+    {
+      WarScroll::ChampionWithOptions crusher(
+        "Crusher with dual Ogre Clubs and Blades", 1);
+      crusher.addWeapon(WarScroll::Weapon(
+        "Ogre Clubs and Blades", 1, 3, 4, 3, 0, 2));
+      crusher.addAbility(WarScroll::Ability("Ogre Clubs and Blades", 1));
+      ws.registerChampionWithOptions(crusher);
+    }
+    {
+      WarScroll::ChampionWithOptions crusher(
+        "Crusher with Ogre Pistol and Clubs and Blades and Iron Fists", 1);
+      crusher.addWeapon(WarScroll::Weapon(
+        "Ogre Clubs and Blades", 1, 3, 4, 3, 0, 2));
+      crusher.addAbility(WarScroll::Ability("Iron Fists", 1));
+      crusher.addWeapon(WarScroll::Weapon("Ogre Pistol",
+        12, 1, 4, 3, 1, 3));
+      ws.registerChampionWithOptions(crusher);
+    }
+    {
+      WarScroll::ChampionWithOptions crusher(
+        "Crusher with Ogre Pistol and dual Clubs and Blades", 1);
+      crusher.addWeapon(WarScroll::Weapon(
+        "Ogre Clubs and Blades", 1, 3, 4, 3, 0, 2));
+      crusher.addAbility(WarScroll::Ability("Ogre Clubs and Blades", 1));
+      crusher.addWeapon(WarScroll::Weapon("Ogre Pistol",
+        12, 1, 4, 3, 1, 3));
+      ws.registerChampionWithOptions(crusher);
+    }
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Horn Blower",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Banner Bearer",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+
+    ws.addAbility(WarScroll::Ability("Mournfang Charge", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "BEASTCLAW", "MOURNFANG",
+      "CAVALRY"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -297,6 +484,37 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(12, 12, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Beastrider's Punches and Kicks",
+      1, 3, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Stonehorn's Horns",
+      2, 6, 4, 3, 2, 3));
+    ws.addWeapon(WarScroll::Weapon("Stonehorn's Crushing Hooves",
+      1, 6, 3, 2, 1, 3));
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Harpoon Launcher", 20, 1, 4, 3, 0, 3),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Chaintrap", 12, 1, 4, 3, 0, 3),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Beastrider's Hunting Spear", 2, 2, 4, 3, 0, 2),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Blood Vulture", 30, 1, 1, 1, 7, 1),
+      WarScroll::Ability("Blood Vulture", 2)));
+
+    ws.addAbility(WarScroll::Ability("Earth-shattering Charge", 2));
+    ws.addAbility(WarScroll::Ability("Stone Skeleton", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "BEASTCLAW", "MONSTER",
+      "STONEHORN"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -304,6 +522,31 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 12, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Frost-wreathed Ice", 18, 6, 2, 1, 7, 1));
+    ws.addWeapon(WarScroll::Weapon("Harpoon Launcher", 20, 1, 4, 3, 0, 3));
+    ws.addWeapon(WarScroll::Weapon("Beastrider's Punches and Kicks",
+      1, 6, 4, 4, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Thundertusk's Crushing Blows",
+      2, 4, 3, 2, 1, 3));
+
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Chaintrap", 12, 1, 4, 3, 0, 3),
+      WarScroll::Ability()));
+    ws.addWeaponUpgrade(WarScroll::WeaponUpgrade(
+      WarScroll::Weapon("Blood Vulture", 30, 1, 1, 1, 7, 1),
+      WarScroll::Ability("Blood Vulture", 2)));
+
+    ws.addAbility(WarScroll::Ability("Blasts of Frost-wreathed Ice", 2));
+    ws.addAbility(WarScroll::Ability("Numbing Chill", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "BEASTCLAW", "MONSTER",
+      "THUNDERTUSK"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -311,6 +554,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 7, 8, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Ogre Pistol", 12, 1, 4, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Slicer and Basher", 1, 6, 3, 3, 1, 2));
+
+    ws.addAbility(WarScroll::Ability("Golgfag's Maneaters", 1));
+    ws.addAbility(WarScroll::Ability("Easy Come, Easy Go", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "MANEATER", "HERO", "GOLGFAG"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -318,6 +574,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(6, 4, 7, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Slicers and Bashers", 1, 4, 3, 3, 1, 2));
+
+    WarScroll::UnitUpgrade stars("Ogre Pistols or Throwing Stars",
+      WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 1);
+    stars.addWeapon(WarScroll::Weapon("Ogre Pistols or Throwing Stars",
+      12, 1, 3, 3, 1, 3));
+    ws.registerUnitUpgrade(stars);
+
+    ws.setMinMaxUnitCount(1, IFaction::s_MaxUnitSize);
+
+    ws.addAbility(WarScroll::Ability("Been There, Done That", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "OGOR", "MANEATERS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -325,6 +600,21 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(9, 4, 6, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Claws and Ice-encrusted Clubs",
+      1, 3, 4, 3, 1, 2));
+
+    ws.setMinMaxUnitCount(3, IFaction::s_MaxUnitSize);
+
+    ws.addAbility(WarScroll::Ability("Bounding Leaps", 2));
+    ws.addAbility(WarScroll::Ability("Aura of Frost", 2));
+
+    ws.addKeyWords({"DESTRUCTION", "YHETEES"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 
@@ -332,12 +622,28 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(8, 12, 6, 5);
+
+    ws.addWeapon(WarScroll::Weapon("Massive Club", 3, 18, 3, 3, 1, 1));
+    ws.addWeapon(WarScroll::Weapon("'Eadbutt", 1, 1, 4, 3, 3, 6));
+    ws.addWeapon(WarScroll::Weapon("Mighty Kick", 2, 1, 3, 3, 2, 3));
+
+    ws.addAbility(WarScroll::Ability("Timber", 2));
+    ws.addAbility(WarScroll::Ability("Stuff'Em In Me Bag", 1));
+    ws.addAbility(WarScroll::Ability("Drunken Stagger", 1));
+
+    ws.addKeyWords(
+      {"DESTRUCTION", "GARGANT", "ALEGUZZLER", "MONSTER", "GIANT"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
+
     return ws;
   }
 }
 
 OgreKingdomsFaction::OgreKingdomsFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Greasus Goldtooth");

@@ -368,7 +368,7 @@ namespace WarScrollGeneration
 }
 
 DaemonsOfChaosTzeentchFaction::DaemonsOfChaosTzeentchFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Kairos Fateweaver");

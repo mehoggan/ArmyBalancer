@@ -352,7 +352,7 @@ namespace WarScrollGeneration
 }
 
 DaemonsOfChaosKhorneFaction::DaemonsOfChaosKhorneFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Bloodthirster of Insensate Rage");

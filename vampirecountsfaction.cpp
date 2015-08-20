@@ -277,7 +277,7 @@ namespace WarScrollGeneration
 }
 
 VampireCountsFaction::VampireCountsFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Nagash, Supreme Lord of the Undead");

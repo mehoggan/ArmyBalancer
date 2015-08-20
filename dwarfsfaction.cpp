@@ -19,6 +19,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "DWARF LORD",
       "HIGH KING THORGRIM GRUDGEBEARER"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -39,6 +41,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "PRIEST",
       "RUNELORD", "THOREK IRONBROW"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -56,6 +60,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "PRIEST",
       "KRAGGI"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -77,6 +83,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "DWARF LORD",
       "BELGAR IRONHAMMER"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -96,6 +104,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "DWARF LORD",
       "UNGRIM IRONFIST THE SLAYER KING"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -117,6 +127,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO",
       "JOSEF BUGMAN"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -137,6 +149,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "ENGINEER",
       "GRIMM BURLOKSSON"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -176,6 +190,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "DWARF LORD"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -194,6 +210,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "PRIEST",
       "RUNELORD"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -221,6 +239,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO",
       "DRAGON SLAYER"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -253,6 +273,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "ENGINEER"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -270,6 +292,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO", "TOTEM",
       "THANE WITH BATTLE STANDARD"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -295,6 +319,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Kingsguard", 3));
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HAMMERERS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -342,6 +368,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Forge-proven Gromril Armor", 2));
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "IRONBREAKERS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -396,6 +424,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "IRONDRAKES"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -431,6 +461,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Old Grumblers", 3));
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "LONGBEARDS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -473,6 +505,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Dwarf Shields", 2));
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "DWARF WARRIORS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -534,6 +568,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({ "ORDER", "DUARDIN", "DISPOSSESSED", "MINERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -570,6 +606,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "QUARRELLERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -597,6 +635,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("The Slayer King", 1));
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "SLAYERS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -644,6 +684,8 @@ namespace WarScrollGeneration
     
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "THUNDERERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -674,6 +716,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "WAR MACHINE",
       "GYROCOPTERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -696,6 +740,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "WAR MACHINE",
       "GYROBOMBERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -715,6 +761,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "WAR MACHINE", "DWARF BOLT THROWER", "DUARDIN",
       "DISPOSSESSED", "CREW"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -736,6 +784,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "WAR MACHINE", "DWARF CANNON", "DUARDIN",
       "DISPOSSESSED", "CREW"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -756,6 +806,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "WAR MACHINE", "FLAME CANNON", "DUARDIN",
       "DISPOSSESSED", "CREW"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -775,6 +827,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "WAR MACHINE", "ORGAN GUN", "DUARDIN",
       "DISPOSSESSED", "CREW"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
     return ws;
   }
@@ -797,12 +851,14 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "WAR MACHINE", "GRUDGE THROWER", "DUARDIN",
       "DISPOSSESSED", "CREW"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 }
 
 DwarfsFaction::DwarfsFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("High King Thorgrim Grudgebearer");

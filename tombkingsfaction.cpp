@@ -186,7 +186,7 @@ namespace WarScrollGeneration
 }
 
 TombKingsFaction::TombKingsFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Settra the Imperishable");

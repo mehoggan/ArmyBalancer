@@ -515,7 +515,7 @@ namespace WarScrollGeneration
 }
 
 BeastmenFaction::BeastmenFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Gorthor the Beastlord");

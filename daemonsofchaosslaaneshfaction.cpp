@@ -352,7 +352,7 @@ namespace WarScrollGeneration
 }
 
 DaemonsOfChaosSlaaneshFaction::DaemonsOfChaosSlaaneshFaction() :
-  IFaction(nullptr)
+  IFaction()
 {
   m_Units.push_back("");
   m_Units.push_back("Keeper of Secrets");
