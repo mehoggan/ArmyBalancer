@@ -29,17 +29,22 @@ public:
     std::string m_Name;
     int m_Value;
     bool m_IsCommandAbility;
+    int m_EveryNModel;
 
   public:
     Ability(std::string name = "", int value = 0, bool commandAbility = false)
       : m_Name(name)
       , m_Value(value)
       , m_IsCommandAbility(commandAbility)
+      , m_EveryNModel(-1)
     {}
 
     const std::string &getName() const {return m_Name;}
     int getValue() const {return m_Value;}
     bool getIsCommandAbility() const {return m_IsCommandAbility;}
+
+    int getEveryNModels() const {return m_EveryNModel;}
+    void setEveryNModels(int N) {m_EveryNModel = N;}
 
     friend bool operator==(const Ability &lhs, const Ability &rhs)
     {
@@ -256,6 +261,7 @@ public:
     std::list<Weapon> m_Weapons;
     bool m_CanFly;
     bool m_MakesScrollUnique;
+    int m_EveryNModel;
 
   public:
     UnitUpgrade(std::string name = "",
@@ -265,6 +271,7 @@ public:
       , m_PointsCost(pointsCost)
       , m_CanFly(false)
       , m_MakesScrollUnique(false)
+      , m_EveryNModel(-1)
     {}
 
     const std::string &getName() const {return m_Name;}
@@ -287,6 +294,9 @@ public:
 
     const std::list<Weapon> getWeapons() const {return m_Weapons;}
     void addWeapon(const Weapon &weapon);
+
+    int getEveryNModels() const {return m_EveryNModel;}
+    void setEveryNModels(int N) {m_EveryNModel = N;}
 
     friend std::ostream &operator<<(std::ostream &out,
       const UnitUpgrade &upgrade)

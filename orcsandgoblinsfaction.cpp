@@ -382,6 +382,8 @@ namespace WarScrollGeneration
 
     ws.addWeapon(WarScroll::Weapon("Array of Kill-choppas", 1, 2, 4, 3, 1, 1));
 
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
     {
       WarScroll::UnitUpgrade upgrade("Waaagh! Drummer",
         WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1);
@@ -404,7 +406,6 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"DESTRUCTION", "ORRUK", "IRONJAW", "BLACK ORCS"});
 
-
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
@@ -413,6 +414,19 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 5, 6, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Baleful Mask", 12, 1, 5, 5, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Bonewood Staff", 2, 2, 4, 3, 0, 3));
+
+    ws.addAbility(WarScroll::Ability("Warpaint", 1));
+    ws.addAbility(WarScroll::Ability("Squiggly Beast", 1));
+
+    ws.addSpell(WarScroll::Spell("Wurrzag's Revenge"), 6, 2);
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "BONESPLITTAS", "HERO", "WIZARD",
+      "WURRZAG"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
@@ -423,6 +437,40 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
 
+    ws.setCharacteristics(5, 6, 7, 5);
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Stonecleava", 2, 4, 4, 3, 2, 3),
+        WarScroll::Ability());
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Granite Choppa", 1, 7, 4, 3, 1, 1),
+        WarScroll::Ability("Bone Shield", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Granite Choppa", 1, 7, 4, 3, 1, 1),
+        WarScroll::Ability("Granite Choppas", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    {
+      WarScroll::MountUpgrade upgrade("War Boar");
+      upgrade.addWeapon(WarScroll::Weapon("War Boar's Tusks",
+        1, 2, 4, 4, 0, 1));
+      upgrade.registerCharacteristicToIncrease("Move", 4);
+    }
+
+    ws.addAbility(WarScroll::Ability("Warpaint", 1));
+    ws.addAbility(WarScroll::Ability("More Choppin!", 1, true));
+
+    ws.addKeyWords({"DESTURUCTION", "ORRUK", "BONESPLITTAS", "HERO",
+      "SAVAGE ORC WARBOSS"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
@@ -431,6 +479,25 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 5, 6, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Totemic Bone-staff", 2, 1, 4, 3, 0, 3));
+
+    {
+      WarScroll::MountUpgrade upgrade("War Boar");
+      upgrade.addWeapon(WarScroll::Weapon("War Boar's Tusks",
+        1, 2, 4, 2, 0, 1));
+      upgrade.registerCharacteristicToIncrease("Move", 4);
+    }
+
+    ws.addAbility(WarScroll::Ability("Waaagh! Energy", 1));
+    ws.addAbility(WarScroll::Ability("Warpaint", 1));
+
+    ws.addSpell(WarScroll::Spell("Foot of Gork"), 6, 2);
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "BONESPLITTAS", "HERO", "WIZARD",
+      "SAVAGE ORC SHAMAN"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
@@ -441,6 +508,92 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
 
+    ws.setCharacteristics(5, 1, 5, 6);
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Stone Choppa", 1, 1, 4, 4, 1, 1),
+        WarScroll::Ability("Crude Shield", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Flint Spear", 2, 1, 4, 4, 0, 1),
+        WarScroll::Ability("Crude Shield", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Stone Choppa", 1, 1, 4, 4, 1, 1),
+        WarScroll::Ability());
+      upgrade.setSecondaryWeapon(WarScroll::Weapon("Bone Shiv or Gnarled Fist",
+        1, 1, 4, 5, 0, 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Flint Spear", 2, 1, 4, 4, 0, 1),
+        WarScroll::Ability());
+      upgrade.setSecondaryWeapon(WarScroll::Weapon("Bone Shiv or Gnarled Fist",
+        1, 1, 4, 5, 0, 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Feral Bow", 18, 1, 5, 4, 0, 1),
+        WarScroll::Ability());
+      upgrade.setSecondaryWeapon(WarScroll::Weapon("Stone Choppa",
+        1, 1, 4, 4, 1, 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Feral Bow", 18, 1, 5, 4, 0, 1),
+        WarScroll::Ability("Lodsa Arrers", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Feral Bow", 18, 1, 5, 4, 0, 1),
+        WarScroll::Ability());
+      upgrade.setSecondaryWeapon(WarScroll::Weapon("Bone Shiv or Gnarled Fist",
+        1, 1, 4, 5, 0, 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    {
+      WarScroll::UnitUpgrade upgrade("Big Stabba",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eOther, 2);
+      upgrade.addAbility(WarScroll::Ability("Big Stabba", 1));
+      upgrade.addWeapon(WarScroll::Weapon("Big Stabba", 2, 2, 4, 3, 1, 3));
+      upgrade.setEveryNModels(10);
+      ws.registerUnitUpgrade(upgrade);
+    }
+    {
+      WarScroll::UnitUpgrade upgrade("Savage Orc Boss",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1);
+      ws.registerUnitUpgrade(upgrade);
+    }
+    {
+      WarScroll::UnitUpgrade upgrade("Icon Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      ws.registerUnitUpgrade(upgrade);
+    }
+    {
+      WarScroll::UnitUpgrade upgrade("Skull Bashers",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1);
+      ws.registerUnitUpgrade(upgrade);
+    }
+
+    WarScroll::Ability ability("Frenzied Mob", 1);
+    ability.setEveryNModels(20);
+    ws.addAbility(ability);
+    ws.addAbility(WarScroll::Ability("Warpaint", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "BONESPLITTAS", "SAVAGE ORCS"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
@@ -449,6 +602,53 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(9, 2, 5, 6);
+
+    ws.addWeapon(WarScroll::Weapon("War Boar's Tusks", 1, 2, 4, 4, 0, 1));
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Crude Choppa", 1, 1, 4, 4, 1, 1),
+        WarScroll::Ability("Crude Shield", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Crude Choppa", 1, 1, 4, 4, 1, 1),
+        WarScroll::Ability("Crude Choppas", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Flint Spear", 2, 1, 4, 4, 0, 1),
+        WarScroll::Ability("Crude Shield", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
+
+    {
+      WarScroll::UnitUpgrade upgrade("Savage Orc Boar Boy Boss",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1);
+      ws.registerUnitUpgrade(upgrade);
+    }
+    {
+      WarScroll::UnitUpgrade upgrade("Icon Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      ws.registerUnitUpgrade(upgrade);
+    }
+    {
+      WarScroll::UnitUpgrade upgrade("Tribal Drummer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1);
+      ws.registerUnitUpgrade(upgrade);
+    }
+
+    ws.addAbility(WarScroll::Ability("Tusker Charge", 1));
+    ws.addAbility(WarScroll::Ability("Warpaint", 1));
+
+    ws.addKeyWords({"DESTRUCTION", "ORRUK", "BONESPLITTAS",
+      "SAVAGE ORC BOAR BOYZ"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
