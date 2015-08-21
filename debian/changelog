@@ -1,5 +1,5 @@
-armybalancer (2015.08.21) mehoggan; urgency=low
+armybalancer (1.0.0-1) unstable; urgency=low
 
-  * Initial release.
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
 
- -- Matthew Hoggan <matthew.hoggan@matthewh.me>  Friday, 21 Aug 2015 00:00:00 +0000
+ -- Matthew Hoggan <matthew.hoggan@matthewh.me>  Fri, 21 Aug 2015 16:16:42 -0700

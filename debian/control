@@ -1,9 +1,15 @@
 Source: armybalancer
-Section: misc
+Section: unknown
 Priority: optional
 Maintainer: Matthew Hoggan <matthew.hoggan@matthewh.me>
-Standards-Version: 1.0.0
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: <insert the upstream URL, if relevant>
+#Vcs-Git: git://git.debian.org/collab-maint/armybalancer.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/armybalancer.git;a=summary
 
 Package: armybalancer
-Priority: important
-Architecture: amd64
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

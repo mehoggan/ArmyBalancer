@@ -8,3 +8,6 @@ x64/
 Win32/
 *.suo
 *.swp
+Makefile
+*.o
+ArmyBalancer
