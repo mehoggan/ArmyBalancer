@@ -11,3 +11,6 @@ Win32/
 Makefile
 *.o
 ArmyBalancer
+*.pro.user
+moc_*
+qrc_qml.cpp
