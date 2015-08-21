@@ -13,11 +13,16 @@ install_dir=install -d -m 755
 install_file=install -m 644
 install_script=install -m 755
 install_binary=install -m 755 -s
+
 rm_dir=rm -rf
+qmake=qmake
 
 VERSION := $(shell dpkg-parsechangelog | grep ^Version: | cut -d' ' -f2)
 
 build:
+	$(checkdir)
+	$(qmake)
+	$(make)
 
 clean:
 	$(checkdir)
