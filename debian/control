@@ -1,0 +1,9 @@
+Source: armybalancer
+Section: misc
+Priority: optional
+Maintainer: Matthew Hoggan <matthew.hoggan@matthewh.me>
+Standards-Version: 1.0.0
+
+Package: armybalancer
+Priority: important
+Architecture: amd64
