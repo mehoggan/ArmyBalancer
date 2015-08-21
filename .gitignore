@@ -7,3 +7,4 @@ debug/
 x64/
 Win32/
 *.suo
+*.swp
