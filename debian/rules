@@ -1,8 +1,23 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
+install_dir=install -d -m 755
+install_file=install -m 644
+install_script=install -m 755
+install_binary=install -m 755 -s
+
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
 
+override_dh_auto_build:
+	make -j13
+
+override_dh_auto_install:
+	$(install_dir) debian/armybalancer/usr/lib/ArmyBalancer/
+	$(install_dir) debian/armybalancer/usr/local/bin
+	$(install_binary) ArmyBalancer debian/armybalancer/usr/local/bin/
+
+override_dh_usrlocal:
+
 %:
-	dh $@ 
+	dh $@
