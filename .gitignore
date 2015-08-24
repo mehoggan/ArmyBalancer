@@ -4,6 +4,7 @@ ArmyBalancer.sln
 ArmyBalancer.vcxproj*
 GeneratedFiles/
 debug/
+release/
 x64/
 Win32/
 *.suo
@@ -14,3 +15,4 @@ ArmyBalancer
 *.pro.user
 moc_*
 qrc_qml.cpp
+windows/installer/*
