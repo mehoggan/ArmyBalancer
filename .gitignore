@@ -16,3 +16,9 @@ ArmyBalancer
 moc_*
 qrc_qml.cpp
 windows/installer/*
+debian/armybalancer.debhelper.log
+debian/armybalancer.postinst.debhelper
+debian/armybalancer.postrm.debhelper
+debian/armybalancer/
+debian/armybalancer.substvars
+debian/files

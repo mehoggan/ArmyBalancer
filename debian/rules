@@ -5,6 +5,7 @@ install_dir=install -d -m 755
 install_file=install -m 644
 install_script=install -m 755
 install_binary=install -m 755 -s
+soft_link=ln -s
 
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
@@ -12,12 +13,56 @@ export DH_VERBOSE=1
 override_dh_auto_build:
 	make -j13
 
+override_dh_usrlocal:
+	# do nothing
+
+override_dh_auto_test:
+	# do nothing
+
 override_dh_auto_install:
-	$(install_dir) debian/armybalancer/usr/lib/ArmyBalancer/
+	$(install_dir) debian/armybalancer/usr/lib/ArmyBalancerQt
 	$(install_dir) debian/armybalancer/usr/local/bin
 	$(install_binary) ArmyBalancer debian/armybalancer/usr/local/bin/
-
-override_dh_usrlocal:
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicudata.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicudata.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt/libicudata.so.53
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicui18n.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicui18n.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt/libicui18n.so.53
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicuio.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicuio.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt/libicuio.so.53
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicule.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicule.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt/libicule.so.53
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libiculx.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libiculx.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt/libiculx.so.53
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicutu.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicutu.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt/libicutu.so.53
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicuuc.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libicuuc.so.53.1 debian/armybalancer/usr/lib/ArmyBalancerQt/libicuuc.so.53
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Bluetooth.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5CLucene.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Concurrent.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Core.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5DBus.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Gui.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Location.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Network.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Nfc.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5OpenGL.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Positioning.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5PrintSupport.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Qml.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5QuickParticles.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Quick.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5QuickTest.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5QuickWidgets.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Sensors.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5SerialPort.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Sql.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Svg.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Test.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Widgets.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5X11Extras.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5XmlPatterns.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
+	$(install_binary) ${QT_LIB_ROOT}/gcc_64/lib/libQt5Xml.so.5.4.2 debian/armybalancer/usr/lib/ArmyBalancerQt
 
 %:
 	dh $@

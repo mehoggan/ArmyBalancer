@@ -262,6 +262,9 @@ void WarScroll::refreshPointsCost()
 
 #ifdef Q_OS_WIN32
 #pragma warning(disable : 4715)
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
 #endif
 const WarScroll::Ability &WarScroll::getAbility(const std::string &name) const
 {
@@ -273,6 +276,8 @@ const WarScroll::Ability &WarScroll::getAbility(const std::string &name) const
 }
 #ifdef Q_OS_WIN32
 #pragma warning(default : 4715)
+#else
+#pragma GCC diagnostic pop
 #endif
 
 void WarScroll::addAbility(const WarScroll::Ability &ability)
@@ -292,6 +297,9 @@ void WarScroll::removeAbility(const Ability &ability)
 
 #ifdef Q_OS_WIN32
 #pragma warning(disable : 4715)
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
 #endif
 const WarScroll::Weapon &WarScroll::getWeapon(const std::string &name) const
 {
@@ -303,6 +311,8 @@ const WarScroll::Weapon &WarScroll::getWeapon(const std::string &name) const
 }
 #ifdef Q_OS_WIN32
 #pragma warning(default : 4715)
+#else
+#pragma GCC diagnostic pop
 #endif
 
 void WarScroll::addWeapon(const WarScroll::Weapon &weapon)
