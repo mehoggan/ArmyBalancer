@@ -18,6 +18,10 @@ set -e
 # the debian-policy package
 
 
+function write_link {
+
+}
+
 case "$1" in
     configure)
     ;;
