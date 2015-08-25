@@ -59,3 +59,14 @@ HEADERS += \
   warscrollfactory.h \
   warscroll.h
 
+win32 {
+	CONFIG(debug, debug|release) {
+		QMAKE_POST_LINK += windeployqt.exe C:\Users\mehoggan\Devel\ArmyBalancer\debug\ArmyBalancer.exe &
+		QMAKE_POST_LINK += cmd.exe /c copy C:\Windows\System32\msvcp120.dll C:\Users\mehoggan\Devel\ArmyBalancer\debug &
+		QMAKE_POST_LINK += cmd.exe /c copy C:\Windows\System32\msvcr120.dll C:\Users\mehoggan\Devel\ArmyBalancer\debug
+	} else {
+		QMAKE_POST_LINK += windeployqt.exe C:\Users\mehoggan\Devel\ArmyBalancer\release\ArmyBalancer.exe &
+		QMAKE_POST_LINK += cmd.exe /c copy C:\Windows\System32\msvcp120.dll C:\Users\mehoggan\Devel\ArmyBalancer\release &
+		QMAKE_POST_LINK += cmd.exe /c copy C:\Windows\System32\msvcr120.dll C:\Users\mehoggan\Devel\ArmyBalancer\release
+	}
+}
