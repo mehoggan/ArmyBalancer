@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+	<Product Id='*' Name='Army Balancer' Language='1033' Version='1.0' Manufacturer='Army Balancer' UpgradeCode='04d6ef1c-bb34-4151-bcb6-aca3ce58fd46'>
+		<Package InstallerVersion='200' Compressed='yes' InstallScope='perMachine' />
+
+		<MajorUpgrade DowngradeErrorMessage='A newer version of Army Balancer is already installed.' />
+		<MediaTemplate />
+
+		<Feature Id='ProductFeature' Title='ArmyBalancerInstaller' Level='1'>
+			<ComponentRef Id='MAINEXECUTABLE' />
+			<ComponentRef Id='BEARERPLUGIN' />
+			<ComponentRef Id='ICONENGINESPLUGIN' />
+			<ComponentRef Id='IMAGEFORMATSPLUGIN' />
+			<ComponentRef Id='PLATFORMSPLUGIN' />
+			<ComponentRef Id='QMLTOOLINGPLUGIN' />
+		</Feature>
+
+		<Directory Id='TARGETDIR' Name='SourceDir'>
+			<Directory Id='ProgramFilesFolder'>
+				<Directory Id='ARMYBALANCERPRODUCTDIR' Name='Army Balancer'>
+					<Component Id='MAINEXECUTABLE' Guid='1193cd63-12d1-4792-829e-046de3bb987e'>
+						<File Id='EXECUTABLE' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\ArmyBalancer.exe' />
+						<File Id='ICUDT53' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\icudt53.dll' />
+						<File Id='ICUIN53' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\icuin53.dll' />
+						<File Id='ICUUC53' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\icuuc53.dll' />
+						<File Id='MSVCP120' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\msvcp120.dll' />
+						<File Id='MSVCR120' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\msvcr120.dll' />
+						<File Id='QT5CORE' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Core.dll' />
+						<File Id='QT5GUI' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Gui.dll' />
+						<File Id='QT5NETWORK' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Network.dll' />
+						<File Id='QT5QML' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Qml.dll' />
+						<File Id='QT5QUICK' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Quick.dll' />
+						<File Id='QT5SVG' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Svg.dll' />
+						<File Id='QT5WIDGETS' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Widgets.dll' />
+						<File Id='QT_CA' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_ca.qm' />
+						<File Id='QT_CS' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_cs.qm' />
+						<File Id='QT_DE' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_de.qm' />
+						<File Id='QT_FI' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_fi.qm' />
+						<File Id='QT_HU' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_hu.qm' />
+						<File Id='QT_IT' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_it.qm' />
+						<File Id='QT_JA' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_ja.qm' />
+						<File Id='QT_RU' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_ru.qm' />
+						<File Id='QT_SK' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_sk.qm' />
+						<File Id='QT_UK' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_uk.qm' />
+					</Component>
+					<Directory Id='BEARER' Name='bearer'>
+						<Component Id='BEARERPLUGIN' Guid='a4825b65-bb49-46e9-87c0-8de8345f0775'>
+							<File Id='QGENERICBEARER' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\bearer\qgenericbearer.dll' />
+							<File Id='QNATIVEWIFIBEARER' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\bearer\qnativewifibearer.dll' />
+						</Component>
+					</Directory>
+					<Directory Id='ICONENGINES' Name='iconengines'>
+						<Component Id='ICONENGINESPLUGIN' Guid='529c5055-2027-4f6c-9c0e-a3a8b3298735'>
+							<File Id='QSVGICON' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\iconengines\qsvgicon.dll' />
+						</Component>
+					</Directory>
+					<Directory Id='IMAGEFORMATS' Name='imageformats'>
+						<Component Id='IMAGEFORMATSPLUGIN' Guid='4030edf9-582d-4c36-899c-a859d99832ef'>
+							<File Id='QDDS' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qdds.dll' />
+							<File Id='QGIF' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qgif.dll' />
+							<File Id='QICNS' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qicns.dll' />
+							<File Id='QICO' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qico.dll' />
+							<File Id='QJP2' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qjp2.dll' />
+							<File Id='QJPEG' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qjpeg.dll' />
+							<File Id='QMNG' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qmng.dll' />
+							<File Id='QSVG' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qsvg.dll' />
+							<File Id='QTGA' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qtga.dll' />
+							<File Id='QTIFF' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qtiff.dll' />
+							<File Id='QWBMP' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qwbmp.dll' />
+							<File Id='QWEBP' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\imageformats\qwebp.dll' />
+						</Component>
+					</Directory>
+					<Directory Id='PLATFORMS' Name='platforms'>
+						<Component Id='PLATFORMSPLUGIN' Guid='1df1719c-d918-42bf-9383-dfedb5442ade'>
+							<File Id='QWINDOWS' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\platforms\qwindows.dll' />
+						</Component>
+					</Directory>
+					<Directory Id='QMLTOOLING' Name='qmltooling'>
+						<Component Id='QMLTOOLINGPLUGIN' Guid='37376d3b-802f-42f8-ac4b-8c45928ebf89'>
+							<File Id='QMLDBG_QTQUICK2' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qmltooling\qmldbg_qtquick2.dll' />
+							<File Id='QMLDBG_TCP' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qmltooling\qmldbg_tcp.dll' />
+						</Component>
+					</Directory>
+<!--
+					├───Qt
+					│   └───labs
+					│       ├───folderlistmodel
+					│       │       plugins.qmltypes
+					│       │       qmldir
+					│       │       qmlfolderlistmodelplugin.dll
+					│       │
+					│       └───settings
+					│               plugins.qmltypes
+					│               qmldir
+					│               qmlsettingsplugin.dll
+					│
+					├───QtGraphicalEffects
+					│   │   Blend.qml
+					│   │   BrightnessContrast.qml
+					│   │   Colorize.qml
+					│   │   ColorOverlay.qml
+					│   │   ConicalGradient.qml
+					│   │   Desaturate.qml
+					│   │   DirectionalBlur.qml
+					│   │   Displace.qml
+					│   │   DropShadow.qml
+					│   │   FastBlur.qml
+					│   │   GammaAdjust.qml
+					│   │   GaussianBlur.qml
+					│   │   Glow.qml
+					│   │   HueSaturation.qml
+					│   │   InnerShadow.qml
+					│   │   LevelAdjust.qml
+					│   │   LinearGradient.qml
+					│   │   MaskedBlur.qml
+					│   │   OpacityMask.qml
+					│   │   qmldir
+					│   │   RadialBlur.qml
+					│   │   RadialGradient.qml
+					│   │   RectangularGlow.qml
+					│   │   RecursiveBlur.qml
+					│   │   ThresholdMask.qml
+					│   │   ZoomBlur.qml
+					│   │
+					│   └───private
+					│           FastGlow.qml
+					│           FastInnerShadow.qml
+					│           FastMaskedBlur.qml
+					│           GaussianDirectionalBlur.qml
+					│           GaussianGlow.qml
+					│           GaussianInnerShadow.qml
+					│           GaussianMaskedBlur.qml
+					│           SourceProxy.qml
+					│
+					├───QtQuick
+					│   ├───Controls
+					│   │   │   plugins.qmltypes
+					│   │   │   qmldir
+					│   │   │   qtquickcontrolsplugin.dll
+					│   │   │
+					│   │   └───Styles
+					│   │       │   qmldir
+					│   │       │
+					│   │       └───Desktop
+					│   │               qmldir
+					│   │
+					│   ├───Dialogs
+					│   │   │   dialogplugin.dll
+					│   │   │   plugins.qmltypes
+					│   │   │   qmldir
+					│   │   │
+					│   │   └───Private
+					│   │           dialogsprivateplugin.dll
+					│   │           qmldir
+					│   │
+					│   ├───Layouts
+					│   │       plugins.qmltypes
+					│   │       qmldir
+					│   │       qquicklayoutsplugin.dll
+					│   │
+					│   ├───PrivateWidgets
+					│   │       plugins.qmltypes
+					│   │       qmldir
+					│   │       widgetsplugin.dll
+					│   │
+					│   └───Window.2
+					│           plugins.qmltypes
+					│           qmldir
+					│           windowplugin.dll
+					│
+					└───QtQuick.2
+					plugins.qmltypes
+					qmldir
+					qtquick2plugin.dll
+-->
+				</Directory>
+			</Directory>
+		</Directory>
+
+		<Property Id='WIXUI_INSTALLDIR' Value='ARMYBALANCERPRODUCTDIR' />
+		<UIRef Id='WixUI_InstallDir' />
+	</Product>
+
+</Wix>

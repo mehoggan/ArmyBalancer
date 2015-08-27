@@ -22,3 +22,5 @@ debian/armybalancer.postrm.debhelper
 debian/armybalancer/
 debian/armybalancer.substvars
 debian/files
+windows/ArmyBalancerInstaller/bin
+windows/ArmyBalancerInstaller/obj
