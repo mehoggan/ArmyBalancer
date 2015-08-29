@@ -1,6 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
 
+    <?if $(var.Platform) = x64 ?>
+        <?define ProductName = "Product Name (64 bit)" ?>
+        <?define Win64 = "yes" ?>
+        <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+     <?else ?>
+        <?define ProductName = "Product Name" ?>
+        <?define Win64 = "no" ?>
+        <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+    <?endif ?>
+
     <Product Id='*' Name='Army Balancer' Language='1033' Version='1.0' Manufacturer='Army Balancer' UpgradeCode='04d6ef1c-bb34-4151-bcb6-aca3ce58fd46'>
         <Package InstallerVersion='200' Compressed='yes' InstallScope='perMachine' />
 
@@ -28,18 +38,10 @@
         </Feature>
 
         <Directory Id='TARGETDIR' Name='SourceDir'>
-            <Directory Id='ProgramFilesFolder'>
+            <Directory Id='$(var.PlatformProgramFilesFolder)'>
                 <Directory Id='ARMYBALANCERPRODUCTDIR' Name='Army Balancer'>
                     <Component Id='MAINEXECUTABLE' Guid='1193cd63-12d1-4792-829e-046de3bb987e'>
                         <File Id='ARMYBALANCEREXECUTABLE' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\ArmyBalancer.exe' />
-
-                        <Shortcut Id="StartMenuShortcut" Name="Army Balancer"
-                                          Description="Warhammer Age of Sigmar Game Balancer"
-                                          Target="ARMYBALANCEREXECUTABLE"
-                                          WorkingDirectory="ARMYBALANCERPRODUCTDIR" />
-                        <RemoveFolder Id="ARMYBALANCERPRODUCTDIR" On="uninstall" />
-                        <RegistryValue Root="HKCU" Key="Software\Microsoft\Army Balancer" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
-
                         <File Id='ICUDT53' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\icudt53.dll' />
                         <File Id='ICUIN53' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\icuin53.dll' />
                         <File Id='ICUUC53' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\icuuc53.dll' />
