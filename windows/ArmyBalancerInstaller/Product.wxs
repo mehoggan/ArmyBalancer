@@ -2,14 +2,21 @@
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
 
     <?if $(var.Platform) = x64 ?>
-        <?define ProductName = "Product Name (64 bit)" ?>
         <?define Win64 = "yes" ?>
         <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
      <?else ?>
-        <?define ProductName = "Product Name" ?>
         <?define Win64 = "no" ?>
         <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
     <?endif ?>
+
+    <?if $(var.Configuration) = Debug ?>
+        <?define Debug = "yes" ?>
+        <?define LibrarySuffix = "d" ?>
+     <?else ?>
+        <?define Debug = "no" ?>
+        <?define LibrarySuffix = "" ?>
+    <?endif ?>
+
 
     <Product Id='*' Name='Army Balancer' Language='1033' Version='1.0' Manufacturer='Army Balancer' UpgradeCode='04d6ef1c-bb34-4151-bcb6-aca3ce58fd46'>
         <Package InstallerVersion='200' Compressed='yes' InstallScope='perMachine' />
@@ -47,13 +54,13 @@
                         <File Id='ICUUC53' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\icuuc53.dll' />
                         <File Id='MSVCP120' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\msvcp120.dll' />
                         <File Id='MSVCR120' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\msvcr120.dll' />
-                        <File Id='QT5CORE' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Core.dll' />
-                        <File Id='QT5GUI' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Gui.dll' />
-                        <File Id='QT5NETWORK' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Network.dll' />
-                        <File Id='QT5QML' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Qml.dll' />
-                        <File Id='QT5QUICK' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Quick.dll' />
-                        <File Id='QT5SVG' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Svg.dll' />
-                        <File Id='QT5WIDGETS' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Widgets.dll' />
+                        <File Id='QT5CORE' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Core$(var.LibrarySuffix).dll' />
+                        <File Id='QT5GUI' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Gui$(var.LibrarySuffix).dll' />
+                        <File Id='QT5NETWORK' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Network$(var.LibrarySuffix).dll' />
+                        <File Id='QT5QML' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Qml$(var.LibrarySuffix).dll' />
+                        <File Id='QT5QUICK' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Quick$(var.LibrarySuffix).dll' />
+                        <File Id='QT5SVG' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Svg$(var.LibrarySuffix).dll' />
+                        <File Id='QT5WIDGETS' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\Qt5Widgets$(var.LibrarySuffix).dll' />
                         <File Id='QT_CA' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_ca.qm' />
                         <File Id='QT_CS' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_cs.qm' />
                         <File Id='QT_DE' Source='$(var.SolutionDir)\$(var.ArmyBalancer.Configuration)\qt_de.qm' />

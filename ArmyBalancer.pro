@@ -62,12 +62,17 @@ HEADERS += \
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)
     CONFIG(debug, debug|release) {
-        QMAKE_POST_LINK += windeployqt.exe $$home_dir\Devel\ArmyBalancer\debug\ArmyBalancer.exe &
-        QMAKE_POST_LINK += cmd.exe /c copy C:\Windows\System32\msvcp120.dll $$home_dir\Devel\ArmyBalancer\debug &
-        QMAKE_POST_LINK += cmd.exe /c copy C:\Windows\System32\msvcr120.dll $$home_dir\Devel\ArmyBalancer\debug
     } else {
-        QMAKE_POST_LINK += windeployqt.exe $$home_dir\Devel\ArmyBalancer\release\ArmyBalancer.exe &
-        QMAKE_POST_LINK += cmd.exe /c copy C:\Windows\System32\msvcp120.dll $$home_dir\Devel\ArmyBalancer\release &
-        QMAKE_POST_LINK += cmd.exe /c copy C:\Windows\System32\msvcr120.dll $$home_dir\Devel\ArmyBalancer\release
+		contains(QMAKE_HOST.arch, x86_64) {
+			QMAKE_POST_LINK += set PATH=%PATH%;C:\Qt\5.4\msvc2013_64_opengl\bin & \
+				C:\Qt\5.4\msvc2013_64_opengl\bin\windeployqt.exe $$home_dir\Devel\ArmyBalancer\release\ArmyBalancer.exe & \
+			    copy C:\Windows\SysWOW64\msvcp120.dll $$home_dir\Devel\ArmyBalancer\release & \
+			    copy C:\Windows\SysWOW64\msvcr120.dll $$home_dir\Devel\ArmyBalancer\release
+		} else {
+			QMAKE_POST_LINK += set PATH=%PATH%;C:\Qt\5.4\msvc2013_opengl\bin & \
+				C:\Qt\5.4\msvc2013_opengl\bin\windeployqt.exe $$home_dir\Devel\ArmyBalancer\release\ArmyBalancer.exe & \
+			    copy C:\Windows\System32\msvcp120.dll $$home_dir\Devel\ArmyBalancer\release & \
+			    copy C:\Windows\System32\msvcr120.dll $$home_dir\Devel\ArmyBalancer\release
+		}
     }
 }
