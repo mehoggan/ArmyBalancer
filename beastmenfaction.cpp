@@ -58,7 +58,6 @@ namespace WarScrollGeneration
     WarScroll::WeaponUpgrade shieldUpgrade(
       WarScroll::Weapon("Man-ripper Axe", 1, 6, 3, 3, 1, 1),
       WarScroll::Ability("Brayshield", 2));
-    shieldUpgrade.registerCharacteristicToIncrease("Save", -1);
     ws.addWeaponUpgrade(shieldUpgrade);
     WarScroll::WeaponUpgrade greatWeaponUpgrade(
       WarScroll::Weapon("Man-render Great Axe", 1, 3, 3, 3, 2, 2),
