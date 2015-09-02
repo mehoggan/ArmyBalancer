@@ -659,6 +659,20 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
 
+    ws.setCharacteristics(12, 6, 7, 4);
+
+    ws.addWeapon(WarScroll::Weapon("Axe of Grom", 1, 3, 3, 3, 1, 3));
+    ws.addWeapon(WarScroll::Weapon("Niblet's Slasha", 1, 2, 5, 5, 0, 1));
+    ws.addWeapon(WarScroll::Weapon("Giant Wolves' Slavering Jaws",
+      1, 6, 4, 4, 0, 1));
+
+    ws.addAbility(WarScroll::Ability("Fat on Troll Flesh", 2));
+    ws.addAbility(WarScroll::Ability("Da Lucky Banner", 1));
+    ws.addAbility(WarScroll::Ability("Grom's Waaagh!", 2 , true));
+
+    ws.addKeyWords({"DESTRUCTION", "GROT", "GITMOB", "HERO", "GOBLIN WARBOSS",
+      "GROM THE PAUCH"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
@@ -667,6 +681,39 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 4, 6, 5);
+
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Git-cutta", 1, 5, 3, 4, 0, 1),
+        WarScroll::Ability("Git Shield", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Git-cutta", 1, 5, 3, 4, 0, 1),
+        WarScroll::Ability("Git-cuttas", 1));
+      ws.addWeaponUpgrade(upgrade);
+    }
+    {
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Git-slicer", 1, 3, 3, 4, 1, 3),
+        WarScroll::Ability());
+      ws.addWeaponUpgrade(upgrade);
+    }
+
+    {
+      WarScroll::MountUpgrade mount("Giant Wolves");
+      mount.registerCharacteristicToIncrease("Move", 7);
+      mount.addWeapon(WarScroll::Weapon("Giant Wolf's Slavering Jaws",
+        1, 2, 4, 4, 0, 1));
+    }
+
+    ws.addAbility(WarScroll::Ability("Kunnin' (or just Lucky)", 1));
+    ws.addAbility(WarScroll::Ability("Wot I Sez Goes, Now Get 'em!", 2, true));
+
+    ws.addKeyWords({"DESTURCTION", "GROT", "GITMOB", "HERO", "GOBLIN WARBOSS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
@@ -677,6 +724,23 @@ namespace WarScrollGeneration
     WarScroll ws;
     ws.setTitle(name);
 
+    ws.setCharacteristics(5, 4, 5, 6);
+
+    ws.addWeapon(WarScroll::Weapon("Shaman Stick", 2, 1, 5, 4, 1, 3));
+
+    {
+      WarScroll::MountUpgrade mount("Giant Wolves");
+      mount.registerCharacteristicToIncrease("Move", 7);
+      mount.addWeapon(WarScroll::Weapon("Giant Wolf's Slavering Jaws",
+        1, 2, 4, 4, 0, 1));
+    }
+
+    ws.addAbility(WarScroll::Ability("Kunnin' (or just Lucky)", 1));
+    ws.addSpell(WarScroll::Spell("Sneaky Stabbin"), 7, 2);
+
+    ws.addKeyWords({"DESTRUCTION", "GROT", "GITMOB", "HERO", "WIZARD",
+      "GOBLIN SHAMAN"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;
   }
@@ -685,6 +749,18 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
+    ws.setCharacteristics(5, 1, 4, 6);
+
+    ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
+
+    {
+      WarScroll::Ability shield("Gobbo Shields", 1);
+      shield.registerCharacteristicToIncreaseIfOverN("Save", -1, 10);
+      WarScroll::WeaponUpgrade upgrade(
+        WarScroll::Weapon("Jabbin' Spear", 2, 1, 5, 4, 0, 1),
+        shield);
+    }
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eDestruction);
     return ws;

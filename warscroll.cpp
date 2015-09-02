@@ -3,6 +3,14 @@
 #include <sstream>
 #include <utility>
 
+
+void WarScroll::Ability::registerCharacteristicToIncreaseIfOverN(
+  const std::string &characteristic, int delta, int N)
+{
+  m_CharacteristicsToIncreaseIfOverN.push_back(
+    std::make_tuple(characteristic, delta, N));
+}
+
 WarScroll::WeaponUpgrade::WeaponUpgrade()
 {}
 
@@ -131,6 +139,7 @@ WarScroll::WarScroll(const WarScroll &rhs)
   , m_AllianceType(rhs.m_AllianceType)
   , m_WeaponUpgrades(rhs.m_WeaponUpgrades)
   , m_Guid(rhs.m_Guid)
+  , m_KeyWordConnections(rhs.m_KeyWordConnections)
 {}
 
 WarScroll &WarScroll::operator=(const WarScroll &rhs)
@@ -158,6 +167,7 @@ WarScroll &WarScroll::operator=(const WarScroll &rhs)
   m_AllianceType = rhs.m_AllianceType;
   m_WeaponUpgrades = rhs.m_WeaponUpgrades;
   m_Guid = rhs.m_Guid;
+  m_KeyWordConnections = rhs.m_KeyWordConnections;
 
   return (*this);
 }
@@ -352,6 +362,16 @@ void WarScroll::addSpell(const WarScroll::Spell &spell)
   m_Spells.push_back(spell);
 }
 
+void WarScroll::addArcaneBolt()
+{
+  addSpell(WarScroll::Spell("Arcane Bolt"), 5, 1);
+}
+
+void WarScroll::addMysticShield()
+{
+  addSpell(WarScroll::Spell("Mystic Shield"), 6, 2);
+}
+
 void WarScroll::registerUnitUpgrade(const WarScroll::UnitUpgrade &upgrade)
 {
   m_RegisteredUpgrades.push_back(upgrade);
@@ -510,4 +530,9 @@ std::string WarScroll::toString() const
   std::ostringstream out;
   out << (*this);
   return out.str();
+}
+
+void WarScroll::addKeyWordConnection(const KeyWordConnection &connection)
+{
+  m_KeyWordConnections.push_back(connection);
 }

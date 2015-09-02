@@ -23,13 +23,21 @@ public:
     eOrder
   };
 
+  static const int s_MaxDistancne = 72;
+
   class Ability
   {
+  public:
+    typedef std::list<std::tuple<std::string, int, int>>
+      CharacteristicIncreaseOverN_t;
+
   private:
     std::string m_Name;
     int m_Value;
     bool m_IsCommandAbility;
     int m_EveryNModel;
+    int m_OverNModels;
+    CharacteristicIncreaseOverN_t m_CharacteristicsToIncreaseIfOverN;
 
   public:
     Ability(std::string name = "", int value = 0, bool commandAbility = false)
@@ -37,6 +45,7 @@ public:
       , m_Value(value)
       , m_IsCommandAbility(commandAbility)
       , m_EveryNModel(-1)
+      , m_OverNModels(1)
     {}
 
     const std::string &getName() const {return m_Name;}
@@ -45,6 +54,14 @@ public:
 
     int getEveryNModels() const {return m_EveryNModel;}
     void setEveryNModels(int N) {m_EveryNModel = N;}
+
+    int getOverNModels() const {return m_OverNModels;}
+    void setOverNModels(int N) {m_OverNModels = N;}
+
+    const CharacteristicIncreaseOverN_t &getCharacteristicsToIncreaseIfOverN()
+      const {return m_CharacteristicsToIncreaseIfOverN;}
+    void registerCharacteristicToIncreaseIfOverN(
+      const std::string &characteristic, int delta, int N);
 
     friend bool operator==(const Ability &lhs, const Ability &rhs)
     {
@@ -430,6 +447,41 @@ public:
     }
   };
 
+  class KeyWordConnection
+  {
+  public:
+    enum class ConnectionAffectType
+    {
+      eEnemy, eFriendly, eSummons, eFriendOrFoe
+    };
+
+  private:
+    std::string m_KeyWord;
+    int m_WithinDistance;
+    Ability m_AbilityConnection;
+    int m_ApplyIfOverNModels;
+    ConnectionAffectType m_Affects;
+    Spell m_SpellConnection;
+
+  public:
+    KeyWordConnection(const std::string &keyWord, int withinDistance,
+      const Ability &viaAbility, int applyIfOverNModels,
+      ConnectionAffectType affects, const Spell &spellConnection)
+      : m_KeyWord(keyWord)
+      , m_WithinDistance(withinDistance)
+      , m_AbilityConnection(viaAbility)
+      , m_ApplyIfOverNModels(applyIfOverNModels)
+      , m_Affects(affects)
+      , m_SpellConnection(spellConnection)
+    {}
+
+    const std::string &getKeyWord() const {return m_KeyWord;}
+    int getWithinDistance() const {return m_WithinDistance;}
+    const Ability &getAbility() const {return m_AbilityConnection;}
+    int getApplyIfOverNModels() const {return m_ApplyIfOverNModels;}
+    ConnectionAffectType getAffectType() const {return m_Affects;}
+  };
+
 private:
   std::string m_Title;
   bool m_IsUnique;
@@ -458,6 +510,8 @@ private:
   WeaponUpgrade m_EmptyUpgrade;
   Spell m_EmptySpell;
   QUuid m_Guid;
+
+  std::list<KeyWordConnection> m_KeyWordConnections;
 
 public:
   WarScroll();
@@ -505,6 +559,8 @@ public:
   const Spell &getSpell(const std::string &name) const;
   void addSpell(const Spell &spell, int toCast, int cost = 0);
   void addSpell(const WarScroll::Spell &spell);
+  void addArcaneBolt();
+  void addMysticShield();
 
   const std::list<UnitUpgrade> getRegisteredUnitUpgrades() const
   {return m_RegisteredUpgrades;}
@@ -576,6 +632,10 @@ public:
       std::rand() % 128);
   }
   const QUuid &getGuid() const {return m_Guid;}
+
+  void addKeyWordConnection(const KeyWordConnection &connection);
+  const std::list<KeyWordConnection> &getKeyWordConnections() const
+  {return m_KeyWordConnections;}
 
   friend std::ostream &operator<<(std::ostream &out, const WarScroll &ws)
   {
