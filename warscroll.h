@@ -23,7 +23,7 @@ public:
     eOrder
   };
 
-  static const int s_MaxDistancne = 72;
+  static const int s_MaxDistance = 72;
 
   class Ability
   {
@@ -455,6 +455,8 @@ public:
       eEnemy, eFriendly, eSummons, eFriendOrFoe
     };
 
+    static const int s_MaxConnections = 100;
+
   private:
     std::string m_KeyWord;
     int m_WithinDistance;
@@ -462,6 +464,8 @@ public:
     int m_ApplyIfOverNModels;
     ConnectionAffectType m_Affects;
     Spell m_SpellConnection;
+    int m_MaxConnections;
+    int m_CurrentConnections;
 
   public:
     KeyWordConnection(const std::string &keyWord, int withinDistance,
@@ -473,6 +477,8 @@ public:
       , m_ApplyIfOverNModels(applyIfOverNModels)
       , m_Affects(affects)
       , m_SpellConnection(spellConnection)
+      , m_MaxConnections(s_MaxConnections)
+      , m_CurrentConnections(0)
     {}
 
     const std::string &getKeyWord() const {return m_KeyWord;}
@@ -480,6 +486,12 @@ public:
     const Ability &getAbility() const {return m_AbilityConnection;}
     int getApplyIfOverNModels() const {return m_ApplyIfOverNModels;}
     ConnectionAffectType getAffectType() const {return m_Affects;}
+
+    int getMaxeConnections() const {return m_MaxConnections;}
+    void setMaxConnections(int max) {m_MaxConnections = max;}
+
+    int getCurrentConnections() const {return m_CurrentConnections;}
+    void incrementCurrentConnections() {m_CurrentConnections++;}
   };
 
 private:

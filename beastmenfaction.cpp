@@ -182,7 +182,7 @@ namespace WarScrollGeneration
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
     ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
-      WarScroll::s_MaxDistancne, WarScroll::Ability(), 1,
+      WarScroll::s_MaxDistance, WarScroll::Ability(), 1,
       WarScroll::KeyWordConnection::ConnectionAffectType::eSummons,
       WarScroll::Spell("Savage Dominion")));
 
@@ -492,6 +492,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(8, 12, 7, 5);
 
     ws.addWeapon(WarScroll::Weapon("Ghorgon Blades", 2, 5, 3, 3, 1, 3));
@@ -503,6 +504,7 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "BULLGOR", "WARHERD", "MONSTER", "GHORGON"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
     return ws;
   }
 
@@ -510,7 +512,9 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(12, 2, 3, 5);
+
     ws.setMinMaxUnitCount(5, IFaction::s_MaxUnitSize);
 
     ws.addWeapon(WarScroll::Weapon("Gor Spear", 2, 2, 4, 4, 0, 1));
@@ -539,6 +543,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(12, 5, 4, 5);
 
     ws.addWeapon(WarScroll::Weapon("Mansmasher", 1, 3, 3, 3, 1, 3));
@@ -551,6 +556,23 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "CENTIGOR", "HERO", "GHORROS WARHOOF"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    {
+      WarScroll::KeyWordConnection connection("CENTIGORS",
+        WarScroll::s_MaxDistance, WarScroll::Ability("Sons of Ghorros", 1),
+        1, WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setMaxConnections(1);
+      ws.addKeyWordConnection(connection);
+    }
+    {
+      WarScroll::KeyWordConnection connection("CENTIGORS",
+        20, WarScroll::Ability("Father of Beasts", 2, true), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      ws.addKeyWordConnection(connection);
+    }
+
     return ws;
   }
 
