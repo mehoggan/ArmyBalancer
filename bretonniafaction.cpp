@@ -296,6 +296,14 @@ namespace WarScrollGeneration
       "KNIGHTS ERRANT"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    {
+      WarScroll::KeyWordConnection connection("DAMSEL OF THE LADY",
+        18, WarScroll::Ability("Eager to Impress", 1), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      ws.addKeyWordConnection(connection);
+    }
     return ws;
   }
 
@@ -311,7 +319,9 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Charger's Hooves", 1, 2, 4, 4, 0, 1));
 
     ws.addAbility(WarScroll::Ability("Virtue of Knightly Temper", 1));
-    ws.addAbility(WarScroll::Ability("Massed Cavalry", 1));                     // Conditional on Unit Size > 10
+    WarScroll::Ability ability("Massed Cavalry", 1);
+    ability.setOverNModels(10);
+    ws.addAbility(ability);
     ws.addAbility(WarScroll::Ability("Lances", 1));
     ws.addAbility(WarScroll::Ability("Heraldic Shields", 1));
 
@@ -326,6 +336,12 @@ namespace WarScrollGeneration
       "KNIGHTS OF THE REALM"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("FREE PEOPLE HERO",
+      8, WarScroll::Ability("Virtue of Knightly Temper", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -346,13 +362,28 @@ namespace WarScrollGeneration
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Banner Bearer",
       WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Lutist",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
+    {
+      WarScroll::UnitUpgrade upgrade("Lutist",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2);
+      WarScroll::KeyWordConnection connection("MONSTER",
+        12, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+        WarScroll::Spell());
+      connection.setName("Lutist");
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
 
     ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY",
       "QUESTING KNIGHTS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      1, WarScroll::Ability("The Questing Vow", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -438,14 +469,12 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(5, 1, 4, 6);
+
     ws.setMinMaxUnitCount(10, IFaction::s_MaxUnitSize);
 
     ws.addWeapon(WarScroll::Weapon("Polearm", 2, 1, 5, 4, 0, 1));
-
-    ws.addAbility(WarScroll::Ability("Rowdy Mob", 1));                          // Conditional on Unit Size > 10
-    ws.addAbility(WarScroll::Ability("Tower Shields", 1));
-    ws.addAbility(WarScroll::Ability("Virtue of Empathy, 1"));
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Warden",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
@@ -453,15 +482,42 @@ namespace WarScrollGeneration
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeter",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2);
+      WarScroll::KeyWordConnection connection0("HERO",
+        15, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection0.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection0);
+      WarScroll::KeyWordConnection connection1("NOBILITY",
+        15, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection1.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection1);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Relic Bearer",
       WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+
+    WarScroll::Ability ability("Rowdy Mob", 1);
+    ability.setOverNModels(20);
+    ws.addAbility(ability);
+    ws.addAbility(WarScroll::Ability("Tower Shields", 1));
+    ws.addAbility(WarScroll::Ability("Virtue of Empathy", 1));
 
     ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "PEASANTRY",
       "MEN-AT-ARMS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("PALADIN",
+      8, WarScroll::Ability("Virtue of Empathy", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -475,7 +531,9 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Longbow", 20, 1, 5, 4, 0, 1));
     ws.addWeapon(WarScroll::Weapon("Skinning Knife", 1, 1, 5, 5, 0, 1));
 
-    ws.addAbility(WarScroll::Ability("Arrowstorm", 2));                         // Conditional on Unit Size > 20
+    WarScroll::Ability ability("Arrowstorm", 2);
+    ability.setOverNModels(20);
+    ws.addAbility(ability);
     ws.addAbility(WarScroll::Ability("Virtue of Empathy", 1));
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Villein",
@@ -498,6 +556,12 @@ namespace WarScrollGeneration
       "PEASANT BOWMEN"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("PALADIN",
+      8, WarScroll::Ability("Virtue of Empathy", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -519,8 +583,23 @@ namespace WarScrollGeneration
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Trumpeter",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2);
+      WarScroll::KeyWordConnection connection0("HERO",
+        15, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection0.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection0);
+      WarScroll::KeyWordConnection connection1("NOBILITY",
+        15, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection1.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection1);
+      ws.registerUnitUpgrade(upgrade);
+    }
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Wooden Shields",
       WarScroll::UnitUpgrade::UnitUpgradeType::eShield, 1));
@@ -529,6 +608,12 @@ namespace WarScrollGeneration
       "MOUNTED YEOMEN"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("PALADIN",
+      8, WarScroll::Ability("Virtue of Empathy", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -536,6 +621,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(4, 5, 10, 4);
 
     ws.addWeapon(WarScroll::Weapon("Rocks and Masonry", 48, 2, 4, 3, 2, 6));
@@ -550,6 +636,12 @@ namespace WarScrollGeneration
       "PEASANTRY", "CREW"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("PALADIN",
+      8, WarScroll::Ability("Virtue of Courage", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 }

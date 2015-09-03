@@ -376,6 +376,10 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
             for (const auto &weapon :  currUnitUpgrade.getWeapons()) {
               m_CurrentWarScroll.addWeapon(weapon);
             }
+            for (const auto &connection :
+              currUnitUpgrade.getKeyWordConnections()) {
+              m_CurrentWarScroll.addKeyWordConnection(connection);
+            }
             if (currUnitUpgrade.getUpgradeType() ==
               WarScroll::UnitUpgrade::UnitUpgradeType::eMount) {
               m_CurrentWarScroll.registerMountUpgrade(WarScroll::MountUpgrade(

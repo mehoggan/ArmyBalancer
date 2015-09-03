@@ -58,6 +58,12 @@ void WarScroll::UnitUpgrade::addWeapon(const WarScroll::Weapon &weapon)
   m_Weapons.push_back(weapon);
 }
 
+void WarScroll::UnitUpgrade::addKeyWordConnection(
+  const KeyWordConnection &connection)
+{
+  m_KeyWordConnections.push_back(connection);
+}
+
 void WarScroll::MountUpgrade::registerCharacteristicToIncrease(
   const std::string& name, int val)
 {

@@ -274,6 +274,100 @@ public:
     void addAbility(const Ability &ability);
   };
 
+  class KeyWordConnection
+  {
+  public:
+    enum class ConnectionAffectType
+    {
+      eEnemy, eFriendly, eSummons, eFriendOrFoe, eNone
+    };
+
+    static const int s_MaxConnections = 100;
+
+  private:
+    std::string m_KeyWord;
+    int m_WithinDistance;
+    Ability m_AbilityConnection;
+    int m_ApplyIfOverNModels;
+    ConnectionAffectType m_Affects;
+    Spell m_SpellConnection;
+    int m_MaxConnections;
+    int m_CurrentConnections;
+    std::string m_Name;
+    int m_SummonCount;
+
+  public:
+    KeyWordConnection()
+      : m_WithinDistance(-1)
+      , m_ApplyIfOverNModels(-1)
+      , m_Affects(ConnectionAffectType::eNone)
+      , m_MaxConnections(-1)
+      , m_CurrentConnections(-1)
+      , m_SummonCount(-1)
+    {}
+
+    KeyWordConnection(const std::string &keyWord, int withinDistance,
+      const Ability &viaAbility, int applyIfOverNModels,
+      ConnectionAffectType affects, const Spell &spellConnection)
+      : m_KeyWord(keyWord)
+      , m_WithinDistance(withinDistance)
+      , m_AbilityConnection(viaAbility)
+      , m_ApplyIfOverNModels(applyIfOverNModels)
+      , m_Affects(affects)
+      , m_SpellConnection(spellConnection)
+      , m_MaxConnections(s_MaxConnections)
+      , m_CurrentConnections(0)
+      , m_SummonCount(-1)
+    {}
+
+    const std::string &getName() const {return m_Name;}
+    void setName(const std::string &name) {m_Name = name;}
+
+    const std::string &getKeyWord() const {return m_KeyWord;}
+    int getWithinDistance() const {return m_WithinDistance;}
+    const Ability &getAbility() const {return m_AbilityConnection;}
+    int getApplyIfOverNModels() const {return m_ApplyIfOverNModels;}
+    ConnectionAffectType getAffectType() const {return m_Affects;}
+
+    int getMaxeConnections() const {return m_MaxConnections;}
+    void setMaxConnections(int max) {m_MaxConnections = max;}
+
+    int getCurrentConnections() const {return m_CurrentConnections;}
+    void incrementCurrentConnections() {m_CurrentConnections++;}
+
+    int getSummonCount() const {return m_SummonCount;}
+    void setSummonCount(int count) {m_SummonCount = count;}
+
+    friend bool operator==(const KeyWordConnection &lhs,
+      const KeyWordConnection &rhs)
+    {
+      return lhs.m_KeyWord == rhs.m_KeyWord &&
+        lhs.m_WithinDistance == rhs.m_WithinDistance &&
+        lhs.m_AbilityConnection == rhs.m_AbilityConnection &&
+        lhs.m_ApplyIfOverNModels == rhs.m_ApplyIfOverNModels &&
+        lhs.m_Affects == rhs.m_Affects &&
+        lhs.m_SpellConnection == rhs.m_SpellConnection &&
+        lhs.m_MaxConnections == rhs.m_MaxConnections &&
+        lhs.m_CurrentConnections == rhs.m_CurrentConnections &&
+        lhs.m_Name == rhs.m_Name &&
+        lhs.m_SummonCount == rhs.m_SummonCount;
+    }
+
+    friend std::ostream &operator<<(std::ostream &out,
+      const KeyWordConnection &connection)
+    {
+      out << "Key Word: " << connection.m_KeyWord << " <== " << std::endl;
+      if (!connection.m_AbilityConnection.getName().empty()) {
+        out << connection.m_AbilityConnection << std::endl;
+      } else if (!connection.m_SpellConnection.getName().empty()) {
+        out << connection.m_SpellConnection << std::endl;
+      } else {
+        out << "\tName: " << connection.getName() << std::endl;
+      }
+      return out;
+    }
+  };
+
   class UnitUpgrade
   {
   public:
@@ -292,6 +386,7 @@ public:
     bool m_CanFly;
     bool m_MakesScrollUnique;
     int m_EveryNModel;
+    std::list<KeyWordConnection> m_KeyWordConnections;
 
   public:
     UnitUpgrade(std::string name = "",
@@ -327,6 +422,10 @@ public:
 
     int getEveryNModels() const {return m_EveryNModel;}
     void setEveryNModels(int N) {m_EveryNModel = N;}
+
+    const std::list<KeyWordConnection> &getKeyWordConnections() const
+    {return m_KeyWordConnections;}
+    void addKeyWordConnection(const KeyWordConnection &connection);
 
     friend std::ostream &operator<<(std::ostream &out,
       const UnitUpgrade &upgrade)
@@ -455,78 +554,6 @@ public:
       for (const auto &ability : upgrade.m_Abilities) {
         out << ability;
         out << std::endl;
-      }
-      return out;
-    }
-  };
-
-  class KeyWordConnection
-  {
-  public:
-    enum class ConnectionAffectType
-    {
-      eEnemy, eFriendly, eSummons, eFriendOrFoe
-    };
-
-    static const int s_MaxConnections = 100;
-
-  private:
-    std::string m_KeyWord;
-    int m_WithinDistance;
-    Ability m_AbilityConnection;
-    int m_ApplyIfOverNModels;
-    ConnectionAffectType m_Affects;
-    Spell m_SpellConnection;
-    int m_MaxConnections;
-    int m_CurrentConnections;
-
-  public:
-    KeyWordConnection(const std::string &keyWord, int withinDistance,
-      const Ability &viaAbility, int applyIfOverNModels,
-      ConnectionAffectType affects, const Spell &spellConnection)
-      : m_KeyWord(keyWord)
-      , m_WithinDistance(withinDistance)
-      , m_AbilityConnection(viaAbility)
-      , m_ApplyIfOverNModels(applyIfOverNModels)
-      , m_Affects(affects)
-      , m_SpellConnection(spellConnection)
-      , m_MaxConnections(s_MaxConnections)
-      , m_CurrentConnections(0)
-    {}
-
-    const std::string &getKeyWord() const {return m_KeyWord;}
-    int getWithinDistance() const {return m_WithinDistance;}
-    const Ability &getAbility() const {return m_AbilityConnection;}
-    int getApplyIfOverNModels() const {return m_ApplyIfOverNModels;}
-    ConnectionAffectType getAffectType() const {return m_Affects;}
-
-    int getMaxeConnections() const {return m_MaxConnections;}
-    void setMaxConnections(int max) {m_MaxConnections = max;}
-
-    int getCurrentConnections() const {return m_CurrentConnections;}
-    void incrementCurrentConnections() {m_CurrentConnections++;}
-
-    friend bool operator==(const KeyWordConnection &lhs,
-      const KeyWordConnection &rhs)
-    {
-      return lhs.m_KeyWord == rhs.m_KeyWord &&
-        lhs.m_WithinDistance == rhs.m_WithinDistance &&
-        lhs.m_AbilityConnection == rhs.m_AbilityConnection &&
-        lhs.m_ApplyIfOverNModels == rhs.m_ApplyIfOverNModels &&
-        lhs.m_Affects == rhs.m_Affects &&
-        lhs.m_SpellConnection == rhs.m_SpellConnection &&
-        lhs.m_MaxConnections == rhs.m_MaxConnections &&
-        lhs.m_CurrentConnections == rhs.m_CurrentConnections;
-    }
-
-    friend std::ostream &operator<<(std::ostream &out,
-      const KeyWordConnection &connection)
-    {
-      out << "Key Word: " << connection.m_KeyWord << " <== " << std::endl;
-      if (!connection.m_AbilityConnection.getName().empty()) {
-        out << connection.m_AbilityConnection << std::endl;
-      } else {
-        out << connection.m_SpellConnection << std::endl;
       }
       return out;
     }
@@ -752,7 +779,7 @@ public:
       out << key << ((key == *(ws.m_Keywords.rbegin())) ? " " : ", ");
       out << std::endl;
     }
-    out << std::endl << "\t" << "Possible Connections" << std::endl;
+    out << std::endl << "\t" << "Possible Connections:" << std::endl;
     for (const auto &connection : ws.m_KeyWordConnections) {
       out << "\t";
       out << connection;
