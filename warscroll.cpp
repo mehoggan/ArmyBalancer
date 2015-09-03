@@ -3,6 +3,28 @@
 #include <sstream>
 #include <utility>
 
+void WarScroll::addSummonable(WarScroll &ws, const std::string &name, int toCast,
+  int pointCost, int distance, int summonCount,
+  const std::list<std::string> &keyWords)
+{
+  std::string andKeyWords;
+  for (auto it = keyWords.begin(); it != keyWords.end(); ++it) {
+    andKeyWords += (*it);
+    if (*it != *keyWords.rbegin()) {
+      andKeyWords += " and ";
+    }
+  }
+
+  WarScroll::Spell spell("Summon " + name);
+  spell.setToCast(toCast);
+  spell.setPointCost(pointCost);
+  WarScroll::KeyWordConnection connection(andKeyWords,
+    distance, WarScroll::Ability(), 1,
+    WarScroll::KeyWordConnection::ConnectionAffectType::eSummons,
+    spell);
+  connection.setSummonCount(summonCount);
+  ws.addKeyWordConnection(connection);
+}
 
 void WarScroll::Ability::registerCharacteristicToIncreaseIfOverN(
   const std::string &characteristic, int delta, int N)

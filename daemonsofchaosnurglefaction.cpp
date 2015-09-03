@@ -16,13 +16,28 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Corpulent Mass", 3));
     ws.addAbility(WarScroll::Ability("Gradfather's Joy", 2, true));
 
-    ws.addSpell(WarScroll::Spell("Plague Wind"), 7, 3);
+    WarScroll::Spell spell("Plague Wind");
+    spell.setToCast(7);
+    spell.setPointCost(3);
+    ws.addSpell(spell);
     ws.addSpell(WarScroll::Spell("Summon Daemons"), 7, 3);
 
     ws.addKeyWords({"CHAOS", "DAEMON", "NURGLE", "MONSTER", "HERO", "WIZARD",
       "GREAT UNCLEAN ONE"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("NURGLE + DAEMON",
+      WarScroll::s_MaxDistance,
+      WarScroll::Ability("Gradfather's Joy", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("NURGLE",
+      14, WarScroll::Ability(), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      spell));
+
+    WarScroll::addSummonable(ws, name, 9, 3, 14, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -44,6 +59,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("NURGLE",
+      WarScroll::s_MaxDistance, WarScroll::Ability("Nurgle's Tallyman", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -62,6 +82,8 @@ namespace WarScrollGeneration
       "HERALD OF NURGLE"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    WarScroll::addSummonable(ws, name, 5, 3, 14, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -87,9 +109,15 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Disgustingly Resilient", 2));
     ws.addAbility(WarScroll::Ability("Locus of Fecundity", 1));
 
-    ws.addKeyWords({"Chaos", "Daemon", "Nurgle", "Plaguebearers"});
+    ws.addKeyWords({"CHAOS", "DAEMON", "NURGLE", "PLAGUEBEARERS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "PLAGUEBEARER + HERO", 7, WarScroll::Ability("Locus of Fecundity", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 6, 3, 14, 10, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -117,12 +145,20 @@ namespace WarScrollGeneration
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 
     ws.addAbility(WarScroll::Ability("Disgustingly Resilient", 2));
-    ws.addAbility(WarScroll::Ability("Locus of Contagion", 1));
+    WarScroll::Ability ability("Locus of Contagion", 1);
+    ability.setOverNModels(6);
+    ws.addAbility(ability);
 
     ws.addKeyWords({"CHAOS", "DAEMON", "PLAGUEBEARER", "NURGLE",
       "PLAGUE DRONES"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("PLAGUEBEARER + HERO",
+      7, WarScroll::Ability("Locus of Contagion", 1), 6,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 6, 3, 14, 3, {"CHAOS", "WIZARD"});
 
     return ws;
   }

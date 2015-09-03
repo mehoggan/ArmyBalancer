@@ -10,6 +10,11 @@
 
 class WarScrollFactory;
 
+namespace WarScrollGeneration
+{
+ 
+};
+
 class WarScroll
 {
 public:
@@ -24,6 +29,10 @@ public:
   };
 
   static const int s_MaxDistance = 72;
+
+  static void addSummonable(WarScroll &ws, const std::string &name, int toCast,
+    int pointCost, int distance, int summonCount,
+    const std::list<std::string> &keyWords);
 
   class Ability
   {

@@ -2,20 +2,6 @@
 
 namespace WarScrollGeneration
 {
-  void addSummonable(WarScroll &ws, const std::string &name, int toCast,
-    int pointCost, int distance, int summonCount)
-  {
-    WarScroll::Spell spell("Summon " + name);
-    spell.setToCast(toCast);
-    spell.setPointCost(pointCost);
-    WarScroll::KeyWordConnection connection("CHAOS WIZARD",
-      distance, WarScroll::Ability(), 1,
-      WarScroll::KeyWordConnection::ConnectionAffectType::eSummons,
-      spell);
-    connection.setSummonCount(summonCount);
-    ws.addKeyWordConnection(connection);
-  }
-
   WarScroll Bloodthirster_of_Insensate_Rage(const std::string &name)
   {
     WarScroll ws;
@@ -34,11 +20,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
-    ws.addKeyWordConnection(WarScroll::KeyWordConnection("KHORNE DAEMON",
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("KHORNE and DAEMON",
       8, WarScroll::Ability("Bloodthirsty Charge", 2, true), 1,
       WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
       WarScroll::Spell()));
-    addSummonable(ws, name, 10, 3, 16, 1);
+    WarScroll::addSummonable(ws, name, 10, 3, 16, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -62,11 +48,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
-    ws.addKeyWordConnection(WarScroll::KeyWordConnection("KHORNE DAEMON",
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("KHORNE and DAEMON",
       8, WarScroll::Ability("Rejoice in the Slaughter", 2, true), 1,
       WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
       WarScroll::Spell()));
-    addSummonable(ws, name, 10, 3, 16, 1);
+    WarScroll::addSummonable(ws, name, 10, 3, 16, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -92,12 +78,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
-    ws.addKeyWordConnection(WarScroll::KeyWordConnection("KHORNE DAEMON",
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("KHORNE and DAEMON",
       16, WarScroll::Ability("Lord of the Blood Hunt", 2, true), 1,
       WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
       WarScroll::Spell()));
-
-    addSummonable(ws, name, 10, 3, 16, 1);
+    WarScroll::addSummonable(ws, name, 10, 3, 16, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -147,7 +132,7 @@ namespace WarScrollGeneration
       8, WarScroll::Ability(), 1,
       WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
       WarScroll::Spell()));
-    addSummonable(ws, name, 5, 3, 16, 1);
+    WarScroll::addSummonable(ws, name, 5, 3, 16, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -170,7 +155,7 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
-    addSummonable(ws, name, 5, 3, 16, 1);
+    WarScroll::addSummonable(ws, name, 5, 3, 16, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -193,7 +178,7 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
-    addSummonable(ws, name, 8, 3, 16, 1);
+    WarScroll::addSummonable(ws, name, 8, 3, 16, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -208,9 +193,11 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Hellblade", 1, 1, 4, 3, 1, 1));
 
     ws.addAbility(WarScroll::Ability("Decapitating Blow", 1));
-    WarScroll::Ability ability("Murderous Tide", 1);
-    ability.setOverNModels(20);
-    ws.addAbility(ability);
+    {
+      WarScroll::Ability ability("Murderous Tide", 1);
+      ability.setOverNModels(20);
+      ws.addAbility(ability);
+    }
     ws.addAbility(WarScroll::Ability("Locus of Fury", 1));
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Bloodhunter",
@@ -241,7 +228,7 @@ namespace WarScrollGeneration
       8, WarScroll::Ability(), 1,
       WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
       WarScroll::Spell("Locus of Fury", 1)));
-    addSummonable(ws, name, 6, 3, 16, 10);
+    WarScroll::addSummonable(ws, name, 6, 3, 16, 10, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -274,10 +261,10 @@ namespace WarScrollGeneration
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
     ws.addKeyWordConnection(WarScroll::KeyWordConnection("BLOODLETTER HERO",
-      8, WarScroll::Ability(), 1,
+      8, WarScroll::Ability("Locus of Wrath", 1), 1,
       WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
-      WarScroll::Spell("Locus of Wrath", 1)));
-    addSummonable(ws, name, 6, 3, 16, 1);
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 6, 3, 16, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -298,6 +285,17 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMONS", "KHORNE", "FLESH HOUND", "KARANAK"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    {
+      WarScroll::KeyWordConnection connection("HERO",
+        WarScroll::s_MaxDistance,
+        WarScroll::Ability("Prey of the Blood God", 1), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+        WarScroll::Spell());
+      connection.setMaxConnections(1);
+      ws.addKeyWordConnection(connection);
+    }
+
     return ws;
   }
 
@@ -310,13 +308,24 @@ namespace WarScrollGeneration
 
     ws.addWeapon(WarScroll::Weapon("Blood-dark Claws", 1, 4, 3, 4, 0, 1));
 
-    ws.addAbility(WarScroll::Ability("Collars of Khorne", 1));                  // Conditional on Unit Size > 20
+    {
+      WarScroll::Ability ability("Collars of Khorne", 1);
+      ability.setOverNModels(10);
+      ws.addAbility(ability);
+    }
     ws.addAbility(WarScroll::Ability("Tireless Hunters", 1));
     ws.addAbility(WarScroll::Ability("Locus of Abjuration", 1));
 
     ws.addKeyWords({"CHAOS", "DAEMON", "KHORNE", "FLESH HOUNDS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("BLOODLETTER HERO",
+      8, WarScroll::Ability("Locus of Abjuration", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 6, 3, 16, 5, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -341,6 +350,8 @@ namespace WarScrollGeneration
       "SKULL CANNONS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+    WarScroll::addSummonable(ws, name, 8, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
