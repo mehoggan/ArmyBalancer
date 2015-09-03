@@ -6,13 +6,15 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(14, 10, 9, 3);
-    ws.setCanFly(true);
 
     ws.addWeapon(WarScroll::Weapon("The Sword of Couronne", 2, 6, 3, 3, 1, 3));
     ws.addWeapon(WarScroll::Weapon("Beaquis' Talaons", 2, 5, 4, 3, 1, 1));
     ws.addWeapon(WarScroll::Weapon("Beaquis' Razor-sharp Beak",
       2, 1, 3, 3, 2, 6));
+
+    ws.setCanFly(true);
 
     ws.addAbility(WarScroll::Ability("Regal Crown", 3));
     ws.addAbility(WarScroll::Ability("The Lion's Shield", 3));
@@ -25,6 +27,24 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("FREE PEOPLE",
+      WarScroll::s_MaxDistance, WarScroll::Ability("Regal Crown", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO",
+      2, WarScroll::Ability("The Puissant Virtue", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      2, WarScroll::Ability("The Puissant Virtue", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("NOBILITY",
+      WarScroll::s_MaxDistance,
+      WarScroll::Ability("King of the Realm", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -32,6 +52,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(14, 5, 8, 4);
 
     ws.addWeapon(WarScroll::Weapon("Fay Enchantress' Blessed Blade",
@@ -46,12 +67,31 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Spiteful Glance", 2));
     ws.addAbility(WarScroll::Ability("Supreme Aura of the Lady", 2));
 
-    ws.addSpell(WarScroll::Spell("Favour of the Fay"), 6, 3);
+    WarScroll::Spell spell("Favour of the Fay");
+    spell.setToCast(6);
+    spell.setPointCost(3);
+    ws.addSpell(spell);
 
     ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY", "HERO",
       "WIZARD", "DAMSEL OF THE LADY", "FAY ENCHANTRESS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("GRAIL KNIGHTS",
+      10, WarScroll::Ability("Grail Guardians", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("FREE PEOPLE",
+      6, WarScroll::Ability("Supreme Aura of the Lady", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("FREE PEOPLE",
+      16, WarScroll::Ability(), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly, spell));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("NOBILITY",
+      16, WarScroll::Ability(), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly, spell));
+
     return ws;
   }
 
@@ -59,7 +99,9 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(12, 5, 9, 3);
+
     ws.setCanFly(true);
 
     ws.addWeapon(WarScroll::Weapon("The Dolorous Blade", 1, 4, 3, 3, 1, 2));
@@ -73,6 +115,7 @@ namespace WarScrollGeneration
       "GREEN KNIGHT"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -80,26 +123,44 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(12, 5, 9, 3);
 
     ws.addWeapon(WarScroll::Weapon("Ducal Sword and Dragonbane Lance",
       2, 5, 3, 4, 1, 3));
     ws.addWeapon(WarScroll::Weapon("Steed's Hooves", 1, 2, 4, 4, 0, 1));
+
     ws.addAbility(WarScroll::Ability("Courage of the Bretonni", 3));
     ws.addAbility(WarScroll::Ability("Dragonbane Lance", 1));
     ws.addAbility(WarScroll::Ability("Ducal Shield", 1));
     ws.addAbility(WarScroll::Ability("Lord of the Realm", 2, true));
 
-    WarScroll::UnitUpgrade pegasusUpgrade("Pegasus",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eMount, 3);
-    pegasusUpgrade.setProvidesFly(true);
-    pegasusUpgrade.registerCharacteristicToIncrease("Move", 4);
-    ws.registerUnitUpgrade(pegasusUpgrade);
+    {
+      WarScroll::UnitUpgrade pegasusUpgrade("Pegasus",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eMount, 3);
+      pegasusUpgrade.setProvidesFly(true);
+      pegasusUpgrade.registerCharacteristicToIncrease("Move", 4);
+      ws.registerUnitUpgrade(pegasusUpgrade);
+    }
 
     ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY", "HERO",
       "BRETONNIAN LORD"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("NOBILITY",
+      10, WarScroll::Ability("Courage of the Bretonni", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      2, WarScroll::Ability("Dragonbane Lance", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("NOBILITY",
+      15, WarScroll::Ability("Lord of the Realm", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -107,6 +168,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(5, 5, 7, 4);
 
     ws.addWeapon(WarScroll::Weapon("Relic Weapon", 1, 4, 3, 3, 1, 3));
@@ -118,6 +180,7 @@ namespace WarScrollGeneration
       "PALADIN"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
     return ws;
   }
 
@@ -125,6 +188,7 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(10, 5, 7, 3);
 
     ws.addWeapon(WarScroll::Weapon("Master-forged Sword", 1, 5, 3, 3, 1, 1));
@@ -136,7 +200,22 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY", "HERO",
       "TOTEM", "PALADIN", "PALADIN STANDARD BEARER"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("PEASANTRY",
+      15, WarScroll::Ability("The Grail Banner", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("NOBILITY",
+      15, WarScroll::Ability("The Grail Banner", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("NOBILITY",
+      15, WarScroll::Ability("Follow Me to Glory", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -144,30 +223,50 @@ namespace WarScrollGeneration
   {
     WarScroll ws;
     ws.setTitle(name);
+
     ws.setCharacteristics(5, 5, 6, 6);
 
     ws.addWeapon(WarScroll::Weapon("Staff of Purity", 1, 1, 4, 3, 1, 3));
 
     ws.addAbility(WarScroll::Ability("Aura of the Lady", 1));
 
-    ws.addSpell(WarScroll::Spell("Blessing of the Lady"), 5, 2);
+    WarScroll::Spell spell("Blessing of the Lady");
+    spell.setToCast(5);
+    spell.setPointCost(2);
+    ws.addSpell(spell);
 
-    WarScroll::MountUpgrade pegasusUpgrade("Pegasus", true);
-    pegasusUpgrade.registerCharacteristicToIncrease("Move", 11);
-    pegasusUpgrade.addWeapon(WarScroll::Weapon("Steed's Hooves",
-      1, 2, 4, 4, 0, 1));
-    ws.registerMountUpgrade(pegasusUpgrade);
+    {
+      WarScroll::MountUpgrade pegasusUpgrade("Pegasus", true);
+      pegasusUpgrade.registerCharacteristicToIncrease("Move", 11);
+      pegasusUpgrade.addWeapon(WarScroll::Weapon("Steed's Hooves",
+        1, 2, 4, 4, 0, 1));
+      ws.registerMountUpgrade(pegasusUpgrade);
 
-    WarScroll::MountUpgrade purebreadUpgrade("Purebred Horse");
-    purebreadUpgrade.registerCharacteristicToIncrease("Move", 7);
-    purebreadUpgrade.addWeapon(WarScroll::Weapon("Steed's Hooves",
-      1, 2, 4, 4, 0, 1));
-    ws.registerMountUpgrade(purebreadUpgrade);
+      WarScroll::MountUpgrade purebreadUpgrade("Purebred Horse");
+      purebreadUpgrade.registerCharacteristicToIncrease("Move", 7);
+      purebreadUpgrade.addWeapon(WarScroll::Weapon("Steed's Hooves",
+        1, 2, 4, 4, 0, 1));
+      ws.registerMountUpgrade(purebreadUpgrade);
+    }
 
     ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "NOBILITY", "HERO",
       "WIZARD", "DAMSEL OF THE LADY"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("FREE PEOPLE",
+      6, WarScroll::Ability("Aura of the Lady", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("FREE PEOPLE",
+      16, WarScroll::Ability(), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      spell));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("NOBILITY",
+      16, WarScroll::Ability(), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      spell));
+
     return ws;
   }
 

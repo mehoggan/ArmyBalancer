@@ -172,6 +172,19 @@ public:
     void setPointCost(int cost) {m_PointCost = cost;}
     void setToCast(int cast) {m_ToCast = cast;}
 
+    friend bool operator==(const Spell &lhs, const Spell &rhs)
+    {
+      return lhs.m_Name == rhs.m_Name &&
+        lhs.m_InitialRange == rhs.m_InitialRange &&
+        lhs.m_InitialAttacks == rhs.m_InitialAttacks &&
+        lhs.m_InitialToHit == rhs.m_InitialToHit &&
+        lhs.m_InitialToWound == rhs.m_InitialToWound &&
+        lhs.m_InitialToRend == rhs.m_InitialToRend &&
+        lhs.m_InitialDamage == rhs.m_InitialDamage &&
+        lhs.m_PointCost == rhs.m_PointCost &&
+        lhs.m_ToCast == rhs.m_ToCast;
+    }
+
     friend std::ostream &operator<<(std::ostream &out, const Spell &spell)
     {
       out << "\tName: " << spell.m_Name << std::endl;
@@ -492,6 +505,31 @@ public:
 
     int getCurrentConnections() const {return m_CurrentConnections;}
     void incrementCurrentConnections() {m_CurrentConnections++;}
+
+    friend bool operator==(const KeyWordConnection &lhs,
+      const KeyWordConnection &rhs)
+    {
+      return lhs.m_KeyWord == rhs.m_KeyWord &&
+        lhs.m_WithinDistance == rhs.m_WithinDistance &&
+        lhs.m_AbilityConnection == rhs.m_AbilityConnection &&
+        lhs.m_ApplyIfOverNModels == rhs.m_ApplyIfOverNModels &&
+        lhs.m_Affects == rhs.m_Affects &&
+        lhs.m_SpellConnection == rhs.m_SpellConnection &&
+        lhs.m_MaxConnections == rhs.m_MaxConnections &&
+        lhs.m_CurrentConnections == rhs.m_CurrentConnections;
+    }
+
+    friend std::ostream &operator<<(std::ostream &out,
+      const KeyWordConnection &connection)
+    {
+      out << "Key Word: " << connection.m_KeyWord << " <== " << std::endl;
+      if (!connection.m_AbilityConnection.getName().empty()) {
+        out << connection.m_AbilityConnection << std::endl;
+      } else {
+        out << connection.m_SpellConnection << std::endl;
+      }
+      return out;
+    }
   };
 
 private:
@@ -713,6 +751,11 @@ public:
       out << "\t";
       out << key << ((key == *(ws.m_Keywords.rbegin())) ? " " : ", ");
       out << std::endl;
+    }
+    out << std::endl << "\t" << "Possible Connections" << std::endl;
+    for (const auto &connection : ws.m_KeyWordConnections) {
+      out << "\t";
+      out << connection;
     }
     //out << std::endl << "\t" << ws.m_Guid.toString().toStdString() <<
       //std::endl;
