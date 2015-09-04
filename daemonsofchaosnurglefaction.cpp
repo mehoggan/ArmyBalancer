@@ -16,6 +16,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Corpulent Mass", 3));
     ws.addAbility(WarScroll::Ability("Gradfather's Joy", 2, true));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     WarScroll::Spell spell("Plague Wind");
     spell.setToCast(7);
     spell.setPointCost(3);
@@ -202,6 +204,12 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "PLAGUEBEARER and HERO", 7, WarScroll::Ability("Locus of Virulence", 1),
+      1, WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 6, 3, 14, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -230,6 +238,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "NURGLE", "MONSTER", "HERO",
       "DAEMON PRINCE"});
 
+    WarScroll::addSummonable(ws, name, 8, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
     return ws;
@@ -251,6 +261,9 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "FURIES", "NURGLE"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    WarScroll::addSummonable(ws, name, 8, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -282,6 +295,13 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "MONSTER", "SOUL GRINDER", "NURGLE"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO or MONSTER",
+      2, WarScroll::Ability("Caught by the Claw", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addSummonable(ws, name, 10, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 }

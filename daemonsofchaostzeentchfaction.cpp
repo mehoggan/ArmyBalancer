@@ -17,10 +17,21 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Secrets and Ciphers", 1));
     ws.addAbility(WarScroll::Ability("Oracle of Eternity", 1));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     ws.addSpell(WarScroll::Spell("Gift of Change"), 8, 3);
 
     ws.addKeyWords({"CHAOS", "DAEMON", "TZEENTCH", "MONSTER", "HERO",
       "WIZARD", "LORD OF CHANGE", "KAIROS FATEWEAVER"});
+
+    {
+      WarScroll::KeyWordConnection connection("WIZARD",
+        18, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendOrFoe,
+        WarScroll::Spell());
+      connection.setName("Know Their Spells");
+      ws.addKeyWordConnection(connection);
+    }
 
     return ws;
   }
@@ -42,11 +53,20 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Spell-thief", 3));
     ws.addAbility(WarScroll::Ability("Beacon of Sorcery", 3, true));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     ws.addSpell(WarScroll::Spell("Summon Daemons"), 7, 3);
     ws.addSpell(WarScroll::Spell("Infernal Gateway"), 7, 3);
 
     ws.addKeyWords({"CHAOS", "DAEMON", "TZEENTCH", "MONSTER", "HERO", "WIZARD",
       "LORD OF CHANGE"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "TZEENTCH and DAEMON and WIZARDS", 18,
+      WarScroll::Ability("Beacon of Sorcery", 3, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 9, 3, 18, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -67,6 +87,19 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "HORROR", "TZEENTCH", "HERO", "WIZARD",
       "THE CHANGELING"});
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO",
+      WarScroll::s_MaxDistance, WarScroll::Ability("Arch Deceiver", 3),
+      1, WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    {
+      WarScroll::KeyWordConnection connection("WIZARD",
+        9, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendOrFoe,
+        WarScroll::Spell());
+      connection.setName("Know Their Spells");
+      ws.addKeyWordConnection(connection);
+    }
+
     return ws;
   }
 
@@ -83,11 +116,15 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Arcane Tome", 2));
     ws.addAbility(WarScroll::Ability("Fortune and Fate", 2));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     ws.addSpell(WarScroll::Spell("Summon Daemons"), 7, 3);
     ws.addSpell(WarScroll::Spell("Pink Fire of Tzeentch"), 9, 3);
 
     ws.addKeyWords({"CHAOS", "DAEMON", "HORROR", "TZEENTCH", "HERO", "WIZARD",
       "HERALD OF TZEENTCH"});
+
+    WarScroll::addSummonable(ws, name, 5, 3, 18, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -108,11 +145,15 @@ namespace WarScrollGeneration
 
     ws.addAbility(WarScroll::Ability("Arcane Tome", 1));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     ws.addSpell(WarScroll::Spell("Summon Daemons"), 7, 3);
     ws.addSpell(WarScroll::Spell("Blue Fire of Tzeentch"), 4, 2);
 
     ws.addKeyWords({"CHAOS", "DAEMON", "HORROR", "TZEENTCH", "HERO", "WIZARD",
       "HERALD ON DISC"});
+
+    WarScroll::addSummonable(ws, name, 5, 3, 18, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -134,11 +175,20 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Sky-sharks", 2));
     ws.addAbility(WarScroll::Ability("Wake of Fire", 1));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     ws.addSpell(WarScroll::Spell("Summon Daemons"), 7, 3);
     ws.addSpell(WarScroll::Spell("Tzeentch's Firestorm"), 9, 2);
 
     ws.addKeyWords({"CHAOS", "DAEMON", "HORROR", "TZEENTCH", "HERO", "WIZARD",
       "HERALD ON BURNING CHARIOT"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      1, WarScroll::Ability("Sky-sharks", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+
+    WarScroll::addSummonable(ws, name, 7, 3, 18, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -158,10 +208,17 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Frantic Scribbling", 2));
     ws.addAbility(WarScroll::Ability("Scrolls of Sorcery", 2));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     ws.addSpell(WarScroll::Spell("Boon of Tzeentch"), 4, 2);
 
     ws.addKeyWords({"CHAOS", "DAEMON", "HORROR", "TZEENTCH", "HERO", "WIZARD",
       "THE BLUE SCRIBES"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("WIZARD",
+      18, WarScroll::Ability("Frantic Scribbling", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendOrFoe,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -187,9 +244,17 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Flickering Flames", 2));
     ws.addAbility(WarScroll::Ability("Locus of Conjuration", 2));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     ws.addSpell(WarScroll::Spell("Summon Daemons"), 7, 3);
 
     ws.addKeyWords({"CHAOS", "DAEMON" "TZEENTCH", "WIZARD", "PINK HORRORS"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HORROR and HERO",
+      9, WarScroll::Ability("Locus of Conjuration", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 6, 3, 18, 10, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -211,6 +276,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"CHAOS", "DAEMON", "FLAMER", "TZEENTCH",
       "EXALTED FLAMERS"});
+
+    ws.addSummonable(ws, name, 6, 3, 18, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -236,6 +303,12 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"CHAOS", "DAEMONS", "TZEENTCH", "FLAMERS"});
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HORROR and HERO",
+      9, WarScroll::Ability("Locus of Transmogrification", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 6, 3, 18, 3, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -256,6 +329,16 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Locus of Change", 1));
 
     ws.addKeyWords({"CHAOS", "DAEMON", "TZEENTCH", "SCREAMERS"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      1, WarScroll::Ability("Sky-sharks", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HORROR and HERO",
+      9, WarScroll::Ability("Locus of Change", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 6, 3, 18, 3, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -282,6 +365,12 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"CHAOS", "DAEMON", "FLAMER", "HORROR", "TZEENTCH",
       "BURNING CHARIOTS"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      1, WarScroll::Ability("Sky-sharks", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 8, 3, 18, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -313,6 +402,8 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
+    WarScroll::addSummonable(ws, name, 8, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -332,6 +423,9 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "FURIES", "TZEENTCH"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    WarScroll::addSummonable(ws, name, 8, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -363,6 +457,13 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "MONSTER", "SOUL GRINDER", "TZEENTCH"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO or MONSTER",
+      2, WarScroll::Ability("Caught by the Claw", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addSummonable(ws, name, 10, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 }

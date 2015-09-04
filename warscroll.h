@@ -338,7 +338,7 @@ public:
     int getApplyIfOverNModels() const {return m_ApplyIfOverNModels;}
     ConnectionAffectType getAffectType() const {return m_Affects;}
 
-    int getMaxeConnections() const {return m_MaxConnections;}
+    int getMaxConnections() const {return m_MaxConnections;}
     void setMaxConnections(int max) {m_MaxConnections = max;}
 
     int getCurrentConnections() const {return m_CurrentConnections;}

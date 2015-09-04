@@ -350,6 +350,7 @@ namespace WarScrollGeneration
       "SKULL CANNONS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
     WarScroll::addSummonable(ws, name, 8, 3, 16, 1, {"CHAOS", "WIZARD"});
 
     return ws;
@@ -380,6 +381,8 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "KHORNE", "MONSTER", "HERO",
       "DAEMON PRINCE"});
 
+    WarScroll::addSummonable(ws, name, 8, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
     return ws;
@@ -401,6 +404,9 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "FURIES", "KHORNE"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    WarScroll::addSummonable(ws, name, 6, 3, 16, 5, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -432,6 +438,13 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "MONSTER", "SOUL GRINDER", "KHORNE"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO or MONSTER",
+      2, WarScroll::Ability("Caught by the Claw", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addSummonable(ws, name, 10, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 }

@@ -67,6 +67,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Spiteful Glance", 2));
     ws.addAbility(WarScroll::Ability("Supreme Aura of the Lady", 2));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     WarScroll::Spell spell("Favour of the Fay");
     spell.setToCast(6);
     spell.setPointCost(3);
@@ -230,6 +232,8 @@ namespace WarScrollGeneration
 
     ws.addAbility(WarScroll::Ability("Aura of the Lady", 1));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     WarScroll::Spell spell("Blessing of the Lady");
     spell.setToCast(5);
     spell.setPointCost(2);

@@ -15,11 +15,29 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Delicate Precision", 1));
     ws.addAbility(WarScroll::Ability("Excess of Violence", 2, true));
 
+    ws.addArcaneBolt();
+    ws.addMysticShield();
     ws.addSpell(WarScroll::Spell("Summon Daemons"), 7, 3);
     ws.addSpell(WarScroll::Spell("Cacophonic Choir"), 6, 2);
 
     ws.addKeyWords({"CHAOS", "DAEMON", "SLAANESH", "MONSTER", "HERO", "WIZARD",
       "KEEPER OF SECRETS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO",
+      WarScroll::s_MaxDistance, WarScroll::Ability("Dark Temptations", 2),
+      1, WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    {
+      WarScroll::KeyWordConnection connection("SLAANESH and DAEMON",
+        12, WarScroll::Ability("Excess of Violence", 2, true), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setMaxConnections(1);
+      ws.addKeyWordConnection(connection);
+    }
+    WarScroll::addSummonable(ws, name, 9, 3, 12, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -39,6 +57,8 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"CHAOS", "DAEMON", "DAEMONETTE", "SLAANESH", "HERO",
       "THE MASQUE"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
     return ws;
   }
@@ -64,6 +84,10 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "DAEMONETTE", "SLAANESH", "HERO",
       "HERALD OF SLAANESH"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addSummonable(ws, name, 5, 3, 12, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -88,6 +112,14 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"CHAOS", "DAEMON", "DAEMONETTE", "SLAANESH", "HERO",
       "SEEKER", "CHARIOT"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO",
+      WarScroll::s_MaxDistance, WarScroll::Ability("Disturbing Beauty", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 7, 3, 12, 1, {"CHAOS and WIZARD"});
 
     return ws;
   }
@@ -115,6 +147,14 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "DAEMONETTE", "SLAANESH", "HERO",
       "EXALTED SEEKER CHARIOT"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO",
+      WarScroll::s_MaxDistance, WarScroll::Ability("Disturbing Beauty", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 7, 3, 12, 1, {"CHAOS and WIZARD"});
+
     return ws;
   }
 
@@ -140,6 +180,14 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Locus of Beguilement", 1));
 
     ws.addKeyWords({"CHAOS", "DAEMON", "SLAANESH", "DAEMONETTES"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DAEMONETTE and HERO",
+      6, WarScroll::Ability("Locus of Beguilement", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 6, 3, 12, 10, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -169,6 +217,14 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"CHAOS", "DAEMON", "DAEMONETTE", "SLAANESH", "SEEKERS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DAEMONETTE and HERO",
+      12, WarScroll::Ability("Locus of Swiftness", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 5, 3, 12, 5, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -189,6 +245,14 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Locus of Grace", 1));
 
     ws.addKeyWords({"CHAOS", "DAEMON", "SLAANESH", "FIENDS"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DAEMONETTE and HERO",
+      6, WarScroll::Ability("Locus of Grace", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    WarScroll::addSummonable(ws, name, 6, 3, 12, 1, {"CHAOS", "WIZARD"});
 
     return ws;
   }
@@ -216,6 +280,10 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "DAEMONETTE", "SLAANESH",
       "SEEKER CHARIOTS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    WarScroll::addSummonable(ws, name, 7, 3, 12, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -242,6 +310,10 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "DAEMONETTE", "SLAANESH",
       "EXALTED SEEKER CHARIOTS"});
 
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    WarScroll::addSummonable(ws, name, 8, 3, 12, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -266,6 +338,10 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"CHAOS", "DAEMON", "DAEMONETTE", "SLAANESH",
       "HELLFLAYERS"});
+
+    WarScroll::addSummonable(ws, name, 7, 3, 12, 1, {"CHAOS", "WIZARD"});
+
+    ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
     return ws;
   }
@@ -297,6 +373,8 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
 
+    WarScroll::addSummonable(ws, name, 8, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -316,6 +394,9 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "FURIES", "SLAANESH"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    WarScroll::addSummonable(ws, name, 8, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 
@@ -347,6 +428,13 @@ namespace WarScrollGeneration
     ws.addKeyWords({"CHAOS", "DAEMON", "MONSTER", "SOUL GRINDER", "SLAANESH"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eChaos);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO or MONSTER",
+      2, WarScroll::Ability("Caught by the Claw", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addSummonable(ws, name, 10, 3, 16, 1, {"CHAOS", "WIZARD"});
+
     return ws;
   }
 }
