@@ -450,6 +450,9 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
             m_CurrentWarScroll.getCanFly());
           m_CurrentWarScroll.applyRegisteredMount(mount.getName());
 
+          for (const auto &connection : mount.getKeyWordConnections()) {
+            m_CurrentWarScroll.addKeyWordConnection(connection);
+          }
           if (mount.makesUnitUnique()) {
             m_CurrentWarScroll.setIsUnique(true);
             for (const std::map<std::string, WarScroll>::value_type &scroll :

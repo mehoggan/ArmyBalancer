@@ -27,6 +27,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      20, WarScroll::Ability("Absolute Power", 3, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -48,6 +53,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      14, WarScroll::Ability("The Tyrant of Hag Graef", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -57,9 +67,6 @@ namespace WarScrollGeneration
     ws.setTitle(name);
 
     ws.setCharacteristics(6, 5, 8, 4);
-
-    ws.addAbility(WarScroll::Ability("The Price of Failure", 2));
-    ws.addAbility(WarScroll::Ability("Cruel Tyrant", 2));
 
     WarScroll::WeaponUpgrade dualExileBlades(
       WarScroll::Weapon("Exile Blade", 1, 6, 3, 4, 0, 1),
@@ -74,9 +81,17 @@ namespace WarScrollGeneration
       WarScroll::Ability(""));
     ws.addWeaponUpgrade(chillBladeUpgrade);
 
+    ws.addAbility(WarScroll::Ability("The Price of Failure", 2));
+    ws.addAbility(WarScroll::Ability("Cruel Tyrant", 2));
+
     ws.addKeyWords({"ORDER", "AELF", "EXILES", "HERO", "DREADLORD"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      14, WarScroll::Ability("Cruel Tyrant", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -94,9 +109,6 @@ namespace WarScrollGeneration
       3, 3, 4, 2, 2, 6));
 
     ws.setCanFly(true);
-
-    ws.addAbility(WarScroll::Ability("Noxious Breath", 1));
-    ws.addAbility(WarScroll::Ability("Do Not Disappoint Me", 2, true));
 
     WarScroll::WeaponUpgrade shieldUpgrade(
       WarScroll::Weapon("Exile Blade", 1, 6, 3, 4, 0, 1),
@@ -124,10 +136,18 @@ namespace WarScrollGeneration
       WarScroll::Ability("Exile Blades", 1));
     ws.addWeaponUpgrade(dualExileBlades);
 
+    ws.addAbility(WarScroll::Ability("Noxious Breath", 1));
+    ws.addAbility(WarScroll::Ability("Do Not Disappoint Me", 2, true));
+
     ws.addKeyWords({"ORDER", "AELF", "DRAGON", "EXILES", "HERO", "MONSTER",
       "DREADLORD"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      12, WarScroll::Ability("Do Not Disappoint Me", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -147,9 +167,15 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Bladed Barding", 1));
     ws.addAbility(WarScroll::Ability("Single-minded Hunting Beasts", 1));
 
-    ws.addKeyWords({"ORDER", "AELF", "EXILE", "HERO", "DREADLORD"});
+    ws.addKeyWords({"ORDER", "AELF", "EXILES", "HERO", "DREADLORD"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "COLD ONE KNIGHTS or COLD ONE CHARIOTS", 14,
+      WarScroll::Ability("Single-minded Hunting Beasts", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -171,6 +197,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      3, WarScroll::Ability("Blood Sacrifice", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -186,9 +217,6 @@ namespace WarScrollGeneration
       3, 3, 4, 2, 2, 6));
 
     ws.setCanFly(true);
-
-    ws.addAbility(WarScroll::Ability("Blood Sacrifice", 1));
-    ws.addAbility(WarScroll::Ability("Noxious Breath", 1));
 
     ws.addSpell(WarScroll::Spell("Bladewind"), 6, 1);
 
@@ -213,10 +241,18 @@ namespace WarScrollGeneration
       "Witch Lash", 2, 1, 3, 4, 0, 1));
     ws.addWeaponUpgrade(swordOfGhrondWitchLashUpgrade);
 
+    ws.addAbility(WarScroll::Ability("Blood Sacrifice", 1));
+    ws.addAbility(WarScroll::Ability("Noxious Breath", 1));
+
     ws.addKeyWords({"ORDER", "AELF", "DRAGON", "EXILES", "HERO", "WIZARD",
       "MONSTER", "SORCERESS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      3, WarScroll::Ability("Blood Sacrifice", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -232,13 +268,18 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Cold One's Ferocious Jaws",
       1, 2, 3, 4, 0, 1));
 
-    ws.addAbility(WarScroll::Ability("Blood Sacrifice", 1));
-
     ws.addSpell(WarScroll::Spell("Chillwind"), 5, 2);
 
     ws.addKeyWords({"ORDER", "AELF", "EXILES", "HERO", "WIZARD", "SORCERESS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addAbility(WarScroll::Ability("Blood Sacrifice", 1));
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      3, WarScroll::Ability("Blood Sacrifice", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -258,8 +299,17 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Dread Knight",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    {
+      WarScroll::KeyWordConnection connection("EXILES and HERO",
+        8, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setName("Standard Bearer");
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2);
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 
@@ -316,6 +366,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      10, WarScroll::Ability("Spiteful Dominance", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -337,6 +392,11 @@ namespace WarScrollGeneration
       "BLACK ARK FLEETMASTER"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("BLACK ARK CORSAIRS",
+      14, WarScroll::Ability("At Them, You Curs!", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -360,6 +420,12 @@ namespace WarScrollGeneration
       "LOKHIR FELLHEART"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "BLACK ARK FLEETMASTER or BLACK ARK CORSAIRS", 6,
+      WarScroll::Ability("Take Them Alive!", 2, true),
+      1, WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -389,8 +455,17 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Reaver",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      WarScroll::KeyWordConnection connection(
+        "EXILES and HERO", 8, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 
@@ -431,6 +506,15 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      1, WarScroll::Ability("Treachery and Power", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      8, WarScroll::Ability("Banner of Murder", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -447,8 +531,17 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Lordling",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      WarScroll::KeyWordConnection connection(
+        "EXILES and HERO", 8, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 
@@ -476,8 +569,17 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Lordling",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      WarScroll::KeyWordConnection connection(
+        "EXILES and HERO", 8, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 
@@ -505,8 +607,17 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Guardmaster",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      WarScroll::KeyWordConnection connection(
+        "EXILES and HERO", 8, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Darkshields",
@@ -538,8 +649,17 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Herald",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      WarScroll::KeyWordConnection connection(
+        "EXILES and HERO", 8, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 
@@ -566,8 +686,17 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Tower Master",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      WarScroll::KeyWordConnection connection(
+        "EXILES and HERO", 8, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Drummers",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 
@@ -577,6 +706,11 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "EXILES", "BLACK GUARD"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MALEKITH",
+      28, WarScroll::Ability("The Witch King's Retinue", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -670,6 +804,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      18, WarScroll::Ability("Lay the Beast Low", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -761,8 +900,17 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Handmaiden",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      WarScroll::KeyWordConnection connection(
+        "EXILES and HERO", 8, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 
@@ -858,15 +1006,21 @@ namespace WarScrollGeneration
     ws.addWeapon(WarScroll::Weapon("Witch Elves' Sacrificial Knives",
       1, 6, 3, 4, 0, 1));
 
-    WarScroll::MountUpgrade hellebronUpgrade("Hellebron");
-    hellebronUpgrade.addWeapon(WarScroll::Weapon("Hellebron's Deathsword",
-      1, 2, 3, 3, 1, 3));
-    hellebronUpgrade.addWeapon(WarScroll::Weapon("Hellebron's Cursed Blade",
-      1, 2, 3, 4, 0, 1));
-    hellebronUpgrade.addAbility(WarScroll::Ability("Amulet of Dark Fire", 2));
-    hellebronUpgrade.addAbility(WarScroll::Ability("Orgy of Slaughter", 3));
-    hellebronUpgrade.setMakesUnitUnique(true);
-    ws.registerMountUpgrade(hellebronUpgrade);
+    {
+      WarScroll::MountUpgrade hellebronUpgrade("Hellebron");
+      hellebronUpgrade.addWeapon(WarScroll::Weapon("Hellebron's Deathsword",
+        1, 2, 3, 3, 1, 3));
+      hellebronUpgrade.addWeapon(WarScroll::Weapon("Hellebron's Cursed Blade",
+        1, 2, 3, 4, 0, 1));
+      hellebronUpgrade.addAbility(WarScroll::Ability("Amulet of Dark Fire", 2));
+      hellebronUpgrade.addAbility(WarScroll::Ability("Orgy of Slaughter", 3));
+      hellebronUpgrade.setMakesUnitUnique(true);
+      hellebronUpgrade.addKeyWordConnection(WarScroll::KeyWordConnection(
+        "EXILES", 14, WarScroll::Ability("Orgy of Slaughter", 3), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell()));
+      ws.registerMountUpgrade(hellebronUpgrade);
+    }
     WarScroll::MountUpgrade deathHagUpgrade("Death Hag");
     deathHagUpgrade.addWeapon(WarScroll::Weapon("Death Hag's Blade of Khaine",
       1, 4, 3, 4, 0, 1));
@@ -880,6 +1034,23 @@ namespace WarScrollGeneration
       "WITCH ELVES", "DEATH HAG", "CAULDRON OF BLOOD"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      9, WarScroll::Ability("Bloodshield", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("WITCH ELVES",
+      9, WarScroll::Ability("Bloodshield", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("WITCH ELVES",
+      3, WarScroll::Ability("Witchbrew", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      14, WarScroll::Ability("Strength of Khaine", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -897,8 +1068,17 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hag",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    {
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1);
+      WarScroll::KeyWordConnection connection(
+        "EXILES and HERO", 8, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setName("Standard Bearer");
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Hornblower",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 
@@ -908,6 +1088,11 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "EXILES", "WITCH ELVES"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DEATH HAG",
+      14, WarScroll::Ability("Frenzied Fervour", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -931,6 +1116,12 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "EXILES", 14, WarScroll::Ability("Orgy of Slaughter", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -945,13 +1136,26 @@ namespace WarScrollGeneration
 
     ws.addAbility(WarScroll::Ability("Black Lotus Venom", 2));
     ws.addAbility(WarScroll::Ability("Heart of Woe", 1));
-    ws.addAbility(WarScroll::Ability("Master of Disguise", 2));
     ws.addAbility(WarScroll::Ability("Master of Assassins", 1));
+    ws.addAbility(WarScroll::Ability("Master of Disguise", 2));
 
     ws.addKeyWords({"ORDER", "AELF", "EXILES", "HERO", "DARK ELF ASSASSIN",
       "SHADOWBLADE"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO",
+      1, WarScroll::Ability("Black Lotus Venom", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO",
+      1, WarScroll::Ability("Master of Assassains", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      1, WarScroll::Ability("Master of Disquise"), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -971,6 +1175,11 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "AELF", "EXILES", "HERO", "PRIEST", "DEATH HAG"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("WITCH ELVES",
+      3, WarScroll::Ability("Witchbrew", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -993,6 +1202,15 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HERO",
+      12, WarScroll::Ability("Black Lotus Venom", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("EXILES",
+      1, WarScroll::Ability("Hidden Murderer", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -1009,8 +1227,17 @@ namespace WarScrollGeneration
 
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Draich Master",
       WarScroll::UnitUpgrade::UnitUpgradeType::eChampion, 1));
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Standard Bearer",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 1));
+    {
+      WarScroll::KeyWordConnection connection("EXILES and HERO",
+        8, WarScroll::Ability(), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setName("Standard Bearer");
+      WarScroll::UnitUpgrade upgrade("Standard Bearer",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2);
+      upgrade.addKeyWordConnection(connection);
+      ws.registerUnitUpgrade(upgrade);
+    }
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Drummers",
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 1));
 

@@ -474,6 +474,7 @@ public:
     RiderCharacteristics m_CharacteristicsToSet;
     bool m_CanFly;
     bool m_MakesScrollUnique;
+    std::list<KeyWordConnection> m_KeyWordConnections;
 
   public:
     MountUpgrade(std::string name = "", bool canFly = false)
@@ -515,6 +516,10 @@ public:
     void setCharacteristics(const Characteristic& characteristic);
     const RiderCharacteristics &getChacarteristicsToSet() const
     {return m_CharacteristicsToSet;}
+
+    const std::list<KeyWordConnection> &getKeyWordConnections() const
+    {return m_KeyWordConnections;}
+    void addKeyWordConnection(const KeyWordConnection &connection);
 
     friend std::ostream &operator<<(std::ostream &out,
       const MountUpgrade &upgrade)

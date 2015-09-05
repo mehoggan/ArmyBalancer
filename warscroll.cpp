@@ -123,6 +123,12 @@ void WarScroll::MountUpgrade::setCharacteristics(
   m_CharacteristicsToSet.push_back(characteristic);
 }
 
+void WarScroll::MountUpgrade::addKeyWordConnection(
+  const KeyWordConnection &connection)
+{
+  m_KeyWordConnections.push_back(connection);
+}
+
 void WarScroll::ChampionWithOptions::addWeapon(const WarScroll::Weapon &weapon)
 {
   m_Weapons.push_back(weapon);
