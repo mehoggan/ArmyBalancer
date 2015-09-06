@@ -72,3 +72,16 @@ win32 {
     }
   }
 }
+
+android {
+  message("Unix Android Called")
+  DISTFILES += \
+      android/AndroidManifest.xml \
+      android/gradle/wrapper/gradle-wrapper.jar \
+      android/gradlew \
+      android/res/values/libs.xml \
+      android/build.gradle \
+      android/gradle/wrapper/gradle-wrapper.properties
+
+  ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+}

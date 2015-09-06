@@ -140,6 +140,12 @@ void WarScroll::ChampionWithOptions::addAbility(
   m_Abilities.push_back(ability);
 }
 
+void WarScroll::ChampionWithOptions::addKeyWordConnection(
+  const KeyWordConnection &connection)
+{
+  m_KeyWordConnections.push_back(connection);
+}
+
 WarScroll::WarScroll()
   : m_IsUnique(false)
   , m_MinUnitCount(1)

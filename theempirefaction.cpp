@@ -32,6 +32,15 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "HUMAN", "GRIFFON", "FREE PEOPLE", "MONSTER",
       "HERO", "KARL FRANZ ON DEATHCLAW"});
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("FREE PEOPLE",
+      15, WarScroll::Ability("Stirring Valour", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("FREE PEOPLE",
+      15, WarScroll::Ability("Leader of Men", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -51,6 +60,11 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "KNIGHTLY ORDERS",
       "HERO", "GRAND MASTER", "KURT HELBORG"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("FREE PEOPLE",
+      15, WarScroll::Ability("The Reiksmarshal", 1, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -75,6 +89,11 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "HERO", "WIZARD",
       "BALTHASAR GELT"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("WIZARD",
+      18, WarScroll::Ability("Amulet of Sea Gold", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -123,6 +142,11 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "HERO", "EMPIRE GENERAL",
       "Marius Leitdorf"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("STATE REGIMENT",
+      15, WarScroll::Ability("Lunatic Ravings", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -202,12 +226,25 @@ namespace WarScrollGeneration
     warHorseWithLance.setCharacteristics(std::make_tuple("Save", 4));
     ws.registerMountUpgrade(warHorseWithLance);
 
-    ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Stately War Banner",
-      WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2));
+    {
+      WarScroll::UnitUpgrade upgrade("Stately War Banner",
+        WarScroll::UnitUpgrade::UnitUpgradeType::eBannerBearer, 2);
+      upgrade.addAbility(WarScroll::Ability("Stately War Banner", 1));
+      upgrade.addKeyWordConnection(WarScroll::KeyWordConnection(
+        "STATE REGIMENT", 24, WarScroll::Ability("Stately War Banner", 1), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell()));
+      ws.registerUnitUpgrade(upgrade);
+    }
 
     ws.addAbility(WarScroll::Ability("Hold the Line", 1, true));
 
     ws.addKeyWords({"ORDER", "HUMAN", "FREE PEOPLE", "HERO", "EMPIRE GENERAL"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("STATE REGIMENTS",
+      15, WarScroll::Ability("Hold the Line", 1, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -250,6 +287,12 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "HUMAN", "GRIFFON", "FREE PEOPLE", "MONSTER",
       "HERO", "EMPIRE GENERAL"});
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "STATE REGIMENT or KNIGHTLY ORDER", 15,
+      WarScroll::Ability("Rousing Battle Cry", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -264,7 +307,7 @@ namespace WarScrollGeneration
       1, 4, 3, 3, 0, 2));
     ws.addWeapon(WarScroll::Weapon("Warhorse's Steel-shod Hooves",
       1, 2, 4, 4, 0, 1));
-    
+
     ws.addAbility(WarScroll::Ability("The Sword of Justice", 2));
     ws.addAbility(WarScroll::Ability("The Emperor's Bodyguard", 1));
 
@@ -272,6 +315,16 @@ namespace WarScrollGeneration
 
     ws.addKeyWords({"ORDER", "HUMANS", "FREE PEOPLE", "HERO", "TOTEM",
       "LUDWIG SCHWARZHELM"});
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("KARL FRANZ",
+      3, WarScroll::Ability("The Emperor's Bodyguard", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "STATE REGIMENT or KNIGHTLY ORDER", 24,
+      WarScroll::Ability("The Emperor's Standard", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }

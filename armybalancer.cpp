@@ -485,6 +485,11 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
 
       for (const auto &champion : champions) {
         if (champion.getName() == championName.toStdString()) {
+
+          for (const auto &connection : champion.getKeyWordConnections()) {
+            m_CurrentWarScroll.addKeyWordConnection(connection);
+          }
+
           m_CurrentWarScroll.applyRegisteredChampionWithOptions(
             champion.getName());
           break;

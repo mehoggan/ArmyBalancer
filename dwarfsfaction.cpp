@@ -21,6 +21,21 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    {
+      WarScroll::KeyWordConnection connection("DISPOSSESSED",
+        WarScroll::s_MaxDistance,
+        WarScroll::Ability("Great Book of Grudges", 1), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setMaxConnections(1);
+      ws.addKeyWordConnection(connection);
+    }
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DISPOSSESSED",
+      8, WarScroll::Ability("The High King", 1, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -43,6 +58,15 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DISPOSSESSED",
+      24, WarScroll::Ability("Strike the Runes", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("KRAGGI",
+      4, WarScroll::Ability("Strike the Runes", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -62,6 +86,11 @@ namespace WarScrollGeneration
       "KRAGGI"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("THOREK IRONBROW",
+      5, WarScroll::Ability("Overworked", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -85,6 +114,15 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DISPOSSESSED",
+      18, WarScroll::Ability("Belgar's Oath Stone", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DISPOSSESSED",
+      16, WarScroll::Ability("Oath of Vengeance", 1, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -107,6 +145,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DISPOSSESSED",
+      16, WarScroll::Ability("The Slayer King", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -122,12 +165,29 @@ namespace WarScrollGeneration
 
     ws.addAbility(WarScroll::Ability("Bugman's Rangers", 1));
     ws.addAbility(WarScroll::Ability("Bugman's Tankard", 3));
-    ws.addAbility(WarScroll::Ability("Liquid Fortification",1));
+    ws.addAbility(WarScroll::Ability("Liquid Fortification", 1));
 
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HERO",
       "JOSEF BUGMAN"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    {
+      WarScroll::KeyWordConnection connection("QUARRELLERS",
+        WarScroll::s_MaxDistance, WarScroll::Ability("Bugman's Rangers", 1), 1,
+        WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+        WarScroll::Spell());
+      connection.setMaxConnections(1);
+      ws.addKeyWordConnection(connection);
+    }
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "DISPOSSESSED and HERO", 4, WarScroll::Ability("Bugman's Tankard", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "DISPOSSESSED", 4, WarScroll::Ability("Liquid Fortification", 1),
+      1, WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -151,6 +211,16 @@ namespace WarScrollGeneration
       "GRIMM BURLOKSSON"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("WAR MACHINE",
+      4, WarScroll::Ability("Master Engineer", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "QUARRELLERS or THUNDERERS", 6,
+      WarScroll::Ability("Experimental Weaponry", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -192,6 +262,15 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DISPOSSESSED",
+      18, WarScroll::Ability("Stubborn Oath Keeper", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DISPOSSESSED",
+      16, WarScroll::Ability("Ancestral Grudge", 1, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -212,6 +291,15 @@ namespace WarScrollGeneration
       "RUNELORD"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DISPOSSESSED",
+      16, WarScroll::Ability("Rune Lore", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("THOREK IRONBROW",
+      8, WarScroll::Ability("Rune Lore", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -241,6 +329,20 @@ namespace WarScrollGeneration
       "DRAGON SLAYER"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      1, WarScroll::Ability("Epic Deathblow", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      1, WarScroll::Ability("Master Slayer", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "UNGRIM IRONFIST THE SLAYER KING", 8,
+      WarScroll::Ability("The Slayer King", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -275,6 +377,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("WAR MACHINE",
+      4, WarScroll::Ability("Engineer", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -294,6 +401,15 @@ namespace WarScrollGeneration
       "THANE WITH BATTLE STANDARD"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DISPOSSESSED",
+      16, WarScroll::Ability("Ancestral Rune Standard", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("WIZARD",
+      16, WarScroll::Ability("Ancestral Rune Standard", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -321,6 +437,11 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "HAMMERERS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "DISPOSSESSED and HERO", 16, WarScroll::Ability("Kingsguard", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -397,6 +518,12 @@ namespace WarScrollGeneration
     option2.addWeapon(WarScroll::Weapon("Trollhammer Torpedo",
       20, 1, 3, 3, 2, 3));
     option2.addWeapon(WarScroll::Weapon("Mailed Fist", 1, 1, 4, 5, 0, 1));
+    WarScroll::KeyWordConnection connection("MONSTER",
+      20, WarScroll::Ability(), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell());
+    connection.setName("Trollhammer Torpedo");
+    option2.addKeyWordConnection(connection);
     ws.registerChampionWithOptions(option2);
 
     WarScroll::ChampionWithOptions option3(
@@ -463,6 +590,15 @@ namespace WarScrollGeneration
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "LONGBEARDS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("DISPOSSESSED",
+      8, WarScroll::Ability("Old Grumblers", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "DISPOSSESSED and HERO", 8, WarScroll::Ability("Old Grumblers", 3), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -638,6 +774,16 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
+      1, WarScroll::Ability("Seeking a Glorious Death", 2), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy,
+      WarScroll::Spell()));
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "UNGRIM IRONFIST THE SLAYER KING", 8,
+      WarScroll::Ability("The Slayer King", 1), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -667,7 +813,7 @@ namespace WarScrollGeneration
       WarScroll::UnitUpgrade::UnitUpgradeType::eMusician, 2));
     ws.registerUnitUpgrade(WarScroll::UnitUpgrade("Dwarf Bucklers",
       WarScroll::UnitUpgrade::UnitUpgradeType::eShield, 1));
-    
+
     WarScroll::ChampionWithOptions veteran("Veteran", 1);
     veteran.addWeapon(WarScroll::Weapon("Dwarf Handgun", 16, 1, 3, 3, 1, 1));
     veteran.addWeapon(WarScroll::Weapon("Gun-butts", 1, 1, 4, 5, 0, 1));
@@ -681,7 +827,7 @@ namespace WarScrollGeneration
     ws.registerChampionWithOptions(veteranBraceofDwarfPistols);
 
     ws.addAbility(WarScroll::Ability("Precision Fire", 1));
-    
+
     ws.addKeyWords({"ORDER", "DUARDIN", "DISPOSSESSED", "THUNDERERS"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
@@ -764,6 +910,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "DUARDIN and ENGINEERS", 1, WarScroll::Ability("Rune of Skewering", 1),
+      1, WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -785,6 +936,11 @@ namespace WarScrollGeneration
       "DISPOSSESSED", "CREW"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "DUARDIN and ENGINEER", 1, WarScroll::Ability("Rune of Accuracy", 1),
+      1, WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -808,6 +964,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "DUARDIN and ENGINEER", 1, WarScroll::Ability("Rune of Burning", 1),
+      1, WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -823,12 +984,17 @@ namespace WarScrollGeneration
 
     ws.addAbility(WarScroll::Ability("Duardin Artillery", 1));
     ws.addAbility(WarScroll::Ability("Organ Fire", 2));
-    ws.addAbility(WarScroll::Ability("Rune of Burning", 1));
+    ws.addAbility(WarScroll::Ability("Rune of Forging", 1));
 
     ws.addKeyWords({"ORDER", "WAR MACHINE", "ORGAN GUN", "DUARDIN",
       "DISPOSSESSED", "CREW"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "DUARDIN and ENGINEER", 1, WarScroll::Ability("Rune of Forging", 1),
+      1, WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }
@@ -852,6 +1018,11 @@ namespace WarScrollGeneration
       "DISPOSSESSED", "CREW"});
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
+
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection(
+      "DUARDIN and ENGINEER", 1, WarScroll::Ability("Rune of Reloading", 1),
+      1, WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
 
     return ws;
   }

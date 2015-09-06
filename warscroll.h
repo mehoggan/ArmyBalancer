@@ -537,6 +537,7 @@ public:
     std::list<Weapon> m_Weapons;
     std::list<Ability> m_Abilities;
     int m_EveryNModel;
+    std::list<KeyWordConnection> m_KeyWordConnections;
 
   public:
     ChampionWithOptions(std::string name = "", int pointsCost = -1)
@@ -556,6 +557,10 @@ public:
 
     int getEveryNModels() const {return m_EveryNModel;}
     void setEveryNModels(int N) {m_EveryNModel = N;}
+
+    const std::list<KeyWordConnection> &getKeyWordConnections() const
+    {return m_KeyWordConnections;}
+    void addKeyWordConnection(const KeyWordConnection &connection);
 
     friend std::ostream &operator<<(std::ostream &out,
       const ChampionWithOptions &upgrade)
