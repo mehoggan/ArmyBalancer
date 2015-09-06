@@ -143,7 +143,19 @@ Item
 
           onCurrentIndexChanged:
           {
+            if (currentIndex > 0) {
+              warScrollSelectionRect.visible = false;
+              warScrollSelectionRow.visible = true;
+            } else {
+              warScrollSelectionRect.visible = true;
+              warScrollSelectionRow.visible = false;
+              currentIndex = -1
+              currentIndex = -1
+            }
+
+            if (currentIndex != -1) {
               armyBalancer.factionSelectionChanged(currentIndex)
+            }
           }
         }
       }
@@ -155,8 +167,23 @@ Item
 
       Row
       {
+        id: warScrollSelectionRect
         width: parent.width
         height: 0.10 * parent.height
+        visible: true
+
+        Rectangle
+        {
+          color: "#F5F5DC"
+        }
+      }
+
+      Row
+      {
+        id: warScrollSelectionRow
+        width: parent.width
+        height: 0.10 * parent.height
+        visible: false
 
         Text
         {
