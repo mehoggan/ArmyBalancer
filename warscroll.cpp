@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <utility>
+#include <iostream>
 
 void WarScroll::addSummonable(WarScroll &ws, const std::string &name, int toCast,
   int pointCost, int distance, int summonCount,
@@ -307,7 +308,80 @@ void WarScroll::setMinMaxUnitCount(int minUnitCount, int maxUnitCount)
 
 void WarScroll::refreshPointsCost()
 {
-  m_PointsCost = 1;
+  /***
+   * Characterstics Calculations
+   */
+  // Because this is a map order will be {Bravery, Move, Save, Wounds};
+  int bravery = m_Characteristics["Bravery"];
+  int move = m_Characteristics["Move"];
+  int save = m_Characteristics["Save"];
+  int wounds = m_Characteristics["Wounds"];
+
+  m_PointsCost = bravery + move + (7 - save) + wounds;
+  std::cout << "Points cost right after characteristics = " << m_PointsCost <<
+    std::endl;
+  m_PointsCost *= m_UnitCount;
+  std::cout << "Characteristics scaled by unit count = " << m_PointsCost <<
+    std::endl;
+
+  /***
+   * Ability Calculations
+   */
+  std::cout << getTitle() << " has " << m_Abilities.size() << " abities." <<
+    std::endl;
+  for (const auto &ability : m_Abilities) {
+    int hasToBeOverN = ability.second.getOverNModels();
+    std::cout << "\tIn order for ability to be applied unit must have " <<
+      hasToBeOverN << " models and actual count is " << m_UnitCount <<
+      std::endl;
+    if (m_UnitCount >= hasToBeOverN) {
+      int everyNModels = ability.second.getEveryNModels();
+      int modelsWithAbiliy = m_UnitCount;
+      if (everyNModels > 0) {
+        modelsWithAbiliy = m_UnitCount / everyNModels;
+      }
+      // TODO: This might be more accurate if I know how many times the upgrade
+      // was actually taken.
+      m_PointsCost += (ability.second.getValue() * modelsWithAbiliy);
+      if (ability.second.getIsCommandAbility()) {
+        // TODO: Not all command abilities are the same. For now just tax for
+        // the fact that it is a command ability.
+        m_PointsCost += 5;
+      }
+    }
+    std::cout << "Points cost after applying " << ability.second.getName() <<
+      " = " << m_PointsCost << std::endl;
+  }
+
+  /***
+   * Weapon Calculations
+   */
+  for (const auto &weapon : m_Weapons) {
+    int range = weapon.second.getRange();
+    int attacks = weapon.second.getAttacks();
+    int hit = weapon.second.getToHit();
+    int wound = weapon.second.getToWound();
+    int rend = weapon.second.getToRend();
+    int damage = weapon.second.getDamage();
+
+    int weaponCost = (range +
+      static_cast<int>((static_cast<float>(attacks) * ((7 - hit) / 6.0f) *
+      ((7 - wound) / 6.0f)) * static_cast<float>(damage)) +
+      rend);
+    std::cout << "Cost of " << weapon.second.getName() << " = " << weaponCost
+      << std::endl;
+
+    int weaponWithUnit = (m_UnitCount * weaponCost);
+
+    std::cout << "For unit with " << m_UnitCount << " members with " <<
+      weapon.second.getName() << " total cost = " << weaponWithUnit <<
+      std::endl;
+
+    m_PointsCost += weaponWithUnit;
+  }
+
+  std::cout << "TOTAL POINTS COST FOR " << getTitle() << "\t=" <<
+    m_PointsCost << std::endl;
 }
 
 #ifdef Q_OS_WIN32

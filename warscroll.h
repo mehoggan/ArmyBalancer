@@ -765,7 +765,7 @@ public:
       out << std::endl;
     }
     if (!ws.m_Abilities.empty()) {
-      out << "\t" << "Abilities:" << std::endl;
+      out << "\t" << "Possible Abilities:" << std::endl;
     }
     for (auto it : ws.m_Abilities) {
       out << it.second;
