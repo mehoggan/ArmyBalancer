@@ -178,7 +178,9 @@ public:
     int getToWound() const {return m_InitialToWound;}
     int getToRend() const {return m_InitialToRend;}
     int getDamage() const {return m_InitialDamage;}
+    int getPointsCost() const {return m_PointCost;}
     void setPointCost(int cost) {m_PointCost = cost;}
+    int getToCast() const {return m_ToCast;}
     void setToCast(int cast) {m_ToCast = cast;}
 
     friend bool operator==(const Spell &lhs, const Spell &rhs)

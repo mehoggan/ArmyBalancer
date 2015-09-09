@@ -324,6 +324,8 @@ void WarScroll::refreshPointsCost()
   std::cout << "Characteristics scaled by unit count = " << m_PointsCost <<
     std::endl;
 
+  m_UnitCount -= m_AppliedChampionWithOptions.size();
+
   /***
    * Ability Calculations
    */
@@ -364,9 +366,11 @@ void WarScroll::refreshPointsCost()
     int rend = weapon.second.getToRend();
     int damage = weapon.second.getDamage();
 
+    // TODO: Some weapons only apply to a few models in the unit multiplying
+    // the number of attacks by m_UnitCount should be conditional
     int weaponCost = (range +
-      static_cast<int>((static_cast<float>(attacks) * ((7 - hit) / 6.0f) *
-      ((7 - wound) / 6.0f)) * static_cast<float>(damage)) +
+      static_cast<int>((static_cast<float>(attacks * m_UnitCount) *
+      ((7 - hit) / 6.0f) * ((7 - wound) / 6.0f)) * static_cast<float>(damage)) +
       rend);
     std::cout << "Cost of " << weapon.second.getName() << " = " << weaponCost
       << std::endl;
@@ -378,6 +382,44 @@ void WarScroll::refreshPointsCost()
       std::endl;
 
     m_PointsCost += weaponWithUnit;
+  }
+
+  /***
+   * Spell Calculations
+   */
+  for (const auto &spell : m_Spells) {
+    int range = spell.getRange();
+    int attacks = spell.getAttacks();
+    int hit = spell.getToHit();
+    int wound = spell.getToWound();
+    int rend = spell.getToRend();
+    int damage = spell.getDamage();
+    int cost = spell.getPointsCost();
+    int cast = spell.getToCast();
+
+    int points = 0;
+    if (range > 0 && hit > 0 && wound > 0) {
+      int weaponCost = (range +
+        static_cast<int>((static_cast<float>(attacks) *
+        ((7 - hit) / 6.0f) * ((7 - wound) / 6.0f)) *
+        static_cast<float>(damage)) + rend);
+      points += weaponCost;
+      std::cout << "Cost for " << spell.getName() << " with weapon ability " <<
+        points << std::endl;
+    }
+
+    points += ((12 - cast) * cost);
+    std::cout << "Cost for spell alone with a to cast value of " << cast <<
+      " and a point cost of " << cost << " = " << ((12 - cast) * cost) <<
+      std::endl;
+
+    m_PointsCost += points;
+  }
+
+  /***
+   * Champions with Options
+   */
+  for (const auto &champion : m_AppliedChampionWithOptions) {
   }
 
   std::cout << "TOTAL POINTS COST FOR " << getTitle() << "\t=" <<

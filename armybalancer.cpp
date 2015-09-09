@@ -380,6 +380,9 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
               currUnitUpgrade.getKeyWordConnections()) {
               m_CurrentWarScroll.addKeyWordConnection(connection);
             }
+            // TODO: What if the mount being registered needs to add a weapon
+            // or add something else. Just adding a blank mount might not be
+            // useful
             if (currUnitUpgrade.getUpgradeType() ==
               WarScroll::UnitUpgrade::UnitUpgradeType::eMount) {
               m_CurrentWarScroll.registerMountUpgrade(WarScroll::MountUpgrade(
