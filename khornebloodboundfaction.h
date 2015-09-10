@@ -1,14 +1,14 @@
-﻿#ifndef THE_EMPIRE_H
-#define THE_EMPIRE_H
+#ifndef KHORNE_BLOODBOUND_H
+#define KHORNE_BLOODBOUND_H
 
 #include "ifaction.h"
 
-class TheEmpireFaction : public IFaction
+class KhorneBloodboundFaction : public IFaction
 {
 public:
-  TheEmpireFaction();
+  KhorneBloodboundFaction();
 
-  virtual std::string getName() const override {return "The Empire";}
+  virtual std::string getName() const override {return "Khorne Bloodbound";}
   virtual const std::vector<std::string> &getUnits() const override;
   virtual void getWarScrolls(std::list<WarScroll> &warScrolls) override;
 
@@ -18,4 +18,4 @@ private:
   WarScrollGeneratorType m_NameToWarScroll;
 };
 
-#endif // THE_EMPIRE_H
+#endif // KHORNE_BLOODBOUND_H

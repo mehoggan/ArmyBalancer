@@ -49,10 +49,6 @@ public slots:
   QVariant getCurrentScrollText(QVariant guid);
 
 private:
-  void getNextWarScrolls(std::vector<std::string> &output,
-    const std::string &factionName);
-
-private:
   int m_CurrentFactionIndex;
   int m_CurrentWarScrollIndex;
   QQuickView *m_Root;
@@ -64,6 +60,21 @@ private:
   WarScrollFactory &m_WarScrollFactory;
   WarScroll m_CurrentWarScroll;
   std::map<std::string, WarScroll> m_CurrentWarScrollsAdded;
+
+private:
+  void getNextWarScrolls(std::vector<std::string> &output,
+    const std::string &factionName);
+
+  template <typename Faction>
+  void insertFaction()
+  {
+    std::pair<FactionMapType::const_iterator, bool> insert;
+
+    insert = m_NameToFactionMap.insert(std::make_pair(
+      Faction().getName(),
+      std::make_shared<Faction>()));
+    m_FactionList.push_back(insert.first->second->getName().c_str());
+  }
 };
 
 #endif // FACTIONBALANCER_H

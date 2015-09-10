@@ -17,81 +17,31 @@ ArmyBalancer::ArmyBalancer(QQuickItem *parent)
   clearCurrentWarScroll();
 
   m_FactionList.push_back("");
-
-  std::pair<FactionMapType::const_iterator, bool> insert;
-
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    BeastmenFaction().getName(),
-    std::make_shared<BeastmenFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    BretonniaFaction().getName(),
-    std::make_shared<BretonniaFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    DaemonsOfChaosKhorneFaction().getName(),
-    std::make_shared<DaemonsOfChaosKhorneFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    DaemonsOfChaosNurgleFaction().getName(),
-    std::make_shared<DaemonsOfChaosNurgleFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    DaemonsOfChaosTzeentchFaction().getName(),
-    std::make_shared<DaemonsOfChaosTzeentchFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    DaemonsOfChaosSlaaneshFaction().getName(),
-    std::make_shared<DaemonsOfChaosSlaaneshFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    DarkElvesFaction().getName(),
-    std::make_shared<DarkElvesFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    DwarfsFaction().getName(),
-    std::make_shared<DwarfsFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    TheEmpireFaction().getName(),
-    std::make_shared<TheEmpireFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    HighElvesFaction().getName(),
-    std::make_shared<HighElvesFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    LizardmenFaction().getName(),
-    std::make_shared<LizardmenFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    OgreKingdomsFaction().getName(),
-    std::make_shared<OgreKingdomsFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    OrcsAndGoblinsFaction().getName(),
-    std::make_shared<OrcsAndGoblinsFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    SkavenFaction().getName(),
-    std::make_shared<SkavenFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    TombKingsFaction().getName(),
-    std::make_shared<TombKingsFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    VampireCountsFaction().getName(),
-    std::make_shared<VampireCountsFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    WarriorsOfChaosFaction().getName(),
-    std::make_shared<WarriorsOfChaosFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
-  insert = m_NameToFactionMap.insert(std::make_pair(
-    WoodElvesFaction().getName(),
-    std::make_shared<WoodElvesFaction>()));
-  m_FactionList.push_back(insert.first->second->getName().c_str());
+  insertFaction<BeastmenFaction>();
+  insertFaction<BretonniaFaction>();
+  insertFaction<DaemonsOfChaosKhorneFaction>();
+  insertFaction<DaemonsOfChaosNurgleFaction>();
+  insertFaction<DaemonsOfChaosTzeentchFaction>();
+  insertFaction<DaemonsOfChaosSlaaneshFaction>();
+  insertFaction<DarkElvesFaction>();
+  insertFaction<DwarfsFaction>();
+  insertFaction<TheEmpireFaction>();
+  insertFaction<HighElvesFaction>();
+  insertFaction<KhorneBloodboundFaction>();
+  insertFaction<TheLegionOfAzgorhFaction>();
+  insertFaction<LizardmenFaction>();
+  insertFaction<NurgleRotbringersFaction>();
+  insertFaction<OgreKingdomsFaction>();
+  insertFaction<OrcsAndGoblinsFaction>();
+  insertFaction<SkavenFaction>();
+  insertFaction<SkavenPestilensFaction>();
+  insertFaction<StormCastEternalsFaction>();
+  insertFaction<SylvanethFaction>();
+  insertFaction<TamurkhansHordeFaction>();
+  insertFaction<TombKingsFaction>();
+  insertFaction<VampireCountsFaction>();
+  insertFaction<WarriorsOfChaosFaction>();
+  insertFaction<WoodElvesFaction>();
 }
 
 void ArmyBalancer::setRootView(QQuickView *root)

@@ -10,11 +10,6 @@
 
 class WarScrollFactory;
 
-namespace WarScrollGeneration
-{
- 
-};
-
 class WarScroll
 {
 public:

@@ -14,11 +14,18 @@ SOURCES += main.cpp \
   darkelvesfaction.cpp \
   dwarfsfaction.cpp \
   highelvesfaction.cpp \
+  khornebloodboundfaction.cpp \
   lizardmenfaction.cpp \
+  nurglerotbringersfaction.cpp \
   ogrekingdomsfaction.cpp \
   orcsandgoblinsfaction.cpp \
   skavenfaction.cpp \
+  skavenpestilensfaction.cpp \
+  stormcasteternalsfaction.cpp \
+  sylvanethfaction.cpp \
+  tamurkhanshordefaction.cpp \
   theempirefaction.cpp \
+  thelegionofazgorhfaction.cpp \
   tombkingsfaction.cpp \
   vampirecountsfaction.cpp \
   warriorsofchaosfaction.cpp \
@@ -46,11 +53,18 @@ HEADERS += \
   darkelvesfaction.h \
   dwarfsfaction.h \
   highelvesfaction.h \
+  khornebloodboundfaction.h \
   lizardmenfaction.h \
+  nurglerotbringersfaction.h \
   ogrekingdomsfaction.h \
   orcsandgoblinsfaction.h \
   skavenfaction.h \
+  skavenpestilensfaction.h \
+  stormcasteternalsfaction.h \
+  sylvanethfaction.h \
+  tamurkhanshordefaction.h \
   theempirefaction.h \
+  thelegionofazgorhfaction.h \
   tombkingsfaction.h \
   vampirecountsfaction.h \
   warriorsofchaosfaction.h \
