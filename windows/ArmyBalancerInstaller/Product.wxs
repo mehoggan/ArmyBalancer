@@ -26,6 +26,9 @@
     <MajorUpgrade DowngradeErrorMessage='A newer version of Army Balancer is already installed.' />
     <Media Id="1" Cabinet="cab1.cab" EmbedCab="yes" />
 
+    <Icon Id="balance.ico" SourceFile="$(var.SolutionDir)\balance.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="balance.ico" />
+
     <Feature Id='ProductFeature' Title='ArmyBalancerInstaller' Level='1'>
       <ComponentRef Id='MAINEXECUTABLE' />
       <ComponentRef Id='BEARERPLUGIN' />
@@ -44,6 +47,7 @@
       <ComponentRef Id='QTQUICK_PRIVATE_WIDGETS' />
       <ComponentRef Id='QTQUICK_WINDOW_2' />
       <ComponentRef Id='QTQUICK_2' />
+      <ComponentRef Id="APPLICATIONSHORTCUT" />
     </Feature>
 
     <Feature Id='VCRedist' Title='Visual C++ 12.0 Runtime' AllowAdvertise='no' Display='hidden' Level='1'>
@@ -51,6 +55,9 @@
     </Feature>
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id="ProgramMenuFolder">
+          <Directory Id="ApplicationProgramsFolder" Name="Army Balancer"/>
+      </Directory>
       <Directory Id='$(var.PlatformProgramFilesFolder)'>
         <Directory Id='ARMYBALANCERPRODUCTDIR' Name='Army Balancer'>
           <Component Id='MAINEXECUTABLE' Guid='1193cd63-12d1-4792-829e-046de3bb987e'>
@@ -227,6 +234,19 @@
         </Directory>
       </Directory>
     </Directory>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="APPLICATIONSHORTCUT" Guid="e867d06e-3bdf-4259-9540-6e28decbadb2">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+          Name="Army Balancer"
+          Description="Age of Sigmar Utility Application"
+          Target="[#ARMYBALANCEREXECUTABLE]"
+          WorkingDirectory="APPLICATIONROOTDIRECTORY"
+          Icon="balance.ico" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\ArmyBalancer" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
 
     <Property Id='WIXUI_INSTALLDIR' Value='ARMYBALANCERPRODUCTDIR' />
     <UIRef Id='WixUI_InstallDir' />
