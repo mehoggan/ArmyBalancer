@@ -117,6 +117,50 @@ NurgleRotbringersFaction::NurgleRotbringersFaction() :
   IFaction()
 {
   m_Units.push_back("");
+  m_Units.push_back("Chaos Spawn");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Chaos_Spawn_in_Nurgle_Rotbringers,
+    m_Units.back())));
+  m_Units.push_back("Bloab Rotspawned");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Bloab_Rotspawned_in_Nurgle_Rotbringers,
+    m_Units.back())));
+  m_Units.push_back("Festus the Leechlord");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Festus_the_Leechlord_in_Nurgle_Rotbringers,
+    m_Units.back())));
+  m_Units.push_back("Gutrot Spume");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Gutrot_Spume_in_Nurgle_Rotbringers,
+    m_Units.back())));
+  m_Units.push_back("Harbinger of Decay");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Harbinger_of_Decay,
+    m_Units.back())));
+  m_Units.push_back("Lord of Plagues");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Lord_of_Plagues,
+    m_Units.back())));
+  m_Units.push_back("Morbidex Twiceborn");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Morbidex_Twiceborn_in_Nurgle_Rotbringers,
+    m_Units.back())));
+  m_Units.push_back("Orghotts Deamonspew");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Orghotts_Daemonspew_in_Nurgle_Rotbringers,
+    m_Units.back())));
+  m_Units.push_back("Putrid Blightkings");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Putrid_Blightkings_in_Nurgle_Rotbringers,
+    m_Units.back())));
+  m_Units.push_back("Rotbringers Sorceror");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::Rotbringers_Sorceror,
+    m_Units.back())));
+  m_Units.push_back("The Glottkin");
+  m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
+    std::bind(&WarScrollGeneration::The_Glotkin,
+    m_Units.back())));
 }
 
 const std::vector<std::string> &NurgleRotbringersFaction::getUnits() const
