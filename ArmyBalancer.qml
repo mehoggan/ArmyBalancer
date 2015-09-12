@@ -276,7 +276,19 @@ Item
         }
         Button
         {
-          width: 1/2 * parent.width
+          width: 1/4 * parent.width
+          height: parent.height
+          text: "Finalize"
+
+          onClicked: {
+            if (armyBalancer.hasWarScrolls()) {
+              console.log("Would have showed graph")
+            }
+          }
+        }
+        Button
+        {
+          width: 1/4 * parent.width
           height: parent.height
           text: "View/Remove"
 

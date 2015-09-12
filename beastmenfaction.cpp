@@ -763,6 +763,8 @@ BeastmenFaction::BeastmenFaction() :
   m_Units.push_back("Jabberslythe");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Jabberslythe, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &BeastmenFaction::getUnits() const

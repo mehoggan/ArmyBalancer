@@ -47,6 +47,8 @@ public slots:
   void clearCurrentWarScrolls();
   void removeCurrentWarScroll(QVariant guid);
   QVariant getCurrentScrollText(QVariant guid);
+  Q_INVOKABLE bool hasWarScrolls() const
+  {return m_CurrentWarScrolls.size() > 0;}
 
 private:
   int m_CurrentFactionIndex;

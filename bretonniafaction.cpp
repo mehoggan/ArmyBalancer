@@ -705,6 +705,8 @@ BretonniaFaction::BretonniaFaction() :
   m_Units.push_back("Field Trebuchet");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Field_Trebuchet, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &BretonniaFaction::getUnits() const

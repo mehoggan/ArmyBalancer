@@ -461,6 +461,8 @@ SkavenFaction::SkavenFaction() :
   m_Units.push_back("Gutter Runners");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Gutter_Runners, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &SkavenFaction::getUnits() const

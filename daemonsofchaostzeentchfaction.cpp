@@ -521,6 +521,8 @@ DaemonsOfChaosTzeentchFaction::DaemonsOfChaosTzeentchFaction() :
   m_Units.push_back("Soul Grinder");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Soul_Grinder_in_Tzeentch, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &DaemonsOfChaosTzeentchFaction::getUnits() const

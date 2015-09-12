@@ -324,7 +324,7 @@ void WarScroll::refreshPointsCost()
   std::cout << "Characteristics scaled by unit count = " << m_PointsCost <<
     std::endl;
 
-  m_UnitCount -= m_AppliedChampionWithOptions.size();
+  m_UnitCount -= static_cast<int>(m_AppliedChampionWithOptions.size());
 
   /***
    * Ability Calculations
@@ -420,6 +420,39 @@ void WarScroll::refreshPointsCost()
    * Champions with Options
    */
   for (const auto &champion : m_AppliedChampionWithOptions) {
+    m_PointsCost += champion.getPointsCost();
+    
+    for (const auto &weapon : champion.getWeapons()) {
+      int range = weapon.getRange();
+      int attacks = weapon.getAttacks();
+      int hit = weapon.getToHit();
+      int wound = weapon.getToWound();
+      int rend = weapon.getToRend();
+      int damage = weapon.getDamage();
+
+      m_PointsCost += (range +
+        static_cast<int>((static_cast<float>(attacks) * ((7 - hit) / 6.0f) *
+        ((7 - wound) / 6.0f)) * static_cast<float>(damage)) + rend);
+    }
+
+    for (const auto &ability : champion.getAbilities()) {
+      int hasToBeOverN = ability.getOverNModels();
+      std::cout << "\tIn order for ability to be applied unit must have " <<
+        hasToBeOverN << " models and actual count is " << m_UnitCount <<
+        std::endl;
+      if (m_UnitCount >= hasToBeOverN) {
+        int everyNModels = ability.getEveryNModels();
+        int modelsWithAbiliy = 1;
+        if (everyNModels > 0) {
+          modelsWithAbiliy = m_UnitCount / everyNModels;
+        }
+        // TODO: This might be more accurate if I know how many times the upgrade
+        // was actually taken.
+        m_PointsCost += (ability.getValue() * modelsWithAbiliy);
+      }
+      std::cout << "Points cost after applying " << ability.getName() <<
+        " = " << m_PointsCost << std::endl;
+    }
   }
 
   std::cout << "TOTAL POINTS COST FOR " << getTitle() << "\t=" <<
@@ -537,7 +570,37 @@ void WarScroll::applyRegisteredUpgrade(const std::string &upgradeName)
 {
   for (const UnitUpgrade &upgrade : m_RegisteredUpgrades) {
     if (upgrade.getName() == upgradeName) {
+      bool unitCanFly = m_CanFly;
       m_AppliedUpgrades.push_back(upgrade);
+
+      const std::list<std::pair<std::string, int>> characteristics =
+        upgrade.getCharacteristicsToUpdate();
+      for (const auto &upgradeCharacteristic : characteristics) {
+        incrementCharacteristic(upgradeCharacteristic.first,
+          upgradeCharacteristic.second);
+      }
+      for (const auto &ability : upgrade.getAbilities()) {
+        addAbility(ability);
+      }
+      for (const auto &weapon : upgrade.getWeapons()) {
+        addWeapon(weapon);
+      }
+      for (const auto &connection : upgrade.getKeyWordConnections()) {
+        addKeyWordConnection(connection);
+      }
+      if (upgrade.getUpgradeType() == UnitUpgrade::UnitUpgradeType::eMount) {
+        registerMountUpgrade(WarScroll::MountUpgrade(upgrade.getName()));
+        applyRegisteredMount(upgrade.getName());
+      }
+
+      unitCanFly |= upgrade.providesCanFly();
+
+      if (upgrade.makesUnitUnique()) {
+        setIsUnique(true);
+      }
+
+      setCanFly(unitCanFly);
+
       break;
     }
   }
@@ -553,6 +616,38 @@ void WarScroll::applyRegisteredMount(const std::string &mountName)
   for (const MountUpgrade &upgrade : m_RegisteredMounts) {
     if (upgrade.getName() == mountName) {
       m_AppliedMounts.push_back(upgrade);
+
+      // Remove old things first in the case that mount adds them back
+      for (const auto &weapon : upgrade.getRiderWeaponsToReplace()) {
+        removeWeapon(weapon);
+      }
+      for (const auto &ability : upgrade.getRiderAbilitiesToRemove()) {
+        removeAbility(ability);
+      }
+      for (const auto &characteristic : upgrade.getChacarteristicsToSet()){
+        setCharacteristic(characteristic);
+      }
+      // Now that old abilities and weapons gone it is now okay to add
+      // all the new items.
+      const std::list<WarScroll::Weapon> weapons = upgrade.getWeapons();
+      for (const auto &weapon : weapons) {
+        addWeapon(weapon);
+      }
+      const std::list<WarScroll::Ability> abilities = upgrade.getAbilities();
+      for (const auto &ability : abilities) {
+        addAbility(ability);
+      }
+      for (const auto &stat : upgrade.getCharacteristicsToUpdate()) {
+        incrementCharacteristic(stat.first, stat.second);
+      }
+      setCanFly(upgrade.providesCanFly() || getCanFly());
+
+      for (const auto &connection : upgrade.getKeyWordConnections()) {
+        addKeyWordConnection(connection);
+      }
+      if (upgrade.makesUnitUnique()) {
+        setIsUnique(true);
+      }
       break;
     }
   }
@@ -569,6 +664,11 @@ void WarScroll::applyRegisteredChampionWithOptions(
 {
   for (const ChampionWithOptions &upgrade : m_RegisteredChampionWithOptions) {
     if (upgrade.getName() == championName) {
+
+      for (const auto &connection : upgrade.getKeyWordConnections()) {
+        addKeyWordConnection(connection);
+      }
+
       m_AppliedChampionWithOptions.push_back(upgrade);
       break;
     }
@@ -588,6 +688,7 @@ void WarScroll::applyRegisteredMagicalSpecialization(
     : m_RegisteredMagicalSpecilizations) {
     if (upgrade.getName() == specialization) {
       m_AppliedMagicalSpecilizations.push_back(upgrade);
+      addSpell(upgrade.getSpell());
       break;
     }
   }
@@ -678,6 +779,16 @@ void WarScroll::applyWeaponUpgrade(
     m_Weapons.insert(std::make_pair(
       weaponUpgrade.getSecondaryWeapon().getName(),
       weaponUpgrade.getSecondaryWeapon()));
+  }
+
+  for (const auto &i : weaponUpgrade.getCharacteristicsToUpdate()) {
+    incrementCharacteristic(i.first, i.second);
+  }
+  for (const auto &i : weaponUpgrade.getAbilitiesToAdd()) {
+    addAbility(i);
+  }
+  if (!weaponUpgrade.getTertiaryWeapon().getName().empty()) {
+    addWeapon(weaponUpgrade.getTertiaryWeapon());
   }
 }
 

@@ -23,6 +23,11 @@ namespace WarScrollGeneration
 
     ws.setGrandAllianceType(WarScroll::GrandAllianceType::eOrder);
 
+    ws.addKeyWordConnection(WarScroll::KeyWordConnection("HIGHBORN",
+      24, WarScroll::Ability("Defender of Ulthuan", 2, true), 1,
+      WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
+      WarScroll::Spell()));
+
     return ws;
   }
 
@@ -39,6 +44,8 @@ namespace WarScrollGeneration
     ws.addAbility(WarScroll::Ability("Blessings of Lileath", 2));
     ws.addAbility(WarScroll::Ability("War Crown of Saphery", 2));
 
+    ws.addMysticShield();
+    ws.addArcaneBolt();
     ws.addSpell(WarScroll::Spell("Tempest"), 5, 2);
 
     ws.addKeyWords({"ORDER", "AELF", "HIGHBORN", "HERO", "WIZARD",
@@ -1334,6 +1341,8 @@ HighElvesFaction::HighElvesFaction() :
   m_Units.push_back("Lothern Skycutters");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Lothern_Skycutters, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &HighElvesFaction::getUnits() const

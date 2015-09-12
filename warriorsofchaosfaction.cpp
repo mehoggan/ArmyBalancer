@@ -639,6 +639,8 @@ WarriorsOfChaosFaction::WarriorsOfChaosFaction() :
   m_Units.push_back("Lammasu");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Lammasu, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &WarriorsOfChaosFaction::getUnits() const

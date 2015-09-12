@@ -312,6 +312,8 @@ WoodElvesFaction::WoodElvesFaction() :
   m_Units.push_back("Sylvaneth Wyldwood");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Sylvaneth_Wyldwood, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &WoodElvesFaction::getUnits() const

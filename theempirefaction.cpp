@@ -1467,6 +1467,8 @@ TheEmpireFaction::TheEmpireFaction() :
   m_Units.push_back("Luminark of Hysh");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Luminark_of_Hysh, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &TheEmpireFaction::getUnits() const

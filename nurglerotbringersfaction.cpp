@@ -161,6 +161,8 @@ NurgleRotbringersFaction::NurgleRotbringersFaction() :
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::The_Glotkin,
     m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &NurgleRotbringersFaction::getUnits() const

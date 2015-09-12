@@ -127,6 +127,8 @@ KhorneBloodboundFaction::KhorneBloodboundFaction() :
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Wrathmongers_in_Khorne_Bloodbound,
     m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &KhorneBloodboundFaction::getUnits() const

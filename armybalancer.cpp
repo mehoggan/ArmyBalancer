@@ -238,19 +238,19 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
     }
   }
 
-  {
+  { // Weapon Upgrades: If there are any present one will always be selected.
     QVariantMap::const_iterator upgradeNameIt = data.find("weaponUpgrade");
     if (upgradeNameIt != data.end()) {
       QString weaponUpgrade = upgradeNameIt->toString();
       Q_ASSERT(!weaponUpgrade.isEmpty());
 
+      // A bit of UI parsing before we can find the right upgrade
       std::vector<std::string> tokens;
       std::istringstream iss(weaponUpgrade.toStdString());
       std::string s;
       while (getline(iss, s, '/')) {
         tokens.push_back(s);
       }
-
       if (tokens.size() == 1) {
         const WarScroll::WeaponUpgrade &upgrade =
           m_CurrentWarScroll.getWeaponUpgrade(tokens[0], "", "");
@@ -259,157 +259,79 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
           const_cast<WarScroll::WeaponUpgrade &>(upgrade) =
             m_CurrentWarScroll.getWeaponUpgrade("", tokens[0], "");
         }
-        Q_ASSERT(!upgrade.getWeapon().getName().empty() ||
-          !upgrade.getAbility().getName().empty());
         m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
-        for (const auto &i : upgrade.getCharacteristicsToUpdate()) {
-          m_CurrentWarScroll.incrementCharacteristic(i.first, i.second);
-        }
-        for (const auto &i : upgrade.getAbilitiesToAdd()) {
-          m_CurrentWarScroll.addAbility(i);
-        }
       } else if (tokens.size() == 2){
         const WarScroll::WeaponUpgrade &upgrade =
           m_CurrentWarScroll.getWeaponUpgrade(tokens[0], tokens[1], "");
         m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
-        for (const auto &i : upgrade.getCharacteristicsToUpdate()) {
-          m_CurrentWarScroll.incrementCharacteristic(i.first, i.second);
-        }
-        for (const auto &i : upgrade.getAbilitiesToAdd()) {
-          m_CurrentWarScroll.addAbility(i);
-        }
       } else {
         const WarScroll::WeaponUpgrade &upgrade =
           m_CurrentWarScroll.getWeaponUpgrade(tokens[0], tokens[1], tokens[2]);
         m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
-        for (const auto &i : upgrade.getCharacteristicsToUpdate()) {
-          m_CurrentWarScroll.incrementCharacteristic(i.first, i.second);
-        }
-        for (const auto &i : upgrade.getAbilitiesToAdd()) {
-          m_CurrentWarScroll.addAbility(i);
-        }
-
-        if (!upgrade.getTertiaryWeapon().getName().empty()) {
-          m_CurrentWarScroll.addWeapon(upgrade.getTertiaryWeapon());
-        }
       }
     }
   }
 
-  {
+  { // Unit Upgrades
     std::size_t unitUpgradeCount =
       m_CurrentWarScroll.getRegisteredUnitUpgrades().size();
-    bool unitCanFly = m_CurrentWarScroll.getCanFly();
     for (std::size_t i = 0; i < unitUpgradeCount; ++i) {
+      // Build the key string to find which upgrade was selected.
       std::stringstream ss;
       ss << i;
       std::string key = std::string("unitUpgrade") + ss.str();
       QVariantMap::const_iterator upgradeNameIt = data.find(key.c_str());
+      // If we find the upgrade in the data returned from the UI we need to
+      // map that to the correct unit upgrade.
       if (upgradeNameIt != data.end()) {
         QString unitUpgrade = upgradeNameIt->toString();
-        Q_ASSERT(!unitUpgrade.isEmpty());
         const std::list<WarScroll::UnitUpgrade> unitUpgrades =
           m_CurrentWarScroll.getRegisteredUnitUpgrades();
         for (const auto &currUnitUpgrade : unitUpgrades) {
           if (currUnitUpgrade.getName() == unitUpgrade.toStdString()) {
-            m_CurrentWarScroll.applyRegisteredUpgrade(
-              currUnitUpgrade.getName());
-            const std::list<std::pair<std::string, int>> characteristics =
-              currUnitUpgrade.getCharacteristicsToUpdate();
-            for (const auto &upgradeCharacteristic : characteristics) {
-              m_CurrentWarScroll.incrementCharacteristic(
-                upgradeCharacteristic.first, upgradeCharacteristic.second);
-            }
-            for (const auto &ability : currUnitUpgrade.getAbilities()) {
-              m_CurrentWarScroll.addAbility(ability);
-            }
-            for (const auto &weapon :  currUnitUpgrade.getWeapons()) {
-              m_CurrentWarScroll.addWeapon(weapon);
-            }
-            for (const auto &connection :
-              currUnitUpgrade.getKeyWordConnections()) {
-              m_CurrentWarScroll.addKeyWordConnection(connection);
-            }
-            // TODO: What if the mount being registered needs to add a weapon
-            // or add something else. Just adding a blank mount might not be
-            // useful
-            if (currUnitUpgrade.getUpgradeType() ==
-              WarScroll::UnitUpgrade::UnitUpgradeType::eMount) {
-              m_CurrentWarScroll.registerMountUpgrade(WarScroll::MountUpgrade(
-                currUnitUpgrade.getName()));
-              m_CurrentWarScroll.applyRegisteredMount(
-                currUnitUpgrade.getName());
-            }
-            unitCanFly |= currUnitUpgrade.providesCanFly();
-
+            // Before we go to apply the unit upgrade. If that upgrade already
+            // exists, then we need to bypass applying it.
             if (currUnitUpgrade.makesUnitUnique()) {
-              m_CurrentWarScroll.setIsUnique(true);
-              for (const std::map<std::string, WarScroll>::value_type &scroll :
-                m_CurrentWarScrollsAdded) {
-                if (scroll.second.getTitle() == m_CurrentWarScroll.getTitle()) {
-                  if (scroll.second.getIsUnique()) {
-                    QMessageBox::warning(nullptr, "Mulitiples Not Allowed",
-                      tr("Multiples of %1 not allowed.").
-                      arg(scroll.second.getTitle().c_str()));
-                    clearCurrentWarScroll();
-                    return;
+                for (const std::map<std::string, WarScroll>::value_type &scroll
+                  : m_CurrentWarScrollsAdded) {
+                  if (scroll.second.getTitle() ==
+                    m_CurrentWarScroll.getTitle()) {
+                    // Pedantic check.
+                    if (scroll.second.getIsUnique()) {
+                      QMessageBox::warning(nullptr, "Mulitiples Not Allowed",
+                        tr("Multiples of %1 not allowed.").
+                        arg(scroll.second.getTitle().c_str()));
+                      clearCurrentWarScroll();
+                      return;
+                    }
                   }
                 }
               }
             }
-            break;
-          }
+
+            const std::string name = currUnitUpgrade.getName();
+            m_CurrentWarScroll.applyRegisteredUpgrade(name);
+
+          break;
         }
       }
     }
-    m_CurrentWarScroll.setCanFly(unitCanFly);
   }
 
-  {
+  { // Mount Upgrade
     QVariantMap::const_iterator upgradeNameIt = data.find("mountUpgrade");
     if (upgradeNameIt != data.end()) {
       QString mountName = upgradeNameIt->toString();
-
       const std::list<WarScroll::MountUpgrade> mounts =
         m_CurrentWarScroll.getRegisteredMountUpgrades();
       for (const auto &mount : mounts) {
         if (mount.getName() == mountName.toStdString()) {
-          // Remove old things first in the case that mount adds them back
-          for (const auto &weapon : mount.getRiderWeaponsToReplace()) {
-            m_CurrentWarScroll.removeWeapon(weapon);
-          }
-          for (const auto &ability : mount.getRiderAbilitiesToRemove()) {
-            m_CurrentWarScroll.removeAbility(ability);
-          }
-          for (const auto &characteristic :
-            mount.getChacarteristicsToSet()){
-            m_CurrentWarScroll.setCharacteristic(characteristic);
-          }
-          // Now that old abilities and weapons gone it is now okay to add
-          // all the new items.
-          const std::list<WarScroll::Weapon> weapons = mount.getWeapons();
-          for (const auto &weapon : weapons) {
-            m_CurrentWarScroll.addWeapon(weapon);
-          }
-          const std::list<WarScroll::Ability> abilities = mount.getAbilities();
-          for (const auto &ability : abilities) {
-            m_CurrentWarScroll.addAbility(ability);
-          }
-          for (const auto &stat : mount.getCharacteristicsToUpdate()) {
-            m_CurrentWarScroll.incrementCharacteristic(stat.first,
-              stat.second);
-          }
-          m_CurrentWarScroll.setCanFly(mount.providesCanFly() ||
-            m_CurrentWarScroll.getCanFly());
-          m_CurrentWarScroll.applyRegisteredMount(mount.getName());
-
-          for (const auto &connection : mount.getKeyWordConnections()) {
-            m_CurrentWarScroll.addKeyWordConnection(connection);
-          }
+          // Before we go to apply the unit upgrade. If that upgrade already
+          // exists, then we need to bypass applying it.
           if (mount.makesUnitUnique()) {
-            m_CurrentWarScroll.setIsUnique(true);
             for (const std::map<std::string, WarScroll>::value_type &scroll :
               m_CurrentWarScrollsAdded) {
+              // Pedantic Check
               if (scroll.second.getTitle() == m_CurrentWarScroll.getTitle()) {
                 if (scroll.second.getIsUnique()) {
                   QMessageBox::warning(nullptr, "Mulitiples Not Allowed",
@@ -422,13 +344,15 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
             }
           }
 
+          m_CurrentWarScroll.applyRegisteredMount(mount.getName());
+
           break;
         }
       }
     }
   }
 
-  {
+  { // Champion Upgrade
     QVariantMap::const_iterator championUpgrade = data.find("championUpgrade");
     if (championUpgrade != data.end()) {
       QString championName = championUpgrade->toString();
@@ -438,11 +362,6 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
 
       for (const auto &champion : champions) {
         if (champion.getName() == championName.toStdString()) {
-
-          for (const auto &connection : champion.getKeyWordConnections()) {
-            m_CurrentWarScroll.addKeyWordConnection(connection);
-          }
-
           m_CurrentWarScroll.applyRegisteredChampionWithOptions(
             champion.getName());
           break;
@@ -451,7 +370,7 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
     }
   }
 
-  {
+  { // Magical Upgrade
     QVariantMap::const_iterator magicUpgrade = data.find("magicUpgrade");
     if (magicUpgrade != data.end()) {
       QString magicUpgradeName = magicUpgrade->toString();
@@ -463,7 +382,6 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
         if (magic.getName() == magicUpgradeName.toStdString()) {
           m_CurrentWarScroll.applyRegisteredMagicalSpecialization(
             magic.getName());
-          m_CurrentWarScroll.addSpell(magic.getSpell());
         }
       }
     }

@@ -60,6 +60,8 @@ SylvanethFaction::SylvanethFaction() :
   m_Units.push_back("Treelord Ancient");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Treelord_Ancient, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &SylvanethFaction::getUnits() const

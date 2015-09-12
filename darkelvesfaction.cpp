@@ -1372,6 +1372,8 @@ DarkElvesFaction::DarkElvesFaction() :
   m_Units.push_back("Har Ganeth Executioners");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Har_Ganeth_Executioners, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &DarkElvesFaction::getUnits() const

@@ -715,6 +715,8 @@ OgreKingdomsFaction::OgreKingdomsFaction() :
   m_Units.push_back("Giant");
   m_NameToWarScroll.insert(std::make_pair(m_Units.back(),
     std::bind(&WarScrollGeneration::Giant_in_Ogre_Kingdoms, m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &OgreKingdomsFaction::getUnits() const

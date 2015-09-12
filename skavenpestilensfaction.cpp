@@ -109,6 +109,8 @@ SkavenPestilensFaction::SkavenPestilensFaction() :
     std::bind(
       &WarScrollGeneration::Verminlord_Corruptor_in_SkavenPestilensFaction,
     m_Units.back())));
+
+  std::sort(m_Units.begin(), m_Units.end());
 }
 
 const std::vector<std::string> &SkavenPestilensFaction::getUnits() const
