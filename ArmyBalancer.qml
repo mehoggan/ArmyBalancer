@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
 
 import ArmyBalancer 1.0
+import WarScrollRelationsGraphScene 1.0
 import "./"
 
 Item
@@ -278,18 +279,6 @@ Item
         {
           width: 1/4 * parent.width
           height: parent.height
-          text: "Finalize"
-
-          onClicked: {
-            if (armyBalancer.hasWarScrolls()) {
-              console.log("Would have showed graph")
-            }
-          }
-        }
-        Button
-        {
-          width: 1/4 * parent.width
-          height: parent.height
           text: "View/Remove"
 
           onClicked: {
@@ -303,10 +292,81 @@ Item
         {
           width: 1/4 * parent.width
           height: parent.height
+          text: "Finalize"
+
+          onClicked: {
+            graphColumn.visible = true
+            mainColumn.visible = false
+            addColumn.visible = false
+            viewRemoveColumn.visible = false
+          }
+        }
+        Button
+        {
+          width: 1/4 * parent.width
+          height: parent.height
           text: "Clear"
 
           onClicked: {
             armyBalancer.clearCurrentWarScrolls();
+          }
+        }
+      }
+    }
+
+    Column
+    {
+      id: graphColumn
+      objectName: "graphColumn"
+      width: parent.width
+      height: parent.height
+      visible: false
+
+      Row
+      {
+        width: parent.width
+        height: 0.90 * parent.height
+
+        Item
+        {
+          width: parent.width
+          height: parent.height
+
+          WarScrollRelationsGraphScene
+          {
+            SequentialAnimation on t
+            {
+              NumberAnimation
+              {
+                to: 1; duration: 2500; easing.type: Easing.InQuad
+              }
+              NumberAnimation
+              {
+                to: 0; duration: 2500; easing.type: Easing.OutQuad
+              }
+              loops: Animation.Infinite
+              running: true
+            }
+          }
+        }
+      }
+
+      Row
+      {
+        width: parent.width
+        height: 0.10 * parent.height
+        anchors.horizontalCenter: parent.horizontalCenter
+        Button
+        {
+          width: parent.width
+          height: parent.height
+          text: "Back"
+
+          onClicked: {
+            mainColumn.visible = true
+            addColumn.visible = false
+            viewRemoveColumn.visible = false
+            graphColumn.visible = false
           }
         }
       }

@@ -226,6 +226,8 @@ void ArmyBalancer::warScrollSeleted()
 void ArmyBalancer::warScrollAccepted(QVariantMap data)
 {
   Q_ASSERT(!m_CurrentWarScroll.getTitle().empty());
+  QString displayScrollName(m_CurrentWarScroll.getTitle().c_str());
+
   {
     QVariantMap::const_iterator unitCountIt = data.find("unitCount");
     if (unitCountIt != data.end()) {
@@ -260,14 +262,20 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
             m_CurrentWarScroll.getWeaponUpgrade("", tokens[0], "");
         }
         m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
+        displayScrollName += (std::string(" with ") + tokens[0]).c_str();
       } else if (tokens.size() == 2){
         const WarScroll::WeaponUpgrade &upgrade =
           m_CurrentWarScroll.getWeaponUpgrade(tokens[0], tokens[1], "");
         m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
+        displayScrollName += (std::string(" with ") + tokens[0] +
+          std::string(" and ") + tokens[1]).c_str();
       } else {
         const WarScroll::WeaponUpgrade &upgrade =
           m_CurrentWarScroll.getWeaponUpgrade(tokens[0], tokens[1], tokens[2]);
         m_CurrentWarScroll.applyWeaponUpgrade(upgrade);
+        displayScrollName += (std::string(" with ") + tokens[0] +
+          std::string(" and ") + tokens[1] + std::string(" and ") +
+          tokens[2]).c_str();
       }
     }
   }
@@ -275,6 +283,7 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
   { // Unit Upgrades
     std::size_t unitUpgradeCount =
       m_CurrentWarScroll.getRegisteredUnitUpgrades().size();
+    QString upgradeAppend;
     for (std::size_t i = 0; i < unitUpgradeCount; ++i) {
       // Build the key string to find which upgrade was selected.
       std::stringstream ss;
@@ -292,30 +301,36 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
             // Before we go to apply the unit upgrade. If that upgrade already
             // exists, then we need to bypass applying it.
             if (currUnitUpgrade.makesUnitUnique()) {
-                for (const std::map<std::string, WarScroll>::value_type &scroll
-                  : m_CurrentWarScrollsAdded) {
-                  if (scroll.second.getTitle() ==
-                    m_CurrentWarScroll.getTitle()) {
-                    // Pedantic check.
-                    if (scroll.second.getIsUnique()) {
-                      QMessageBox::warning(nullptr, "Mulitiples Not Allowed",
-                        tr("Multiples of %1 not allowed.").
-                        arg(scroll.second.getTitle().c_str()));
-                      clearCurrentWarScroll();
-                      return;
-                    }
+              for (const std::map<std::string, WarScroll>::value_type &scroll
+                : m_CurrentWarScrollsAdded) {
+                if (scroll.second.getTitle() ==
+                  m_CurrentWarScroll.getTitle()) {
+                  // Pedantic check.
+                  if (scroll.second.getIsUnique()) {
+                    QMessageBox::warning(nullptr, "Mulitiples Not Allowed",
+                      tr("Multiples of %1 not allowed.").
+                      arg(scroll.second.getTitle().c_str()));
+                    clearCurrentWarScroll();
+                    return;
                   }
                 }
               }
             }
 
             const std::string name = currUnitUpgrade.getName();
+            if (upgradeAppend.isEmpty()) {
+              upgradeAppend += (std::string(" with ") + name).c_str();
+            } else {
+              upgradeAppend += (std::string(" and ") + name).c_str();
+            }
             m_CurrentWarScroll.applyRegisteredUpgrade(name);
 
-          break;
+            break;
+          }
         }
       }
     }
+    displayScrollName += upgradeAppend;
   }
 
   { // Mount Upgrade
@@ -402,13 +417,13 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
 
   if (m_Root) {
     QVariantMap toAdd;
-    toAdd.insert("name", QString(tmpWarScroll.getTitle().c_str()));
+    toAdd.insert("name", displayScrollName);
     toAdd.insert("guid", QVariant(tmpWarScroll.getGuid().toString()));
     toAdd.insert("unit", QVariant(tmpWarScroll.getUnitCount()));
     QMetaObject::invokeMethod(
-    m_Root->rootObject()->findChild<QObject *>("currentWarScrolls"),
-    "addNewUnit",
-    Q_ARG(QVariant, QVariant::fromValue(toAdd)));
+      m_Root->rootObject()->findChild<QObject *>("currentWarScrolls"),
+      "addNewUnit",
+      Q_ARG(QVariant, QVariant::fromValue(toAdd)));
   }
 }
 

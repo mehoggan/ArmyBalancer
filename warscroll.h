@@ -129,12 +129,12 @@ public:
     friend std::ostream &operator<<(std::ostream &out, const Weapon &weapon)
     {
       out << "\tName: " << weapon.m_Name << std::endl
-        << "\tRange: " << weapon.m_InitialRange << std::endl
+        << "\tRange: " << weapon.m_InitialRange << "\"" << std::endl
         << "\tAttacks: " << weapon.m_InitialAttacks << std::endl
-        << "\tTo Hit: " << weapon.m_InitialToHit << std::endl
-        << "\tTo Wound: " << weapon.m_InitialToWound << std::endl
-        << "\tTo Rend: " << weapon.m_InitialToRend << std::endl
-        << "\tTo Damage: " << weapon.m_InitialDamage << std::endl;
+        << "\tTo Hit: " << weapon.m_InitialToHit << "+" << std::endl
+        << "\tTo Wound: " << weapon.m_InitialToWound << "+" << std::endl
+        << "\tRend: -" << weapon.m_InitialToRend << std::endl
+        << "\tDamage: " << weapon.m_InitialDamage << std::endl;
       return out;
     }
   };
@@ -742,10 +742,10 @@ public:
     if (ws.m_Characteristics.size() == 4) {
       WarScroll &tmpWs = const_cast<WarScroll &>(ws);
       out << "\t" <<
-        "Move: " << tmpWs.m_Characteristics["Move"] << " " <<
+        "Move: " << tmpWs.m_Characteristics["Move"] << "\" " <<
         "Wounds: " << tmpWs.m_Characteristics["Wounds"] << " " <<
         "Bravery: " << tmpWs.m_Characteristics["Bravery"] << " " <<
-        "Save: " << tmpWs.m_Characteristics["Save"] << std::endl;
+        "Save: " << tmpWs.m_Characteristics["Save"] << "+" << std::endl;
     }
     if (!ws.m_AppliedMounts.empty()) {
       out << "\t" << "Mounts:" << std::endl;

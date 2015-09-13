@@ -318,46 +318,58 @@ void WarScroll::refreshPointsCost()
   int wounds = m_Characteristics["Wounds"];
 
   m_PointsCost = bravery + move + (7 - save) + wounds;
-  std::cout << "Points cost right after characteristics = " << m_PointsCost <<
-    std::endl;
   m_PointsCost *= m_UnitCount;
-  std::cout << "Characteristics scaled by unit count = " << m_PointsCost <<
-    std::endl;
 
+  std::cout << "CHARACTERISTICS: " << std::endl;
+  std::cout << "\tmodels * (bravery + move + (7 - save) + wounds) = " <<
+    m_PointsCost << std::endl;
+  std::cout << "\t" << m_UnitCount << " * (" << bravery << " + " << move <<
+    " + (7 - " << save << ") + " << wounds << ") = " <<
+    m_PointsCost << std::endl;
+
+  // Decrease unit size by one if there is a champion present. He is calculated
+  // separatly from the unit.
   m_UnitCount -= static_cast<int>(m_AppliedChampionWithOptions.size());
+
+  std::cout << "Points = " << m_PointsCost << std::endl << std::endl;
 
   /***
    * Ability Calculations
    */
+  std::cout << "ABILTIES:" << std::endl;
   std::cout << getTitle() << " has " << m_Abilities.size() << " abities." <<
     std::endl;
   for (const auto &ability : m_Abilities) {
     int hasToBeOverN = ability.second.getOverNModels();
-    std::cout << "\tIn order for ability to be applied unit must have " <<
-      hasToBeOverN << " models and actual count is " << m_UnitCount <<
-      std::endl;
+    int modelsWithAbiliy = m_UnitCount;
+    int everyNModels = ability.second.getEveryNModels();
     if (m_UnitCount >= hasToBeOverN) {
-      int everyNModels = ability.second.getEveryNModels();
-      int modelsWithAbiliy = m_UnitCount;
       if (everyNModels > 0) {
         modelsWithAbiliy = m_UnitCount / everyNModels;
+      } else {
+        everyNModels = 1;
       }
-      // TODO: This might be more accurate if I know how many times the upgrade
-      // was actually taken.
-      m_PointsCost += (ability.second.getValue() * modelsWithAbiliy);
-      if (ability.second.getIsCommandAbility()) {
-        // TODO: Not all command abilities are the same. For now just tax for
-        // the fact that it is a command ability.
-        m_PointsCost += 5;
-      }
+    } else if (everyNModels < 0){
+      everyNModels = 1;
     }
-    std::cout << "Points cost after applying " << ability.second.getName() <<
-      " = " << m_PointsCost << std::endl;
+    int abilityCost = (ability.second.getValue() * modelsWithAbiliy);
+
+    std::cout << "\t" << ability.second.getName() << ": cost * (models / N)" <<
+      " = " << abilityCost << std::endl;
+    std::cout << "\t" << ability.second.getName() << ": " <<
+      ability.second.getValue() << " * (" << m_UnitCount << " / " <<
+      everyNModels << ") = " << abilityCost << std::endl;
+    m_PointsCost += abilityCost;
   }
+
+  std::cout << "Points = " << m_PointsCost << std::endl << std::endl;
 
   /***
    * Weapon Calculations
    */
+  std::cout << "WEAPONS:" << std::endl;
+  std::cout << getTitle() << " has " << m_Weapons.size() << " weapons." <<
+    std::endl;
   for (const auto &weapon : m_Weapons) {
     int range = weapon.second.getRange();
     int attacks = weapon.second.getAttacks();
@@ -366,27 +378,31 @@ void WarScroll::refreshPointsCost()
     int rend = weapon.second.getToRend();
     int damage = weapon.second.getDamage();
 
-    // TODO: Some weapons only apply to a few models in the unit multiplying
-    // the number of attacks by m_UnitCount should be conditional
-    int weaponCost = (range +
-      static_cast<int>((static_cast<float>(attacks * m_UnitCount) *
-      ((7 - hit) / 6.0f) * ((7 - wound) / 6.0f)) * static_cast<float>(damage)) +
-      rend);
-    std::cout << "Cost of " << weapon.second.getName() << " = " << weaponCost
-      << std::endl;
+    float weaponCost = (static_cast<float>(range) +
+      (static_cast<float>(attacks * m_UnitCount) * ((7 - hit) / 6.0f) *
+      ((7 - wound) / 6.0f)) * static_cast<float>(damage) +
+      static_cast<float>(rend));
 
-    int weaponWithUnit = (m_UnitCount * weaponCost);
-
-    std::cout << "For unit with " << m_UnitCount << " members with " <<
-      weapon.second.getName() << " total cost = " << weaponWithUnit <<
+    std::cout << "\t" << weapon.second.getName() <<
+      ": ceil((range + ((attacks * models) * ((7 - to hit) / 6) * " <<
+      "((7 - to wound) / 6)) * damage + rend) = " << std::ceil(weaponCost) <<
       std::endl;
+    std::cout << "\t" << weapon.second.getName() <<
+      ": ceil((" << range << " + ((" << attacks << " * " << m_UnitCount <<
+      ") * ((7 - " << hit << ") / 6) * ((7 - " << wound << ") / 6)) * " <<
+      damage << ") + " << rend << ") = " << std::ceil(weaponCost) << std::endl;
 
-    m_PointsCost += weaponWithUnit;
+    m_PointsCost += std::ceil(weaponCost);
   }
+
+  std::cout << "Points = " << m_PointsCost << std::endl << std::endl;
 
   /***
    * Spell Calculations
    */
+  std::cout << "SPELLS:" << std::endl;
+  std::cout << getTitle() << " has " << m_Spells.size() << " spell." <<
+    std::endl;
   for (const auto &spell : m_Spells) {
     int range = spell.getRange();
     int attacks = spell.getAttacks();
@@ -398,27 +414,52 @@ void WarScroll::refreshPointsCost()
     int cast = spell.getToCast();
 
     int points = 0;
+
     if (range > 0 && hit > 0 && wound > 0) {
-      int weaponCost = (range +
-        static_cast<int>((static_cast<float>(attacks) *
-        ((7 - hit) / 6.0f) * ((7 - wound) / 6.0f)) *
-        static_cast<float>(damage)) + rend);
-      points += weaponCost;
-      std::cout << "Cost for " << spell.getName() << " with weapon ability " <<
-        points << std::endl;
+      float weaponCost = (static_cast<float>(range) +
+        (static_cast<float>(attacks) * ((7 - hit) / 6.0f) *
+        ((7 - wound) / 6.0f)) * static_cast<float>(damage) +
+        static_cast<float>(rend));
+
+      std::cout << "\t" << spell.getName() <<
+        ": ceil((range + (attacks * ((7 - to hit) / 6) * " <<
+        "((7 - to wound) / 6)) * damage + rend) = " << std::ceil(weaponCost) <<
+        std::endl;
+      std::cout << "\t" << spell.getName() <<
+        ": ceil((" << range << " + (" << attacks <<
+        " * ((7 - " << hit << ") / 6) * ((7 - " << wound << ") / 6)) * " <<
+        damage << ") + " << rend << ") = " << std::ceil(weaponCost) <<
+        std::endl;
+
+      points += std::ceil(weaponCost);
     }
 
-    points += ((12 - cast) * cost);
-    std::cout << "Cost for spell alone with a to cast value of " << cast <<
-      " and a point cost of " << cost << " = " << ((12 - cast) * cost) <<
-      std::endl;
+    if (points != 0) {
+      int tmp = points;
+      points += ((12 - cast) * cost);
+      std::cout << "\t" << tmp << " + ((12 - to cast) * cost) = " <<
+        points << std::endl;
+      std::cout << "\t" << tmp << " + ((12 - " << cast << ") * " <<
+        cost << ") = " << points << std::endl;
+    } else {
+      points += ((12 - cast) * cost);
+      std::cout << "\t" << spell.getName() << "((12 - to cast) * cost) = " <<
+        points << std::endl;
+      std::cout << "\t" << spell.getName() << "((12 - " << cast << ") * " <<
+        cost << ") = " << points <<
+        std::endl;
+      points += ((12 - cast) * cost);
+    }
 
     m_PointsCost += points;
   }
 
+  std::cout << "Points = " << m_PointsCost << std::endl << std::endl;
+
   /***
    * Champions with Options
    */
+  std::cout << "UPGRADABLE CHAMPIONS:" << std::endl;
   for (const auto &champion : m_AppliedChampionWithOptions) {
     m_PointsCost += champion.getPointsCost();
     
@@ -430,32 +471,37 @@ void WarScroll::refreshPointsCost()
       int rend = weapon.getToRend();
       int damage = weapon.getDamage();
 
-      m_PointsCost += (range +
-        static_cast<int>((static_cast<float>(attacks) * ((7 - hit) / 6.0f) *
-        ((7 - wound) / 6.0f)) * static_cast<float>(damage)) + rend);
+      float weaponCost = (static_cast<float>(range) +
+        (static_cast<float>(attacks) * ((7 - hit) / 6.0f) *
+        ((7 - wound) / 6.0f)) * static_cast<float>(damage) +
+        static_cast<float>(rend));
+
+      std::cout << "\t" << weapon.getName() <<
+        ": ceil((range + (attacks * ((7 - to hit) / 6) * " <<
+        "((7 - to wound) / 6)) * damage + rend) = " << std::ceil(weaponCost) <<
+        std::endl;
+      std::cout << "\t" << weapon.getName() <<
+        ": ceil((" << range << " + (" << attacks <<
+        " * ((7 - " << hit << ") / 6) * ((7 - " << wound << ") / 6)) * " <<
+        damage << ") + " << rend << ") = " << std::ceil(weaponCost) <<
+        std::endl;
+      m_PointsCost += std::ceil(weaponCost);
     }
 
     for (const auto &ability : champion.getAbilities()) {
-      int hasToBeOverN = ability.getOverNModels();
-      std::cout << "\tIn order for ability to be applied unit must have " <<
-        hasToBeOverN << " models and actual count is " << m_UnitCount <<
-        std::endl;
-      if (m_UnitCount >= hasToBeOverN) {
-        int everyNModels = ability.getEveryNModels();
-        int modelsWithAbiliy = 1;
-        if (everyNModels > 0) {
-          modelsWithAbiliy = m_UnitCount / everyNModels;
-        }
-        // TODO: This might be more accurate if I know how many times the upgrade
-        // was actually taken.
-        m_PointsCost += (ability.getValue() * modelsWithAbiliy);
-      }
-      std::cout << "Points cost after applying " << ability.getName() <<
-        " = " << m_PointsCost << std::endl;
+      int modelsWithAbiliy = 1;
+      int abilityCost = (ability.getValue() * modelsWithAbiliy);
+      std::cout << "\t" << ability.getName() << ": cost " <<
+        " = " << abilityCost << std::endl;
+      std::cout << "\t" << ability.getName() << ": " <<
+        ability.getValue() << " = " << abilityCost << std::endl;
+      m_PointsCost += abilityCost;
     }
   }
 
-  std::cout << "TOTAL POINTS COST FOR " << getTitle() << "\t=" <<
+  // TODO: Add in unit upgrades that are standard bearers etc.
+
+  std::cout << "TOTAL POINTS COST FOR " << getTitle() << " = " <<
     m_PointsCost << std::endl;
 }
 
