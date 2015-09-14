@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "factions.h"
+#include "warscrollsynergygraph.h"
 #include "warscrollfactory.h"
 
 class ArmyBalancer : public QQuickItem
@@ -47,6 +48,7 @@ public slots:
   void clearCurrentWarScrolls();
   void removeCurrentWarScroll(QVariant guid);
   QVariant getCurrentScrollText(QVariant guid);
+  Q_INVOKABLE void buildAndPublishSynergyGraph();
   Q_INVOKABLE bool hasWarScrolls() const
   {return m_CurrentWarScrollsAdded.size() > 0;}
 
@@ -56,16 +58,21 @@ private:
   QQuickView *m_Root;
   QStringList m_FactionList;
   QStringList m_CurrentWarScrolls;
+  WarScrollSynergyGraph m_WarScrollSynergyGraph;
 
   typedef std::map<std::string, std::shared_ptr<IFaction>> FactionMapType;
   FactionMapType m_NameToFactionMap;
   WarScrollFactory &m_WarScrollFactory;
   WarScroll m_CurrentWarScroll;
   std::map<std::string, WarScroll> m_CurrentWarScrollsAdded;
+  typedef std::map<std::string, WarScroll>::value_type WarScrollAddedType;
 
 private:
   void getNextWarScrolls(std::vector<std::string> &output,
     const std::string &factionName);
+  void buildGraphFromConnectionString(
+    const WarScroll::KeyWordConnection &keyWordConnection,
+    const WarScroll &from);
 
   template <typename Faction>
   void insertFaction()

@@ -3,9 +3,14 @@
 #include <QDate>
 #include <QMessageBox>
 
+#include <algorithm>
+#include <functional>
+#include <cctype>
 #include <iostream>
+#include <locale>
 #include <sstream>
 #include <utility>
+
 
 ArmyBalancer::ArmyBalancer(QQuickItem *parent)
   : QQuickItem(parent)
@@ -417,6 +422,12 @@ void ArmyBalancer::warScrollAccepted(QVariantMap data)
 
   if (m_Root) {
     QVariantMap toAdd;
+
+    if (displayScrollName.size() > 40) {
+      displayScrollName = displayScrollName.mid(0, 40);
+      displayScrollName += "...";
+    }
+
     toAdd.insert("name", displayScrollName);
     toAdd.insert("guid", QVariant(tmpWarScroll.getGuid().toString()));
     toAdd.insert("unit", QVariant(tmpWarScroll.getUnitCount()));
@@ -509,5 +520,104 @@ QVariant ArmyBalancer::getCurrentScrollText(QVariant guid)
     return QVariant::fromValue(val);
   } else {
     return QVariant::fromValue(QString(""));
+  }
+}
+
+void ArmyBalancer::buildAndPublishSynergyGraph()
+{
+  m_WarScrollSynergyGraph.clear();
+
+  for (const WarScrollAddedType &warscroll : m_CurrentWarScrollsAdded) {
+
+    std::list<WarScroll::KeyWordConnection> connections =
+      warscroll.second.getKeyWordConnections();
+
+    for (const WarScroll::KeyWordConnection &connection : connections) {
+      buildGraphFromConnectionString(connection, warscroll.second);
+    }
+  }
+
+  m_WarScrollSynergyGraph.print();
+}
+
+namespace
+{
+  std::string &ltrim(std::string &s) {
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+      std::not1(std::ptr_fun<int, int>(std::isspace))));
+    return s;
+  }
+
+  std::string &rtrim(std::string &s) {
+    s.erase(std::find_if(s.rbegin(), s.rend(),
+      std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+    return s;
+  }
+
+  std::string &trim(std::string &s) {
+    return ltrim(rtrim(s));
+  }
+
+  void parseStringToKeyWords(std::vector<std::string> &outKeyWords,
+    const std::string &keyWordLogic) {
+
+    std::string curr;
+    for (auto it = keyWordLogic.begin(); it != keyWordLogic.end();) {
+      if ((*it) == 'a') {
+        outKeyWords.push_back(trim(curr));
+        Q_ASSERT(*(++it) == 'n');
+        Q_ASSERT(*(++it) == 'd');
+        Q_ASSERT(*(++it) == ' ');
+      } else if ((*it) == 'o') {
+        outKeyWords.push_back(trim(curr));
+        Q_ASSERT(*(++it) == 'r');
+        Q_ASSERT(*(++it) == ' ');
+      } else {
+        curr += (*it);
+        ++it;
+      }
+    }
+  }
+}
+
+void ArmyBalancer::buildGraphFromConnectionString(
+  const WarScroll::KeyWordConnection &keyWordConnection,
+  const WarScroll &from)
+{
+  const std::string &keyWords = keyWordConnection.getKeyWord();
+
+  bool AND = keyWords.find(" and ") != std::string::npos;
+  bool OR = keyWords.find(" or ") != std::string::npos;
+
+  std::vector<std::string> keyWordsBroken;
+  if (AND || OR) {
+    parseStringToKeyWords(keyWordsBroken, keyWords);
+  } else {
+    keyWordsBroken.push_back(keyWords);
+  }
+
+  for (const WarScrollAddedType &to : m_CurrentWarScrollsAdded) {
+    const std::list<std::string> &toKeyWords = to.second.getKeyWords();
+    bool found = true;
+    if (OR) {
+      found = false;
+    }
+    for (const std::string &keyWord : keyWordsBroken) {
+      const auto it = std::find(toKeyWords.begin(), toKeyWords.end(), keyWord);
+      bool tmp = it != toKeyWords.end();
+      if (AND) {
+        found &= tmp;
+      } else if (OR) {
+        found |= tmp;
+      } else {
+        found = tmp;
+      }
+    }
+
+    if (found && (keyWordConnection.getAffectType() !=
+      WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy)) {
+
+      m_WarScrollSynergyGraph.connect(from, to.second, keyWordConnection);
+    }
   }
 }

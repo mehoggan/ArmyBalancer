@@ -33,7 +33,8 @@ SOURCES += main.cpp \
   warscrollfactory.cpp \
   warscroll.cpp \
   warscrollrelationsgraph.cpp \
-  warscrollrelationsgraphscene.cpp
+  warscrollrelationsgraphscene.cpp \
+  warscrollsynergygraph.cpp
 
 RESOURCES += qml.qrc
 
@@ -75,7 +76,8 @@ HEADERS += \
   warscrollfactory.h \
   warscroll.h \
   warscrollrelationsgraph.h \
-  warscrollrelationsgraphscene.h
+  warscrollrelationsgraphscene.h \
+  warscrollsynergygraph.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)

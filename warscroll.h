@@ -301,6 +301,7 @@ public:
     int m_CurrentConnections;
     std::string m_Name;
     int m_SummonCount;
+    QUuid m_Guid;
 
   public:
     KeyWordConnection()
@@ -324,7 +325,20 @@ public:
       , m_MaxConnections(s_MaxConnections)
       , m_CurrentConnections(0)
       , m_SummonCount(-1)
-    {}
+    {
+      m_Guid = QUuid(
+        std::rand() % 1024,
+        std::rand() % 256,
+        std::rand() % 256,
+        std::rand() % 128,
+        std::rand() % 128,
+        std::rand() % 128,
+        std::rand() % 128,
+        std::rand() % 128,
+        std::rand() % 128,
+        std::rand() % 128,
+        std::rand() % 128);
+    }
 
     const std::string &getName() const {return m_Name;}
     void setName(const std::string &name) {m_Name = name;}
@@ -332,6 +346,7 @@ public:
     const std::string &getKeyWord() const {return m_KeyWord;}
     int getWithinDistance() const {return m_WithinDistance;}
     const Ability &getAbility() const {return m_AbilityConnection;}
+    const Spell &getSpell() const {return m_SpellConnection;}
     int getApplyIfOverNModels() const {return m_ApplyIfOverNModels;}
     ConnectionAffectType getAffectType() const {return m_Affects;}
 
@@ -356,7 +371,8 @@ public:
         lhs.m_MaxConnections == rhs.m_MaxConnections &&
         lhs.m_CurrentConnections == rhs.m_CurrentConnections &&
         lhs.m_Name == rhs.m_Name &&
-        lhs.m_SummonCount == rhs.m_SummonCount;
+        lhs.m_SummonCount == rhs.m_SummonCount &&
+        lhs.m_Guid == rhs.m_Guid;
     }
 
     friend std::ostream &operator<<(std::ostream &out,
@@ -597,7 +613,7 @@ private:
   std::list<MagicalSpecialization> m_AppliedMagicalSpecilizations;
   std::list<MagicalSpecialization> m_RegisteredMagicalSpecilizations;
   bool m_CanFly;
-  std::set<std::string> m_Keywords;
+  std::list<std::string> m_Keywords;
   GrandAllianceType m_AllianceType;
   std::list<WeaponUpgrade> m_WeaponUpgrades;
   WeaponUpgrade m_EmptyUpgrade;
@@ -636,7 +652,7 @@ public:
   void setUnitCount(int unitCount) {m_UnitCount = unitCount;}
 
   int getPointsCost() const {return m_PointsCost;}
-  void refreshPointsCost();
+  std::string refreshPointsCost();
 
   std::map<std::string, Ability> &getAbilities() {return m_Abilities;}
   const Ability &getAbility(const std::string &name) const;
@@ -692,6 +708,7 @@ public:
   bool getCanFly() const {return m_CanFly;}
   void setCanFly(bool canFly) {m_CanFly = canFly;}
 
+  const std::list<std::string> &getKeyWords() const {return m_Keywords;}
   void addKeyWord(const std::string &keyWord);
   void addKeyWords(const std::list<std::string>& keyWords);
   bool keyWordExists(const std::string &keyWord);

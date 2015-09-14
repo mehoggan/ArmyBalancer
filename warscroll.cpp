@@ -3,9 +3,10 @@
 #include <sstream>
 #include <utility>
 #include <iostream>
+#include <sstream>
 
-void WarScroll::addSummonable(WarScroll &ws, const std::string &name, int toCast,
-  int pointCost, int distance, int summonCount,
+void WarScroll::addSummonable(WarScroll &ws, const std::string &name,
+  int toCast, int pointCost, int distance, int summonCount,
   const std::list<std::string> &keyWords)
 {
   std::string andKeyWords;
@@ -306,8 +307,11 @@ void WarScroll::setMinMaxUnitCount(int minUnitCount, int maxUnitCount)
   }
 }
 
-void WarScroll::refreshPointsCost()
+std::string WarScroll::refreshPointsCost()
 {
+  std::stringstream out;
+  m_PointsCost = 0;
+
   /***
    * Characterstics Calculations
    */
@@ -320,10 +324,12 @@ void WarScroll::refreshPointsCost()
   m_PointsCost = bravery + move + (7 - save) + wounds;
   m_PointsCost *= m_UnitCount;
 
-  std::cout << "CHARACTERISTICS: " << std::endl;
-  std::cout << "\tmodels * (bravery + move + (7 - save) + wounds) = " <<
-    m_PointsCost << std::endl;
-  std::cout << "\t" << m_UnitCount << " * (" << bravery << " + " << move <<
+  out << "POINTS CALCULATIONS" << std::endl;
+
+  out << "CHARACTERISTICS: " << std::endl;
+  out << "models * (bravery + move + (7 - save) + wounds) = points" <<
+    std::endl;
+  out << m_UnitCount << " * (" << bravery << " + " << move <<
     " + (7 - " << save << ") + " << wounds << ") = " <<
     m_PointsCost << std::endl;
 
@@ -331,14 +337,15 @@ void WarScroll::refreshPointsCost()
   // separatly from the unit.
   m_UnitCount -= static_cast<int>(m_AppliedChampionWithOptions.size());
 
-  std::cout << "Points = " << m_PointsCost << std::endl << std::endl;
+  out << "Points = " << m_PointsCost << std::endl << std::endl;
 
   /***
    * Ability Calculations
    */
-  std::cout << "ABILTIES:" << std::endl;
-  std::cout << getTitle() << " has " << m_Abilities.size() << " abities." <<
+  out << "ABILTIES:" << std::endl;
+  out << getTitle() << " has " << m_Abilities.size() << " abities." <<
     std::endl;
+  out << "cost * (models / N) = points" << std::endl;
   for (const auto &ability : m_Abilities) {
     int hasToBeOverN = ability.second.getOverNModels();
     int modelsWithAbiliy = m_UnitCount;
@@ -354,21 +361,22 @@ void WarScroll::refreshPointsCost()
     }
     int abilityCost = (ability.second.getValue() * modelsWithAbiliy);
 
-    std::cout << "\t" << ability.second.getName() << ": cost * (models / N)" <<
-      " = " << abilityCost << std::endl;
-    std::cout << "\t" << ability.second.getName() << ": " <<
+    out << ability.second.getName() << ": " <<
       ability.second.getValue() << " * (" << m_UnitCount << " / " <<
       everyNModels << ") = " << abilityCost << std::endl;
     m_PointsCost += abilityCost;
   }
 
-  std::cout << "Points = " << m_PointsCost << std::endl << std::endl;
+  out << "Points = " << m_PointsCost << std::endl << std::endl;
 
   /***
    * Weapon Calculations
    */
-  std::cout << "WEAPONS:" << std::endl;
-  std::cout << getTitle() << " has " << m_Weapons.size() << " weapons." <<
+  out << "WEAPONS:" << std::endl;
+  out << getTitle() << " has " << m_Weapons.size() << " weapons." <<
+    std::endl;
+  out << "ceil((range + ((attacks * models) * ((7 - to hit) / 6) * " <<
+    "((7 - to wound) / 6)) * damage + rend) = weaponCost" <<
     std::endl;
   for (const auto &weapon : m_Weapons) {
     int range = weapon.second.getRange();
@@ -383,11 +391,7 @@ void WarScroll::refreshPointsCost()
       ((7 - wound) / 6.0f)) * static_cast<float>(damage) +
       static_cast<float>(rend));
 
-    std::cout << "\t" << weapon.second.getName() <<
-      ": ceil((range + ((attacks * models) * ((7 - to hit) / 6) * " <<
-      "((7 - to wound) / 6)) * damage + rend) = " << std::ceil(weaponCost) <<
-      std::endl;
-    std::cout << "\t" << weapon.second.getName() <<
+    out << weapon.second.getName() <<
       ": ceil((" << range << " + ((" << attacks << " * " << m_UnitCount <<
       ") * ((7 - " << hit << ") / 6) * ((7 - " << wound << ") / 6)) * " <<
       damage << ") + " << rend << ") = " << std::ceil(weaponCost) << std::endl;
@@ -395,14 +399,17 @@ void WarScroll::refreshPointsCost()
     m_PointsCost += std::ceil(weaponCost);
   }
 
-  std::cout << "Points = " << m_PointsCost << std::endl << std::endl;
+  out << "Points = " << m_PointsCost << std::endl << std::endl;
 
   /***
    * Spell Calculations
    */
-  std::cout << "SPELLS:" << std::endl;
-  std::cout << getTitle() << " has " << m_Spells.size() << " spell." <<
+  out << "SPELLS:" << std::endl;
+  out << getTitle() << " has " << m_Spells.size() << " spell." <<
     std::endl;
+  out << "ceil((range + (attacks * ((7 - to hit) / 6) * " <<
+    "((7 - to wound) / 6)) * damage + rend) + ((13 - to cast) * cost) = " <<
+    "spellCost" << std::endl;
   for (const auto &spell : m_Spells) {
     int range = spell.getRange();
     int attacks = spell.getAttacks();
@@ -420,12 +427,7 @@ void WarScroll::refreshPointsCost()
         (static_cast<float>(attacks) * ((7 - hit) / 6.0f) *
         ((7 - wound) / 6.0f)) * static_cast<float>(damage) +
         static_cast<float>(rend));
-
-      std::cout << "\t" << spell.getName() <<
-        ": ceil((range + (attacks * ((7 - to hit) / 6) * " <<
-        "((7 - to wound) / 6)) * damage + rend) = " << std::ceil(weaponCost) <<
-        std::endl;
-      std::cout << "\t" << spell.getName() <<
+      out << spell.getName() <<
         ": ceil((" << range << " + (" << attacks <<
         " * ((7 - " << hit << ") / 6) * ((7 - " << wound << ") / 6)) * " <<
         damage << ") + " << rend << ") = " << std::ceil(weaponCost) <<
@@ -436,33 +438,33 @@ void WarScroll::refreshPointsCost()
 
     if (points != 0) {
       int tmp = points;
-      points += ((12 - cast) * cost);
-      std::cout << "\t" << tmp << " + ((12 - to cast) * cost) = " <<
-        points << std::endl;
-      std::cout << "\t" << tmp << " + ((12 - " << cast << ") * " <<
+      points += ((13 - cast) * cost);
+      out << tmp << " + ((13 - " << cast << ") * " <<
         cost << ") = " << points << std::endl;
     } else {
-      points += ((12 - cast) * cost);
-      std::cout << "\t" << spell.getName() << "((12 - to cast) * cost) = " <<
-        points << std::endl;
-      std::cout << "\t" << spell.getName() << "((12 - " << cast << ") * " <<
+      points += ((13 - cast) * cost);
+      out << "  " << spell.getName() << ": ((13 - " << cast << ") * " <<
         cost << ") = " << points <<
         std::endl;
-      points += ((12 - cast) * cost);
     }
 
     m_PointsCost += points;
   }
 
-  std::cout << "Points = " << m_PointsCost << std::endl << std::endl;
+  out << "Points = " << m_PointsCost << std::endl << std::endl;
 
   /***
    * Champions with Options
    */
-  std::cout << "UPGRADABLE CHAMPIONS:" << std::endl;
+  out << "UPGRADABLE CHAMPIONS:" << std::endl;
+  out << "ceil((range + (attacks * ((7 - to hit) / 6) * " <<
+        "((7 - to wound) / 6)) * damage + rend) = weaponCost" <<
+        std::endl;
   for (const auto &champion : m_AppliedChampionWithOptions) {
+    out << "  Cost of " << champion.getName() << ": " <<
+      champion.getPointsCost() << std::endl;
     m_PointsCost += champion.getPointsCost();
-    
+
     for (const auto &weapon : champion.getWeapons()) {
       int range = weapon.getRange();
       int attacks = weapon.getAttacks();
@@ -476,11 +478,7 @@ void WarScroll::refreshPointsCost()
         ((7 - wound) / 6.0f)) * static_cast<float>(damage) +
         static_cast<float>(rend));
 
-      std::cout << "\t" << weapon.getName() <<
-        ": ceil((range + (attacks * ((7 - to hit) / 6) * " <<
-        "((7 - to wound) / 6)) * damage + rend) = " << std::ceil(weaponCost) <<
-        std::endl;
-      std::cout << "\t" << weapon.getName() <<
+      out << weapon.getName() <<
         ": ceil((" << range << " + (" << attacks <<
         " * ((7 - " << hit << ") / 6) * ((7 - " << wound << ") / 6)) * " <<
         damage << ") + " << rend << ") = " << std::ceil(weaponCost) <<
@@ -491,18 +489,38 @@ void WarScroll::refreshPointsCost()
     for (const auto &ability : champion.getAbilities()) {
       int modelsWithAbiliy = 1;
       int abilityCost = (ability.getValue() * modelsWithAbiliy);
-      std::cout << "\t" << ability.getName() << ": cost " <<
-        " = " << abilityCost << std::endl;
-      std::cout << "\t" << ability.getName() << ": " <<
+      out << ability.getName() << ": " <<
         ability.getValue() << " = " << abilityCost << std::endl;
       m_PointsCost += abilityCost;
     }
   }
 
-  // TODO: Add in unit upgrades that are standard bearers etc.
+  out << "Points = " << m_PointsCost << std::endl << std::endl;
 
-  std::cout << "TOTAL POINTS COST FOR " << getTitle() << " = " <<
+  /***
+   * Unit Upgrades
+   */
+  out << "UNIT UPGRADES" << std::endl;
+  for (const auto &upgrade : m_AppliedUpgrades) {
+    out << "Cost of " << upgrade.getName() << ": " <<
+      upgrade.getPointsCost() << std::endl;
+    m_PointsCost += upgrade.getPointsCost();
+  }
+
+  out << "Points = " << m_PointsCost << std::endl << std::endl;
+
+  out << (m_CanFly ? "FLYS = 2" : "");
+  if (m_CanFly) {
+    m_PointsCost += 2;
+  }
+
+  out << "Points = " << m_PointsCost << std::endl << std::endl;
+
+  out << "TOTAL POINTS COST FOR " << getTitle() << " = " <<
     m_PointsCost << std::endl;
+
+  std::cout << out.str() << std::endl;
+  return out.str();
 }
 
 #ifdef Q_OS_WIN32
@@ -742,19 +760,20 @@ void WarScroll::applyRegisteredMagicalSpecialization(
 
 void WarScroll::addKeyWord(const std::string &keyWord)
 {
-  m_Keywords.insert(keyWord);
+  m_Keywords.push_back(keyWord);
 }
 
 void WarScroll::addKeyWords(const std::list<std::string>& keyWords)
 {
   for (const std::string &keyWord : keyWords) {
-    m_Keywords.insert(keyWord);
+    m_Keywords.push_back(keyWord);
   }
 }
 
 bool WarScroll::keyWordExists(const std::string &keyWord)
 {
-  std::set<std::string>::const_iterator it = m_Keywords.find(keyWord);
+  std::list<std::string>::const_iterator it = std::find(m_Keywords.begin(),
+    m_Keywords.end(), keyWord);
   return (it == m_Keywords.end());
 }
 
@@ -841,7 +860,8 @@ void WarScroll::applyWeaponUpgrade(
 std::string WarScroll::toString() const
 {
   std::ostringstream out;
-  out << (*this);
+  out << (*this) << std::endl << std::endl;
+  out << const_cast<WarScroll &>(*this).refreshPointsCost();
   return out.str();
 }
 

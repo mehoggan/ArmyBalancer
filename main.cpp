@@ -2,6 +2,7 @@
 #include <QQuickView>
 #include <QQuickItem>
 #include <QtQml>
+#include <QIcon>
 #include <QObject>
 
 #include "armybalancer.h"
@@ -10,6 +11,7 @@
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
+  QApplication::setWindowIcon(QIcon("./balance_512x512.png"));
 
   qmlRegisterType<ArmyBalancer>("ArmyBalancer", 1, 0, "ArmyBalancer");
   qmlRegisterType<WarScrollRelationsGraphScene>("WarScrollRelationsGraphScene",

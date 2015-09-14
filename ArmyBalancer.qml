@@ -299,6 +299,7 @@ Item
             mainColumn.visible = false
             addColumn.visible = false
             viewRemoveColumn.visible = false
+            armyBalancer.buildAndPublishSynergyGraph();
           }
         }
         Button
