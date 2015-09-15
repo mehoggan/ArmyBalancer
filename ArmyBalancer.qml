@@ -7,7 +7,7 @@ import QtGraphicalEffects 1.0
 
 import ArmyBalancer 1.0
 import WarScrollRelationsGraphScene 1.0
-import OpenGLUnderQML 1.0
+//import OpenGLUnderQML 1.0
 import "./"
 
 Item
@@ -334,12 +334,20 @@ Item
           width: parent.width
           height: parent.height
 
-          Squircle
+          WarScrollRelationsGraphScene
           {
+            width: parent.width
+            height: parent.height
             SequentialAnimation on t
             {
-              NumberAnimation { to: 1; duration: 2500; easing.type: Easing.InQuad }
-              NumberAnimation { to: 0; duration: 2500; easing.type: Easing.OutQuad }
+              NumberAnimation
+              {
+                to: 1; duration: 2500; easing.type: Easing.InQuad
+              }
+              NumberAnimation
+              {
+                to: 0; duration: 2500; easing.type: Easing.OutQuad
+              }
               loops: Animation.Infinite
               running: true
             }

@@ -40,7 +40,6 @@ void WarScrollRelationsGraph::paint()
     m_program->link();
   }
 
-/*
   m_program->bind();
 
   m_program->enableAttributeArray(0);
@@ -53,7 +52,7 @@ void WarScrollRelationsGraph::paint()
   };
   m_program->setAttributeArray(0, GL_FLOAT, values, 2);
   m_program->setUniformValue("t", (float) m_t);
-*/
+
   qreal width = m_viewportSize.width();
   qreal height = m_viewportSize.height();
 
@@ -61,9 +60,9 @@ void WarScrollRelationsGraph::paint()
 
   glDisable(GL_DEPTH_TEST);
 
-  glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
-/*
+
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
@@ -71,6 +70,5 @@ void WarScrollRelationsGraph::paint()
 
   m_program->disableAttributeArray(0);
   m_program->release();
-*/
 }
 

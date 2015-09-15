@@ -93,7 +93,7 @@ void Squircle::sync()
 {
     if (!m_renderer) {
         m_renderer = new SquircleRenderer();
-        connect(window(), SIGNAL(beforeRendering()), m_renderer, SLOT(paint()), Qt::DirectConnection);
+        connect(window(), SIGNAL(afterRendering()), m_renderer, SLOT(paint()), Qt::DirectConnection);
     }
     m_renderer->setViewportSize(window()->size() * window()->devicePixelRatio());
     m_renderer->setT(m_t);
