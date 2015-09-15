@@ -3,6 +3,7 @@
 #include <iostream>
 
 WarScrollRelationsGraph::WarScrollRelationsGraph() :
+  m_draw(false),
   m_t(0),
   m_program(0)
 {}
@@ -30,45 +31,38 @@ void WarScrollRelationsGraph::paint()
       "uniform lowp float t;"
       "varying highp vec2 coords;"
       "void main() {"
-      "  lowp float i = 1. - (pow(abs(coords.x), 4.) + pow(abs(coords.y), 4.));"
-      "  i = smoothstep(t - 0.8, t + 0.8, i);"
-      "  i = floor(i * 20.) / 20.;"
-      "  gl_FragColor = vec4(coords * .5 + .5, i, i);"
+      "  gl_FragColor = vec4(0.0, 0.0, 0.0, 0.4);"
       "}");
 
     m_program->bindAttributeLocation("vertices", 0);
     m_program->link();
   }
 
-  m_program->bind();
+  if (m_draw) {
+    m_program->bind();
 
-  m_program->enableAttributeArray(0);
+    m_program->enableAttributeArray(0);
 
-  float values[] = {
-    -1, -1,
-    1, -1,
-    -1, 1,
-    1, 1
-  };
-  m_program->setAttributeArray(0, GL_FLOAT, values, 2);
-  m_program->setUniformValue("t", (float) m_t);
+    float values[] = {
+      -1, -1,
+      1, -1,
+      -1, 1,
+      1, 1
+    };
+    m_program->setAttributeArray(0, GL_FLOAT, values, 2);
+    m_program->setUniformValue("t", (float) m_t);
 
-  qreal width = m_viewportSize.width();
-  qreal height = m_viewportSize.height();
+    qreal width = m_viewportSize.width();
+    qreal height = m_viewportSize.height();
 
-  glViewport(0, 0, width, height);
+    glViewport(0, 0.10 * height, width, height);
 
-  glDisable(GL_DEPTH_TEST);
+    glDisable(GL_DEPTH_TEST);
 
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
-  glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-  m_program->disableAttributeArray(0);
-  m_program->release();
+    m_program->disableAttributeArray(0);
+    m_program->release();
+  }
 }
 

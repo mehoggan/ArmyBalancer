@@ -34,13 +34,11 @@ SOURCES += main.cpp \
   warscroll.cpp \
   warscrollrelationsgraph.cpp \
   warscrollrelationsgraphscene.cpp \
-  warscrollsynergygraph.cpp \
-  squircle.cpp
+  warscrollsynergygraph.cpp
 
 RESOURCES += qml.qrc
 
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+#QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
@@ -78,8 +76,7 @@ HEADERS += \
   warscroll.h \
   warscrollrelationsgraph.h \
   warscrollrelationsgraphscene.h \
-  warscrollsynergygraph.h \
-  squircle.h
+  warscrollsynergygraph.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)

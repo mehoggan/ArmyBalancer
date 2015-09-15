@@ -21,6 +21,19 @@ void WarScrollRelationsGraphScene::setT(qreal t)
   }
 }
 
+void WarScrollRelationsGraphScene::setDraw(bool draw)
+{
+  if (draw == m_draw) {
+    return;
+  }
+
+  m_draw = draw;
+  emit drawChanged();
+  if (m_renderer) {
+    m_renderer->setDraw(draw);
+  }
+}
+
 void WarScrollRelationsGraphScene::handleWindowChanged(QQuickWindow *win)
 {
   if (win) {
@@ -47,7 +60,8 @@ void WarScrollRelationsGraphScene::sync()
     connect(window(), SIGNAL(afterRendering()), m_renderer, SLOT(paint()),
       Qt::DirectConnection);
   }
-  m_renderer->setViewportSize(window()->size() * window()->devicePixelRatio());
+  m_renderer->setViewportSize(QSize(width(), height())
+    * window()->devicePixelRatio());
   m_renderer->setT(m_t);
 }
 

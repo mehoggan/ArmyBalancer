@@ -7,7 +7,6 @@ import QtGraphicalEffects 1.0
 
 import ArmyBalancer 1.0
 import WarScrollRelationsGraphScene 1.0
-//import OpenGLUnderQML 1.0
 import "./"
 
 Item
@@ -51,11 +50,11 @@ Item
       rotation: 270
       gradient: Gradient
       {
-          GradientStop { position: 0.00; color: "#000099" }
-          GradientStop { position: 0.47; color: "#222222" }
-          GradientStop { position: 0.50; color: "#999999" }
-          GradientStop { position: 0.53; color: "#222222" }
-          GradientStop { position: 1.00; color: "#990000" }
+        GradientStop { position: 0.00; color: "#000099" }
+        GradientStop { position: 0.47; color: "#222222" }
+        GradientStop { position: 0.50; color: "#999999" }
+        GradientStop { position: 0.53; color: "#222222" }
+        GradientStop { position: 1.00; color: "#990000" }
       }
     }
     Text
@@ -76,9 +75,9 @@ Item
       source: text
       gradient: Gradient
       {
-          GradientStop { position: 0.00; color: "#FFD700" }
-          GradientStop { position: 0.50; color: "#DDDDDD" }
-          GradientStop { position: 0.75; color: "#FFD700" }
+        GradientStop { position: 0.00; color: "#FFD700" }
+        GradientStop { position: 0.50; color: "#DDDDDD" }
+        GradientStop { position: 0.75; color: "#FFD700" }
       }
     }
   }
@@ -273,6 +272,7 @@ Item
               mainColumn.visible = false
               armyBalancer.warScrollSeleted();
               addColumn.visible = true
+              warscrollRelationsGraphScene.draw = false;
             }
           }
         }
@@ -287,6 +287,7 @@ Item
             mainColumn.visible = false
             addColumn.visible = false
             armyBalancer.clearCurrentWarScroll();
+            warscrollRelationsGraphScene.draw = false;
           }
         }
         Button
@@ -301,6 +302,7 @@ Item
             addColumn.visible = false
             viewRemoveColumn.visible = false
             armyBalancer.buildAndPublishSynergyGraph();
+            warscrollRelationsGraphScene.draw = true;
           }
         }
         Button
@@ -311,6 +313,7 @@ Item
 
           onClicked: {
             armyBalancer.clearCurrentWarScrolls();
+            warscrollRelationsGraphScene.draw = false;
           }
         }
       }
@@ -336,6 +339,7 @@ Item
 
           WarScrollRelationsGraphScene
           {
+            id: warscrollRelationsGraphScene
             width: parent.width
             height: parent.height
             SequentialAnimation on t
@@ -371,6 +375,7 @@ Item
             addColumn.visible = false
             viewRemoveColumn.visible = false
             graphColumn.visible = false
+            warscrollRelationsGraphScene.draw = false;
           }
         }
       }

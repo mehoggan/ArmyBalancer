@@ -6,7 +6,6 @@
 #include <QObject>
 
 #include "armybalancer.h"
-#include "squircle.h"
 #include "warscrollrelationsgraphscene.h"
 
 int main(int argc, char *argv[])
@@ -17,7 +16,6 @@ int main(int argc, char *argv[])
   qmlRegisterType<ArmyBalancer>("ArmyBalancer", 1, 0, "ArmyBalancer");
   qmlRegisterType<WarScrollRelationsGraphScene>("WarScrollRelationsGraphScene",
     1, 0, "WarScrollRelationsGraphScene");
-  qmlRegisterType<Squircle>("OpenGLUnderQML", 1, 0, "Squircle");
 
   QQuickView * quickView = new QQuickView;
   quickView->setSource(QUrl("qrc:/ArmyBalancer.qml"));
