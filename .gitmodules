@@ -1,0 +1,6 @@
+[submodule "opengl_math"]
+	path = opengl_math
+	url = ssh://mehoggan@www.matthewh.me:29418/opengl_math
+[submodule "opengl_graphics"]
+	path = opengl_graphics
+	url = ssh://mehoggan@www.matthewh.me:29418/opengl_graphics
