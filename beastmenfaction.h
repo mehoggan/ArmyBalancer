@@ -1,8 +1,6 @@
 ﻿#ifndef BEASTMEN_H
 #define BEASTMEN_H
 
-#include <functional>
-
 #include "ifaction.h"
 
 class BeastmenFaction : public IFaction

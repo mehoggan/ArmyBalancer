@@ -1,9 +1,9 @@
-﻿#include "factions.h"
-#include "warscrollfactory.h"
-
-#include <QDebug>
+﻿#include <QDebug>
 
 #include <iostream>
+
+#include "factions.h"
+#include "warscrollfactory.h"
 
 WarScrollFactory &WarScrollFactory::getSharedInstance()
 {
