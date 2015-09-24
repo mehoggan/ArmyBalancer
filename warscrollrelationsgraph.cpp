@@ -27,15 +27,20 @@ WarScrollRelationsGraph::~WarScrollRelationsGraph()
 void WarScrollRelationsGraph::renderBackground()
 {
   m_program->bind();
+
   m_program->enableAttributeArray(0);
-  float values[] = {1, -1, 1, -1, -1, 1, 1, 1};
+
+  float values[] = {-1, -1, 1, -1, -1, 1, 1, 1};
   m_program->setAttributeArray(0, GL_FLOAT, values, 2);
   m_program->setUniformValue("t", (float) m_t);
+  qreal width = m_viewportSize.width();
+  qreal height = m_viewportSize.height();
+  glViewport(0, 0.1125 * height, width, height);
+  glDisable(GL_DEPTH_TEST);
   glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
   m_program->disableAttributeArray(0);
   m_program->release();
 }
-
 
 void WarScrollRelationsGraph::renderGraph()
 {
@@ -94,11 +99,6 @@ void WarScrollRelationsGraph::paint()
   }
 
   if (m_draw) {
-    qreal width = m_viewportSize.width();
-    qreal height = m_viewportSize.height();
-
-    glViewport(0, 0.11 * height, width, height);
-    glDisable(GL_DEPTH_TEST);
     renderBackground();
     renderGraph();
   }
