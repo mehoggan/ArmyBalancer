@@ -24,6 +24,8 @@ struct VertexData
 
 WarScrollRelationsGraph::WarScrollRelationsGraph() :
   m_shaderProgram(0),
+  m_vertexShader(0),
+  m_fragmentShader(0),
   m_vbo(0)
 {
   m_draw = f;
@@ -40,6 +42,18 @@ WarScrollRelationsGraph::~WarScrollRelationsGraph()
   if (glIsBuffer(m_vbo)) {
     glDeleteBuffers(1, &m_vbo);
   }
+
+  if (glIsProgram(m_shaderProgram)) {
+    glDeleteProgram(m_shaderProgram);
+  }
+
+  if (glIsShader(m_vertexShader)) {
+    glDeleteShader(m_vertexShader);
+  }
+
+  if (glIsShader(m_fragmentShader)) {
+    glDeleteShader(m_fragmentShader);
+  }
 }
 
 void WarScrollRelationsGraph::setViewportSize(const QSize &size)
@@ -50,7 +64,7 @@ void WarScrollRelationsGraph::setViewportSize(const QSize &size)
 void WarScrollRelationsGraph::creatStaticData()
 {
   initializeOpenGLFunctions();
-  QFile vshaderFile(":/colorsquare_vshader.glsl");
+  QFile vshaderFile(":/whitebasictriangle_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       vshaderFile.fileName().toStdString()).c_str();
@@ -58,7 +72,7 @@ void WarScrollRelationsGraph::creatStaticData()
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  QFile fshaderFile(":/colorsquare_fshader.glsl");
+  QFile fshaderFile(":/whitebasictriangle_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       fshaderFile.fileName().toStdString()).c_str();
@@ -82,21 +96,21 @@ void WarScrollRelationsGraph::creatStaticData()
     GL_STATIC_DRAW);
 
   // Create and compile the vertex shader
-  GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+  m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
   const GLchar *vshaderRaw = vshaderSrc.c_str();
-  glShaderSource(vertexShader, 1, &(vshaderRaw), NULL);
-  glCompileShader(vertexShader);
+  glShaderSource(m_vertexShader, 1, &(vshaderRaw), NULL);
+  glCompileShader(m_vertexShader);
 
   // Create and compile the fragment shader
-  GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+  m_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
   const GLchar *fshaderRaw = fshaderSrc.c_str();
-  glShaderSource(fragmentShader, 1, &(fshaderRaw), NULL);
-  glCompileShader(fragmentShader);
+  glShaderSource(m_fragmentShader, 1, &(fshaderRaw), NULL);
+  glCompileShader(m_fragmentShader);
 
   // Link the vertex and fragment shader into a shader program
   m_shaderProgram = glCreateProgram();
-  glAttachShader(m_shaderProgram, vertexShader);
-  glAttachShader(m_shaderProgram, fragmentShader);
+  glAttachShader(m_shaderProgram, m_vertexShader);
+  glAttachShader(m_shaderProgram, m_fragmentShader);
   glLinkProgram(m_shaderProgram);
 }
 

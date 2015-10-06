@@ -25,6 +25,8 @@ private:
   WarScrollSynergyGraph *m_graph;
 
   GLuint m_shaderProgram;
+  GLuint m_vertexShader;
+  GLuint m_fragmentShader;
   GLuint m_vbo;
 
 private:
