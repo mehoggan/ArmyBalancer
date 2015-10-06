@@ -62,6 +62,5 @@ void WarScrollRelationsGraphScene::sync()
   }
   m_renderer->setViewportSize(QSize(width(), height())
     * window()->devicePixelRatio());
-  m_renderer->setT(m_t);
 }
 

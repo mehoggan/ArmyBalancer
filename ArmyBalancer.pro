@@ -3,6 +3,10 @@ TEMPLATE = app
 QT += qml quick widgets
 CONFIG += c++11
 
+INCLUDEPATH += ./opengl_core/includes \
+  ./opengl_graphics/includes \
+  ./opengl_math/includes
+
 SOURCES += main.cpp \
   armybalancer.cpp \
   beastmenfaction.cpp \
@@ -36,7 +40,9 @@ SOURCES += main.cpp \
   warscrollrelationsgraphscene.cpp \
   warscrollsynergygraph.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    shaders.qrc \
+    textures.qrc
 
 #QML_IMPORT_PATH =
 
@@ -104,3 +110,5 @@ android {
 
   ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 }
+
+DISTFILES +=

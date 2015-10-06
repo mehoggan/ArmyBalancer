@@ -2,8 +2,8 @@
 #define WARSCROLLRELATIONSGRAPH_H
 
 #include <QObject>
-#include <QtGui/QOpenGLShaderProgram>
 #include <QtGui/QOpenGLFunctions>
+#include <QMatrix4x4>
 
 #include "warscrollsynergygraph.h"
 
@@ -20,11 +20,12 @@ private:
   std::atomic_bool m_create;
   std::atomic_bool m_initialize;
   QSize m_viewportSize;
-  qreal m_t;
-  QOpenGLShaderProgram *m_program;
 
   std::mutex m_graphMutex;
   WarScrollSynergyGraph *m_graph;
+
+  GLuint m_shaderProgram;
+  GLuint m_vbo;
 
 private:
   void renderBackground();
@@ -36,8 +37,7 @@ public:
   WarScrollRelationsGraph();
   ~WarScrollRelationsGraph();
 
-  void setT(qreal t) {m_t = t;}
-  void setViewportSize(const QSize &size) {m_viewportSize = size;}
+  void setViewportSize(const QSize &size);
   void setDraw(bool draw) {m_draw = draw;}
   void setGraph(WarScrollSynergyGraph &graph);
 
