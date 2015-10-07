@@ -1,8 +1,8 @@
 ﻿<RCC>
     <qresource prefix="/">
-        <file>whitebasictriangle_vshader.glsl</file>
-        <file>whitebasictriangle_fshader.glsl</file>
-        <file>blinkinguniformredtriangle_vshader.glsl</file>
-        <file>blinkinguniformredtriangle_fshader.glsl</file>
+        <file>nonprojectedwhitetriangle_vshader.glsl</file>
+        <file>nonprojectedwhitetriangle_fshader.glsl</file>
+        <file>nonprojectedblinkinguniformredtriangle_vshader.glsl</file>
+        <file>nonprojectedblinkinguniformredtriangle_fshader.glsl</file>
     </qresource>
 </RCC>

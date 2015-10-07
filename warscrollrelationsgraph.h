@@ -5,8 +5,12 @@
 #include <QtGui/QOpenGLFunctions>
 #include <QMatrix4x4>
 
+#include "geometries/geometry.h"
 #include "warscrollsynergygraph.h"
 
+#include "core/platform.h"
+
+#include <array>
 #include <atomic>
 #include <mutex>
 
@@ -24,10 +28,7 @@ private:
   std::mutex m_graphMutex;
   WarScrollSynergyGraph *m_graph;
 
-  GLuint m_shaderProgram;
-  GLuint m_vertexShader;
-  GLuint m_fragmentShader;
-  GLuint m_vbo;
+  std::array<Geometry *, 2> m_geometries;
 
 private:
   void renderBackground();

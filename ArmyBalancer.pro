@@ -38,7 +38,9 @@ SOURCES += main.cpp \
   warscroll.cpp \
   warscrollrelationsgraph.cpp \
   warscrollrelationsgraphscene.cpp \
-  warscrollsynergygraph.cpp
+  warscrollsynergygraph.cpp \
+  geometries/nonprojectedwhitetriangle.cpp \
+  geometries/nonprojectedblinkinguniformredtriangle.cpp
 
 RESOURCES += qml.qrc \
     shaders.qrc \
@@ -82,7 +84,10 @@ HEADERS += \
   warscroll.h \
   warscrollrelationsgraph.h \
   warscrollrelationsgraphscene.h \
-  warscrollsynergygraph.h
+  warscrollsynergygraph.h \
+  geometries/geometry.h \
+  geometries/nonprojectedwhitetriangle.h \
+  geometries/nonprojectedblinkinguniformredtriangle.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)
