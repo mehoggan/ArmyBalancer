@@ -2,6 +2,7 @@
 
 #include "geometries/nonprojectedblinkinguniformredtriangle.h"
 #include "geometries/nonprojectedwhitetriangle.h"
+#include "geometries/nonprojectedrainbowtriangle.h"
 
 #include <QDebug>
 
@@ -57,11 +58,16 @@ void WarScrollRelationsGraph::creatStaticData()
     }
   }
 
+/*
   m_geometries[0] = new NonProjectedWhiteTriangle();
   m_geometries[0]->create();
 
   m_geometries[1] = new NonProjectedBlinkingUniformRedTriangle();
   m_geometries[1]->create();
+*/
+
+  m_geometries[0] = new NonProjectedRainbowTriangle();
+  m_geometries[0]->create();
 }
 
 void WarScrollRelationsGraph::createGraph()

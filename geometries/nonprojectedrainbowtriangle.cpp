@@ -1,25 +1,25 @@
-﻿#include "geometries/nonprojectedwhitetriangle.h"
+﻿#include "geometries/nonprojectedrainbowtriangle.h"
 
 #include <QFile>
 #include <QTextStream>
 
-NonProjectedWhiteTriangle::NonProjectedWhiteTriangle() :
+NonProjectedRainbowTriangle::NonProjectedRainbowTriangle() :
   m_shaderProgram(0),
   m_vertexShader(0),
   m_fragmentShader(0),
   m_vbo(0)
 {}
 
-NonProjectedWhiteTriangle::~NonProjectedWhiteTriangle()
+NonProjectedRainbowTriangle::~NonProjectedRainbowTriangle()
 {
   destroy();
 }
 
-void NonProjectedWhiteTriangle::create()
+void NonProjectedRainbowTriangle::create()
 {
   initializeOpenGLFunctions();
 
-  QFile vshaderFile(":/nonprojectedwhitetriangle_vshader.glsl");
+  QFile vshaderFile(":/nonprojectedrainbowtriangle_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       vshaderFile.fileName().toStdString()).c_str();
@@ -27,7 +27,7 @@ void NonProjectedWhiteTriangle::create()
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  QFile fshaderFile(":/nonprojectedwhitetriangle_fshader.glsl");
+  QFile fshaderFile(":/nonprojectedrainbowtriangle_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       fshaderFile.fileName().toStdString()).c_str();
@@ -37,17 +37,14 @@ void NonProjectedWhiteTriangle::create()
 
   glGenBuffers(1, &m_vbo);
 
-  verts::collection1_type data(new opengl_math::point_2d<float>[3]);
-  data[0] = opengl_math::point_2d<float>(+0.0, +0.5);
-  data[1] = opengl_math::point_2d<float>(+0.5, -0.5);
-  data[2] = opengl_math::point_2d<float>(-0.5, -0.5);
-
-  m_vertexAttrib = verts(data, 3);
-  std::size_t bytes = m_vertexAttrib.get_bytecount_1();
+  GLfloat vertices[] = {
+    +0.0f, +0.5f, +1.0f, +0.0f, +0.0f,
+    +0.5f, -0.5f, +0.0f, +1.0f, +0.0f,
+    -0.5f, -0.5f, +0.0f, +0.0f, +1.0f
+  };
 
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-  glBufferData(GL_ARRAY_BUFFER, bytes, m_vertexAttrib.get_data1().get(),
-    GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
   // Create and compile the vertex shader
   m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -68,19 +65,25 @@ void NonProjectedWhiteTriangle::create()
   glLinkProgram(m_shaderProgram);
 }
 
-void NonProjectedWhiteTriangle::draw()
+void NonProjectedRainbowTriangle::draw()
 {
   glUseProgram(m_shaderProgram);
+
   GLint posAttrib = glGetAttribLocation(m_shaderProgram, "position");
+  GLint colAttrib = glGetAttribLocation(m_shaderProgram, "color");
 
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
   glEnableVertexAttribArray(posAttrib);
-  glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+  glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat),
+    0);
+  glEnableVertexAttribArray(colAttrib);
+  glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat),
+    (void*)(2 * sizeof(GLfloat)));
 
-  glDrawArrays(GL_TRIANGLES, 0, m_vertexAttrib.get_attribute_count());
+  glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
-void NonProjectedWhiteTriangle::destroy()
+void NonProjectedRainbowTriangle::destroy()
 {
   if (glIsBuffer(m_vbo)) {
     glDeleteBuffers(1, &m_vbo);

@@ -4,5 +4,7 @@
         <file>nonprojectedwhitetriangle_fshader.glsl</file>
         <file>nonprojectedblinkinguniformredtriangle_vshader.glsl</file>
         <file>nonprojectedblinkinguniformredtriangle_fshader.glsl</file>
+        <file>nonprojectedrainbowtriangle_vshader.glsl</file>
+        <file>nonprojectedrainbowtriangle_fshader.glsl</file>
     </qresource>
 </RCC>

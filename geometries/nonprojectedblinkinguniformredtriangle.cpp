@@ -73,8 +73,6 @@ void NonProjectedBlinkingUniformRedTriangle::create()
 
 void NonProjectedBlinkingUniformRedTriangle::draw()
 {
-  glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-
   glUseProgram(m_shaderProgram);
 
   GLint uniColor = glGetUniformLocation(m_shaderProgram, "triangleColor");
@@ -83,12 +81,13 @@ void NonProjectedBlinkingUniformRedTriangle::draw()
     t_now - m_start).count();
   float alpha = (sin(time * 4.0f) + 1.0f) / 2.0f;
   glUniform4f(uniColor, 1.0f, 0.0f, 0.0f, alpha);
-
   GLint posAttrib = glGetAttribLocation(m_shaderProgram, "position");
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
   glEnableVertexAttribArray(posAttrib);
   glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+  glDrawArrays(GL_TRIANGLES, 0, m_vertexAttrib.get_attribute_count());
 }
 
 void NonProjectedBlinkingUniformRedTriangle::destroy()
