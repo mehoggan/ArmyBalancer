@@ -1,4 +1,4 @@
-﻿#include "daemonsofchaoskhornefaction.h"
+#include "daemonsofchaoskhornefaction.h"
 
 namespace WarScrollGeneration
 {

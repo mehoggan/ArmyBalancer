@@ -1,4 +1,4 @@
-﻿#ifndef WARSCROLLFACTORY_H
+#ifndef WARSCROLLFACTORY_H
 #define WARSCROLLFACTORY_H
 
 #include <QPair>

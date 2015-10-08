@@ -1,4 +1,4 @@
-﻿#ifndef VAMPIRECOUNTS_H
+#ifndef VAMPIRECOUNTS_H
 #define VAMPIRECOUNTS_H
 
 #include "ifaction.h"

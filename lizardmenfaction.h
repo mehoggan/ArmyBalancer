@@ -1,4 +1,4 @@
-﻿#ifndef LIZARDMEN_H
+#ifndef LIZARDMEN_H
 #define LIZARDMEN_H
 
 #include "ifaction.h"

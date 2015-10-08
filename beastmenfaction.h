@@ -1,4 +1,4 @@
-﻿#ifndef BEASTMEN_H
+#ifndef BEASTMEN_H
 #define BEASTMEN_H
 
 #include "ifaction.h"

@@ -1,4 +1,4 @@
-﻿#ifndef WOODELVES_H
+#ifndef WOODELVES_H
 #define WOODELVES_H
 
 #include "ifaction.h"

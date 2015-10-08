@@ -1,4 +1,4 @@
-﻿#include "ogrekingdomsfaction.h"
+#include "ogrekingdomsfaction.h"
 
 namespace WarScrollGeneration
 {

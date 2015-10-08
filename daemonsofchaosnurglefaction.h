@@ -1,4 +1,4 @@
-﻿#ifndef DAEMONSOFCHAOSNURGLE_H
+#ifndef DAEMONSOFCHAOSNURGLE_H
 #define DAEMONSOFCHAOSNURGLE_H
 
 #include "ifaction.h"

@@ -1,4 +1,4 @@
-﻿#include "lizardmenfaction.h"
+#include "lizardmenfaction.h"
 
 namespace WarScrollGeneration
 {

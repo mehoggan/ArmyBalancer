@@ -1,4 +1,4 @@
-﻿#include "theempirefaction.h"
+#include "theempirefaction.h"
 
 namespace WarScrollGeneration
 {

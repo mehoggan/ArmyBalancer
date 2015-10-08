@@ -1,4 +1,4 @@
-﻿#include "warriorsofchaosfaction.h"
+#include "warriorsofchaosfaction.h"
 
 namespace WarScrollGeneration
 {

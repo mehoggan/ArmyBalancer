@@ -1,4 +1,4 @@
-﻿#include "darkelvesfaction.h"
+#include "darkelvesfaction.h"
 
 namespace WarScrollGeneration
 {

@@ -1,4 +1,4 @@
-﻿#ifndef HIGHELVES_H
+#ifndef HIGHELVES_H
 #define HIGHELVES_H
 
 #include "ifaction.h"

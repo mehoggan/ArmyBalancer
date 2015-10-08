@@ -1,4 +1,4 @@
-﻿#ifndef IFACTION_H
+#ifndef IFACTION_H
 #define IFACTION_H
 
 #include <list>

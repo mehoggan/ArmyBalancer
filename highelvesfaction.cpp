@@ -1,4 +1,4 @@
-﻿#include "highelvesfaction.h"
+#include "highelvesfaction.h"
 
 namespace WarScrollGeneration
 {

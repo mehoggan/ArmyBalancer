@@ -1,4 +1,4 @@
-﻿#ifndef DWARFS_H
+#ifndef DWARFS_H
 #define DWARFS_H
 
 #include "ifaction.h"

@@ -1,4 +1,4 @@
-﻿#include "vampirecountsfaction.h"
+#include "vampirecountsfaction.h"
 
 namespace WarScrollGeneration
 {

@@ -1,4 +1,4 @@
-﻿#ifndef DAEMONSOFCHAOSTZEENTCH_H
+#ifndef DAEMONSOFCHAOSTZEENTCH_H
 #define DAEMONSOFCHAOSTZEENTCH_H
 
 #include "ifaction.h"

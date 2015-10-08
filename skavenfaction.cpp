@@ -1,4 +1,4 @@
-﻿#include "skavenfaction.h"
+#include "skavenfaction.h"
 
 namespace WarScrollGeneration
 {

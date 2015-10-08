@@ -1,4 +1,4 @@
-﻿#ifndef OGREKINGDOMS_H
+#ifndef OGREKINGDOMS_H
 #define OGREKINGDOMS_H
 
 #include "ifaction.h"

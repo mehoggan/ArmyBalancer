@@ -1,4 +1,4 @@
-﻿#ifndef FACTIONBALANCER_H
+#ifndef FACTIONBALANCER_H
 #define FACTIONBALANCER_H
 
 #include <QQuickItem>

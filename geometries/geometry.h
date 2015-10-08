@@ -1,4 +1,4 @@
-﻿#ifndef GEOMETRY_H
+#ifndef GEOMETRY_H
 #define GEOMETRY_H
 
 #include <QtGui/QOpenGLFunctions>

@@ -1,4 +1,5 @@
-﻿#include "geometries/nonprojectedwhitetriangle.h"
+#include "geometries/nonprojectedwhitetriangle.h"
+#include "mesh_types/batch_traits.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -75,7 +76,8 @@ void NonProjectedWhiteTriangle::draw()
 
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
   glEnableVertexAttribArray(posAttrib);
-  glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+  glVertexAttribPointer(posAttrib, verts::type1::dimension, GL_FLOAT, GL_FALSE,
+    verts::batch_traits_t::stride, 0);
 
   glDrawArrays(GL_TRIANGLES, 0, m_vertexAttrib.get_attribute_count());
 }

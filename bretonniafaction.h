@@ -1,4 +1,4 @@
-﻿#ifndef BRETONNIA_H
+#ifndef BRETONNIA_H
 #define BRETONNIA_H
 
 #include "ifaction.h"

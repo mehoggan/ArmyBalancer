@@ -1,4 +1,4 @@
-﻿#include "armybalancer.h"
+#include "armybalancer.h"
 
 #include <QDate>
 #include <QMessageBox>

@@ -1,4 +1,4 @@
-﻿#ifndef ARMIES
+#ifndef ARMIES
 #define ARMIES
 
 #include "beastmenfaction.h"

@@ -1,4 +1,4 @@
-﻿#ifndef WARSCROLL_H
+#ifndef WARSCROLL_H
 #define WARSCROLL_H
 
 #include <QQuickItem>

@@ -1,4 +1,4 @@
-﻿#ifndef WARRIORSOFCHAOS_H
+#ifndef WARRIORSOFCHAOS_H
 #define WARRIORSOFCHAOS_H
 
 #include "ifaction.h"

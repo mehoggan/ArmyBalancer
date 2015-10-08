@@ -1,4 +1,4 @@
-﻿#ifndef SKAVEN_H
+#ifndef SKAVEN_H
 #define SKAVEN_H
 
 #include "ifaction.h"

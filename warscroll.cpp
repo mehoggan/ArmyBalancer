@@ -1,4 +1,4 @@
-﻿#include "warscroll.h"
+#include "warscroll.h"
 
 #include <sstream>
 #include <utility>

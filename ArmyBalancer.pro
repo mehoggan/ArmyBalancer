@@ -42,6 +42,7 @@ SOURCES += main.cpp \
   geometries/nonprojectedwhitetriangle.cpp \
   geometries/nonprojectedblinkinguniformredtriangle.cpp \
   geometries/nonprojectedrainbowtriangle.cpp
+  geometries/nonprojectedrainbowsquare.cpp
 
 RESOURCES += qml.qrc \
     shaders.qrc \
@@ -90,6 +91,7 @@ HEADERS += \
   geometries/nonprojectedwhitetriangle.h \
   geometries/nonprojectedblinkinguniformredtriangle.h \
   geometries/nonprojectedrainbowtriangle.h
+  geometries/nonprojectedrainbowsquare.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)

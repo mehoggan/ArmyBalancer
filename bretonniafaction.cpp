@@ -1,4 +1,4 @@
-﻿#include "bretonniafaction.h"
+#include "bretonniafaction.h"
 
 namespace WarScrollGeneration
 {

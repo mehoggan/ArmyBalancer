@@ -1,4 +1,4 @@
-﻿#include "warscrollrelationsgraphscene.h"
+#include "warscrollrelationsgraphscene.h"
 
 WarScrollRelationsGraphScene::WarScrollRelationsGraphScene() :
   m_t(0),

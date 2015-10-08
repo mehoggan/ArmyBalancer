@@ -1,4 +1,4 @@
-﻿#ifndef THE_EMPIRE_H
+#ifndef THE_EMPIRE_H
 #define THE_EMPIRE_H
 
 #include "ifaction.h"

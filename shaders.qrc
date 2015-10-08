@@ -1,4 +1,4 @@
-﻿<RCC>
+<RCC>
     <qresource prefix="/">
         <file>nonprojectedwhitetriangle_vshader.glsl</file>
         <file>nonprojectedwhitetriangle_fshader.glsl</file>
@@ -6,5 +6,7 @@
         <file>nonprojectedblinkinguniformredtriangle_fshader.glsl</file>
         <file>nonprojectedrainbowtriangle_vshader.glsl</file>
         <file>nonprojectedrainbowtriangle_fshader.glsl</file>
+        <file>nonprojectedrainbowsquare_vshader.glsl</file>
+        <file>nonprojectedrainbowsquare_fshader.glsl</file>
     </qresource>
 </RCC>

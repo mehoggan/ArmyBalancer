@@ -1,4 +1,4 @@
-﻿#ifndef DARKELVES_H
+#ifndef DARKELVES_H
 #define DARKELVES_H
 
 #include "ifaction.h"

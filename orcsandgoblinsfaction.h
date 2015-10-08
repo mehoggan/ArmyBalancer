@@ -1,4 +1,4 @@
-﻿#ifndef ORCSANDGOBLINS_H
+#ifndef ORCSANDGOBLINS_H
 #define ORCSANDGOBLINS_H
 
 #include "ifaction.h"

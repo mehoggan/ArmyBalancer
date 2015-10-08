@@ -1,9 +1,8 @@
-﻿#ifndef WARSCROLLRELATIONSGRAPH_H
+#ifndef WARSCROLLRELATIONSGRAPH_H
 #define WARSCROLLRELATIONSGRAPH_H
 
 #include <QObject>
 #include <QtGui/QOpenGLFunctions>
-#include <QMatrix4x4>
 
 #include "geometries/geometry.h"
 #include "warscrollsynergygraph.h"
@@ -28,7 +27,7 @@ private:
   std::mutex m_graphMutex;
   WarScrollSynergyGraph *m_graph;
 
-  std::array<Geometry *, 1> m_geometries;
+  std::array<Geometry *, 4> m_geometries;
 
 private:
   void renderBackground();

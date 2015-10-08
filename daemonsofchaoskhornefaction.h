@@ -1,4 +1,4 @@
-﻿#ifndef DAEMONSOFCHAOSKHORNE_H
+#ifndef DAEMONSOFCHAOSKHORNE_H
 #define DAEMONSOFCHAOSKHORNE_H
 
 #include "ifaction.h"

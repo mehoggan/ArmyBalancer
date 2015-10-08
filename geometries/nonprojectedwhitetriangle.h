@@ -1,4 +1,4 @@
-﻿#ifndef NONPROJECTEDWHITETRIANGLE_H
+#ifndef NONPROJECTEDWHITETRIANGLE_H
 #define NONPROJECTEDWHITETRIANGLE_H
 
 #include <geometries/geometry.h>

@@ -1,4 +1,4 @@
-﻿#ifndef TOMBKINGS_H
+#ifndef TOMBKINGS_H
 #define TOMBKINGS_H
 
 #include "ifaction.h"

@@ -1,23 +1,24 @@
-#include "geometries/nonprojectedrainbowtriangle.h"
+#include "geometries/nonprojectedrainbowsquare.h"
 
 #include <QFile>
 #include <QTextStream>
 
 #include <iostream>
 
-NonProjectedRainbowTriangle::NonProjectedRainbowTriangle() :
+NonProjectedRainbowSquare::NonProjectedRainbowSquare() :
   m_shaderProgram(0),
   m_vertexShader(0),
   m_fragmentShader(0),
-  m_vbo(0)
+  m_vbo(0),
+  m_ebo(0)
 {}
 
-NonProjectedRainbowTriangle::~NonProjectedRainbowTriangle()
+NonProjectedRainbowSquare::~NonProjectedRainbowSquare()
 {
   destroy();
 }
 
-void NonProjectedRainbowTriangle::create()
+void NonProjectedRainbowSquare::create()
 {
   initializeOpenGLFunctions();
 
@@ -39,23 +40,36 @@ void NonProjectedRainbowTriangle::create()
 
   glGenBuffers(1, &m_vbo);
 
-  verts::collection_type data(new verts::datum_type[3]);
+  verts::collection_type data(new verts::datum_type[4]);
   data[0] = verts::datum_type(
-    opengl_math::point_2d<float>(+0.0f, +0.5f),
+    opengl_math::point_2d<float>(-0.5f, +0.5f),
     opengl_math::color_rgb<float>(+1.0f, +0.0f, +0.0f));
   data[1] = verts::datum_type(
-    opengl_math::point_2d<float>(+0.5f, -0.5f),
+    opengl_math::point_2d<float>(+0.5f, +0.5f),
     opengl_math::color_rgb<float>(+0.0f, +1.0f, +0.0f));
   data[2] = verts::datum_type(
-    opengl_math::point_2d<float>(-0.5f, -0.5f),
+    opengl_math::point_2d<float>(+0.5f, -0.5f),
     opengl_math::color_rgb<float>(+0.0f, +0.0f, +1.0f));
-  m_vertexAttrib = verts(data, 3);
+  data[3] = verts::datum_type(
+    opengl_math::point_2d<float>(-0.5f, -0.5f),
+    opengl_math::color_rgb<float>(+1.0f, +1.0f, +1.0f));
+  m_vertexAttrib = verts(data, 4);
 
   std::size_t bytes = m_vertexAttrib.get_byte_count();
 
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
   glBufferData(GL_ARRAY_BUFFER, bytes, m_vertexAttrib.get_data().get(),
     GL_STATIC_DRAW);
+
+  glGenBuffers(1, &m_ebo);
+  // Create indices
+  opengl_graphics::indices<uint32_t>::collection_type indices(new uint32_t[6]);
+  indices[0] = 0u; indices[1] = 1u; indices[2] = 2u;
+  indices[3] = 2u; indices[4] = 3u; indices[5] = 0u;
+  m_indices = opengl_graphics::indices<uint32_t>(indices, 6);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.get_byte_count(),
+    m_indices.get_data().get(), GL_STATIC_DRAW);
 
   // Create and compile the vertex shader
   m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -76,7 +90,7 @@ void NonProjectedRainbowTriangle::create()
   glLinkProgram(m_shaderProgram);
 }
 
-void NonProjectedRainbowTriangle::draw()
+void NonProjectedRainbowSquare::draw()
 {
   glUseProgram(m_shaderProgram);
 
@@ -84,6 +98,7 @@ void NonProjectedRainbowTriangle::draw()
   GLint colAttrib = glGetAttribLocation(m_shaderProgram, "color");
 
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
   std::size_t stride = verts::traits::stride;
 
   std::size_t dimension1 = verts::datum_type::internal_type1::dimension;
@@ -98,10 +113,11 @@ void NonProjectedRainbowTriangle::draw()
   glVertexAttribPointer(colAttrib, dimension2, GL_FLOAT, GL_FALSE,
     stride, (void*)byte_offset2);
 
-  glDrawArrays(GL_TRIANGLES, 0, m_vertexAttrib.get_attribute_count());
+  glDrawElements(GL_TRIANGLES, m_indices.get_indices_count(),
+    GL_UNSIGNED_INT, 0);
 }
 
-void NonProjectedRainbowTriangle::destroy()
+void NonProjectedRainbowSquare::destroy()
 {
   if (glIsBuffer(m_vbo)) {
     glDeleteBuffers(1, &m_vbo);

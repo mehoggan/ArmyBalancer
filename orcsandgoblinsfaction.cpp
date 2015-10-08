@@ -1,4 +1,4 @@
-﻿#include "orcsandgoblinsfaction.h"
+#include "orcsandgoblinsfaction.h"
 
 namespace WarScrollGeneration
 {

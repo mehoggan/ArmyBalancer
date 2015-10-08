@@ -1,4 +1,4 @@
-﻿#include "warscrollsynergygraph.h"
+#include "warscrollsynergygraph.h"
 
 #include <iostream>
 

@@ -1,4 +1,4 @@
-﻿#include "dwarfsfaction.h"
+#include "dwarfsfaction.h"
 
 namespace WarScrollGeneration
 {
