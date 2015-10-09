@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick widgets
+QT += qml quick widgets opengl
 CONFIG += c++11
 
 INCLUDEPATH += ./opengl_core/includes \
@@ -41,8 +41,9 @@ SOURCES += main.cpp \
   warscrollsynergygraph.cpp \
   geometries/nonprojectedwhitetriangle.cpp \
   geometries/nonprojectedblinkinguniformredtriangle.cpp \
-  geometries/nonprojectedrainbowtriangle.cpp
-  geometries/nonprojectedrainbowsquare.cpp
+  geometries/nonprojectedrainbowtriangle.cpp \
+  geometries/nonprojectedrainbowsquare.cpp \
+  geometries/nonprojectedrainbowtexturedsquare.cpp
 
 RESOURCES += qml.qrc \
     shaders.qrc \
@@ -90,8 +91,9 @@ HEADERS += \
   geometries/geometry.h \
   geometries/nonprojectedwhitetriangle.h \
   geometries/nonprojectedblinkinguniformredtriangle.h \
-  geometries/nonprojectedrainbowtriangle.h
-  geometries/nonprojectedrainbowsquare.h
+  geometries/nonprojectedrainbowtriangle.h \
+  geometries/nonprojectedrainbowsquare.h \
+  geometries/nonprojectedrainbowtexturedsquare.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)

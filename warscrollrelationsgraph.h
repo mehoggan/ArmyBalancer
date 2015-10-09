@@ -27,7 +27,7 @@ private:
   std::mutex m_graphMutex;
   WarScrollSynergyGraph *m_graph;
 
-  std::array<Geometry *, 4> m_geometries;
+  std::array<Geometry *, 5> m_geometries;
 
 private:
   void renderBackground();

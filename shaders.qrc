@@ -8,5 +8,7 @@
         <file>nonprojectedrainbowtriangle_fshader.glsl</file>
         <file>nonprojectedrainbowsquare_vshader.glsl</file>
         <file>nonprojectedrainbowsquare_fshader.glsl</file>
+        <file>nonprojectedrainbowtexturedsquare_vshader.glsl</file>
+        <file>nonprojectedrainbowtexturedsquare_fshader.glsl</file>
     </qresource>
 </RCC>
