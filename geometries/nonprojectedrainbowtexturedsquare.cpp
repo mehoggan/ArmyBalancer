@@ -25,7 +25,8 @@ void NonProjectedRainbowTexturedSquare::create()
 {
   initializeOpenGLFunctions();
 
-  QFile vshaderFile(":/nonprojectedrainbowtexturedsquare_vshader.glsl");
+  QFile vshaderFile(
+    ":/shaders/nonprojectedrainbowtexturedsquare_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       vshaderFile.fileName().toStdString()).c_str();
@@ -33,7 +34,8 @@ void NonProjectedRainbowTexturedSquare::create()
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  QFile fshaderFile(":/nonprojectedrainbowtexturedsquare_fshader.glsl");
+  QFile fshaderFile(
+    ":/shaders/nonprojectedrainbowtexturedsquare_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       fshaderFile.fileName().toStdString()).c_str();
@@ -97,7 +99,7 @@ void NonProjectedRainbowTexturedSquare::create()
   glAttachShader(m_shaderProgram, m_fragmentShader); GL_CALL
   glLinkProgram(m_shaderProgram); GL_CALL
 
-  QImage img(":/die1.png", "PNG"); GL_CALL
+  QImage img(":/images/die1.png", "PNG"); GL_CALL
   glGenTextures(1, &m_tex); GL_CALL
   glBindTexture(GL_TEXTURE_2D, m_tex); GL_CALL
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.width(), img.height(), 0,

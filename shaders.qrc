@@ -1,18 +1,18 @@
 <RCC>
     <qresource prefix="/">
-        <file>nonprojectedwhitetriangle_vshader.glsl</file>
-        <file>nonprojectedwhitetriangle_fshader.glsl</file>
-        <file>nonprojectedblinkinguniformredtriangle_vshader.glsl</file>
-        <file>nonprojectedblinkinguniformredtriangle_fshader.glsl</file>
-        <file>nonprojectedrainbowtriangle_vshader.glsl</file>
-        <file>nonprojectedrainbowtriangle_fshader.glsl</file>
-        <file>nonprojectedrainbowsquare_vshader.glsl</file>
-        <file>nonprojectedrainbowsquare_fshader.glsl</file>
-        <file>nonprojectedrainbowtexturedsquare_vshader.glsl</file>
-        <file>nonprojectedrainbowtexturedsquare_fshader.glsl</file>
-        <file>nonprojectedrainbow2texturedsquare_vshader.glsl</file>
-        <file>nonprojectedrainbow2texturedsquare_fshader.glsl</file>
-        <file>projectedrainbow2texturedsquare_vshader.glsl</file>
-        <file>projectedrainbow2texturedsquare_fshader.glsl</file>
+        <file>shaders/nonprojectedwhitetriangle_vshader.glsl</file>
+        <file>shaders/nonprojectedwhitetriangle_fshader.glsl</file>
+        <file>shaders/nonprojectedblinkinguniformredtriangle_vshader.glsl</file>
+        <file>shaders/nonprojectedblinkinguniformredtriangle_fshader.glsl</file>
+        <file>shaders/nonprojectedrainbowtriangle_vshader.glsl</file>
+        <file>shaders/nonprojectedrainbowtriangle_fshader.glsl</file>
+        <file>shaders/nonprojectedrainbowsquare_vshader.glsl</file>
+        <file>shaders/nonprojectedrainbowsquare_fshader.glsl</file>
+        <file>shaders/nonprojectedrainbowtexturedsquare_vshader.glsl</file>
+        <file>shaders/nonprojectedrainbowtexturedsquare_fshader.glsl</file>
+        <file>shaders/nonprojectedrainbow2texturedsquare_vshader.glsl</file>
+        <file>shaders/nonprojectedrainbow2texturedsquare_fshader.glsl</file>
+        <file>shaders/projectedrainbow2texturedsquare_vshader.glsl</file>
+        <file>shaders/projectedrainbow2texturedsquare_fshader.glsl</file>
     </qresource>
 </RCC>

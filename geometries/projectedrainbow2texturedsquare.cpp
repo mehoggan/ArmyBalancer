@@ -29,7 +29,8 @@ void ProjectedRainbow2TexturedSquare::create()
 {
   initializeOpenGLFunctions();
 
-  QFile vshaderFile(":/projectedrainbow2texturedsquare_vshader.glsl");
+  QFile vshaderFile(
+    ":/shaders/projectedrainbow2texturedsquare_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       vshaderFile.fileName().toStdString()).c_str();
@@ -37,7 +38,8 @@ void ProjectedRainbow2TexturedSquare::create()
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  QFile fshaderFile(":/projectedrainbow2texturedsquare_fshader.glsl");
+  QFile fshaderFile(
+    ":/shaders/projectedrainbow2texturedsquare_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       fshaderFile.fileName().toStdString()).c_str();
@@ -103,7 +105,7 @@ void ProjectedRainbow2TexturedSquare::create()
 
   glGenTextures(2, m_tex); GL_CALL
 
-  QImage img0(":/die1.png", "PNG");
+  QImage img0(":/images/die1.png", "PNG");
   glBindTexture(GL_TEXTURE_2D, m_tex[0]); GL_CALL
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img0.width(), img0.height(), 0,
     GL_RGBA, GL_UNSIGNED_BYTE, img0.bits()); GL_CALL
@@ -112,7 +114,7 @@ void ProjectedRainbow2TexturedSquare::create()
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); GL_CALL
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); GL_CALL
 
-  QImage img1(":/die2.png", "PNG");
+  QImage img1(":/images/die2.png", "PNG");
   glBindTexture(GL_TEXTURE_2D, m_tex[1]); GL_CALL
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img1.width(), img1.height(), 0,
     GL_RGBA, GL_UNSIGNED_BYTE, img1.bits()); GL_CALL

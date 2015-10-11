@@ -20,7 +20,8 @@ void NonProjectedWhiteTriangle::create()
 {
   initializeOpenGLFunctions();
 
-  QFile vshaderFile(":/nonprojectedwhitetriangle_vshader.glsl");
+  QFile vshaderFile(
+    ":/shaders/nonprojectedwhitetriangle_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       vshaderFile.fileName().toStdString()).c_str();
@@ -28,7 +29,8 @@ void NonProjectedWhiteTriangle::create()
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  QFile fshaderFile(":/nonprojectedwhitetriangle_fshader.glsl");
+  QFile fshaderFile(
+    ":/shaders/nonprojectedwhitetriangle_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       fshaderFile.fileName().toStdString()).c_str();

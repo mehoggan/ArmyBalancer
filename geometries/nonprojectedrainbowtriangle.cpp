@@ -21,7 +21,8 @@ void NonProjectedRainbowTriangle::create()
 {
   initializeOpenGLFunctions();
 
-  QFile vshaderFile(":/nonprojectedrainbowtriangle_vshader.glsl");
+  QFile vshaderFile(
+    ":/shaders/nonprojectedrainbowtriangle_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       vshaderFile.fileName().toStdString()).c_str();
@@ -29,7 +30,8 @@ void NonProjectedRainbowTriangle::create()
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  QFile fshaderFile(":/nonprojectedrainbowtriangle_fshader.glsl");
+  QFile fshaderFile(
+    ":/shaders/nonprojectedrainbowtriangle_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       fshaderFile.fileName().toStdString()).c_str();

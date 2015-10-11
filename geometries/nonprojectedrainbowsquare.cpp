@@ -22,7 +22,8 @@ void NonProjectedRainbowSquare::create()
 {
   initializeOpenGLFunctions();
 
-  QFile vshaderFile(":/nonprojectedrainbowsquare_vshader.glsl");
+  QFile vshaderFile(
+    ":/shaders/nonprojectedrainbowsquare_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       vshaderFile.fileName().toStdString()).c_str();
@@ -30,7 +31,8 @@ void NonProjectedRainbowSquare::create()
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  QFile fshaderFile(":/nonprojectedrainbowsquare_fshader.glsl");
+  QFile fshaderFile(
+    ":/shaders/nonprojectedrainbowsquare_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       fshaderFile.fileName().toStdString()).c_str();

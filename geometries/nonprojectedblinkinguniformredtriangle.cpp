@@ -22,7 +22,8 @@ void NonProjectedBlinkingUniformRedTriangle::create()
 {
   initializeOpenGLFunctions();
 
-  QFile vshaderFile(":/nonprojectedblinkinguniformredtriangle_vshader.glsl");
+  QFile vshaderFile(
+    ":/shaders/nonprojectedblinkinguniformredtriangle_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       vshaderFile.fileName().toStdString()).c_str();
@@ -30,7 +31,8 @@ void NonProjectedBlinkingUniformRedTriangle::create()
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  QFile fshaderFile(":/nonprojectedblinkinguniformredtriangle_fshader.glsl");
+  QFile fshaderFile(
+    ":/shaders/nonprojectedblinkinguniformredtriangle_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       fshaderFile.fileName().toStdString()).c_str();

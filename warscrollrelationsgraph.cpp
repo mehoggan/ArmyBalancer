@@ -62,23 +62,23 @@ void WarScrollRelationsGraph::creatStaticData()
     }
   }
 
-  //m_geometries[0] = new NonProjectedWhiteTriangle();
-  //m_geometries[0]->create();
+  m_geometries[0] = new NonProjectedWhiteTriangle();
+  m_geometries[0]->create();
 
-  //m_geometries[1] = new NonProjectedRainbowTriangle();
-  //m_geometries[1]->create();
+  m_geometries[1] = new NonProjectedRainbowTriangle();
+  m_geometries[1]->create();
 
-  //m_geometries[2] = new NonProjectedBlinkingUniformRedTriangle();
-  //m_geometries[2]->create();
+  m_geometries[2] = new NonProjectedBlinkingUniformRedTriangle();
+  m_geometries[2]->create();
 
-  //m_geometries[3] = new NonProjectedRainbowSquare();
-  //m_geometries[3]->create();
+  m_geometries[3] = new NonProjectedRainbowSquare();
+  m_geometries[3]->create();
 
-  //m_geometries[4] = new NonProjectedRainbowTexturedSquare();
-  //m_geometries[4]->create();
+  m_geometries[4] = new NonProjectedRainbowTexturedSquare();
+  m_geometries[4]->create();
 
-  //m_geometries[5] = new NonProjectedRainbow2TexturedSquare();
-  //m_geometries[5]->create();
+  m_geometries[5] = new NonProjectedRainbow2TexturedSquare();
+  m_geometries[5]->create();
 
   m_geometries[6] = new ProjectedRainbow2TexturedSquare();
   m_geometries[6]->create();
