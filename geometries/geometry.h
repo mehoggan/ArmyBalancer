@@ -2,6 +2,15 @@
 #define GEOMETRY_H
 
 #include <QtGui/QOpenGLFunctions>
+#include <iostream>
+
+#define GL_CALL do { \
+    GLint error; \
+    while ((error = glGetError()) != 0) { \
+      std::cout << __LINE__ << " " << __FUNCTION__ << " " << error << \
+        std::endl; \
+    } \
+  } while(false);
 
 class Geometry : public QOpenGLFunctions
 {

@@ -10,5 +10,9 @@
         <file>nonprojectedrainbowsquare_fshader.glsl</file>
         <file>nonprojectedrainbowtexturedsquare_vshader.glsl</file>
         <file>nonprojectedrainbowtexturedsquare_fshader.glsl</file>
+        <file>nonprojectedrainbow2texturedsquare_vshader.glsl</file>
+        <file>nonprojectedrainbow2texturedsquare_fshader.glsl</file>
+        <file>projectedrainbow2texturedsquare_vshader.glsl</file>
+        <file>projectedrainbow2texturedsquare_fshader.glsl</file>
     </qresource>
 </RCC>

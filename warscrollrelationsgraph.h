@@ -1,4 +1,4 @@
-#ifndef WARSCROLLRELATIONSGRAPH_H
+﻿#ifndef WARSCROLLRELATIONSGRAPH_H
 #define WARSCROLLRELATIONSGRAPH_H
 
 #include <QObject>
@@ -27,7 +27,7 @@ private:
   std::mutex m_graphMutex;
   WarScrollSynergyGraph *m_graph;
 
-  std::array<Geometry *, 5> m_geometries;
+  std::array<Geometry *, 7> m_geometries;
 
 private:
   void renderBackground();

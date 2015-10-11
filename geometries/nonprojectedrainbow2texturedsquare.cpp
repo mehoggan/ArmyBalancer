@@ -1,4 +1,4 @@
-#include "geometries/nonprojectedrainbowtexturedsquare.h"
+﻿#include "geometries/nonprojectedrainbow2texturedsquare.h"
 
 #include <QFile>
 #include <QImage>
@@ -7,25 +7,29 @@
 
 #include <iostream>
 
-NonProjectedRainbowTexturedSquare::NonProjectedRainbowTexturedSquare() :
+#include <string.h>
+
+NonProjectedRainbow2TexturedSquare::NonProjectedRainbow2TexturedSquare() :
   m_shaderProgram(0),
   m_vertexShader(0),
   m_fragmentShader(0),
   m_vbo(0),
-  m_ebo(0),
-  m_tex(0)
-{}
+  m_ebo(0)
+{
+  m_tex[0] = 0;
+  m_tex[1] = 0;
+}
 
-NonProjectedRainbowTexturedSquare::~NonProjectedRainbowTexturedSquare()
+NonProjectedRainbow2TexturedSquare::~NonProjectedRainbow2TexturedSquare()
 {
   destroy();
 }
 
-void NonProjectedRainbowTexturedSquare::create()
+void NonProjectedRainbow2TexturedSquare::create()
 {
   initializeOpenGLFunctions();
 
-  QFile vshaderFile(":/nonprojectedrainbowtexturedsquare_vshader.glsl");
+  QFile vshaderFile(":/nonprojectedrainbow2texturedsquare_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       vshaderFile.fileName().toStdString()).c_str();
@@ -33,7 +37,7 @@ void NonProjectedRainbowTexturedSquare::create()
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  QFile fshaderFile(":/nonprojectedrainbowtexturedsquare_fshader.glsl");
+  QFile fshaderFile(":/nonprojectedrainbow2texturedsquare_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       fshaderFile.fileName().toStdString()).c_str();
@@ -97,28 +101,44 @@ void NonProjectedRainbowTexturedSquare::create()
   glAttachShader(m_shaderProgram, m_fragmentShader); GL_CALL
   glLinkProgram(m_shaderProgram); GL_CALL
 
-  QImage img(":/die1.png", "PNG"); GL_CALL
-  glGenTextures(1, &m_tex); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, m_tex); GL_CALL
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.width(), img.height(), 0,
-    GL_RGBA, GL_UNSIGNED_BYTE, img.bits()); GL_CALL
+  glGenTextures(2, m_tex); GL_CALL
+
+  QImage img0(":/die1.png", "PNG");
+  glBindTexture(GL_TEXTURE_2D, m_tex[0]); GL_CALL
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img0.width(), img0.height(), 0,
+    GL_RGBA, GL_UNSIGNED_BYTE, img0.bits()); GL_CALL
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); GL_CALL
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); GL_CALL
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); GL_CALL
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); GL_CALL
+
+  QImage img1(":/die2.png", "PNG");
+  glBindTexture(GL_TEXTURE_2D, m_tex[1]); GL_CALL
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img1.width(), img1.height(), 0,
+    GL_RGBA, GL_UNSIGNED_BYTE, img1.bits()); GL_CALL
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); GL_CALL
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); GL_CALL
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); GL_CALL
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); GL_CALL
 }
 
-void NonProjectedRainbowTexturedSquare::draw()
+void NonProjectedRainbow2TexturedSquare::draw()
 {
   glUseProgram(m_shaderProgram); GL_CALL
+  glBindTexture(GL_TEXTURE_2D, 0);
 
   GLint posAttrib = glGetAttribLocation(m_shaderProgram, "position"); GL_CALL
   GLint colAttrib = glGetAttribLocation(m_shaderProgram, "color"); GL_CALL
   GLint texAttrib = glGetAttribLocation(m_shaderProgram, "texcoord"); GL_CALL
 
   glActiveTexture(GL_TEXTURE0); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, m_tex); GL_CALL
+  glBindTexture(GL_TEXTURE_2D, m_tex[0]); GL_CALL
   glUniform1i(glGetUniformLocation(m_shaderProgram, "die1"), 0);
+  GL_CALL
+
+  glActiveTexture(GL_TEXTURE1); GL_CALL
+  glBindTexture(GL_TEXTURE_2D, m_tex[1]); GL_CALL
+  glUniform1i(glGetUniformLocation(m_shaderProgram, "die2"), 1);
   GL_CALL
 
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
@@ -146,11 +166,13 @@ void NonProjectedRainbowTexturedSquare::draw()
   glDrawElements(GL_TRIANGLES, m_indices.get_indices_count(),
     GL_UNSIGNED_INT, 0); GL_CALL
 
-  glActiveTexture(GL_TEXTURE0); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
+  glActiveTexture(GL_TEXTURE1);
+  glBindTexture(GL_TEXTURE_2D, 0);
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void NonProjectedRainbowTexturedSquare::destroy()
+void NonProjectedRainbow2TexturedSquare::destroy()
 {
   if (glIsBuffer(m_vbo)) {
     glDeleteBuffers(1, &m_vbo); GL_CALL
@@ -172,7 +194,11 @@ void NonProjectedRainbowTexturedSquare::destroy()
     glDeleteShader(m_fragmentShader); GL_CALL
   }
 
-  if (glIsTexture(m_tex)) {
-    glDeleteTextures(1, &m_tex); GL_CALL
+  if (glIsTexture(m_tex[0])) {
+    glDeleteTextures(1, &m_tex[0]); GL_CALL
+  }
+
+  if (glIsTexture(m_tex[1])) {
+    glDeleteTextures(1, &m_tex[1]); GL_CALL
   }
 }

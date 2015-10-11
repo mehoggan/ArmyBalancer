@@ -36,7 +36,7 @@ void NonProjectedWhiteTriangle::create()
   QTextStream fshaderStream(&fshaderFile);
   std::string fshaderSrc = fshaderStream.readAll().toStdString();
 
-  glGenBuffers(1, &m_vbo);
+  glGenBuffers(1, &m_vbo); GL_CALL
 
   verts::collection1_type data(new opengl_math::point_2d<float>[3]);
   data[0] = opengl_math::point_2d<float>(+0.0, +0.5);
@@ -46,57 +46,57 @@ void NonProjectedWhiteTriangle::create()
   m_vertexAttrib = verts(data, 3);
   std::size_t bytes = m_vertexAttrib.get_bytecount_1();
 
-  glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+  glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
   glBufferData(GL_ARRAY_BUFFER, bytes, m_vertexAttrib.get_data1().get(),
-    GL_STATIC_DRAW);
+    GL_STATIC_DRAW); GL_CALL
 
   // Create and compile the vertex shader
   m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
   const GLchar *vshaderRaw = vshaderSrc.c_str();
-  glShaderSource(m_vertexShader, 1, &(vshaderRaw), NULL);
-  glCompileShader(m_vertexShader);
+  glShaderSource(m_vertexShader, 1, &(vshaderRaw), NULL); GL_CALL
+  glCompileShader(m_vertexShader); GL_CALL
 
   // Create and compile the fragment shader
-  m_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+  m_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER); GL_CALL
   const GLchar *fshaderRaw = fshaderSrc.c_str();
-  glShaderSource(m_fragmentShader, 1, &(fshaderRaw), NULL);
-  glCompileShader(m_fragmentShader);
+  glShaderSource(m_fragmentShader, 1, &(fshaderRaw), NULL); GL_CALL
+  glCompileShader(m_fragmentShader); GL_CALL
 
   // Link the vertex and fragment shader into a shader program
-  m_shaderProgram = glCreateProgram();
-  glAttachShader(m_shaderProgram, m_vertexShader);
-  glAttachShader(m_shaderProgram, m_fragmentShader);
-  glLinkProgram(m_shaderProgram);
+  m_shaderProgram = glCreateProgram(); GL_CALL
+  glAttachShader(m_shaderProgram, m_vertexShader); GL_CALL
+  glAttachShader(m_shaderProgram, m_fragmentShader); GL_CALL
+  glLinkProgram(m_shaderProgram); GL_CALL
 }
 
 void NonProjectedWhiteTriangle::draw()
 {
-  glUseProgram(m_shaderProgram);
-  GLint posAttrib = glGetAttribLocation(m_shaderProgram, "position");
+  glUseProgram(m_shaderProgram); GL_CALL
+  GLint posAttrib = glGetAttribLocation(m_shaderProgram, "position"); GL_CALL
 
-  glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-  glEnableVertexAttribArray(posAttrib);
-  glVertexAttribPointer(posAttrib, verts::type1::dimension, GL_FLOAT, GL_FALSE,
-    verts::batch_traits_t::stride, 0);
+  glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
+  glEnableVertexAttribArray(posAttrib); GL_CALL
+  glVertexAttribPointer(posAttrib, verts::type1::dimension, GL_FLOAT,
+    GL_FALSE, verts::batch_traits_t::stride, 0); GL_CALL
 
-  glDrawArrays(GL_TRIANGLES, 0, m_vertexAttrib.get_attribute_count());
+  glDrawArrays(GL_TRIANGLES, 0, m_vertexAttrib.get_attribute_count()); GL_CALL
 }
 
 void NonProjectedWhiteTriangle::destroy()
 {
   if (glIsBuffer(m_vbo)) {
-    glDeleteBuffers(1, &m_vbo);
+    glDeleteBuffers(1, &m_vbo); GL_CALL
   }
 
   if (glIsProgram(m_shaderProgram)) {
-    glDeleteProgram(m_shaderProgram);
+    glDeleteProgram(m_shaderProgram); GL_CALL
   }
 
   if (glIsShader(m_vertexShader)) {
-    glDeleteShader(m_vertexShader);
+    glDeleteShader(m_vertexShader); GL_CALL
   }
 
   if (glIsShader(m_fragmentShader)) {
-    glDeleteShader(m_fragmentShader);
+    glDeleteShader(m_fragmentShader); GL_CALL
   }
 }
