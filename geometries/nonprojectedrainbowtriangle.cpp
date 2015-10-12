@@ -17,6 +17,10 @@ NonProjectedRainbowTriangle::~NonProjectedRainbowTriangle()
   destroy();
 }
 
+void NonProjectedRainbowTriangle::setProjection(
+  const opengl_math::matrix_4X4<float, opengl_math::column> &)
+{}
+
 void NonProjectedRainbowTriangle::create()
 {
   initializeOpenGLFunctions();

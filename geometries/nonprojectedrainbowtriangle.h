@@ -13,6 +13,8 @@ class NonProjectedRainbowTriangle : public Geometry
 public:
   NonProjectedRainbowTriangle();
   ~NonProjectedRainbowTriangle();
+  virtual void setProjection(
+    const opengl_math::matrix_4X4<float, opengl_math::column> &);
   virtual void create();
   virtual void draw();
   virtual void destroy();

@@ -16,6 +16,10 @@ NonProjectedWhiteTriangle::~NonProjectedWhiteTriangle()
   destroy();
 }
 
+void NonProjectedWhiteTriangle::setProjection(
+  const opengl_math::matrix_4X4<float, opengl_math::column> &)
+{}
+
 void NonProjectedWhiteTriangle::create()
 {
   initializeOpenGLFunctions();

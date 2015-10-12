@@ -7,6 +7,7 @@
 #include "geometries/nonprojectedrainbowtexturedsquare.h"
 #include "geometries/nonprojectedrainbow2texturedsquare.h"
 #include "geometries/projectedrainbow2texturedsquare.h"
+#include "math/matrix.h"
 
 #include <QDebug>
 
@@ -49,6 +50,16 @@ WarScrollRelationsGraph::~WarScrollRelationsGraph()
 void WarScrollRelationsGraph::setViewportSize(const QSize &size)
 {
   m_viewportSize = size;
+  for (auto *geometry : m_geometries) {
+    if (geometry) {
+      float den = (m_viewportSize.height() == 0) ? 1.0f :
+        static_cast<float>(m_viewportSize.height());
+      float num = static_cast<float>(m_viewportSize.width());
+      geometry->setProjection(
+        opengl_math::perspective<float, opengl_math::column>(
+          45.0f, num / den, 1.0, 100.0, opengl_math::degrees));
+    }
+  }
 }
 
 void WarScrollRelationsGraph::creatStaticData()
@@ -62,23 +73,23 @@ void WarScrollRelationsGraph::creatStaticData()
     }
   }
 
-  m_geometries[0] = new NonProjectedWhiteTriangle();
-  m_geometries[0]->create();
+  //m_geometries[0] = new NonProjectedWhiteTriangle();
+  //m_geometries[0]->create();
 
-  m_geometries[1] = new NonProjectedRainbowTriangle();
-  m_geometries[1]->create();
+  //m_geometries[1] = new NonProjectedRainbowTriangle();
+  //m_geometries[1]->create();
 
-  m_geometries[2] = new NonProjectedBlinkingUniformRedTriangle();
-  m_geometries[2]->create();
+  //m_geometries[2] = new NonProjectedBlinkingUniformRedTriangle();
+  //m_geometries[2]->create();
 
-  m_geometries[3] = new NonProjectedRainbowSquare();
-  m_geometries[3]->create();
+  //m_geometries[3] = new NonProjectedRainbowSquare();
+  //m_geometries[3]->create();
 
-  m_geometries[4] = new NonProjectedRainbowTexturedSquare();
-  m_geometries[4]->create();
+  //m_geometries[4] = new NonProjectedRainbowTexturedSquare();
+  //m_geometries[4]->create();
 
-  m_geometries[5] = new NonProjectedRainbow2TexturedSquare();
-  m_geometries[5]->create();
+  //m_geometries[5] = new NonProjectedRainbow2TexturedSquare();
+  //m_geometries[5]->create();
 
   m_geometries[6] = new ProjectedRainbow2TexturedSquare();
   m_geometries[6]->create();

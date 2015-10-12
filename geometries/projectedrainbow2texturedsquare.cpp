@@ -1,5 +1,10 @@
 ﻿#include "geometries/projectedrainbow2texturedsquare.h"
 
+#include "math/matrix.h"
+#include "matrices/type_matrix_4X4.h"
+#include "primitives/points/type_point_3d.h"
+#include "primitives/vectors/type_vector_3d.h"
+
 #include <QFile>
 #include <QImage>
 #include <QTextStream>
@@ -14,7 +19,8 @@ ProjectedRainbow2TexturedSquare::ProjectedRainbow2TexturedSquare() :
   m_vertexShader(0),
   m_fragmentShader(0),
   m_vbo(0),
-  m_ebo(0)
+  m_ebo(0),
+  m_start(std::chrono::high_resolution_clock::now())
 {
   m_tex[0] = 0;
   m_tex[1] = 0;
@@ -23,6 +29,12 @@ ProjectedRainbow2TexturedSquare::ProjectedRainbow2TexturedSquare() :
 ProjectedRainbow2TexturedSquare::~ProjectedRainbow2TexturedSquare()
 {
   destroy();
+}
+
+void ProjectedRainbow2TexturedSquare::setProjection(
+  const opengl_math::matrix_4X4<float, opengl_math::column> &projection)
+{
+  m_projection = projection;
 }
 
 void ProjectedRainbow2TexturedSquare::create()
@@ -127,7 +139,7 @@ void ProjectedRainbow2TexturedSquare::create()
 void ProjectedRainbow2TexturedSquare::draw()
 {
   glUseProgram(m_shaderProgram); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, 0);
+  glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
 
   GLint posAttrib = glGetAttribLocation(m_shaderProgram, "position"); GL_CALL
   GLint colAttrib = glGetAttribLocation(m_shaderProgram, "color"); GL_CALL
@@ -165,13 +177,31 @@ void ProjectedRainbow2TexturedSquare::draw()
   glVertexAttribPointer(texAttrib, dimension3, GL_FLOAT, GL_FALSE,
     stride, (void*)byte_offset3); GL_CALL
 
+  auto t_now = std::chrono::high_resolution_clock::now();
+  float time = std::chrono::duration_cast<std::chrono::duration<float>>(
+    t_now - m_start).count();
+  opengl_math::matrix_4X4<float, opengl_math::column> model(
+    opengl_math::identity);
+  model = opengl_math::rotate_to<float, opengl_math::column>(model,
+    (time * opengl_math::degrees_to_radians(180.0)),
+    opengl_math::vector_3d<float>(0.0f, 0.0f, 1.0f), opengl_math::radians);
+  opengl_math::matrix_4X4<float, opengl_math::column> view =
+    opengl_math::look_at<float, opengl_math::column>(
+      opengl_math::point_3d<float>(1.2f, 1.2f, 1.2f),
+      opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f),
+      opengl_math::vector_3d<float>(0.0f, 0.0f, 1.0f));
+
+  GLint uniMVP = glGetUniformLocation(m_shaderProgram, "mvp");
+  glUniformMatrix4fv(uniMVP, 1, GL_FALSE,
+    (m_projection * view * model).to_gl_matrix()); GL_CALL
+
   glDrawElements(GL_TRIANGLES, m_indices.get_indices_count(),
     GL_UNSIGNED_INT, 0); GL_CALL
 
-  glActiveTexture(GL_TEXTURE1);
-  glBindTexture(GL_TEXTURE_2D, 0);
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, 0);
+  glActiveTexture(GL_TEXTURE1); GL_CALL
+  glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
+  glActiveTexture(GL_TEXTURE0); GL_CALL
+  glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
 }
 
 void ProjectedRainbow2TexturedSquare::destroy()

@@ -18,6 +18,10 @@ NonProjectedRainbowSquare::~NonProjectedRainbowSquare()
   destroy();
 }
 
+void NonProjectedRainbowSquare::setProjection(
+  const opengl_math::matrix_4X4<float, opengl_math::column> &)
+{}
+
 void NonProjectedRainbowSquare::create()
 {
   initializeOpenGLFunctions();

@@ -21,6 +21,10 @@ NonProjectedRainbowTexturedSquare::~NonProjectedRainbowTexturedSquare()
   destroy();
 }
 
+void NonProjectedRainbowTexturedSquare::setProjection(
+  const opengl_math::matrix_4X4<float, opengl_math::column> &)
+{}
+
 void NonProjectedRainbowTexturedSquare::create()
 {
   initializeOpenGLFunctions();

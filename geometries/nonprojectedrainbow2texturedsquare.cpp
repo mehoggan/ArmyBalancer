@@ -25,6 +25,10 @@ NonProjectedRainbow2TexturedSquare::~NonProjectedRainbow2TexturedSquare()
   destroy();
 }
 
+void NonProjectedRainbow2TexturedSquare::setProjection(
+  const opengl_math::matrix_4X4<float, opengl_math::column> &)
+{}
+
 void NonProjectedRainbow2TexturedSquare::create()
 {
   initializeOpenGLFunctions();
@@ -127,7 +131,7 @@ void NonProjectedRainbow2TexturedSquare::create()
 void NonProjectedRainbow2TexturedSquare::draw()
 {
   glUseProgram(m_shaderProgram); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, 0);
+  glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
 
   GLint posAttrib = glGetAttribLocation(m_shaderProgram, "position"); GL_CALL
   GLint colAttrib = glGetAttribLocation(m_shaderProgram, "color"); GL_CALL
@@ -168,10 +172,10 @@ void NonProjectedRainbow2TexturedSquare::draw()
   glDrawElements(GL_TRIANGLES, m_indices.get_indices_count(),
     GL_UNSIGNED_INT, 0); GL_CALL
 
-  glActiveTexture(GL_TEXTURE1);
-  glBindTexture(GL_TEXTURE_2D, 0);
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, 0);
+  glActiveTexture(GL_TEXTURE1); GL_CALL
+  glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
+  glActiveTexture(GL_TEXTURE0); GL_CALL
+  glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
 }
 
 void NonProjectedRainbow2TexturedSquare::destroy()
