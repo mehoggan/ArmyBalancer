@@ -4,13 +4,16 @@
 #include <QObject>
 #include <QtGui/QOpenGLFunctions>
 
-#include "geometries/geometry.h"
 #include "warscrollsynergygraph.h"
 
 #include "core/platform.h"
+#include "geometries/geometry.h"
+#include "geometries/splines.h"
+#include "primitives/points/type_point_3d.h"
 
 #include <array>
 #include <atomic>
+#include <memory>
 #include <mutex>
 
 class WarScrollRelationsGraph :
@@ -27,7 +30,7 @@ private:
   std::mutex m_graphMutex;
   WarScrollSynergyGraph *m_graph;
 
-  std::array<Geometry *, 7> m_geometries;
+  std::array<std::shared_ptr<Spline>, 1> m_splines;
 
 private:
   void renderBackground();

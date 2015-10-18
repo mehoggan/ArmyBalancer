@@ -191,7 +191,7 @@ void ProjectedRainbow2TexturedSquare::draw()
       opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f),
       opengl_math::vector_3d<float>(0.0f, 0.0f, 1.0f));
 
-  GLint uniMVP = glGetUniformLocation(m_shaderProgram, "mvp");
+  GLint uniMVP = glGetUniformLocation(m_shaderProgram, "mvp"); GL_CALL
   glUniformMatrix4fv(uniMVP, 1, GL_FALSE,
     (m_projection * view * model).to_gl_matrix()); GL_CALL
 

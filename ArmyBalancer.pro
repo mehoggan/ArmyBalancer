@@ -45,7 +45,8 @@ SOURCES += main.cpp \
   geometries/nonprojectedrainbowsquare.cpp \
   geometries/nonprojectedrainbowtexturedsquare.cpp \
   geometries/nonprojectedrainbow2texturedsquare.cpp \
-  geometries/projectedrainbow2texturedsquare.cpp
+  geometries/projectedrainbow2texturedsquare.cpp \
+  geometries/splines.cpp
 
 RESOURCES += qml.qrc \
     shaders.qrc \
@@ -97,7 +98,8 @@ HEADERS += \
   geometries/nonprojectedrainbowsquare.h \
   geometries/nonprojectedrainbowtexturedsquare.h \
   geometries/nonprojectedrainbow2texturedsquare.h \
-  geometries/projectedrainbow2texturedsquare.h
+  geometries/projectedrainbow2texturedsquare.h \
+  geometries/splines.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)

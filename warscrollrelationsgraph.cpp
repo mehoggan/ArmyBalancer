@@ -27,9 +27,9 @@ WarScrollRelationsGraph::WarScrollRelationsGraph()
   m_create = f;
   m_initialize = t;
 
-  for (auto *geometry : m_geometries) {
-    geometry = nullptr;
-    (void)geometry;
+  for (auto spline : m_splines) {
+    spline = nullptr;
+    (void)spline;
   }
 }
 
@@ -39,10 +39,9 @@ WarScrollRelationsGraph::~WarScrollRelationsGraph()
   m_draw = f;
   m_create = f;
 
-  for (auto *geometry : m_geometries) {
-    if (geometry) {
-      delete geometry;
-      geometry = nullptr;
+  for (auto spline : m_splines) {
+    if (spline) {
+      spline.reset();
     }
   }
 }
@@ -50,12 +49,12 @@ WarScrollRelationsGraph::~WarScrollRelationsGraph()
 void WarScrollRelationsGraph::setViewportSize(const QSize &size)
 {
   m_viewportSize = size;
-  for (auto *geometry : m_geometries) {
-    if (geometry) {
+  for (auto spline : m_splines) {
+    if (spline) {
       float den = (m_viewportSize.height() == 0) ? 1.0f :
         static_cast<float>(m_viewportSize.height());
       float num = static_cast<float>(m_viewportSize.width());
-      geometry->setProjection(
+      spline->setProjection(
         opengl_math::perspective<float, opengl_math::column>(
           45.0f, num / den, 1.0, 100.0, opengl_math::degrees));
     }
@@ -66,33 +65,21 @@ void WarScrollRelationsGraph::creatStaticData()
 {
   initializeOpenGLFunctions();
 
-  for (auto *geometry : m_geometries) {
-    if (geometry) {
-      delete geometry;
-      geometry = nullptr;
+  for (auto spline : m_splines) {
+    if (spline) {
+      spline.reset();
     }
   }
 
-  //m_geometries[0] = new NonProjectedWhiteTriangle();
-  //m_geometries[0]->create();
-
-  //m_geometries[1] = new NonProjectedRainbowTriangle();
-  //m_geometries[1]->create();
-
-  //m_geometries[2] = new NonProjectedBlinkingUniformRedTriangle();
-  //m_geometries[2]->create();
-
-  //m_geometries[3] = new NonProjectedRainbowSquare();
-  //m_geometries[3]->create();
-
-  //m_geometries[4] = new NonProjectedRainbowTexturedSquare();
-  //m_geometries[4]->create();
-
-  //m_geometries[5] = new NonProjectedRainbow2TexturedSquare();
-  //m_geometries[5]->create();
-
-  m_geometries[6] = new ProjectedRainbow2TexturedSquare();
-  m_geometries[6]->create();
+  opengl_math::point_3d<float> p0(+0.00f, +0.00f, +0.00f);
+  opengl_math::point_3d<float> p1(-2.00f, +1.00f, +0.00f);
+  opengl_math::point_3d<float> p2(+2.00f, +3.00f, +1.00f);
+  opengl_math::point_3d<float> p3(+2.50f, +5.67f, +3.40f);
+  m_splines[0] = Spline::createBezier(p0, p1, p2, p3);
+  m_splines[0]->create();
+  m_splines[0]->setDisplayColor(opengl_math::color_rgba<float>(
+    0.0f, 0.0f, 0.0f, 1.0f));
+  m_splines[0]->setLineWidth(1.0f);
 }
 
 void WarScrollRelationsGraph::createGraph()
@@ -132,9 +119,9 @@ void WarScrollRelationsGraph::renderGraph()
   glViewport(0, 0.1125 * height, width, height);
   glDisable(GL_DEPTH_TEST);
 
-  for (auto *geometry : m_geometries) {
-    if (geometry) {
-      geometry->draw();
+  for (auto spline : m_splines) {
+    if (spline) {
+      spline->draw();
     }
   }
 }
