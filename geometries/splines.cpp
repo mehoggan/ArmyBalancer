@@ -87,16 +87,17 @@ void Spline::create()
 
   glGenBuffers(1, &m_vbo); GL_CALL
 
-  verts::collection_type data(new verts::datum_type[3]);
-  data[0] = verts::datum_type(
-    opengl_math::point_3d<float>(+0.0f, +0.5f, +0.0f),
-    opengl_math::color_rgba<float>(+0.0f, +0.0f, +0.0f, 1.0f));
-  data[1] = verts::datum_type(
-    opengl_math::point_3d<float>(+0.5f, -0.5f, +0.0f),
-    opengl_math::color_rgba<float>(+0.0f, +0.0f, +0.0f, 1.0f));
-  data[2] = verts::datum_type(
-    opengl_math::point_3d<float>(-0.5f, -0.5f, +0.0f),
-    opengl_math::color_rgba<float>(+0.0f, +0.0f, +0.0f, 1.0f));
+
+  std::vector<opengl_math::curve_sample_3d<float>> samples =
+    m_cubic.compute_samples_adaptive(0.0001);
+  verts::collection_type data(new verts::datum_type[samples.size()]);
+  std::size_t index = 0;
+  for (const auto &sample : samples) {
+    std::cout << sample._position << std::endl;
+    data[index++] = verts::datum_type(sample._position,
+      opengl_math::color_rgba<float>(0.0f, 0.0f, 0.0f, 1.0f));
+  }
+
   m_vertexAttrib = verts(data, 3);
 
   std::size_t bytes = m_vertexAttrib.get_byte_count();

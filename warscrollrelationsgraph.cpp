@@ -73,8 +73,8 @@ void WarScrollRelationsGraph::creatStaticData()
 
   opengl_math::point_3d<float> p0(+0.00f, +0.00f, +0.00f);
   opengl_math::point_3d<float> p1(-2.00f, +1.00f, +0.00f);
-  opengl_math::point_3d<float> p2(+2.00f, +3.00f, +1.00f);
-  opengl_math::point_3d<float> p3(+2.50f, +5.67f, +3.40f);
+  opengl_math::point_3d<float> p2(+2.00f, +3.00f, +0.00f);
+  opengl_math::point_3d<float> p3(+2.50f, +5.67f, +0.00f);
   m_splines[0] = Spline::createBezier(p0, p1, p2, p3);
   m_splines[0]->create();
   m_splines[0]->setDisplayColor(opengl_math::color_rgba<float>(
