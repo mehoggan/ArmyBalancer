@@ -2,8 +2,12 @@
 
 #include <math/matrix.h>
 
+#include <QDebug>
 #include <QFile>
 #include <QTextStream>
+#include <QCoreApplication>
+
+#include <sstream>
 
 Spline::Spline() :
   m_shaderProgram(0),
@@ -67,6 +71,7 @@ void Spline::create()
 
   destroy();
 
+  qDebug() << "Loading vertex shader file";
   QFile vshaderFile(
     ":/shaders/projectedcoloredgeometry_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -76,6 +81,7 @@ void Spline::create()
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
+  qDebug() << "Loading fragment shader file";
   QFile fshaderFile(
     ":/shaders/projectedcoloredgeometry_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -86,7 +92,6 @@ void Spline::create()
   std::string fshaderSrc = fshaderStream.readAll().toStdString();
 
   glGenBuffers(1, &m_vbo); GL_CALL
-
 
   std::vector<opengl_math::curve_sample_3d<float>> samples =
     m_cubic.compute_samples_adaptive(0.109999992);
@@ -113,6 +118,7 @@ void Spline::create()
 
   GLint isCompiled = 0;
 
+  qDebug() << "Compiling vertex shader program";
   glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &isCompiled); GL_CALL
   if(isCompiled == GL_FALSE) {
     GLint maxLength = 0;
@@ -120,10 +126,16 @@ void Spline::create()
     std::vector<GLchar> errorLog(maxLength);
     glGetShaderInfoLog(m_vertexShader, maxLength, &maxLength, &errorLog[0]);
     GL_CALL
+    std::stringstream out;
+    std::copy(errorLog.begin(), errorLog.end(), std::ostream_iterator<char>(
+      out, ""));
+    qDebug() << out.str().c_str();
     glDeleteShader(m_vertexShader); GL_CALL
+    QCoreApplication::exit(-1);
   }
 
   // Create and compile the fragment shader
+  qDebug() << "Compiling fragment shader program";
   m_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER); GL_CALL
   const GLchar *fshaderRaw = fshaderSrc.c_str();
   glShaderSource(m_fragmentShader, 1, &(fshaderRaw), NULL); GL_CALL
@@ -135,10 +147,16 @@ void Spline::create()
     std::vector<GLchar> errorLog(maxLength);
     glGetShaderInfoLog(m_fragmentShader, maxLength, &maxLength, &errorLog[0]);
     GL_CALL
+    std::stringstream out;
+    std::copy(errorLog.begin(), errorLog.end(), std::ostream_iterator<char>(
+      out, ""));
+    qDebug() << out.str().c_str();
     glDeleteShader(m_fragmentShader); GL_CALL
+    QCoreApplication::exit(-1);
   }
 
   // Link the vertex and fragment shader into a shader program
+  qDebug() << "Linking shader program";
   m_shaderProgram = glCreateProgram(); GL_CALL
   glAttachShader(m_shaderProgram, m_vertexShader); GL_CALL
   glAttachShader(m_shaderProgram, m_fragmentShader); GL_CALL
@@ -152,9 +170,14 @@ void Spline::create()
     std::vector<GLchar> infoLog(maxLength);
     glGetProgramInfoLog(m_shaderProgram, maxLength, &maxLength, &infoLog[0]);
     GL_CALL
+    std::stringstream out;
+    std::copy(infoLog.begin(), infoLog.end(), std::ostream_iterator<char>(
+      out, ""));
+    qDebug() << out.str().c_str();
     glDeleteProgram(m_shaderProgram); GL_CALL
     glDeleteShader(m_vertexShader); GL_CALL
     glDeleteShader(m_fragmentShader); GL_CALL
+    QCoreApplication::exit(-1);
   }
 }
 

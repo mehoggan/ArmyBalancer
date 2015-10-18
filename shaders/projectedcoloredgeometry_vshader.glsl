@@ -1,9 +1,9 @@
-﻿#version 150 core
+﻿#version 100
 
-in vec3 position;
-in vec4 color;
+attribute vec3 position;
+attribute vec4 color;
 
-out vec4 Color;
+varying vec4 Color;
 
 uniform mat4 mvp;
 
