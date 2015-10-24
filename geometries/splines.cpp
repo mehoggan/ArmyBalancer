@@ -185,8 +185,8 @@ void Spline::draw()
 {
   glUseProgram(m_shaderProgram); GL_CALL
 
-  GLint posAttrib = glGetAttribLocation(m_shaderProgram, "position"); GL_CALL
-  GLint colAttrib = glGetAttribLocation(m_shaderProgram, "color"); GL_CALL
+  GLint posAttrib = glGetAttribLocation(m_shaderProgram, "iPosition"); GL_CALL
+  GLint colAttrib = glGetAttribLocation(m_shaderProgram, "iColor"); GL_CALL
 
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
   std::size_t stride = verts::traits::stride;
@@ -211,7 +211,7 @@ void Spline::draw()
       opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f),
       opengl_math::vector_3d<float>(0.0f, 1.0f, 0.0f));
 
-  GLint uniMVP = glGetUniformLocation(m_shaderProgram, "mvp"); GL_CALL
+  GLint uniMVP = glGetUniformLocation(m_shaderProgram, "uMVP"); GL_CALL
   glUniformMatrix4fv(uniMVP, 1, GL_FALSE,
     (m_projection * view * model).to_gl_matrix()); GL_CALL
 
