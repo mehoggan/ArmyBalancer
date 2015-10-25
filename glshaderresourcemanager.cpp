@@ -203,13 +203,26 @@ void GLShaderResourceManager::enableVertexAttribArrays(
 void GLShaderResourceManager::enableVertexAttribArray(
   const GLShaderHandle &handle, const GLShaderAttributes &attrib)
 {
-  const std::string attribName = attrib.attribName();
-  GLint attribPos = glGetAttribLocation(handle.m_shaderProgram,
-    attribName.c_str()); GL_CALL
+  const GLuint shaderProgram = handle.m_shaderProgram;
+  const std::size_t stride = attrib.m_stride;
+  const std::size_t dimension = attrib.m_dimension;
+  const std::size_t offset = attrib.m_byteOffset;
+  const GLchar *attribName = attrib.attribName().c_str();
+
+  GLint attribPos = glGetAttribLocation(shaderProgram, attribName); GL_CALL
   glEnableVertexAttribArray(attribPos); GL_CALL
-  glVertexAttribPointer(attribPos, attrib.m_position, GL_FLOAT, GL_FALSE,
-    attrib.stride(), (void*)attrib.m_byteOffset); GL_CALL
+  glVertexAttribPointer(attribPos, dimension, GL_FLOAT, GL_FALSE, stride,
+    (void*)offset); GL_CALL
+
   const_cast<GLShaderAttributes &>(attrib).m_position = attribPos;
+}
+
+void GLShaderResourceManager::setUniformMatrix4X4(const GLShaderHandle &handle,
+  const GLfloat *matrix, const GLchar *name)
+{
+  const GLuint shaderProgram = handle.m_shaderProgram;
+  GLint uniform = glGetUniformLocation(shaderProgram, name); GL_CALL
+  glUniformMatrix4fv(uniform, 1, GL_FALSE, matrix); GL_CALL
 }
 
 bool GLShaderResourceManager::getCompilerErrors(GLuint shaderId)

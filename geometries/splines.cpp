@@ -1,14 +1,14 @@
 ﻿#include "geometries/splines.h"
 
+#include "glslversionselector.h"
+
 #include <math/matrix.h>
 
+#include <QDebug>
 #include <QFile>
 #include <QTextStream>
 
 Spline::Spline() :
-  m_shaderProgram(0),
-  m_vertexShader(0),
-  m_fragmentShader(0),
   m_vbo(0),
   m_lineWidth(0.1f),
   m_pointSize(0.5f),
@@ -18,9 +18,6 @@ Spline::Spline() :
 {}
 
 Spline::Spline(const Spline &other) :
-  m_shaderProgram(other.m_shaderProgram),
-  m_vertexShader(other.m_vertexShader),
-  m_fragmentShader(other.m_fragmentShader),
   m_vbo(other.m_vbo),
   m_lineWidth(other.m_lineWidth),
   m_pointSize(other.m_pointSize),
@@ -34,9 +31,6 @@ Spline::Spline(const Spline &other) :
 
 Spline &Spline::operator=(const Spline &rhs)
 {
-  m_shaderProgram = rhs.m_shaderProgram;
-  m_vertexShader = rhs.m_vertexShader;
-  m_fragmentShader = rhs.m_fragmentShader;
   m_vbo = rhs.m_vbo;
   m_lineWidth = rhs.m_lineWidth;
   m_pointSize = rhs.m_pointSize;
@@ -53,6 +47,7 @@ Spline &Spline::operator=(const Spline &rhs)
 Spline::~Spline()
 {
   destroy();
+  m_shaderManager.reset();
 }
 
 void Spline::setProjection(
@@ -65,28 +60,13 @@ void Spline::create()
 {
   initializeOpenGLFunctions();
 
+  if (!m_shaderManager) {
+    m_shaderManager = GLShaderResourceManager::getSharedInstance();
+  }
+
   destroy();
 
-  QFile vshaderFile(
-    ":/shaders/glsl_450/projectedcolored_vshader.glsl");
-  if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    throw (std::string("Could not open ") +
-      vshaderFile.fileName().toStdString()).c_str();
-  }
-  QTextStream vshaderStream(&vshaderFile);
-  std::string vshaderSrc = vshaderStream.readAll().toStdString();
-
-  QFile fshaderFile(
-    ":/shaders/glsl_450/projectedcolored_fshader.glsl");
-  if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    throw (std::string("Could not open ") +
-      fshaderFile.fileName().toStdString()).c_str();
-  }
-  QTextStream fshaderStream(&fshaderFile);
-  std::string fshaderSrc = fshaderStream.readAll().toStdString();
-
   glGenBuffers(1, &m_vbo); GL_CALL
-
 
   std::vector<opengl_math::curve_sample_3d<float>> samples =
     m_cubic.compute_samples_adaptive(0.109999992);
@@ -94,91 +74,49 @@ void Spline::create()
   std::size_t index = 0;
   for (const auto &sample : samples) {
     data[index++] = verts::datum_type(sample._position,
-      opengl_math::color_rgba<float>(1.0f, 0.0f, 0.0f, 1.0f));
+      opengl_math::color_rgba<float>(1.00f, 0.00f, 1.00f, 1.0f));
   }
 
   m_vertexAttrib = verts(data, samples.size());
-
   std::size_t bytes = m_vertexAttrib.get_byte_count();
-
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
   glBufferData(GL_ARRAY_BUFFER, bytes, m_vertexAttrib.get_data().get(),
     GL_STATIC_DRAW); GL_CALL
 
-  // Create and compile the vertex shader
-  m_vertexShader = glCreateShader(GL_VERTEX_SHADER); GL_CALL
-  const GLchar *vshaderRaw = vshaderSrc.c_str();
-  glShaderSource(m_vertexShader, 1, &(vshaderRaw), NULL); GL_CALL
-  glCompileShader(m_vertexShader); GL_CALL
+  std::shared_ptr<GLSLVersionSelector> versionSelector =
+    GLSLVersionSelector::getSharedInstance();
+  std::shared_ptr<QResource> vshaderRes = versionSelector->getResourcePath(
+    "projectedcolored_vshader.glsl");
+  std::shared_ptr<QResource> fshaderRes = versionSelector->getResourcePath(
+    "projectedcolored_fshader.glsl");
 
-  GLint isCompiled = 0;
-
-  glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &isCompiled); GL_CALL
-  if(isCompiled == GL_FALSE) {
-    GLint maxLength = 0;
-    glGetShaderiv(m_vertexShader, GL_INFO_LOG_LENGTH, &maxLength); GL_CALL
-    std::vector<GLchar> errorLog(maxLength);
-    glGetShaderInfoLog(m_vertexShader, maxLength, &maxLength, &errorLog[0]);
-    GL_CALL
-    glDeleteShader(m_vertexShader); GL_CALL
+  bool success = true;
+  m_handle = m_shaderManager->generateProgram({vshaderRes}, {fshaderRes},
+    &success);
+  if (!success) {
+    throw std::runtime_error("Failed to generate program for spline.");
   }
 
-  // Create and compile the fragment shader
-  m_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER); GL_CALL
-  const GLchar *fshaderRaw = fshaderSrc.c_str();
-  glShaderSource(m_fragmentShader, 1, &(fshaderRaw), NULL); GL_CALL
-  glCompileShader(m_fragmentShader); GL_CALL
-  glGetShaderiv(m_fragmentShader, GL_COMPILE_STATUS, &isCompiled); GL_CALL
-  if(isCompiled == GL_FALSE) {
-    GLint maxLength = 0;
-    glGetShaderiv(m_fragmentShader, GL_INFO_LOG_LENGTH, &maxLength); GL_CALL
-    std::vector<GLchar> errorLog(maxLength);
-    glGetShaderInfoLog(m_fragmentShader, maxLength, &maxLength, &errorLog[0]);
-    GL_CALL
-    glDeleteShader(m_fragmentShader); GL_CALL
-  }
-
-  // Link the vertex and fragment shader into a shader program
-  m_shaderProgram = glCreateProgram(); GL_CALL
-  glAttachShader(m_shaderProgram, m_vertexShader); GL_CALL
-  glAttachShader(m_shaderProgram, m_fragmentShader); GL_CALL
-  glLinkProgram(m_shaderProgram); GL_CALL
-
-  GLint isLinked = 0;
-  glGetProgramiv(m_shaderProgram, GL_LINK_STATUS, (int *)&isLinked);
-  if(isLinked == GL_FALSE) {
-    GLint maxLength = 0;
-    glGetProgramiv(m_shaderProgram, GL_INFO_LOG_LENGTH, &maxLength); GL_CALL
-    std::vector<GLchar> infoLog(maxLength);
-    glGetProgramInfoLog(m_shaderProgram, maxLength, &maxLength, &infoLog[0]);
-    GL_CALL
-    glDeleteProgram(m_shaderProgram); GL_CALL
-    glDeleteShader(m_vertexShader); GL_CALL
-    glDeleteShader(m_fragmentShader); GL_CALL
-  }
+  m_shaderVertexAttrib.resize(2);
+  m_shaderVertexAttrib[0] = GLShaderResourceManager::GLShaderAttributes(
+    verts::datum_type::internal_type1::dimension,
+    verts::traits::stride,
+    verts::traits::type1_byte_offset,
+    "iPosition");
+  m_shaderVertexAttrib[1] = GLShaderResourceManager::GLShaderAttributes(
+    verts::datum_type::internal_type2::dimension,
+    verts::traits::stride,
+    verts::traits::type2_byte_offset,
+    "iColor");
 }
 
 void Spline::draw()
 {
-  glUseProgram(m_shaderProgram); GL_CALL
-
-  GLint posAttrib = glGetAttribLocation(m_shaderProgram, "position"); GL_CALL
-  GLint colAttrib = glGetAttribLocation(m_shaderProgram, "color"); GL_CALL
+  m_shaderManager->useProgram(m_handle);
 
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
-  std::size_t stride = verts::traits::stride;
 
-  std::size_t dimension1 = verts::datum_type::internal_type1::dimension;
-  std::size_t byte_offset1 = verts::traits::type1_byte_offset;
-  glEnableVertexAttribArray(posAttrib); GL_CALL
-  glVertexAttribPointer(posAttrib, dimension1, GL_FLOAT, GL_FALSE,
-    stride, (void*)byte_offset1); GL_CALL
-
-  std::size_t dimension2 = verts::datum_type::internal_type2::dimension;
-  std::size_t byte_offset2 = verts::traits::type2_byte_offset;
-  glEnableVertexAttribArray(colAttrib); GL_CALL
-  glVertexAttribPointer(colAttrib, dimension2, GL_FLOAT, GL_FALSE,
-    stride, (void*)byte_offset2); GL_CALL
+  m_shaderManager->enableVertexAttribArrays(m_handle, m_shaderVertexAttrib);
 
   opengl_math::matrix_4X4<float, opengl_math::column> model(
     opengl_math::identity);
@@ -188,12 +126,10 @@ void Spline::draw()
       opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f),
       opengl_math::vector_3d<float>(0.0f, 1.0f, 0.0f));
 
-  GLint uniMVP = glGetUniformLocation(m_shaderProgram, "mvp"); GL_CALL
-  glUniformMatrix4fv(uniMVP, 1, GL_FALSE,
-    (m_projection * view * model).to_gl_matrix()); GL_CALL
+  auto mvp = (m_projection * view * model);
+  m_shaderManager->setUniformMatrix4X4(m_handle, mvp.to_gl_matrix(), "uMVP");
 
-  glDrawArrays(GL_LINE_STRIP, 0, m_vertexAttrib.get_attribute_count());
-  GL_CALL
+  glDrawArrays(GL_LINE_STRIP, 0, m_vertexAttrib.get_attribute_count()); GL_CALL
 }
 
 void Spline::destroy()
@@ -202,17 +138,7 @@ void Spline::destroy()
     glDeleteBuffers(1, &m_vbo); GL_CALL
   }
 
-  if (glIsProgram(m_shaderProgram)) {
-    glDeleteProgram(m_shaderProgram); GL_CALL
-  }
-
-  if (glIsShader(m_vertexShader)) {
-    glDeleteShader(m_vertexShader); GL_CALL
-  }
-
-  if (glIsShader(m_fragmentShader)) {
-    glDeleteShader(m_fragmentShader); GL_CALL
-  }
+  m_shaderManager->destroyProgram(m_handle);
 }
 
 std::shared_ptr<Spline> Spline::createBezier(

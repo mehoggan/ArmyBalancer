@@ -1,14 +1,14 @@
 ﻿#version 150 core
 
-in vec3 position;
-in vec4 color;
+in vec3 iPosition;
+in vec4 iColor;
 
-out vec4 Color;
+out vec4 oColor;
 
-uniform mat4 mvp;
+uniform mat4 uMVP;
 
 void main()
 {
-  Color = color;
-  gl_Position = mvp * vec4(position, 1.0);
+  oColor = iColor;
+  gl_Position = uMVP * vec4(iPosition, 1.0);
 }

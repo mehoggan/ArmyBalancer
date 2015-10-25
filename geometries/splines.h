@@ -3,6 +3,8 @@
 
 #include "geometries/geometry.h"
 
+#include "glshaderresourcemanager.h"
+
 #include "mesh_types/interleaved_data.h"
 #include "mesh_types/datums/interleaved_datum_2d.h"
 #include "curves/cubic_curve.h"
@@ -53,9 +55,10 @@ public:
 private:
   Spline();
 
-  GLuint m_shaderProgram;
-  GLuint m_vertexShader;
-  GLuint m_fragmentShader;
+  GLShaderResourceManager::GLShaderHandle m_handle;
+  std::vector<GLShaderResourceManager::GLShaderAttributes> m_shaderVertexAttrib;
+  std::shared_ptr<GLShaderResourceManager> m_shaderManager;
+
   GLuint m_vbo;
   GLfloat m_lineWidth;
   GLfloat m_pointSize;

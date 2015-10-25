@@ -79,6 +79,9 @@ public:
   void enableVertexAttribArray(const GLShaderHandle &handle,
     const GLShaderAttributes &attrib);
 
+  void setUniformMatrix4X4(const GLShaderHandle &handle,
+    const GLfloat *matrix, const GLchar *name);
+
 private:
   GLShaderResourceManager();
 
