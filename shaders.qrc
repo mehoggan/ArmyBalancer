@@ -1,20 +1,8 @@
 ﻿<RCC>
     <qresource prefix="/">
-        <file>shaders/nonprojectedwhitetriangle_vshader.glsl</file>
-        <file>shaders/nonprojectedwhitetriangle_fshader.glsl</file>
-        <file>shaders/nonprojectedblinkinguniformredtriangle_vshader.glsl</file>
-        <file>shaders/nonprojectedblinkinguniformredtriangle_fshader.glsl</file>
-        <file>shaders/nonprojectedrainbowtriangle_vshader.glsl</file>
-        <file>shaders/nonprojectedrainbowtriangle_fshader.glsl</file>
-        <file>shaders/nonprojectedrainbowsquare_vshader.glsl</file>
-        <file>shaders/nonprojectedrainbowsquare_fshader.glsl</file>
-        <file>shaders/nonprojectedrainbowtexturedsquare_vshader.glsl</file>
-        <file>shaders/nonprojectedrainbowtexturedsquare_fshader.glsl</file>
-        <file>shaders/nonprojectedrainbow2texturedsquare_vshader.glsl</file>
-        <file>shaders/nonprojectedrainbow2texturedsquare_fshader.glsl</file>
-        <file>shaders/projectedrainbow2texturedsquare_vshader.glsl</file>
-        <file>shaders/projectedrainbow2texturedsquare_fshader.glsl</file>
-        <file>shaders/projectedcoloredgeometry_vshader.glsl</file>
-        <file>shaders/projectedcoloredgeometry_fshader.glsl</file>
+        <file>shaders/glsl_450/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_450/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_450/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_450/projectedcolored_fshader.glsl</file>
     </qresource>
 </RCC>

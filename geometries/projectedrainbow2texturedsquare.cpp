@@ -42,7 +42,7 @@ void ProjectedRainbow2TexturedSquare::create()
   initializeOpenGLFunctions();
 
   QFile vshaderFile(
-    ":/shaders/projectedrainbow2texturedsquare_vshader.glsl");
+    ":/shaders/projectedcoloredtextured_vshader.glsl");
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       vshaderFile.fileName().toStdString()).c_str();
@@ -51,7 +51,7 @@ void ProjectedRainbow2TexturedSquare::create()
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
   QFile fshaderFile(
-    ":/shaders/projectedrainbow2texturedsquare_fshader.glsl");
+    ":/shaders/projectedcolored2samplermixed_fshader.glsl");
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     throw (std::string("Could not open ") +
       fshaderFile.fileName().toStdString()).c_str();

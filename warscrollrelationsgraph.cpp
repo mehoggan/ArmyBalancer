@@ -1,11 +1,5 @@
 ﻿#include "warscrollrelationsgraph.h"
 
-#include "geometries/nonprojectedblinkinguniformredtriangle.h"
-#include "geometries/nonprojectedwhitetriangle.h"
-#include "geometries/nonprojectedrainbowtriangle.h"
-#include "geometries/nonprojectedrainbowsquare.h"
-#include "geometries/nonprojectedrainbowtexturedsquare.h"
-#include "geometries/nonprojectedrainbow2texturedsquare.h"
 #include "geometries/projectedrainbow2texturedsquare.h"
 #include "math/matrix.h"
 

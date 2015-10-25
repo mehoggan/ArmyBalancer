@@ -17,6 +17,7 @@ SOURCES += main.cpp \
   daemonsofchaostzeentchfaction.cpp \
   darkelvesfaction.cpp \
   dwarfsfaction.cpp \
+  glslversionselector.cpp \
   highelvesfaction.cpp \
   khornebloodboundfaction.cpp \
   lizardmenfaction.cpp \
@@ -39,14 +40,9 @@ SOURCES += main.cpp \
   warscrollrelationsgraph.cpp \
   warscrollrelationsgraphscene.cpp \
   warscrollsynergygraph.cpp \
-  geometries/nonprojectedwhitetriangle.cpp \
-  geometries/nonprojectedblinkinguniformredtriangle.cpp \
-  geometries/nonprojectedrainbowtriangle.cpp \
-  geometries/nonprojectedrainbowsquare.cpp \
-  geometries/nonprojectedrainbowtexturedsquare.cpp \
-  geometries/nonprojectedrainbow2texturedsquare.cpp \
   geometries/projectedrainbow2texturedsquare.cpp \
-  geometries/splines.cpp
+  geometries/splines.cpp \
+    glshaderresourcemanager.cpp
 
 RESOURCES += qml.qrc \
     shaders.qrc \
@@ -68,6 +64,7 @@ HEADERS += \
   daemonsofchaostzeentchfaction.h \
   darkelvesfaction.h \
   dwarfsfaction.h \
+  glslversionselector.h \
   highelvesfaction.h \
   khornebloodboundfaction.h \
   lizardmenfaction.h \
@@ -92,14 +89,9 @@ HEADERS += \
   warscrollrelationsgraphscene.h \
   warscrollsynergygraph.h \
   geometries/geometry.h \
-  geometries/nonprojectedwhitetriangle.h \
-  geometries/nonprojectedblinkinguniformredtriangle.h \
-  geometries/nonprojectedrainbowtriangle.h \
-  geometries/nonprojectedrainbowsquare.h \
-  geometries/nonprojectedrainbowtexturedsquare.h \
-  geometries/nonprojectedrainbow2texturedsquare.h \
   geometries/projectedrainbow2texturedsquare.h \
-  geometries/splines.h
+  geometries/splines.h \
+    glshaderresourcemanager.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)

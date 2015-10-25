@@ -1,5 +1,7 @@
 ﻿#include "geometries/splines.h"
 
+#include "glslversionselector.h"
+
 #include <math/matrix.h>
 
 #include <QDebug>
@@ -8,6 +10,7 @@
 #include <QCoreApplication>
 
 #include <sstream>
+#include <stdexcept>
 
 Spline::Spline() :
   m_shaderProgram(0),
@@ -71,22 +74,29 @@ void Spline::create()
 
   destroy();
 
-  qDebug() << "Loading vertex shader file";
-  QFile vshaderFile(
-    ":/shaders/projectedcoloredgeometry_vshader.glsl");
+  std::shared_ptr<GLSLVersionSelector> versionSelector =
+    GLSLVersionSelector::getSharedInstance();
+  std::shared_ptr<QResource> vshaderRes = versionSelector->getResourcePath(
+    "projectedcolored_vshader.glsl");
+  std::shared_ptr<QResource> fshaderRes = versionSelector->getResourcePath(
+    "projectedcolored_fshader.glsl");
+
+  QFile vshaderFile(vshaderRes->absoluteFilePath());
+  qDebug() << "Loading vertex shader file " <<
+    vshaderFile.fileName().toStdString().c_str();
   if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    throw (std::string("Could not open ") +
-      vshaderFile.fileName().toStdString()).c_str();
+    throw std::runtime_error(std::string("Could not open ") +
+      vshaderFile.fileName().toStdString());
   }
   QTextStream vshaderStream(&vshaderFile);
   std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  qDebug() << "Loading fragment shader file";
-  QFile fshaderFile(
-    ":/shaders/projectedcoloredgeometry_fshader.glsl");
+  QFile fshaderFile(fshaderRes->absoluteFilePath());
+  qDebug() << "Loading fragment shader file " <<
+    fshaderFile.fileName().toStdString().c_str();
   if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    throw (std::string("Could not open ") +
-      fshaderFile.fileName().toStdString()).c_str();
+    throw std::runtime_error(std::string("Could not open ") +
+      fshaderFile.fileName().toStdString());
   }
   QTextStream fshaderStream(&fshaderFile);
   std::string fshaderSrc = fshaderStream.readAll().toStdString();
