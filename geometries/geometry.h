@@ -1,4 +1,4 @@
-#ifndef GEOMETRY_H
+﻿#ifndef GEOMETRY_H
 #define GEOMETRY_H
 
 #include "matrices/type_matrix_4X4.h"
@@ -10,8 +10,8 @@
 #define GL_CALL do { \
     GLint error; \
     while ((error = glGetError()) != 0) { \
-      std::cout << __LINE__ << " " << __FUNCTION__ << " " << error << \
-        std::endl; \
+      std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " \
+        << error << std::endl; \
     } \
   } while(false);
 

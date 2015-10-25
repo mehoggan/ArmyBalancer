@@ -39,33 +39,31 @@ public:
     std::size_t m_dimension;
     std::size_t m_stride;
     std::size_t m_byteOffset;
-    const GLchar *m_attribName;
+    std::string m_attribName;
     GLint m_position;
 
 
   public:
+    GLShaderAttributes();
+
     GLShaderAttributes(
       std::size_t dimension,
       std::size_t stride,
       std::size_t byteOffset,
-      const GLchar *attribName);
+      const std::string &attribName);
 
     std::size_t dimension() const {return m_dimension;}
     std::size_t stride() const {return m_stride;}
     std::size_t byteOffset() const {return m_byteOffset;}
-    const GLchar *attribName() const {return m_attribName;}
+    const std::string &attribName() const {return m_attribName;}
     GLint position() const {return m_position;}
+    bool isValid() const;
   };
 
 public:
   /*! This function should only be called when a context is made current.
    */
   static std::shared_ptr<GLShaderResourceManager> getSharedInstance();
-
-  GLShaderHandle generateProgram(
-    const std::shared_ptr<QResource> &vertexSource,
-    const std::shared_ptr<QResource> &fragmentSource,
-    bool *succeded = nullptr);
 
   GLShaderHandle generateProgram(
     const std::vector<std::shared_ptr<QResource>> &vertexSources,

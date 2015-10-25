@@ -13,11 +13,8 @@ std::shared_ptr<GLSLVersionSelector>
 
 std::shared_ptr<GLSLVersionSelector> GLSLVersionSelector::getSharedInstance()
 {
-  struct make_shared_enabler : public GLSLVersionSelector
-  {};
-
   if (!s_glslVersionSelector) {
-    s_glslVersionSelector = std::make_shared<make_shared_enabler>();
+    s_glslVersionSelector.reset(new GLSLVersionSelector());
   }
 
   return s_glslVersionSelector;

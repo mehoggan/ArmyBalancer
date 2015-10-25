@@ -25,25 +25,36 @@ bool GLShaderResourceManager::GLShaderHandle::isValid() const
     (m_shaderProgram != 0);
 }
 
+GLShaderResourceManager::GLShaderAttributes::GLShaderAttributes()
+  : m_dimension(-1)
+  , m_stride(-1)
+  , m_byteOffset(-1)
+  , m_attribName()
+{}
+
 GLShaderResourceManager::GLShaderAttributes::GLShaderAttributes(
   std::size_t dimension,
   std::size_t stride,
   std::size_t byteOffset,
-  const GLchar *attribName)
+  const std::string &attribName)
   : m_dimension(dimension)
   , m_stride(stride)
   , m_byteOffset(byteOffset)
   , m_attribName(attribName)
 {}
 
+bool GLShaderResourceManager::GLShaderAttributes::isValid() const
+{
+  std::size_t maxSize_t = std::numeric_limits<std::size_t>::max();
+  return (m_dimension != maxSize_t) && (m_stride != maxSize_t) &&
+    (m_byteOffset != maxSize_t) && (!strcmp(m_attribName.c_str(), ""));
+}
+
 std::shared_ptr<GLShaderResourceManager>
 GLShaderResourceManager::getSharedInstance()
 {
-  struct make_shared_enabler : public GLShaderResourceManager
-  {};
-
   if (!s_glShaderResourceManager) {
-    s_glShaderResourceManager = std::make_shared<make_shared_enabler>();
+    s_glShaderResourceManager.reset(new GLShaderResourceManager());
   }
 
   return s_glShaderResourceManager;
@@ -52,71 +63,6 @@ GLShaderResourceManager::getSharedInstance()
 GLShaderResourceManager::GLShaderResourceManager()
 {
   initializeOpenGLFunctions();
-}
-
-GLShaderResourceManager::GLShaderHandle
-GLShaderResourceManager::generateProgram(
-  const std::shared_ptr<QResource> &vertexSource,
-  const std::shared_ptr<QResource> &fragmentSource,
-  bool *succeded)
-{
-  GLShaderHandle handle;
-
-  QFile vshaderFile(vertexSource->absoluteFilePath());
-  if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    throw std::runtime_error(std::string("Could not open ") +
-      vshaderFile.fileName().toStdString());
-  }
-  QTextStream vshaderStream(&vshaderFile);
-  GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER); GL_CALL
-  const GLchar *vshaderRaw = vshaderStream.readAll().toStdString().c_str();
-  glShaderSource(vertexShader, 1, &(vshaderRaw), NULL); GL_CALL
-  glCompileShader(vertexShader); GL_CALL
-  if (getCompilerErrors(vertexShader)) {
-    glDeleteShader(vertexShader);
-    if (succeded) {
-      (*succeded) = false;
-    }
-    return handle;
-  }
-
-  QFile fshaderFile(fragmentSource->absoluteFilePath());
-  if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    throw std::runtime_error(std::string("Could not open ") +
-      fshaderFile.fileName().toStdString());
-  }
-  QTextStream fshaderStream(&fshaderFile);
-  GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER); GL_CALL
-  const GLchar *fshaderRaw = fshaderStream.readAll().toStdString().c_str();
-  glShaderSource(fragmentShader, 1, &(fshaderRaw), NULL); GL_CALL
-  glCompileShader(fragmentShader); GL_CALL
-  if (getCompilerErrors(fragmentShader)) {
-    glDeleteShader(fragmentShader);
-    if (succeded) {
-      (*succeded) = false;
-    }
-    return handle;
-  }
-
-  GLuint shaderProgram = glCreateProgram(); GL_CALL
-  glAttachShader(shaderProgram, vertexShader); GL_CALL
-  glAttachShader(shaderProgram, fragmentShader); GL_CALL
-  glLinkProgram(shaderProgram); GL_CALL
-  if (getLinkerErrors(shaderProgram)) {
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-    glDeleteProgram(shaderProgram);
-    if (succeded) {
-      (*succeded) = false;
-    }
-    return handle;
-  }
-
-  handle.m_vertexShader = vertexShader;
-  handle.m_fragmentShader = fragmentShader;
-  handle.m_shaderProgram = shaderProgram;
-
-  return handle;
 }
 
 GLShaderResourceManager::GLShaderHandle
@@ -139,6 +85,7 @@ GLShaderResourceManager::generateProgram(
     std::string source = vshaderStream.readAll().toStdString();
     combinedVSources[i] = new GLchar[source.size() + 1];
     strcpy(const_cast<GLchar*>(combinedVSources[i]), source.c_str());
+    qDebug() << "Added:\n" << combinedVSources[i];
     ++i;
   }
   GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER); GL_CALL
@@ -150,8 +97,16 @@ GLShaderResourceManager::generateProgram(
     if (succeded) {
       (*succeded) = false;
     }
+    for (std::size_t i = 0; i < vertexSources.size(); ++i) {
+      delete [] combinedVSources[i];
+    }
+    delete [] combinedVSources;
     return handle;
   }
+  for (std::size_t i = 0; i < vertexSources.size(); ++i) {
+      delete [] combinedVSources[i];
+  }
+  delete [] combinedVSources;
 
   const GLchar **combinedFSources = new const GLchar*[fragmentSources.size()];
   std::size_t j = 0;
@@ -165,6 +120,7 @@ GLShaderResourceManager::generateProgram(
     std::string source = fshaderStream.readAll().toStdString();
     combinedFSources[j] = new GLchar[source.size() + 1];
     strcpy(const_cast<GLchar*>(combinedFSources[j]), source.c_str());
+    qDebug() << "Added:\n" << combinedFSources[j];
     ++j;
   }
   GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER); GL_CALL
@@ -176,8 +132,16 @@ GLShaderResourceManager::generateProgram(
     if (succeded) {
       (*succeded) = false;
     }
+    for (std::size_t i = 0; i < fragmentSources.size(); ++i) {
+      delete [] combinedFSources[i];
+    }
+    delete [] combinedFSources;
     return handle;
   }
+  for (std::size_t i = 0; i < fragmentSources.size(); ++i) {
+    delete [] combinedFSources[i];
+  }
+  delete [] combinedFSources;
 
   GLuint shaderProgram = glCreateProgram(); GL_CALL
   glAttachShader(shaderProgram, vertexShader); GL_CALL
@@ -239,8 +203,9 @@ void GLShaderResourceManager::enableVertexAttribArrays(
 void GLShaderResourceManager::enableVertexAttribArray(
   const GLShaderHandle &handle, const GLShaderAttributes &attrib)
 {
+  const std::string attribName = attrib.attribName();
   GLint attribPos = glGetAttribLocation(handle.m_shaderProgram,
-    attrib.attribName()); GL_CALL
+    attribName.c_str()); GL_CALL
   glEnableVertexAttribArray(attribPos); GL_CALL
   glVertexAttribPointer(attribPos, attrib.m_position, GL_FLOAT, GL_FALSE,
     attrib.stride(), (void*)attrib.m_byteOffset); GL_CALL

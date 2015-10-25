@@ -1,10 +1,10 @@
-﻿#version 450
+﻿#version 150 core
 
-in vec4 iColor;
+in vec4 Color;
 
-out vec4 oColor;
+out vec4 outColor;
 
 void main()
 {
-  oColor = iColor;
+  outColor = Color;
 }
