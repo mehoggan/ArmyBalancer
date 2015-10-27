@@ -1,5 +1,7 @@
 ﻿#include "geometries/projectedrainbow2texturedsquare.h"
 
+#include "glslversionselector.h"
+
 #include "math/matrix.h"
 #include "matrices/type_matrix_4X4.h"
 #include "primitives/points/type_point_3d.h"
@@ -15,9 +17,6 @@
 #include <string.h>
 
 ProjectedRainbow2TexturedSquare::ProjectedRainbow2TexturedSquare() :
-  m_shaderProgram(0),
-  m_vertexShader(0),
-  m_fragmentShader(0),
   m_vbo(0),
   m_ebo(0),
   m_start(std::chrono::high_resolution_clock::now())
@@ -41,53 +40,38 @@ void ProjectedRainbow2TexturedSquare::create()
 {
   initializeOpenGLFunctions();
 
-  QFile vshaderFile(
-    ":/shaders/projectedcoloredtextured_vshader.glsl");
-  if (!vshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    throw (std::string("Could not open ") +
-      vshaderFile.fileName().toStdString()).c_str();
+  if (!m_shaderManager) {
+    m_shaderManager = GLShaderResourceManager::getSharedInstance();
   }
-  QTextStream vshaderStream(&vshaderFile);
-  std::string vshaderSrc = vshaderStream.readAll().toStdString();
 
-  QFile fshaderFile(
-    ":/shaders/projectedcolored2samplermixed_fshader.glsl");
-  if (!fshaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    throw (std::string("Could not open ") +
-      fshaderFile.fileName().toStdString()).c_str();
-  }
-  QTextStream fshaderStream(&fshaderFile);
-  std::string fshaderSrc = fshaderStream.readAll().toStdString();
+  destroy();
 
   glGenBuffers(1, &m_vbo); GL_CALL
 
   verts::collection_type data(new verts::datum_type[4]);
   data[0] = verts::datum_type(
-    opengl_math::point_2d<float>(-0.5f, +0.5f),
-    opengl_math::color_rgb<float>(+1.0f, +0.0f, +0.0f),
+    opengl_math::point_3d<float>(-1.0f, +1.0f, -1.0f),
+    opengl_math::color_rgba<float>(+1.0f, +0.0f, +0.0f, +1.0f),
     opengl_math::texcoord_2d<float>(0.0f, 0.0f));
   data[1] = verts::datum_type(
-    opengl_math::point_2d<float>(+0.5f, +0.5f),
-    opengl_math::color_rgb<float>(+0.0f, +1.0f, +0.0f),
+    opengl_math::point_3d<float>(+1.0f, +1.0f, -1.0f),
+    opengl_math::color_rgba<float>(+0.0f, +1.0f, +0.0f, +1.0f),
     opengl_math::texcoord_2d<float>(1.0f, 0.0f));
   data[2] = verts::datum_type(
-    opengl_math::point_2d<float>(+0.5f, -0.5f),
-    opengl_math::color_rgb<float>(+0.0f, +0.0f, +1.0f),
+    opengl_math::point_3d<float>(+1.0f, -1.0f, -1.0f),
+    opengl_math::color_rgba<float>(+0.0f, +0.0f, +1.0f, +1.0f),
     opengl_math::texcoord_2d<float>(1.0f, 1.0f));
   data[3] = verts::datum_type(
-    opengl_math::point_2d<float>(-0.5f, -0.5f),
-    opengl_math::color_rgb<float>(+1.0f, +1.0f, +1.0f),
+    opengl_math::point_3d<float>(-1.0f, -1.0f, -1.0f),
+    opengl_math::color_rgba<float>(+1.0f, +1.0f, +1.0f, +1.0f),
     opengl_math::texcoord_2d<float>(0.0f, 1.0f));
   m_vertexAttrib = verts(data, 4);
-
   std::size_t bytes = m_vertexAttrib.get_byte_count();
-
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
   glBufferData(GL_ARRAY_BUFFER, bytes, m_vertexAttrib.get_data().get(),
     GL_STATIC_DRAW); GL_CALL
 
   glGenBuffers(1, &m_ebo); GL_CALL
-  // Create indices
   opengl_graphics::indices<uint32_t>::collection_type indices(
     new uint32_t[6]);
   indices[0] = 0u; indices[1] = 1u; indices[2] = 2u;
@@ -97,23 +81,35 @@ void ProjectedRainbow2TexturedSquare::create()
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.get_byte_count(),
     m_indices.get_data().get(), GL_STATIC_DRAW); GL_CALL
 
-  // Create and compile the vertex shader
-  m_vertexShader = glCreateShader(GL_VERTEX_SHADER); GL_CALL
-  const GLchar *vshaderRaw = vshaderSrc.c_str();
-  glShaderSource(m_vertexShader, 1, &(vshaderRaw), NULL); GL_CALL
-  glCompileShader(m_vertexShader); GL_CALL
+  std::shared_ptr<GLSLVersionSelector> versionSelector =
+    GLSLVersionSelector::getSharedInstance();
+  std::shared_ptr<QResource> vshaderRes = versionSelector->getResourcePath(
+    "projectedcoloredtextured_vshader.glsl");
+  std::shared_ptr<QResource> fshaderRes = versionSelector->getResourcePath(
+    "projectedcolored2samplermixed_fshader.glsl");
+  bool success = true;
+  m_handle = m_shaderManager->generateProgram({vshaderRes}, {fshaderRes},
+    &success);
+  if (!success) {
+    throw std::runtime_error("Failed to generate program for textured square");
+  }
 
-  // Create and compile the fragment shader
-  m_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER); GL_CALL
-  const GLchar *fshaderRaw = fshaderSrc.c_str();
-  glShaderSource(m_fragmentShader, 1, &(fshaderRaw), NULL); GL_CALL
-  glCompileShader(m_fragmentShader); GL_CALL
-
-  // Link the vertex and fragment shader into a shader program
-  m_shaderProgram = glCreateProgram(); GL_CALL
-  glAttachShader(m_shaderProgram, m_vertexShader); GL_CALL
-  glAttachShader(m_shaderProgram, m_fragmentShader); GL_CALL
-  glLinkProgram(m_shaderProgram); GL_CALL
+  m_shaderVertexAttrib.resize(3);
+  m_shaderVertexAttrib[0] = GLShaderResourceManager::GLShaderAttributes(
+    verts::datum_type::internal_type1::dimension,
+    verts::traits::stride,
+    verts::traits::type1_byte_offset,
+    "iPosition");
+  m_shaderVertexAttrib[1] = GLShaderResourceManager::GLShaderAttributes(
+    verts::datum_type::internal_type2::dimension,
+    verts::traits::stride,
+    verts::traits::type2_byte_offset,
+    "iColor");
+  m_shaderVertexAttrib[2] = GLShaderResourceManager::GLShaderAttributes(
+    verts::datum_type::internal_type3::dimension,
+    verts::traits::stride,
+    verts::traits::type3_byte_offset,
+    "iTexcoord");
 
   glGenTextures(2, m_tex); GL_CALL
 
@@ -138,65 +134,37 @@ void ProjectedRainbow2TexturedSquare::create()
 
 void ProjectedRainbow2TexturedSquare::draw()
 {
-  glUseProgram(m_shaderProgram); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
+  m_shaderManager->useProgram(m_handle);
 
-  GLint posAttrib = glGetAttribLocation(m_shaderProgram, "position"); GL_CALL
-  GLint colAttrib = glGetAttribLocation(m_shaderProgram, "color"); GL_CALL
-  GLint texAttrib = glGetAttribLocation(m_shaderProgram, "texcoord"); GL_CALL
+  glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo); GL_CALL
+
+  //glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
 
   glActiveTexture(GL_TEXTURE0); GL_CALL
   glBindTexture(GL_TEXTURE_2D, m_tex[0]); GL_CALL
-  glUniform1i(glGetUniformLocation(m_shaderProgram, "die1"), 0);
+  glUniform1i(glGetUniformLocation(m_handle.shaderProgramId(), "uSampler1"), 0);
   GL_CALL
 
   glActiveTexture(GL_TEXTURE1); GL_CALL
   glBindTexture(GL_TEXTURE_2D, m_tex[1]); GL_CALL
-  glUniform1i(glGetUniformLocation(m_shaderProgram, "die2"), 1);
+  glUniform1i(glGetUniformLocation(m_handle.shaderProgramId(), "uSampler2"), 1);
   GL_CALL
 
-  glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo); GL_CALL
-  std::size_t stride = verts::traits::stride;
+  m_shaderManager->enableVertexAttribArrays(m_handle, m_shaderVertexAttrib);
 
-  std::size_t dimension1 = verts::datum_type::internal_type1::dimension;
-  std::size_t byte_offset1 = verts::traits::type1_byte_offset;
-  glEnableVertexAttribArray(posAttrib); GL_CALL
-  glVertexAttribPointer(posAttrib, dimension1, GL_FLOAT, GL_FALSE,
-    stride, (void*)byte_offset1); GL_CALL
-
-  std::size_t dimension2 = verts::datum_type::internal_type2::dimension;
-  std::size_t byte_offset2 = verts::traits::type2_byte_offset;
-  glEnableVertexAttribArray(colAttrib); GL_CALL
-  glVertexAttribPointer(colAttrib, dimension2, GL_FLOAT, GL_FALSE,
-    stride, (void*)byte_offset2); GL_CALL
-
-  std::size_t dimension3 = verts::datum_type::internal_type3::dimension;
-  std::size_t byte_offset3 = verts::traits::type3_byte_offset;
-  glEnableVertexAttribArray(texAttrib); GL_CALL
-  glVertexAttribPointer(texAttrib, dimension3, GL_FLOAT, GL_FALSE,
-    stride, (void*)byte_offset3); GL_CALL
-
-  auto t_now = std::chrono::high_resolution_clock::now();
-  float time = std::chrono::duration_cast<std::chrono::duration<float>>(
-    t_now - m_start).count();
   opengl_math::matrix_4X4<float, opengl_math::column> model(
     opengl_math::identity);
-  model = opengl_math::rotate_to<float, opengl_math::column>(model,
-    (time * opengl_math::degrees_to_radians(180.0)),
-    opengl_math::vector_3d<float>(0.0f, 0.0f, 1.0f), opengl_math::radians);
   opengl_math::matrix_4X4<float, opengl_math::column> view =
     opengl_math::look_at<float, opengl_math::column>(
-      opengl_math::point_3d<float>(1.2f, 1.2f, 1.2f),
+      opengl_math::point_3d<float>(0.0f, 0.0f, 20.0f),
       opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f),
-      opengl_math::vector_3d<float>(0.0f, 0.0f, 1.0f));
+      opengl_math::vector_3d<float>(0.0f, 1.0f, 0.0f));
+  auto mvp = (m_projection * view * model);
+  m_shaderManager->setUniformMatrix4X4(m_handle, mvp.to_gl_matrix(), "uMVP");
 
-  GLint uniMVP = glGetUniformLocation(m_shaderProgram, "mvp"); GL_CALL
-  glUniformMatrix4fv(uniMVP, 1, GL_FALSE,
-    (m_projection * view * model).to_gl_matrix()); GL_CALL
-
-  glDrawElements(GL_TRIANGLES, m_indices.get_indices_count(),
-    GL_UNSIGNED_INT, 0); GL_CALL
+  glDrawElements(GL_TRIANGLES, m_indices.get_indices_count(), GL_UNSIGNED_INT,
+    0); GL_CALL
 
   glActiveTexture(GL_TEXTURE1); GL_CALL
   glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
@@ -214,17 +182,7 @@ void ProjectedRainbow2TexturedSquare::destroy()
     glDeleteBuffers(1, &m_ebo); GL_CALL
   }
 
-  if (glIsProgram(m_shaderProgram)) {
-    glDeleteProgram(m_shaderProgram); GL_CALL
-  }
-
-  if (glIsShader(m_vertexShader)) {
-    glDeleteShader(m_vertexShader); GL_CALL
-  }
-
-  if (glIsShader(m_fragmentShader)) {
-    glDeleteShader(m_fragmentShader); GL_CALL
-  }
+  m_shaderManager->destroyProgram(m_handle);
 
   if (glIsTexture(m_tex[0])) {
     glDeleteTextures(1, &m_tex[0]); GL_CALL

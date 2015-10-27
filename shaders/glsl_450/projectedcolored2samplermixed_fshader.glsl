@@ -1,16 +1,16 @@
 ﻿#version 450 core
 
-in vec3 iColor;
-in vec2 iTexcoord;
+in vec4 oColor;
+in vec2 oTexcoord;
 
-out vec4 oColor;
+out vec4 xColor;
 
 uniform sampler2D uSampler1;
 uniform sampler2D uSampler2;
 
 void main()
 {
-  oColor = vec4(iColor, 1.0) * mix(
-    texture(uSampler1, iTexcoord),
-    texture(uSampler2, iTexcoord), 0.5);
+  xColor = oColor * mix(
+    texture(uSampler1, oTexcoord),
+    texture(uSampler2, oTexcoord), 0.5);
 }

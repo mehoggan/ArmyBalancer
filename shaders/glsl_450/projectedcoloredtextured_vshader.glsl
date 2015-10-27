@@ -1,6 +1,6 @@
 ﻿#version 450 core
 
-in vec2 iPosition;
+in vec3 iPosition;
 in vec3 iColor;
 in vec2 iTexcoord;
 
@@ -13,5 +13,5 @@ void main()
 {
   oColor = iColor;
   oTexcoord = iTexcoord;
-  gl_Position = uMVP * vec4(iPosition, 0.0, 1.0);
+  gl_Position = uMVP * vec4(iPosition, 1.0);
 }

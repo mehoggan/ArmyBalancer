@@ -25,6 +25,11 @@ WarScrollRelationsGraph::WarScrollRelationsGraph()
     spline = nullptr;
     (void)spline;
   }
+
+  for (auto square : m_squares) {
+    square = nullptr;
+    (void)square;
+  }
 }
 
 WarScrollRelationsGraph::~WarScrollRelationsGraph()
@@ -38,6 +43,12 @@ WarScrollRelationsGraph::~WarScrollRelationsGraph()
       spline.reset();
     }
   }
+
+  for (auto square : m_squares) {
+    if (square) {
+      square.reset();
+    }
+  }
 }
 
 void WarScrollRelationsGraph::setViewportSize(const QSize &size)
@@ -49,6 +60,17 @@ void WarScrollRelationsGraph::setViewportSize(const QSize &size)
         static_cast<float>(m_viewportSize.height());
       float num = static_cast<float>(m_viewportSize.width());
       spline->setProjection(
+        opengl_math::perspective<float, opengl_math::column>(
+          45.0f, num / den, 1.0, 100.0, opengl_math::degrees));
+    }
+  }
+
+  for (auto square : m_squares) {
+    if (square) {
+      float den = (m_viewportSize.height() == 0) ? 1.0f :
+        static_cast<float>(m_viewportSize.height());
+      float num = static_cast<float>(m_viewportSize.width());
+      square->setProjection(
         opengl_math::perspective<float, opengl_math::column>(
           45.0f, num / den, 1.0, 100.0, opengl_math::degrees));
     }
@@ -74,6 +96,15 @@ void WarScrollRelationsGraph::creatStaticData()
   m_splines[0]->setDisplayColor(opengl_math::color_rgba<float>(
     0.0f, 0.0f, 0.0f, 1.0f));
   m_splines[0]->setLineWidth(1.0f);
+
+  for (auto square : m_squares) {
+    if (square) {
+      square.reset();
+    }
+  }
+
+  m_squares[0].reset(new ProjectedRainbow2TexturedSquare());
+  m_squares[0]->create();
 }
 
 void WarScrollRelationsGraph::createGraph()
@@ -92,8 +123,6 @@ void WarScrollRelationsGraph::paint()
   if (m_initialize) {
     creatStaticData();
     m_initialize = f;
-  } else {
-    int x = 0; x = x;
   }
 
   if (m_create) {
@@ -112,6 +141,12 @@ void WarScrollRelationsGraph::renderGraph()
   qreal height = m_viewportSize.height();
   glViewport(0, 0.1125 * height, width, height);
   glDisable(GL_DEPTH_TEST);
+
+  for (auto square : m_squares) {
+    if (square) {
+      square->draw();
+    }
+  }
 
   for (auto spline : m_splines) {
     if (spline) {

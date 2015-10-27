@@ -76,7 +76,6 @@ void Spline::create()
     data[index++] = verts::datum_type(sample._position,
       opengl_math::color_rgba<float>(1.00f, 0.00f, 1.00f, 1.0f));
   }
-
   m_vertexAttrib = verts(data, samples.size());
   std::size_t bytes = m_vertexAttrib.get_byte_count();
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
@@ -125,7 +124,6 @@ void Spline::draw()
       opengl_math::point_3d<float>(0.0f, 0.0f, 20.0f),
       opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f),
       opengl_math::vector_3d<float>(0.0f, 1.0f, 0.0f));
-
   auto mvp = (m_projection * view * model);
   m_shaderManager->setUniformMatrix4X4(m_handle, mvp.to_gl_matrix(), "uMVP");
 
