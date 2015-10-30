@@ -16,14 +16,10 @@
 
 #include <string.h>
 
-ProjectedRainbow2TexturedSquare::ProjectedRainbow2TexturedSquare() :
-  m_vbo(0),
-  m_ebo(0),
-  m_start(std::chrono::high_resolution_clock::now())
-{
-  m_tex[0] = 0;
-  m_tex[1] = 0;
-}
+ProjectedRainbow2TexturedSquare::ProjectedRainbow2TexturedSquare()
+  : m_vbo(0)
+  , m_ebo(0)
+{}
 
 ProjectedRainbow2TexturedSquare::~ProjectedRainbow2TexturedSquare()
 {
@@ -44,10 +40,13 @@ void ProjectedRainbow2TexturedSquare::create()
     m_shaderManager = GLShaderResourceManager::getSharedInstance();
   }
 
+  if (!m_textureManager) {
+    m_textureManager = GLTextureResourceManager::getSharedInstance();
+  }
+
   destroy();
 
   glGenBuffers(1, &m_vbo); GL_CALL
-
   verts::collection_type data(new verts::datum_type[4]);
   data[0] = verts::datum_type(
     opengl_math::point_3d<float>(-1.0f, +1.0f, -1.0f),
@@ -111,45 +110,53 @@ void ProjectedRainbow2TexturedSquare::create()
     verts::traits::type3_byte_offset,
     "iTexcoord");
 
-  glGenTextures(2, m_tex); GL_CALL
-
   QImage img0(":/images/die1.png", "PNG");
-  glBindTexture(GL_TEXTURE_2D, m_tex[0]); GL_CALL
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img0.width(), img0.height(), 0,
-    GL_RGBA, GL_UNSIGNED_BYTE, img0.bits()); GL_CALL
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); GL_CALL
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); GL_CALL
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); GL_CALL
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); GL_CALL
+  m_texHandles[0] = m_textureManager->createTextureResource();
+  m_textureManager->uploadTexture(img0, m_texHandles[0]);
+  m_textureManager->setTextureParameters(
+    m_texHandles[0],
+    {
+      GLTextureResourceManager::GLTextureParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE),
+      GLTextureResourceManager::GLTextureParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE),
+      GLTextureResourceManager::GLTextureParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR),
+      GLTextureResourceManager::GLTextureParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR),
+    });
 
   QImage img1(":/images/die2.png", "PNG");
-  glBindTexture(GL_TEXTURE_2D, m_tex[1]); GL_CALL
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img1.width(), img1.height(), 0,
-    GL_RGBA, GL_UNSIGNED_BYTE, img1.bits()); GL_CALL
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); GL_CALL
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); GL_CALL
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); GL_CALL
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); GL_CALL
+  m_texHandles[1] = m_textureManager->createTextureResource();
+  m_textureManager->uploadTexture(img1, m_texHandles[1]);
+  m_textureManager->setTextureParameters(
+    m_texHandles[1],
+    {
+      GLTextureResourceManager::GLTextureParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE),
+      GLTextureResourceManager::GLTextureParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE),
+      GLTextureResourceManager::GLTextureParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR),
+      GLTextureResourceManager::GLTextureParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR),
+    });
 }
 
 void ProjectedRainbow2TexturedSquare::draw()
 {
+  glPushAttrib(GL_ALL_ATTRIB_BITS);
+
   m_shaderManager->useProgram(m_handle);
 
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo); GL_CALL
 
-  //glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
+  m_textureManager->activateTexture(m_texHandles[0]);
+  m_shaderManager->configureSampler(m_handle, m_texHandles[0], "uSampler1");
 
-  glActiveTexture(GL_TEXTURE0); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, m_tex[0]); GL_CALL
-  glUniform1i(glGetUniformLocation(m_handle.shaderProgramId(), "uSampler1"), 0);
-  GL_CALL
-
-  glActiveTexture(GL_TEXTURE1); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, m_tex[1]); GL_CALL
-  glUniform1i(glGetUniformLocation(m_handle.shaderProgramId(), "uSampler2"), 1);
-  GL_CALL
+  m_textureManager->activateTexture(m_texHandles[1]);
+  m_shaderManager->configureSampler(m_handle, m_texHandles[1], "uSampler2");
 
   m_shaderManager->enableVertexAttribArrays(m_handle, m_shaderVertexAttrib);
 
@@ -166,10 +173,10 @@ void ProjectedRainbow2TexturedSquare::draw()
   glDrawElements(GL_TRIANGLES, m_indices.get_indices_count(), GL_UNSIGNED_INT,
     0); GL_CALL
 
-  glActiveTexture(GL_TEXTURE1); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
-  glActiveTexture(GL_TEXTURE0); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
+  m_textureManager->deactivateTexture(m_texHandles[0]);
+  m_textureManager->deactivateTexture(m_texHandles[1]);
+
+  glPopAttrib();
 }
 
 void ProjectedRainbow2TexturedSquare::destroy()
@@ -183,12 +190,5 @@ void ProjectedRainbow2TexturedSquare::destroy()
   }
 
   m_shaderManager->destroyProgram(m_handle);
-
-  if (glIsTexture(m_tex[0])) {
-    glDeleteTextures(1, &m_tex[0]); GL_CALL
-  }
-
-  if (glIsTexture(m_tex[1])) {
-    glDeleteTextures(1, &m_tex[1]); GL_CALL
-  }
+  m_textureManager->destroyTextures({m_texHandles[0], m_texHandles[1]});
 }

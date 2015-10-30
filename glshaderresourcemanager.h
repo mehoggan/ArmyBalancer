@@ -5,11 +5,12 @@
 
 #include "geometries/geometry.h"
 
+#include "gltextureresourcemanager.h"
+
 #include <QResource>
 
 #include <memory>
 #include <string>
-#include <unordered_set>
 #include <vector>
 
 class GLShaderResourceManager : public QOpenGLFunctions
@@ -41,7 +42,6 @@ public:
     std::size_t m_byteOffset;
     std::string m_attribName;
     GLint m_position;
-
 
   public:
     GLShaderAttributes();
@@ -81,9 +81,15 @@ public:
 
   void setUniformMatrix4X4(const GLShaderHandle &handle,
     const GLfloat *matrix, const GLchar *name);
+  void configureSampler(const GLShaderHandle &handle,
+    const GLTextureResourceManager::GLTextureHandle &texHandle,
+    const GLchar *sampler);
 
 private:
   GLShaderResourceManager();
+
+  GLShaderResourceManager(const GLShaderResourceManager&) = delete;
+  GLShaderResourceManager &operator=(const GLShaderResourceManager&) = delete;
 
   bool getCompilerErrors(GLuint shaderId);
   bool getLinkerErrors(GLuint programId);

@@ -4,6 +4,7 @@
 #include "geometries/geometry.h"
 
 #include "glshaderresourcemanager.h"
+#include "gltextureresourcemanager.h"
 
 #include "mesh_types/interleaved_data.h"
 #include "mesh_types/datums/interleaved_datum_2d.h"
@@ -27,21 +28,21 @@ public:
   virtual void destroy();
 
 private:
-  GLShaderResourceManager::GLShaderHandle m_handle;
-  std::vector<GLShaderResourceManager::GLShaderAttributes> m_shaderVertexAttrib;
   std::shared_ptr<GLShaderResourceManager> m_shaderManager;
+  std::shared_ptr<GLTextureResourceManager> m_textureManager;
 
   GLuint m_vbo;
   GLuint m_ebo;
-  GLuint m_tex[2];
+
+  GLShaderResourceManager::GLShaderHandle m_handle;
+  std::vector<GLShaderResourceManager::GLShaderAttributes> m_shaderVertexAttrib;
+  GLTextureResourceManager::GLTextureHandle m_texHandles[2];
 
   typedef opengl_graphics::interleaved_data<opengl_math::point_3d<float>,
     opengl_math::color_rgba<float>, opengl_math::texcoord_2d<float>> verts;
   verts m_vertexAttrib;
   opengl_graphics::indices<uint32_t> m_indices;
   opengl_math::matrix_4X4<float, opengl_math::column> m_projection;
-
-  std::chrono::high_resolution_clock::time_point m_start;
 };
 
 #endif // PROJECTEDRAINBOWTEXTUREDSQUARE_H

@@ -42,7 +42,8 @@ SOURCES += main.cpp \
   warscrollsynergygraph.cpp \
   geometries/projectedrainbow2texturedsquare.cpp \
   geometries/splines.cpp \
-    glshaderresourcemanager.cpp
+  glshaderresourcemanager.cpp \
+  gltextureresourcemanager.cpp
 
 RESOURCES += qml.qrc \
     shaders.qrc \
@@ -91,7 +92,8 @@ HEADERS += \
   geometries/geometry.h \
   geometries/projectedrainbow2texturedsquare.h \
   geometries/splines.h \
-    glshaderresourcemanager.h
+  glshaderresourcemanager.h \
+  gltextureresourcemanager.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)

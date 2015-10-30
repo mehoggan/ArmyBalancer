@@ -225,6 +225,14 @@ void GLShaderResourceManager::setUniformMatrix4X4(const GLShaderHandle &handle,
   glUniformMatrix4fv(uniform, 1, GL_FALSE, matrix); GL_CALL
 }
 
+void GLShaderResourceManager::configureSampler(const GLShaderHandle &handle,
+  const GLTextureResourceManager::GLTextureHandle &texHandle,
+  const GLchar *sampler)
+{
+  glUniform1i(glGetUniformLocation(handle.m_shaderProgram, sampler),
+    texHandle.textureId()); GL_CALL
+}
+
 bool GLShaderResourceManager::getCompilerErrors(GLuint shaderId)
 {
   bool errors = false;
