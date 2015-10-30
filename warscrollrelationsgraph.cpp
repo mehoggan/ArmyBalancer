@@ -16,6 +16,8 @@ const bool f = false;
 #endif
 
 WarScrollRelationsGraph::WarScrollRelationsGraph()
+  : m_projection(opengl_math::identity)
+  , m_view(opengl_math::identity)
 {
   m_draw = f;
   m_create = f;
@@ -54,27 +56,11 @@ WarScrollRelationsGraph::~WarScrollRelationsGraph()
 void WarScrollRelationsGraph::setViewportSize(const QSize &size)
 {
   m_viewportSize = size;
-  for (auto spline : m_splines) {
-    if (spline) {
-      float den = (m_viewportSize.height() == 0) ? 1.0f :
-        static_cast<float>(m_viewportSize.height());
-      float num = static_cast<float>(m_viewportSize.width());
-      spline->setProjection(
-        opengl_math::perspective<float, opengl_math::column>(
-          45.0f, num / den, 1.0, 100.0, opengl_math::degrees));
-    }
-  }
-
-  for (auto square : m_squares) {
-    if (square) {
-      float den = (m_viewportSize.height() == 0) ? 1.0f :
-        static_cast<float>(m_viewportSize.height());
-      float num = static_cast<float>(m_viewportSize.width());
-      square->setProjection(
-        opengl_math::perspective<float, opengl_math::column>(
-          45.0f, num / den, 1.0, 100.0, opengl_math::degrees));
-    }
-  }
+  float den = (m_viewportSize.height() == 0) ? 1.0f :
+    static_cast<float>(m_viewportSize.height());
+  float num = static_cast<float>(m_viewportSize.width());
+  m_projection = opengl_math::perspective<float, opengl_math::column>(
+    45.0f, num / den, 1.0, 100.0, opengl_math::degrees);
 }
 
 void WarScrollRelationsGraph::creatStaticData()
@@ -97,14 +83,18 @@ void WarScrollRelationsGraph::creatStaticData()
     0.0f, 0.0f, 0.0f, 1.0f));
   m_splines[0]->setLineWidth(1.0f);
 
+  std::size_t index = 0;
   for (auto square : m_squares) {
-    if (square) {
-      square.reset();
-    }
+    square.reset();
+    m_squares[index].reset(new ProjectedRainbow2TexturedSquare());
+    m_squares[index]->create();
+    float one = (float)((std::rand() % 5) - (std::rand() % 10));
+    float two = (float)((std::rand() % 5) - (std::rand() % 10));
+    m_squares[index]->setTransform(opengl_math::translate_to(
+      m_squares[index]->getTransform(),
+      opengl_math::point_3d<float>(one, two, 0.0f)));
+    ++index;
   }
-
-  m_squares[0].reset(new ProjectedRainbow2TexturedSquare());
-  m_squares[0]->create();
 }
 
 void WarScrollRelationsGraph::createGraph()
@@ -142,14 +132,23 @@ void WarScrollRelationsGraph::renderGraph()
   glViewport(0, 0.1125 * height, width, height);
   glDisable(GL_DEPTH_TEST);
 
+  m_view = opengl_math::look_at<float, opengl_math::column>(
+    opengl_math::point_3d<float>(0.0f, 0.0f, 20.0f),
+    opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f),
+    opengl_math::vector_3d<float>(0.0f, 1.0f, 0.0f));
+
+  auto mv = (m_projection * m_view);
+
   for (auto square : m_squares) {
     if (square) {
+      square->setMVPMatrix(mv * square->getTransform());
       square->draw();
     }
   }
 
   for (auto spline : m_splines) {
     if (spline) {
+      spline->setMVPMatrix(mv * spline->getTransform());
       spline->draw();
     }
   }

@@ -31,7 +31,10 @@ private:
   WarScrollSynergyGraph *m_graph;
 
   std::array<std::shared_ptr<Spline>, 1> m_splines;
-  std::array<std::shared_ptr<Geometry>, 1> m_squares;
+  std::array<std::shared_ptr<Geometry>, 9> m_squares;
+
+  opengl_math::matrix_4X4<float, opengl_math::column> m_projection;
+  opengl_math::matrix_4X4<float, opengl_math::column> m_view;
 
 private:
   void renderBackground();

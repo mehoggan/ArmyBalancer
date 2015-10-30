@@ -19,17 +19,13 @@
 ProjectedRainbow2TexturedSquare::ProjectedRainbow2TexturedSquare()
   : m_vbo(0)
   , m_ebo(0)
+  , m_mvp(opengl_math::identity)
+  , m_transform(opengl_math::identity)
 {}
 
 ProjectedRainbow2TexturedSquare::~ProjectedRainbow2TexturedSquare()
 {
   destroy();
-}
-
-void ProjectedRainbow2TexturedSquare::setProjection(
-  const opengl_math::matrix_4X4<float, opengl_math::column> &projection)
-{
-  m_projection = projection;
 }
 
 void ProjectedRainbow2TexturedSquare::create()
@@ -146,36 +142,19 @@ void ProjectedRainbow2TexturedSquare::create()
 void ProjectedRainbow2TexturedSquare::draw()
 {
   glPushAttrib(GL_ALL_ATTRIB_BITS);
-
   m_shaderManager->useProgram(m_handle);
-
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo); GL_CALL
-
   m_textureManager->activateTexture(m_texHandles[0]);
   m_shaderManager->configureSampler(m_handle, m_texHandles[0], "uSampler1");
-
   m_textureManager->activateTexture(m_texHandles[1]);
   m_shaderManager->configureSampler(m_handle, m_texHandles[1], "uSampler2");
-
   m_shaderManager->enableVertexAttribArrays(m_handle, m_shaderVertexAttrib);
-
-  opengl_math::matrix_4X4<float, opengl_math::column> model(
-    opengl_math::identity);
-  opengl_math::matrix_4X4<float, opengl_math::column> view =
-    opengl_math::look_at<float, opengl_math::column>(
-      opengl_math::point_3d<float>(0.0f, 0.0f, 20.0f),
-      opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f),
-      opengl_math::vector_3d<float>(0.0f, 1.0f, 0.0f));
-  auto mvp = (m_projection * view * model);
-  m_shaderManager->setUniformMatrix4X4(m_handle, mvp.to_gl_matrix(), "uMVP");
-
+  m_shaderManager->setUniformMatrix4X4(m_handle, m_mvp.to_gl_matrix(), "uMVP");
   glDrawElements(GL_TRIANGLES, m_indices.get_indices_count(), GL_UNSIGNED_INT,
     0); GL_CALL
-
   m_textureManager->deactivateTexture(m_texHandles[0]);
   m_textureManager->deactivateTexture(m_texHandles[1]);
-
   glPopAttrib();
 }
 

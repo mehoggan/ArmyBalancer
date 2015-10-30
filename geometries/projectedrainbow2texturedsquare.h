@@ -21,8 +21,22 @@ class ProjectedRainbow2TexturedSquare : public Geometry
 public:
   ProjectedRainbow2TexturedSquare();
   ~ProjectedRainbow2TexturedSquare();
-  virtual void setProjection(
-    const opengl_math::matrix_4X4<float, opengl_math::column> &projection);
+
+  virtual void setTransform(
+    const opengl_math::matrix_4X4<float, opengl_math::column> &transform)
+  {
+    m_transform = transform;
+  }
+
+  virtual const opengl_math::matrix_4X4<float, opengl_math::column> &
+  getTransform() const {return m_transform;}
+
+  virtual void setMVPMatrix(
+    const opengl_math::matrix_4X4<float, opengl_math::column> &mvp)
+  {
+    m_mvp = mvp;
+  }
+
   virtual void create();
   virtual void draw();
   virtual void destroy();
@@ -42,7 +56,9 @@ private:
     opengl_math::color_rgba<float>, opengl_math::texcoord_2d<float>> verts;
   verts m_vertexAttrib;
   opengl_graphics::indices<uint32_t> m_indices;
-  opengl_math::matrix_4X4<float, opengl_math::column> m_projection;
+
+  opengl_math::matrix_4X4<float, opengl_math::column> m_mvp;
+  opengl_math::matrix_4X4<float, opengl_math::column> m_transform;
 };
 
 #endif // PROJECTEDRAINBOWTEXTUREDSQUARE_H

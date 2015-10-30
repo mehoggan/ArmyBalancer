@@ -8,25 +8,27 @@
 #include <QFile>
 #include <QTextStream>
 
-Spline::Spline() :
-  m_vbo(0),
-  m_lineWidth(0.1f),
-  m_pointSize(0.5f),
-  m_displayPoints(false),
-  m_displayTangents(false),
-  m_projection(opengl_math::identity)
+Spline::Spline()
+  : m_vbo(0)
+  , m_lineWidth(0.1f)
+  , m_pointSize(0.5f)
+  , m_displayPoints(false)
+  , m_displayTangents(false)
+  , m_mvp(opengl_math::identity)
+  , m_transform(opengl_math::identity)
 {}
 
-Spline::Spline(const Spline &other) :
-  m_vbo(other.m_vbo),
-  m_lineWidth(other.m_lineWidth),
-  m_pointSize(other.m_pointSize),
-  m_displayPoints(other.m_displayPoints),
-  m_displayTangents(other.m_displayTangents),
-  m_vertexAttrib(other.m_vertexAttrib),
-  m_projection(other.m_projection),
-  m_cubic(other.m_cubic),
-  m_color(other.m_color)
+Spline::Spline(const Spline &other)
+  : m_vbo(other.m_vbo)
+  , m_lineWidth(other.m_lineWidth)
+  , m_pointSize(other.m_pointSize)
+  , m_displayPoints(other.m_displayPoints)
+  , m_displayTangents(other.m_displayTangents)
+  , m_vertexAttrib(other.m_vertexAttrib)
+  , m_cubic(other.m_cubic)
+  , m_color(other.m_color)
+  , m_mvp(other.m_mvp)
+  , m_transform(other.m_transform)
 {}
 
 Spline &Spline::operator=(const Spline &rhs)
@@ -37,9 +39,10 @@ Spline &Spline::operator=(const Spline &rhs)
   m_displayPoints = rhs.m_displayPoints;
   m_displayTangents = rhs.m_displayTangents;
   m_vertexAttrib = rhs.m_vertexAttrib;
-  m_projection = rhs.m_projection;
   m_cubic = rhs.m_cubic;
   m_color = rhs.m_color;
+  m_mvp = rhs.m_mvp;
+  m_transform = rhs.m_transform;
 
   return (*this);
 }
@@ -48,12 +51,6 @@ Spline::~Spline()
 {
   destroy();
   m_shaderManager.reset();
-}
-
-void Spline::setProjection(
-  const opengl_math::matrix_4X4<float, opengl_math::column> &projection)
-{
-  m_projection = projection;
 }
 
 void Spline::create()
@@ -112,21 +109,9 @@ void Spline::create()
 void Spline::draw()
 {
   m_shaderManager->useProgram(m_handle);
-
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
-
   m_shaderManager->enableVertexAttribArrays(m_handle, m_shaderVertexAttrib);
-
-  opengl_math::matrix_4X4<float, opengl_math::column> model(
-    opengl_math::identity);
-  opengl_math::matrix_4X4<float, opengl_math::column> view =
-    opengl_math::look_at<float, opengl_math::column>(
-      opengl_math::point_3d<float>(0.0f, 0.0f, 20.0f),
-      opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f),
-      opengl_math::vector_3d<float>(0.0f, 1.0f, 0.0f));
-  auto mvp = (m_projection * view * model);
-  m_shaderManager->setUniformMatrix4X4(m_handle, mvp.to_gl_matrix(), "uMVP");
-
+  m_shaderManager->setUniformMatrix4X4(m_handle, m_mvp.to_gl_matrix(), "uMVP");
   glDrawArrays(GL_LINE_STRIP, 0, m_vertexAttrib.get_attribute_count()); GL_CALL
 }
 

@@ -19,8 +19,16 @@ class Geometry : public QOpenGLFunctions
 {
 public:
   virtual ~Geometry() {}
-  virtual void setProjection(
-    const opengl_math::matrix_4X4<float, opengl_math::column> &projection) = 0;
+
+  virtual void setTransform(
+    const opengl_math::matrix_4X4<float, opengl_math::column> &transform) = 0;
+
+  virtual const opengl_math::matrix_4X4<float, opengl_math::column> &
+  getTransform() const = 0;
+
+  virtual void setMVPMatrix(
+    const opengl_math::matrix_4X4<float, opengl_math::column> &mvp) = 0;
+
   virtual void create() = 0;
   virtual void draw() = 0;
   virtual void destroy() = 0;

@@ -23,8 +23,21 @@ public:
   Spline &operator=(const Spline &);
   ~Spline();
 
-  virtual void setProjection(
-    const opengl_math::matrix_4X4<float, opengl_math::column> &projection);
+  virtual void setTransform(
+    const opengl_math::matrix_4X4<float, opengl_math::column> &transform)
+  {
+    m_transform = transform;
+  }
+
+  virtual const opengl_math::matrix_4X4<float, opengl_math::column> &
+  getTransform() const {return m_transform;}
+
+  virtual void setMVPMatrix(
+    const opengl_math::matrix_4X4<float, opengl_math::column> &mvp)
+  {
+    m_mvp = mvp;
+  }
+
   virtual void create();
   virtual void draw();
   virtual void destroy();
@@ -68,9 +81,11 @@ private:
   typedef opengl_graphics::interleaved_data<opengl_math::point_3d<float>,
     opengl_math::color_rgba<float>> verts;
   verts m_vertexAttrib;
-  opengl_math::matrix_4X4<float, opengl_math::column> m_projection;
   opengl_math::cubic_curve<float, opengl_math::column> m_cubic;
   opengl_math::color_rgba<float> m_color;
+
+  opengl_math::matrix_4X4<float, opengl_math::column> m_mvp;
+  opengl_math::matrix_4X4<float, opengl_math::column> m_transform;
 };
 
 #endif // SPLINES_H
