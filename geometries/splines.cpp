@@ -10,23 +10,14 @@
 
 Spline::Spline()
   : m_vbo(0)
-  , m_lineWidth(0.1f)
-  , m_pointSize(0.5f)
-  , m_displayPoints(false)
-  , m_displayTangents(false)
   , m_mvp(opengl_math::identity)
   , m_transform(opengl_math::identity)
 {}
 
 Spline::Spline(const Spline &other)
   : m_vbo(other.m_vbo)
-  , m_lineWidth(other.m_lineWidth)
-  , m_pointSize(other.m_pointSize)
-  , m_displayPoints(other.m_displayPoints)
-  , m_displayTangents(other.m_displayTangents)
   , m_vertexAttrib(other.m_vertexAttrib)
   , m_cubic(other.m_cubic)
-  , m_color(other.m_color)
   , m_mvp(other.m_mvp)
   , m_transform(other.m_transform)
 {}
@@ -34,13 +25,8 @@ Spline::Spline(const Spline &other)
 Spline &Spline::operator=(const Spline &rhs)
 {
   m_vbo = rhs.m_vbo;
-  m_lineWidth = rhs.m_lineWidth;
-  m_pointSize = rhs.m_pointSize;
-  m_displayPoints = rhs.m_displayPoints;
-  m_displayTangents = rhs.m_displayTangents;
   m_vertexAttrib = rhs.m_vertexAttrib;
   m_cubic = rhs.m_cubic;
-  m_color = rhs.m_color;
   m_mvp = rhs.m_mvp;
   m_transform = rhs.m_transform;
 

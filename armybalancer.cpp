@@ -1,4 +1,6 @@
-#include "armybalancer.h"
+﻿#include "armybalancer.h"
+
+#include "warscrollrelationsgraphscene.h"
 
 #include <QDate>
 #include <QMessageBox>
@@ -537,7 +539,10 @@ void ArmyBalancer::buildAndPublishSynergyGraph()
     }
   }
 
-  m_WarScrollSynergyGraph.print();
+  //WarScrollRelationsGraphScene *scene =
+  //  m_Root->rootObject()->findChild<WarScrollRelationsGraphScene *>(
+  //  "warscrollRelationsGraphScene");
+  //scene->setWarScrollSynergyGraph(&m_WarScrollSynergyGraph);
 }
 
 namespace

@@ -340,6 +340,7 @@ Item
           WarScrollRelationsGraphScene
           {
             id: warscrollRelationsGraphScene
+            objectName: "warscrollRelationsGraphScene"
             width: parent.width
             height: parent.height
             SequentialAnimation on t

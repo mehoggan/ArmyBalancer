@@ -1,6 +1,7 @@
 ﻿#include "warscrollrelationsgraph.h"
 
-#include "geometries/projectedrainbow2texturedsquare.h"
+#include "geometries/ellipse.h"
+
 #include "math/matrix.h"
 
 #include <QDebug>
@@ -23,14 +24,9 @@ WarScrollRelationsGraph::WarScrollRelationsGraph()
   m_create = f;
   m_initialize = t;
 
-  for (auto spline : m_splines) {
-    spline = nullptr;
-    (void)spline;
-  }
-
-  for (auto square : m_squares) {
-    square = nullptr;
-    (void)square;
+  for (auto ellipse : m_ellipses) {
+    ellipse = nullptr;
+    (void)ellipse;
   }
 }
 
@@ -40,15 +36,9 @@ WarScrollRelationsGraph::~WarScrollRelationsGraph()
   m_draw = f;
   m_create = f;
 
-  for (auto spline : m_splines) {
-    if (spline) {
-      spline.reset();
-    }
-  }
-
-  for (auto square : m_squares) {
-    if (square) {
-      square.reset();
+  for (auto ellipse : m_ellipses) {
+    if (ellipse) {
+      ellipse.reset();
     }
   }
 }
@@ -67,32 +57,13 @@ void WarScrollRelationsGraph::creatStaticData()
 {
   initializeOpenGLFunctions();
 
-  for (auto spline : m_splines) {
-    if (spline) {
-      spline.reset();
-    }
-  }
-
-  opengl_math::point_3d<float> p0(+0.00f, +0.00f, +0.00f);
-  opengl_math::point_3d<float> p1(-2.00f, +1.00f, +0.00f);
-  opengl_math::point_3d<float> p2(+2.00f, +3.00f, +0.00f);
-  opengl_math::point_3d<float> p3(+2.50f, +5.67f, +0.00f);
-  m_splines[0] = Spline::createBezier(p0, p1, p2, p3);
-  m_splines[0]->create();
-  m_splines[0]->setDisplayColor(opengl_math::color_rgba<float>(
-    0.0f, 0.0f, 0.0f, 1.0f));
-  m_splines[0]->setLineWidth(1.0f);
-
   std::size_t index = 0;
-  for (auto square : m_squares) {
-    square.reset();
-    m_squares[index].reset(new ProjectedRainbow2TexturedSquare());
-    m_squares[index]->create();
-    float one = (float)((std::rand() % 5) - (std::rand() % 10));
-    float two = (float)((std::rand() % 5) - (std::rand() % 10));
-    m_squares[index]->setTransform(opengl_math::translate_to(
-      m_squares[index]->getTransform(),
-      opengl_math::point_3d<float>(one, two, 0.0f)));
+  for (auto ellipse : m_ellipses) {
+    ellipse.reset();
+    m_ellipses[index].reset(new Ellipse());
+    m_ellipses[index]->create();
+    m_ellipses[index]->setTransform(opengl_math::scale_by(
+      m_ellipses[index]->getTransform(), 2.5f, 2.0f, 0.0f));
     ++index;
   }
 }
@@ -101,10 +72,10 @@ void WarScrollRelationsGraph::createGraph()
 {
 }
 
-void WarScrollRelationsGraph::setGraph(WarScrollSynergyGraph &graph)
+void WarScrollRelationsGraph::setGraph(WarScrollSynergyGraph *graph)
 {
   std::lock_guard<std::mutex> lock(m_graphMutex);
-  m_graph = &graph;
+  m_graph = graph;
   m_create = t;
 }
 
@@ -139,17 +110,10 @@ void WarScrollRelationsGraph::renderGraph()
 
   auto mv = (m_projection * m_view);
 
-  for (auto square : m_squares) {
-    if (square) {
-      square->setMVPMatrix(mv * square->getTransform());
-      square->draw();
-    }
-  }
-
-  for (auto spline : m_splines) {
-    if (spline) {
-      spline->setMVPMatrix(mv * spline->getTransform());
-      spline->draw();
+  for (auto ellipse : m_ellipses) {
+    if (ellipse) {
+      ellipse->setMVPMatrix(mv * ellipse->getTransform());
+      ellipse->draw();
     }
   }
 }

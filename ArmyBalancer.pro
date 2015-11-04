@@ -43,7 +43,8 @@ SOURCES += main.cpp \
   geometries/projectedrainbow2texturedsquare.cpp \
   geometries/splines.cpp \
   glshaderresourcemanager.cpp \
-  gltextureresourcemanager.cpp
+  gltextureresourcemanager.cpp \
+    geometries/ellipse.cpp
 
 RESOURCES += qml.qrc \
     shaders.qrc \
@@ -93,7 +94,8 @@ HEADERS += \
   geometries/projectedrainbow2texturedsquare.h \
   geometries/splines.h \
   glshaderresourcemanager.h \
-  gltextureresourcemanager.h
+  gltextureresourcemanager.h \
+    geometries/ellipse.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)

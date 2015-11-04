@@ -1,8 +1,8 @@
-#include "warscrollrelationsgraphscene.h"
+﻿#include "warscrollrelationsgraphscene.h"
 
-WarScrollRelationsGraphScene::WarScrollRelationsGraphScene() :
-  m_t(0),
-  m_renderer(nullptr)
+WarScrollRelationsGraphScene::WarScrollRelationsGraphScene(QObject *)
+  : m_t(0)
+  , m_renderer(nullptr)
 {
   connect(this, SIGNAL(windowChanged(QQuickWindow*)),
     this, SLOT(handleWindowChanged(QQuickWindow*)));
@@ -31,6 +31,14 @@ void WarScrollRelationsGraphScene::setDraw(bool draw)
   emit drawChanged();
   if (m_renderer) {
     m_renderer->setDraw(draw);
+  }
+}
+
+void WarScrollRelationsGraphScene::setWarScrollSynergyGraph(
+  WarScrollSynergyGraph *graph)
+{
+  if (m_renderer) {
+    m_renderer->setGraph(graph);
   }
 }
 

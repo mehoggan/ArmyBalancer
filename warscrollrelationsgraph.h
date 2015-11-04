@@ -30,8 +30,7 @@ private:
   std::mutex m_graphMutex;
   WarScrollSynergyGraph *m_graph;
 
-  std::array<std::shared_ptr<Spline>, 1> m_splines;
-  std::array<std::shared_ptr<Geometry>, 9> m_squares;
+  std::array<std::shared_ptr<Geometry>, 1> m_ellipses;
 
   opengl_math::matrix_4X4<float, opengl_math::column> m_projection;
   opengl_math::matrix_4X4<float, opengl_math::column> m_view;
@@ -48,7 +47,7 @@ public:
 
   void setViewportSize(const QSize &size);
   void setDraw(bool draw) {m_draw = draw;}
-  void setGraph(WarScrollSynergyGraph &graph);
+  void setGraph(WarScrollSynergyGraph *graph);
 
 public slots:
   void paint();

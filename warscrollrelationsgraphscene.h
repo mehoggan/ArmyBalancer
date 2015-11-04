@@ -6,6 +6,8 @@
 
 #include "warscrollrelationsgraph.h"
 
+class WarScrollSynergyGraph;
+
 class WarScrollRelationsGraphScene : public QQuickItem
 {
   Q_OBJECT
@@ -13,13 +15,15 @@ class WarScrollRelationsGraphScene : public QQuickItem
   Q_PROPERTY(bool draw READ getDraw WRITE setDraw NOTIFY drawChanged)
 
 public:
-  WarScrollRelationsGraphScene();
+  WarScrollRelationsGraphScene(QObject *parent = nullptr);
 
   qreal getT() const {return m_t;}
   void setT(qreal t);
 
   bool getDraw() const {return m_draw;}
   void setDraw(bool draw);
+
+  void setWarScrollSynergyGraph(WarScrollSynergyGraph *graph);
 
 signals:
   void tChanged();

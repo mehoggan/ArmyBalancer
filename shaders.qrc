@@ -4,5 +4,6 @@
         <file>shaders/glsl_450/projectedcolored2samplermixed_fshader.glsl</file>
         <file>shaders/glsl_450/projectedcolored_vshader.glsl</file>
         <file>shaders/glsl_450/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_450/projectedcolored1sampler_fshader.glsl</file>
     </qresource>
 </RCC>

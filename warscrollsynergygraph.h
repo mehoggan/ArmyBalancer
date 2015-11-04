@@ -1,4 +1,4 @@
-#ifndef WARSCROLLSYNERGYGRAPH_H
+﻿#ifndef WARSCROLLSYNERGYGRAPH_H
 #define WARSCROLLSYNERGYGRAPH_H
 
 #include <vector>
@@ -7,14 +7,17 @@
 
 class WarScrollSynergyGraph
 {
-private:
+public:
   struct Vertex;
 
   struct Edge
   {
+  private:
+    friend class WarScrollSynergyGraph;
     const Vertex *m_Node;
     const WarScroll::KeyWordConnection * const m_Meta;
 
+  public:
     Edge() :
       m_Node(nullptr),
       m_Meta(nullptr)
@@ -28,6 +31,8 @@ private:
 
   struct Vertex
   {
+  private:
+    friend class WarScrollSynergyGraph;
     const WarScroll *m_Data;
     mutable std::vector<Edge> m_Adjacents;
 
@@ -41,6 +46,7 @@ private:
       return lhs.m_Data->getGuid() == rhs.m_Data->getGuid();
     }
 
+  public:
     Vertex() :
       m_Data(nullptr)
     {}
@@ -62,12 +68,11 @@ private:
       return (*this);
     }
 
+    const WarScroll *getWarScroll() const {return m_Data;}
+
     void connect(const Vertex &other,
       const WarScroll::KeyWordConnection &d) const;
   };
-
-private:
-  mutable std::set<Vertex> m_Vertices;
 
 public:
   WarScrollSynergyGraph();
@@ -77,7 +82,13 @@ public:
   void connect(const WarScroll &from, const WarScroll &to,
     const WarScroll::KeyWordConnection &connection) const;
 
+  std::set<Vertex>::iterator begin() {return m_Vertices.begin();}
+  std::set<Vertex>::iterator end() {return m_Vertices.end();}
+
   void print();
+
+private:
+  mutable std::set<Vertex> m_Vertices;
 };
 
 #endif // WARSCROLLSYNERGYGRAPH_H

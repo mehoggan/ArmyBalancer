@@ -1,5 +1,5 @@
-#ifndef PROJECTEDRAINBOW2TEXTUREDSQUARE_H
-#define PROJECTEDRAINBOW2TEXTUREDSQUARE_H
+﻿#ifndef ELIPSE_H
+#define ELIPSE_H
 
 #include "geometries/geometry.h"
 
@@ -15,11 +15,11 @@
 
 #include <memory>
 
-class ProjectedRainbow2TexturedSquare : public Geometry
+class Ellipse : public Geometry
 {
 public:
-  ProjectedRainbow2TexturedSquare();
-  ~ProjectedRainbow2TexturedSquare();
+  Ellipse();
+  ~Ellipse();
 
   virtual void setTransform(
     const opengl_math::matrix_4X4<float, opengl_math::column> &transform)
@@ -49,15 +49,16 @@ private:
 
   GLShaderResourceManager::GLShaderHandle m_handle;
   std::vector<GLShaderResourceManager::GLShaderAttributes> m_shaderVertexAttrib;
-  GLTextureResourceManager::GLTextureHandle m_texHandles[2];
+  GLTextureResourceManager::GLTextureHandle m_texHandles[1];
 
   typedef opengl_graphics::interleaved_data<opengl_math::point_3d<float>,
     opengl_math::color_rgba<float>, opengl_math::texcoord_2d<float>> verts;
   verts m_vertexAttrib;
-  opengl_graphics::indices<uint32_t> m_indices;
+  typedef opengl_graphics::indices<uint32_t> indices;
+  indices m_indices;
 
   opengl_math::matrix_4X4<float, opengl_math::column> m_mvp;
   opengl_math::matrix_4X4<float, opengl_math::column> m_transform;
 };
 
-#endif // PROJECTEDRAINBOWTEXTUREDSQUARE_H
+#endif // ELIPSE_H
