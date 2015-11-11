@@ -25,30 +25,30 @@ ArmyBalancer::ArmyBalancer(QQuickItem *parent)
 
   m_FactionList.push_back("");
   insertFaction<BeastmenFaction>();
-  insertFaction<BretonniaFaction>();
-  insertFaction<DaemonsOfChaosKhorneFaction>();
-  insertFaction<DaemonsOfChaosNurgleFaction>();
-  insertFaction<DaemonsOfChaosTzeentchFaction>();
-  insertFaction<DaemonsOfChaosSlaaneshFaction>();
-  insertFaction<DarkElvesFaction>();
-  insertFaction<DwarfsFaction>();
-  insertFaction<TheEmpireFaction>();
-  insertFaction<HighElvesFaction>();
-  insertFaction<KhorneBloodboundFaction>();
-  insertFaction<TheLegionOfAzgorhFaction>();
-  insertFaction<LizardmenFaction>();
-  insertFaction<NurgleRotbringersFaction>();
-  insertFaction<OgreKingdomsFaction>();
-  insertFaction<OrcsAndGoblinsFaction>();
-  insertFaction<SkavenFaction>();
-  insertFaction<SkavenPestilensFaction>();
-  insertFaction<StormCastEternalsFaction>();
-  insertFaction<SylvanethFaction>();
-  insertFaction<TamurkhansHordeFaction>();
-  insertFaction<TombKingsFaction>();
-  insertFaction<VampireCountsFaction>();
-  insertFaction<WarriorsOfChaosFaction>();
-  insertFaction<WoodElvesFaction>();
+  //insertFaction<BretonniaFaction>();
+  //insertFaction<DaemonsOfChaosKhorneFaction>();
+  //insertFaction<DaemonsOfChaosNurgleFaction>();
+  //insertFaction<DaemonsOfChaosTzeentchFaction>();
+  //insertFaction<DaemonsOfChaosSlaaneshFaction>();
+  //insertFaction<DarkElvesFaction>();
+  //insertFaction<DwarfsFaction>();
+  //insertFaction<TheEmpireFaction>();
+  //insertFaction<HighElvesFaction>();
+  //insertFaction<KhorneBloodboundFaction>();
+  //insertFaction<TheLegionOfAzgorhFaction>();
+  //insertFaction<LizardmenFaction>();
+  //insertFaction<NurgleRotbringersFaction>();
+  //insertFaction<OgreKingdomsFaction>();
+  //insertFaction<OrcsAndGoblinsFaction>();
+  //insertFaction<SkavenFaction>();
+  //insertFaction<SkavenPestilensFaction>();
+  //insertFaction<StormCastEternalsFaction>();
+  //insertFaction<SylvanethFaction>();
+  //insertFaction<TamurkhansHordeFaction>();
+  //insertFaction<TombKingsFaction>();
+  //insertFaction<VampireCountsFaction>();
+  //insertFaction<WarriorsOfChaosFaction>();
+  //insertFaction<WoodElvesFaction>();
 }
 
 void ArmyBalancer::setRootView(QQuickView *root)
@@ -539,10 +539,10 @@ void ArmyBalancer::buildAndPublishSynergyGraph()
     }
   }
 
-  //WarScrollRelationsGraphScene *scene =
-  //  m_Root->rootObject()->findChild<WarScrollRelationsGraphScene *>(
-  //  "warscrollRelationsGraphScene");
-  //scene->setWarScrollSynergyGraph(&m_WarScrollSynergyGraph);
+  WarScrollRelationsGraphScene *scene =
+    m_Root->rootObject()->findChild<WarScrollRelationsGraphScene *>(
+    "warscrollRelationsGraphScene");
+  scene->setWarScrollSynergyGraph(&m_WarScrollSynergyGraph);
 }
 
 namespace

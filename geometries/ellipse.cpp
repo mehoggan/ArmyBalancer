@@ -128,9 +128,8 @@ void Ellipse::create()
     verts::traits::type3_byte_offset,
     "iTexcoord");
 
-  QImage img0(":/images/die1.png", "PNG");
   m_texHandles[0] = m_textureManager->createTextureResource();
-  m_textureManager->uploadTexture(img0, m_texHandles[0]);
+  m_textureManager->uploadTexture(m_nameTexture, m_texHandles[0]);
   m_textureManager->setTextureParameters(
     m_texHandles[0],
     {
@@ -172,4 +171,9 @@ void Ellipse::destroy()
   }
 
   m_shaderManager->destroyProgram(m_handle);
+}
+
+void Ellipse::setNameTexture(const QImage &image)
+{
+  m_nameTexture = image;
 }

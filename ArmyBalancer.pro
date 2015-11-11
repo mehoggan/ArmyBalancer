@@ -40,11 +40,12 @@ SOURCES += main.cpp \
   warscrollrelationsgraph.cpp \
   warscrollrelationsgraphscene.cpp \
   warscrollsynergygraph.cpp \
+  geometries/collision.cpp \
+  geometries/ellipse.cpp \
   geometries/projectedrainbow2texturedsquare.cpp \
   geometries/splines.cpp \
   glshaderresourcemanager.cpp \
   gltextureresourcemanager.cpp \
-    geometries/ellipse.cpp
 
 RESOURCES += qml.qrc \
     shaders.qrc \
@@ -90,12 +91,13 @@ HEADERS += \
   warscrollrelationsgraph.h \
   warscrollrelationsgraphscene.h \
   warscrollsynergygraph.h \
+  geometries/collision.h \
+  geometries/ellipse.h \
   geometries/geometry.h \
   geometries/projectedrainbow2texturedsquare.h \
   geometries/splines.h \
   glshaderresourcemanager.h \
   gltextureresourcemanager.h \
-    geometries/ellipse.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)

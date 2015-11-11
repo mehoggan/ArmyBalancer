@@ -1,4 +1,4 @@
-#include <QDebug>
+﻿#include <QDebug>
 
 #include <iostream>
 
@@ -35,30 +35,30 @@ WarScroll WarScrollFactory::getWarScroll(const std::string &factionName,
 
 WarScrollFactory::WarScrollFactory()
 {
-  getWarScrollsForFaction<BretonniaFaction>();
+//  getWarScrollsForFaction<BretonniaFaction>();
   getWarScrollsForFaction<BeastmenFaction>();
-  getWarScrollsForFaction<BretonniaFaction>();
-  getWarScrollsForFaction<DaemonsOfChaosKhorneFaction>();
-  getWarScrollsForFaction<DaemonsOfChaosNurgleFaction>();
-  getWarScrollsForFaction<DaemonsOfChaosSlaaneshFaction>();
-  getWarScrollsForFaction<DaemonsOfChaosTzeentchFaction>();
-  getWarScrollsForFaction<DarkElvesFaction>();
-  getWarScrollsForFaction<DwarfsFaction>();
-  getWarScrollsForFaction<HighElvesFaction>();
-  getWarScrollsForFaction<KhorneBloodboundFaction>();
-  getWarScrollsForFaction<LizardmenFaction>();
-  getWarScrollsForFaction<NurgleRotbringersFaction>();
-  getWarScrollsForFaction<OgreKingdomsFaction>();
-  getWarScrollsForFaction<OrcsAndGoblinsFaction>();
-  getWarScrollsForFaction<SkavenFaction>();
-  getWarScrollsForFaction<SkavenPestilensFaction>();
-  getWarScrollsForFaction<StormCastEternalsFaction>();
-  getWarScrollsForFaction<SylvanethFaction>();
-  getWarScrollsForFaction<TamurkhansHordeFaction>();
-  getWarScrollsForFaction<TheEmpireFaction>();
-  getWarScrollsForFaction<TheLegionOfAzgorhFaction>();
-  getWarScrollsForFaction<TombKingsFaction>();
-  getWarScrollsForFaction<VampireCountsFaction>();
-  getWarScrollsForFaction<WarriorsOfChaosFaction>();
-  getWarScrollsForFaction<WoodElvesFaction>();
+//  getWarScrollsForFaction<BretonniaFaction>();
+//  getWarScrollsForFaction<DaemonsOfChaosKhorneFaction>();
+//  getWarScrollsForFaction<DaemonsOfChaosNurgleFaction>();
+//  getWarScrollsForFaction<DaemonsOfChaosSlaaneshFaction>();
+//  getWarScrollsForFaction<DaemonsOfChaosTzeentchFaction>();
+//  getWarScrollsForFaction<DarkElvesFaction>();
+//  getWarScrollsForFaction<DwarfsFaction>();
+//  getWarScrollsForFaction<HighElvesFaction>();
+//  getWarScrollsForFaction<KhorneBloodboundFaction>();
+//  getWarScrollsForFaction<LizardmenFaction>();
+//  getWarScrollsForFaction<NurgleRotbringersFaction>();
+//  getWarScrollsForFaction<OgreKingdomsFaction>();
+//  getWarScrollsForFaction<OrcsAndGoblinsFaction>();
+//  getWarScrollsForFaction<SkavenFaction>();
+//  getWarScrollsForFaction<SkavenPestilensFaction>();
+//  getWarScrollsForFaction<StormCastEternalsFaction>();
+//  getWarScrollsForFaction<SylvanethFaction>();
+//  getWarScrollsForFaction<TamurkhansHordeFaction>();
+//  getWarScrollsForFaction<TheEmpireFaction>();
+//  getWarScrollsForFaction<TheLegionOfAzgorhFaction>();
+//  getWarScrollsForFaction<TombKingsFaction>();
+//  getWarScrollsForFaction<VampireCountsFaction>();
+//  getWarScrollsForFaction<WarriorsOfChaosFaction>();
+//  getWarScrollsForFaction<WoodElvesFaction>();
 }

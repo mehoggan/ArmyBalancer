@@ -1,4 +1,4 @@
-import QtQuick 2.4
+﻿import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
@@ -343,6 +343,34 @@ Item
             objectName: "warscrollRelationsGraphScene"
             width: parent.width
             height: parent.height
+
+            MouseArea
+            {
+              anchors.fill: parent
+              property real m_x;
+              property real m_y;
+
+              onWheel: {
+                if (wheel.angleDelta.y < 0) {
+                  warscrollRelationsGraphScene.z = -1.0;
+                } else if (wheel.angleDelta.y > 0) {
+                  warscrollRelationsGraphScene.z = +1.0;
+                }
+              }
+
+              onPressed: {
+                m_x = mouse.x;
+                m_y = mouse.y;
+              }
+
+              onPositionChanged: {
+                warscrollRelationsGraphScene.focalPoint = Qt.vector2d(
+                  mouse.x - m_x, mouse.y - m_y)
+                m_x = mouse.x;
+                m_y = mouse.y;
+              }
+            }
+
             SequentialAnimation on t
             {
               NumberAnimation

@@ -67,6 +67,5 @@ std::shared_ptr<QResource> GLSLVersionSelector::getResourcePath(
     throw std::runtime_error("Unsupported version " + err + "found");
   }
 
-  qDebug() << "Going to load " << uri.c_str();
   return std::make_shared<QResource>(uri.c_str());
 }

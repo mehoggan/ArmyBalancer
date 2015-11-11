@@ -28,10 +28,23 @@ void WarScrollRelationsGraphScene::setDraw(bool draw)
   }
 
   m_draw = draw;
-  emit drawChanged();
-  if (m_renderer) {
-    m_renderer->setDraw(draw);
+  emit drawChanged(m_draw);
+}
+
+void WarScrollRelationsGraphScene::setZ(qreal z)
+{
+  m_z = z;
+  emit zChanged(m_z);
+}
+
+void WarScrollRelationsGraphScene::setFocalPoint(const QVector2D &focalPoint)
+{
+  if (focalPoint == m_focalPoint) {
+    return;
   }
+
+  m_focalPoint = focalPoint;
+  emit focalPointChanged(m_focalPoint);
 }
 
 void WarScrollRelationsGraphScene::setWarScrollSynergyGraph(
@@ -67,6 +80,12 @@ void WarScrollRelationsGraphScene::sync()
     m_renderer = new WarScrollRelationsGraph();
     connect(window(), SIGNAL(afterRendering()), m_renderer, SLOT(paint()),
       Qt::DirectConnection);
+    connect(this, SIGNAL(drawChanged(bool)), m_renderer,
+      SLOT(drawChanged(bool)));
+    connect(this, SIGNAL(zChanged(qreal)), m_renderer,
+      SLOT(zChanged(qreal)));
+    connect(this, SIGNAL(focalPointChanged(QVector2D)), m_renderer,
+      SLOT(focalPointChanged(QVector2D)));
   }
   m_renderer->setViewportSize(QSize(width(), height())
     * window()->devicePixelRatio());

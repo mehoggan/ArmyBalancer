@@ -85,7 +85,6 @@ GLShaderResourceManager::generateProgram(
     std::string source = vshaderStream.readAll().toStdString();
     combinedVSources[i] = new GLchar[source.size() + 1];
     strcpy(const_cast<GLchar*>(combinedVSources[i]), source.c_str());
-    qDebug() << "Added:\n" << combinedVSources[i];
     ++i;
   }
   GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER); GL_CALL
@@ -120,7 +119,6 @@ GLShaderResourceManager::generateProgram(
     std::string source = fshaderStream.readAll().toStdString();
     combinedFSources[j] = new GLchar[source.size() + 1];
     strcpy(const_cast<GLchar*>(combinedFSources[j]), source.c_str());
-    qDebug() << "Added:\n" << combinedFSources[j];
     ++j;
   }
   GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER); GL_CALL

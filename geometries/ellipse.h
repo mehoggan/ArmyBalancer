@@ -40,6 +40,8 @@ public:
   virtual void draw();
   virtual void destroy();
 
+  void setNameTexture(const QImage &image);
+
 private:
   std::shared_ptr<GLShaderResourceManager> m_shaderManager;
   std::shared_ptr<GLTextureResourceManager> m_textureManager;
@@ -59,6 +61,8 @@ private:
 
   opengl_math::matrix_4X4<float, opengl_math::column> m_mvp;
   opengl_math::matrix_4X4<float, opengl_math::column> m_transform;
+
+  QImage m_nameTexture;
 };
 
 #endif // ELIPSE_H
