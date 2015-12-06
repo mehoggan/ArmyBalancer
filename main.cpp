@@ -6,6 +6,7 @@
 #include <QObject>
 
 #include "armybalancer.h"
+#include "rootview.h"
 #include "warscrollrelationsgraphscene.h"
 
 int main(int argc, char *argv[])
@@ -17,9 +18,10 @@ int main(int argc, char *argv[])
   qmlRegisterType<WarScrollRelationsGraphScene>("WarScrollRelationsGraphScene",
     1, 0, "WarScrollRelationsGraphScene");
 
-  QQuickView * quickView = new QQuickView;
+  QQuickView *quickView = new QQuickView;
   quickView->setSource(QUrl("qrc:/ArmyBalancer.qml"));
   quickView->setMinimumSize(QSize(500, 800));
+  RootView::setRootView(quickView);
 
   QObject *root = quickView->rootObject();
   QQuickItem *item = qobject_cast<QQuickItem *>(root);

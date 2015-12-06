@@ -43,6 +43,7 @@ signals:
 public slots:
   void sync();
   void cleanup();
+  void warScrollSelected(int index);
 
 private slots:
   void handleWindowChanged(QQuickWindow *win);
@@ -53,6 +54,7 @@ private:
   qreal m_z;
   QVector2D m_focalPoint;
   WarScrollRelationsGraph *m_renderer;
+  QQuickWindow *m_win;
 };
 
 #endif // WARSCROLLRELATIONSGRAPHSCENE_H

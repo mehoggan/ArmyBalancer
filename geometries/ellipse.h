@@ -5,6 +5,7 @@
 
 #include "glshaderresourcemanager.h"
 #include "gltextureresourcemanager.h"
+#include "warscroll.h"
 
 #include "mesh_types/interleaved_data.h"
 #include "mesh_types/datums/interleaved_datum_2d.h"
@@ -40,7 +41,20 @@ public:
   virtual void draw();
   virtual void destroy();
 
+  const std::string &getName() const {return m_name;}
+  void setName(const std::string &name) {m_name = name;}
+
+  const WarScroll &getWarScroll() const {return m_warScroll;}
+  void setWarScroll(const WarScroll &warScroll) {m_warScroll = warScroll;}
+
   void setNameTexture(const QImage &image);
+  bool collides(const Ellipse &other) const;
+  opengl_math::point_3d<float> getCenter() const;
+
+  friend bool operator==(const Ellipse &lhs, const Ellipse &rhs)
+  {
+    return (lhs.m_warScroll == rhs.m_warScroll);
+  }
 
 private:
   std::shared_ptr<GLShaderResourceManager> m_shaderManager;
@@ -63,6 +77,8 @@ private:
   opengl_math::matrix_4X4<float, opengl_math::column> m_transform;
 
   QImage m_nameTexture;
+  std::string m_name;
+  WarScroll m_warScroll;
 };
 
 #endif // ELIPSE_H

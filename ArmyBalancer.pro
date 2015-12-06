@@ -18,12 +18,14 @@ SOURCES += main.cpp \
   darkelvesfaction.cpp \
   dwarfsfaction.cpp \
   glslversionselector.cpp \
+  graphvisualizer.cpp \
   highelvesfaction.cpp \
   khornebloodboundfaction.cpp \
   lizardmenfaction.cpp \
   nurglerotbringersfaction.cpp \
   ogrekingdomsfaction.cpp \
   orcsandgoblinsfaction.cpp \
+  rootview.cpp \
   skavenfaction.cpp \
   skavenpestilensfaction.cpp \
   stormcasteternalsfaction.cpp \
@@ -40,7 +42,6 @@ SOURCES += main.cpp \
   warscrollrelationsgraph.cpp \
   warscrollrelationsgraphscene.cpp \
   warscrollsynergygraph.cpp \
-  geometries/collision.cpp \
   geometries/ellipse.cpp \
   geometries/projectedrainbow2texturedsquare.cpp \
   geometries/splines.cpp \
@@ -68,12 +69,14 @@ HEADERS += \
   darkelvesfaction.h \
   dwarfsfaction.h \
   glslversionselector.h \
+  graphvisualizer.h \
   highelvesfaction.h \
   khornebloodboundfaction.h \
   lizardmenfaction.h \
   nurglerotbringersfaction.h \
   ogrekingdomsfaction.h \
   orcsandgoblinsfaction.h \
+  rootview.h \
   skavenfaction.h \
   skavenpestilensfaction.h \
   stormcasteternalsfaction.h \
@@ -91,7 +94,6 @@ HEADERS += \
   warscrollrelationsgraph.h \
   warscrollrelationsgraphscene.h \
   warscrollsynergygraph.h \
-  geometries/collision.h \
   geometries/ellipse.h \
   geometries/geometry.h \
   geometries/projectedrainbow2texturedsquare.h \

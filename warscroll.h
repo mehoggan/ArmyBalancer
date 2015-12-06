@@ -1,4 +1,4 @@
-#ifndef WARSCROLL_H
+﻿#ifndef WARSCROLL_H
 #define WARSCROLL_H
 
 #include <QQuickItem>
@@ -746,6 +746,11 @@ public:
   void addKeyWordConnection(const KeyWordConnection &connection);
   const std::list<KeyWordConnection> &getKeyWordConnections() const
   {return m_KeyWordConnections;}
+
+  friend bool operator==(const WarScroll &lhs, const WarScroll &rhs)
+  {
+    return (lhs.m_Guid == rhs.m_Guid);
+  }
 
   friend std::ostream &operator<<(std::ostream &out, const WarScroll &ws)
   {

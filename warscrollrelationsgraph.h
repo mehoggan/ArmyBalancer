@@ -4,12 +4,16 @@
 #include <QObject>
 #include <QtGui/QOpenGLFunctions>
 
+#include "rootview.h"
 #include "warscrollsynergygraph.h"
 
 #include "core/platform.h"
 #include "geometries/geometry.h"
 #include "geometries/ellipse.h"
+#include "geometries/splines.h"
 #include "primitives/points/type_point_3d.h"
+
+#include <QQuickView>
 
 #include <atomic>
 #include <memory>
@@ -30,6 +34,7 @@ private:
   };
 
 private:
+  const QObject *m_parent;
   std::atomic_bool m_draw;
   std::atomic_bool m_create;
   std::atomic_bool m_initialize;
@@ -39,6 +44,9 @@ private:
   WarScrollSynergyGraph *m_graph;
 
   std::vector<std::shared_ptr<Ellipse>> m_ellipses;
+  std::vector<Ellipse> m_currEllipses;
+  std::vector<WarScrollSynergyGraph::Vertex> m_vertices;
+  std::vector<std::shared_ptr<Spline>> m_currSplines;
 
   opengl_math::matrix_4X4<float, opengl_math::column> m_projection;
   opengl_math::matrix_4X4<float, opengl_math::column> m_view;
@@ -47,12 +55,16 @@ private:
   std::atomic<Zoom> m_zoom;
   std::atomic<qreal> m_y;
   std::atomic<qreal> m_x;
+  std::atomic_bool m_scrollChanged;
+  std::atomic<int> m_currScrollIndex;
+  std::atomic<int> m_prevScrollIndex;
 
 private:
   void renderBackground();
   void renderGraph();
   void creatStaticData();
-  void createGraph();
+  void initGraphData();
+  void updateGraph();
 
 public:
   WarScrollRelationsGraph();
@@ -60,6 +72,7 @@ public:
 
   void setViewportSize(const QSize &size);
   void setGraph(WarScrollSynergyGraph *graph);
+  void warScrollSelected(int index);
 
 public slots:
   void paint();

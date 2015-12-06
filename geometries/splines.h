@@ -54,6 +54,8 @@ public:
       const opengl_math::vector_3d<float> &t0,
       const opengl_math::vector_3d<float> &t1);
 
+   void debug() const;
+
 private:
   Spline();
 

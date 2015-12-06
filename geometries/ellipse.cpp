@@ -16,6 +16,9 @@
 
 #include <string.h>
 
+const float a = 1.0f;
+const float b = 0.5f;
+
 Ellipse::Ellipse()
   : m_vbo(0)
   , m_ebo(0)
@@ -66,8 +69,8 @@ void Ellipse::create()
 
     float rad = (t * 360.0f) * (opengl_math::pi<float>() / 180.0f);
 
-    float x0 = 1.0f * std::cos(rad);
-    float y0 = 0.5f * std::sin(rad);
+    float x0 = a * std::cos(rad);
+    float y0 = b * std::sin(rad);
     float u = (x0 + 1.0f) / (2);
     float v = (y0 + 1.0f) / (2);
     data[attrib++] = verts::datum_type(
@@ -176,4 +179,61 @@ void Ellipse::destroy()
 void Ellipse::setNameTexture(const QImage &image)
 {
   m_nameTexture = image;
+}
+
+bool Ellipse::collides(const Ellipse &other) const
+{
+  bool collision = false;
+
+  // This is the center point inside (*this)'s ellipse
+  verts::datum_type mattrib = m_vertexAttrib.get_data()[0];
+  opengl_math::point_3d<float> mc = mattrib._datum1;
+  opengl_math::vector_4d<float> mcv(mc.x(), mc.y(), mc.z(), 1.0f);
+  opengl_math::matrix_4X4<float, opengl_math::column> mtrans = getTransform();
+  mcv = mtrans * mcv;
+  mc = opengl_math::point_3d<float>(mcv.x(), mcv.y(), mcv.z());
+
+  opengl_math::matrix_4X4<float, opengl_math::column> trans =
+    other.getTransform();
+
+  // i == 0 is the center of the ellipse
+  for (std::size_t i = 1;
+    i < other.m_vertexAttrib.get_attribute_count(); ++i) {
+
+    verts::datum_type attrib = other.m_vertexAttrib.get_data()[i];
+    // This is a point on the edge of the other ellipse.
+    opengl_math::point_3d<float> op = attrib._datum1;
+    // We need to transform this point to world coordinates.
+    opengl_math::vector_4d<float> opv(op.x(), op.y(), op.z(), 1.0f);
+    opv = (trans * opv);
+    op = opengl_math::point_3d<float>(opv[0], opv[1], opv[2]);
+
+    float xpart = (op.x() - mc.x());
+    xpart *= xpart;
+    xpart /= (a * a);
+
+    float ypart = (op.y() - mc.y());
+    ypart *= ypart;
+    ypart /= (b * b);
+
+    // Solving for; is op is within (*this)
+    float solve = xpart + ypart;
+    collision = (solve <= 1.0f);
+
+    if (collision) {
+      break;
+    }
+  }
+
+  return collision;
+}
+
+opengl_math::point_3d<float> Ellipse::getCenter() const
+{
+  verts::datum_type mattrib = m_vertexAttrib.get_data()[0];
+  opengl_math::point_3d<float> mc = mattrib._datum1;
+  opengl_math::vector_4d<float> mcv(mc.x(), mc.y(), mc.z(), 1.0f);
+  opengl_math::matrix_4X4<float, opengl_math::column> mtrans = getTransform();
+  mcv = mtrans * mcv;
+  return opengl_math::point_3d<float>(mcv.x(), mcv.y(), mcv.z());
 }

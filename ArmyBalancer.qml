@@ -25,6 +25,16 @@ Item
     selectWarScroll.currentIndex = min
   }
 
+  function updateWarScrollGraphList(aList)
+  {
+    var curr = selectWarScrollGraph.currentIndex;
+    warScrollGraphModel.clear();
+    for (var i = 0; i < aList.length; ++i) {
+      console.log("Appending ", aList[i]);
+      warScrollGraphModel.append({'name': aList[i]});
+    }
+  }
+
   function addToCurrentPoints(val)
   {
     pointsText.text = Number(pointsText.text) + val
@@ -125,7 +135,7 @@ Item
 
         Text
         {
-          width: 0.20 *parent.width
+          width: 0.20 * parent.width
           height: parent.height
           font.pointSize: 7
           font.family: "Courier"
@@ -137,7 +147,7 @@ Item
         ComboBox
         {
           id: selectFactionComboBox
-          width: 0.80 *parent.width
+          width: 0.80 * parent.width
           height: parent.height
           anchors.centerIn: parent.Center
           model: armyBalancer.factionList
@@ -188,7 +198,7 @@ Item
 
         Text
         {
-          width: 0.20 *parent.width
+          width: 0.20 * parent.width
           height: parent.height
           font.pointSize: 7
           font.family: "Courier"
@@ -327,10 +337,50 @@ Item
       height: parent.height
       visible: false
 
+      ListModel
+      {
+        id: warScrollGraphModel
+      }
+
       Row
       {
         width: parent.width
-        height: 0.90 * parent.height
+        height: 0.10 * parent.height
+
+        Text
+        {
+          width: 0.20 * parent.width
+          height: parent.height
+          font.pointSize: 7
+          font.family: "Courier"
+          text: "War Scroll"
+          horizontalAlignment: TextEdit.AlignHCenter
+          verticalAlignment: TextEdit.AlignVCenter
+        }
+        ComboBox
+        {
+          id: selectWarScrollGraph
+          width: 0.80 * parent.width
+          height: parent.height
+          anchors.centerIn: parent.Center
+          model: warScrollGraphModel
+
+          onCurrentIndexChanged:
+          {
+            warscrollRelationsGraphScene.warScrollSelected(currentIndex)
+          }
+
+          // Needed to trick qt into allowing focus to change
+          onActiveFocusChanged:
+          {
+          }
+        }
+      }
+
+      Row
+      {
+        width: parent.width
+        height: 0.80 * parent.height
 
         Item
         {
@@ -342,7 +392,7 @@ Item
             id: warscrollRelationsGraphScene
             objectName: "warscrollRelationsGraphScene"
             width: parent.width
-            height: parent.height
+            height: 0.90 * parent.height
 
             MouseArea
             {

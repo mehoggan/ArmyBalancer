@@ -15,15 +15,15 @@ void WarScrollSynergyGraph::Vertex::connect(const Vertex &other,
   const WarScroll::KeyWordConnection &d) const
 {
   bool contains = false;
-  for (const Edge &edge : m_Adjacents) {
-    if ((*edge.m_Meta) == d && (*edge.m_Node) == other) {
+  for (const Edge &edge : m_adjacents) {
+    if ((*edge.m_meta) == d && (*edge.m_node) == other) {
       contains = true;
     }
   }
 
   if (!contains) {
     Edge edge(other, d);
-    m_Adjacents.push_back(edge);
+    m_adjacents.push_back(edge);
   }
 }
 
@@ -52,18 +52,24 @@ void WarScrollSynergyGraph::connect(const WarScroll &from, const WarScroll &to,
     const_cast<WarScroll::KeyWordConnection &>(connection));
 }
 
+void WarScrollSynergyGraph::connect(const WarScroll &loner, void *) const
+{
+  Vertex lonerV(loner);
+  m_Vertices.insert(lonerV);
+}
+
 void WarScrollSynergyGraph::print()
 {
   for (auto it = m_Vertices.begin(); it != m_Vertices.end(); ++it) {
-    std::cout << it->m_Data->getTitle() << "==>";
-    for (const auto &edge : it->m_Adjacents) {
-      std::cout << edge.m_Node->m_Data->getTitle() << "(";
-      if (!edge.m_Meta->getAbility().getName().empty()) {
-        std::cout << edge.m_Meta->getAbility().getName();
-      } else if (!edge.m_Meta->getSpell().getName().empty()) {
-        std::cout << edge.m_Meta->getSpell().getName();
+    std::cout << it->m_data->getTitle() << "==>";
+    for (const auto &edge : it->m_adjacents) {
+      std::cout << edge.m_node->m_data->getTitle() << "(";
+      if (!edge.m_meta->getAbility().getName().empty()) {
+        std::cout << edge.m_meta->getAbility().getName();
+      } else if (!edge.m_meta->getSpell().getName().empty()) {
+        std::cout << edge.m_meta->getSpell().getName();
       } else {
-        std::cout << edge.m_Meta->getName();
+        std::cout << edge.m_meta->getName();
       }
       std::cout << ") ==>";
     }

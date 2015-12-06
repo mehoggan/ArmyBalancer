@@ -57,7 +57,7 @@ void Spline::create()
   std::size_t index = 0;
   for (const auto &sample : samples) {
     data[index++] = verts::datum_type(sample._position,
-      opengl_math::color_rgba<float>(1.00f, 0.00f, 1.00f, 1.0f));
+      opengl_math::color_rgba<float>(0.00f, 0.00f, 0.00f, 1.0f));
   }
   m_vertexAttrib = verts(data, samples.size());
   std::size_t bytes = m_vertexAttrib.get_byte_count();
@@ -130,4 +130,14 @@ std::shared_ptr<Spline> Spline::createHermite(
   std::shared_ptr<Spline> s(new Spline());
   s->m_cubic.set_hermite(p0, p1, t0, t1);
   return s;
+}
+
+void Spline::debug() const
+{
+  const verts::collection_type &data = m_vertexAttrib.get_data();
+  std::size_t attributeCount = m_vertexAttrib.get_attribute_count();
+  for (std::size_t i = 0; i < attributeCount; ++i) {
+    const auto &point = data[i]._datum1;
+    int x = 0; x = x;
+  }
 }

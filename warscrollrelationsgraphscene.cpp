@@ -1,5 +1,8 @@
 ﻿#include "warscrollrelationsgraphscene.h"
 
+#include <QQmlContext>
+#include <QQmlEngine>
+
 WarScrollRelationsGraphScene::WarScrollRelationsGraphScene(QObject *)
   : m_t(0)
   , m_renderer(nullptr)
@@ -71,6 +74,13 @@ void WarScrollRelationsGraphScene::cleanup()
   if (m_renderer) {
     delete m_renderer;
     m_renderer = 0;
+  }
+}
+
+void WarScrollRelationsGraphScene::warScrollSelected(int index)
+{
+  if (m_renderer) {
+    m_renderer->warScrollSelected(index);
   }
 }
 

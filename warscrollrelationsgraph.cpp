@@ -1,14 +1,12 @@
 ﻿#include "warscrollrelationsgraph.h"
 
-#include "geometries/collision.h"
+#include "graphvisualizer.h"
+
 #include "geometries/ellipse.h"
 
 #include "math/matrix.h"
 
-#include <QDebug>
-#include <QPainter>
-#include <QDebug>
-#include <QGLWidget>
+#include <QQuickWindow>
 
 #include <iostream>
 
@@ -20,44 +18,6 @@ const bool t = true;
 const bool f = false;
 #endif
 
-namespace Detail
-{
-  void drawText(QPainter & painter, qreal x, qreal y, Qt::Alignment flags,
-    const QString & text, qreal fontSize, QRectF * boundingRect = 0)
-  {
-    const qreal size = 32767.0;
-    QPointF corner(x, y - size);
-    if (flags & Qt::AlignHCenter) {
-      corner.rx() -= size/2.0;
-    } else if (flags & Qt::AlignRight) {
-      corner.rx() -= size;
-    }
-
-    if (flags & Qt::AlignVCenter) {
-      corner.ry() += size/2.0;
-    } else if (flags & Qt::AlignTop) {
-      corner.ry() += size;
-    } else {
-      flags |= Qt::AlignBottom;
-    }
-
-    QRectF rect(corner, QSizeF(size, size));
-
-    QFont font = painter.font() ;
-    font.setPointSize(fontSize);
-    painter.setFont(font);
-
-    painter.drawText(rect, flags, text, boundingRect);
-  }
-
-  void drawText(QPainter & painter, const QPointF & point, Qt::Alignment flags,
-    const QString & text, qreal fontSize, QRectF * boundingRect = 0)
-  {
-    drawText(painter, point.x(), point.y(), flags, text, fontSize,
-      boundingRect);
-  }
-}
-
 WarScrollRelationsGraph::WarScrollRelationsGraph()
   : m_projection(opengl_math::identity)
   , m_view(opengl_math::identity)
@@ -65,10 +25,13 @@ WarScrollRelationsGraph::WarScrollRelationsGraph()
   , m_zoom(Zoom::None)
   , m_y(0.0)
   , m_x(0.0)
+  , m_currScrollIndex(-1)
+  , m_prevScrollIndex(-1)
 {
   m_draw = f;
   m_create = f;
   m_initialize = t;
+  m_scrollChanged = f;
 
   for (auto ellipse : m_ellipses) {
     ellipse = nullptr;
@@ -104,46 +67,130 @@ void WarScrollRelationsGraph::creatStaticData()
   initializeOpenGLFunctions();
 }
 
-void WarScrollRelationsGraph::createGraph()
+void WarScrollRelationsGraph::initGraphData()
 {
   m_ellipses.clear();
+  m_vertices.clear();
 
-  // Constructs an ellipse for each Vertex in the SynergyGraph. This does not
-  // handle layout of the graph (aka transformations).
-  std::for_each(m_graph->begin(), m_graph->end(),
-    [&](const WarScrollSynergyGraph::Vertex &node)
-  {
-    std::shared_ptr<Ellipse> ellipse(new Ellipse());
-    m_ellipses.push_back(ellipse);
-    QImage img(512, 512, QImage::Format_RGBA8888);
-    img.fill(Qt::white);
-    QPainter painter(&img);
-    painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing |
-      QPainter::SmoothPixmapTransform);
-    QRadialGradient radialGrad(QPointF(img.width() / 2.0f, img.height() / 2.0f),
-      100);
-    radialGrad.setColorAt(0.00, QColor(255, 215, 0, 150));
-    radialGrad.setColorAt(0.95, QColor(150, 0, 0, 150));
-    radialGrad.setColorAt(1.00, QColor(0, 0, 150, 150));
-    painter.fillRect(0, 0, img.width(), img.height(), radialGrad);
-    Detail::drawText(painter,
-      QPointF(img.width() / 2.0f, img.height() / 2.0f),
-      Qt::AlignHCenter | Qt::AlignVCenter,
-      node.getWarScroll()->getTitle().c_str(), 36.0);
-    QImage tex = QGLWidget::convertToGLFormat(img);
-    m_ellipses.back()->setNameTexture(tex);
+  generateEllipses(m_ellipses, m_vertices, m_graph);
 
-    m_ellipses.back()->create();
-  });
+  QVariantList list;
+  for (const WarScrollSynergyGraph::Vertex &vert : m_vertices) {
+    QString name(vert.getWarScroll()->getTitle().c_str());
+    list.push_back(QVariant::fromValue(name));
+  }
 
-  // Rough draft spread all ellipses out such that non collide
-  if (m_ellipses.size() > 1) {
-    for (auto it = m_ellipses.begin(); it < m_ellipses.end() - 1; ++it) {
-      if (Collision::collide(**it, **(it + 1))) {
-        std::cout << "Collision" << std::endl;
-      }
+  Q_ASSERT(RootView::getRootView());
+  QMetaObject::invokeMethod(RootView::getRootView()->rootObject(),
+      "updateWarScrollGraphList", Q_ARG(QVariant, QVariant::fromValue(list)));
+
+  m_prevScrollIndex = -1;
+  m_currScrollIndex = -1;
+  m_create = t;
+
+  if (std::distance(m_graph->begin(), m_graph->end()) > 0) {
+    warScrollSelected(0);
+  }
+
+  m_scrollChanged = t;
+}
+
+void WarScrollRelationsGraph::updateGraph()
+{
+  if (m_vertices.empty()) {
+    m_currScrollIndex = -1;
+    m_prevScrollIndex = -1;
+    return;
+  }
+  const WarScrollSynergyGraph::Vertex &vertex = m_vertices[m_currScrollIndex];
+  const std::vector<WarScrollSynergyGraph::Edge> &edges =
+    vertex.adjacents();
+
+  std::size_t adjacents = edges.size();
+  for (const WarScrollSynergyGraph::Edge edge : edges) {
+    if (edge.adjacent().getWarScroll() == vertex.getWarScroll()) {
+      --adjacents;
+      break;
     }
   }
+
+  float angleDelta = 360.0f / adjacents;
+
+  m_currEllipses.clear();
+  m_currSplines.clear();
+
+  Ellipse copy = *(m_ellipses[m_currScrollIndex].get());
+  m_currEllipses.push_back(copy);
+  const float radius = 3.0f;
+
+  float currAngle = 270.0;
+  for (const WarScrollSynergyGraph::Edge &edge : edges) {
+    const WarScrollSynergyGraph::Vertex &vertex = edge.adjacent();
+    auto it = std::find(m_vertices.begin(), m_vertices.end(), vertex);
+    Q_ASSERT(it != m_vertices.end());
+
+    std::size_t index = std::distance(m_vertices.begin(), it);
+
+    if (index != static_cast<std::size_t>(m_currScrollIndex)) {
+      std::cout << "Adding ellipse for " << it->getWarScroll()->getTitle() <<
+        std::endl;
+      copy = *(m_ellipses[index].get());
+      copy.setTransform(opengl_math::translate_by(copy.getTransform(),
+        opengl_math::vector_3d<float>(
+          radius * opengl_math::cos<float, opengl_math::degrees>(currAngle),
+          radius * opengl_math::sin<float, opengl_math::degrees>(currAngle),
+          0.0f)));
+      m_currEllipses.push_back(copy);
+      currAngle += angleDelta;
+    }
+  }
+
+  // The first node in m_currEllipses will be the center node of the graph,
+  // so we don't consider it in collisions.
+  bool collision = false;
+  for (auto it = m_currEllipses.begin() + 1; it != m_currEllipses.end(); ++it) {
+    Ellipse ccw;
+    Ellipse cw;
+    Ellipse &curr = (*it);
+
+    if (*(m_currEllipses.begin()) == (*it)) {
+      ccw = (*(it + 1));
+      cw = (*(m_currEllipses.end() - 1));
+    } else if ((*(m_currEllipses.end() - 1) == (*it))) {
+      ccw = *(m_currEllipses.begin());
+      cw = (*(it - 1));
+    } else {
+      ccw = (*(it + 1));
+      cw = (*(it - 1));
+    }
+
+    // Clean up layout if there are collisions with adjacent ellipses
+    auto &ellipse = curr;
+    collision = ellipse.collides(ccw) || ellipse.collides(cw);
+    if (collision) {
+      break;
+    }
+  }
+
+  if (collision) {
+    currAngle = 270.0;
+    float vradius = 3.0 * (m_currEllipses.size() / 10.0);
+    for (auto it = m_currEllipses.begin() + 1; it != m_currEllipses.end();
+      ++it) {
+      auto trans = it->getTransform();
+      trans = opengl_math::translate_to(trans,
+        opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f));
+      trans = opengl_math::translate_by(trans,
+        opengl_math::vector_3d<float>(
+          vradius * opengl_math::cos<float, opengl_math::degrees>(currAngle),
+          vradius * opengl_math::sin<float, opengl_math::degrees>(currAngle),
+          0.0f));
+      it->setTransform(trans);
+      currAngle += angleDelta;
+    }
+  }
+
+  generateSplines(m_currSplines, m_currEllipses);
 }
 
 void WarScrollRelationsGraph::setGraph(WarScrollSynergyGraph *graph)
@@ -151,6 +198,20 @@ void WarScrollRelationsGraph::setGraph(WarScrollSynergyGraph *graph)
   std::lock_guard<std::mutex> lock(m_graphMutex);
   m_graph = graph;
   m_create = t;
+}
+
+void WarScrollRelationsGraph::warScrollSelected(int index)
+{
+  if (m_currScrollIndex == -1 && m_currScrollIndex == -1) {
+    m_prevScrollIndex = index;
+    m_currScrollIndex = index;
+    m_scrollChanged = t;
+  } else {
+    m_prevScrollIndex = m_currScrollIndex.load();
+    m_currScrollIndex = index;
+    m_scrollChanged = t;
+  }
+  qDebug() << index << " selected";
 }
 
 void WarScrollRelationsGraph::drawChanged(bool draw)
@@ -186,7 +247,7 @@ void WarScrollRelationsGraph::paint()
   }
 
   if (m_create) {
-    createGraph();
+    initGraphData();
     m_create = f;
     // Why waist gpu and cpu cycles if not needed.
     if (std::distance(m_graph->begin(), m_graph->end()) == 0) {
@@ -194,6 +255,11 @@ void WarScrollRelationsGraph::paint()
     } else {
       m_draw = t;
     }
+  }
+
+  if (m_scrollChanged) {
+    updateGraph();
+    m_scrollChanged = f;
   }
 
   if (m_draw) {
@@ -204,10 +270,10 @@ void WarScrollRelationsGraph::paint()
 void WarScrollRelationsGraph::renderGraph()
 {
   if (m_zoom == Zoom::In) {
-    m_z = m_z - 0.1;
+    m_z = m_z - 0.3;
     m_zoom = Zoom::None;
   } else if(m_zoom == Zoom::Out) {
-    m_z = m_z + 0.1;
+    m_z = m_z + 0.3;
     m_zoom = Zoom::None;
   }
 
@@ -221,17 +287,20 @@ void WarScrollRelationsGraph::renderGraph()
     opengl_math::point_3d<float>(m_x, m_y, 0.0f),
     opengl_math::vector_3d<float>(0.0f, 1.0f, 0.0f));
 
-  auto mv = (m_projection * m_view);
+  auto pv = (m_projection * m_view);
 
   qreal width = m_viewportSize.width();
   qreal height = m_viewportSize.height();
-  glViewport(0, 0.1125 * height, width, height);
+  glViewport(0, 0.14 * height, width, 1.1135 * height);
   glDisable(GL_DEPTH_TEST);
 
-  for (auto ellipse : m_ellipses) {
-    if (ellipse) {
-      ellipse->setMVPMatrix(mv * ellipse->getTransform());
-      ellipse->draw();
-    }
+  for (auto spline : m_currSplines) {
+    spline->setMVPMatrix(pv * spline->getTransform());
+    spline->draw();
+  }
+
+  for (auto ellipse : m_currEllipses) {
+    ellipse.setMVPMatrix(pv * ellipse.getTransform());
+    ellipse.draw();
   }
 }

@@ -79,7 +79,7 @@ void ArmyBalancer::setWarScrolls(const QStringList &warScrolls)
 
   if (m_Root) {
     QVariantList list;
-    for(const QString &scroll : warScrolls) {
+    for (const QString &scroll : warScrolls) {
       list.append(scroll);
     }
     QMetaObject::invokeMethod(m_Root->rootObject(), "updateWarScrollList",
@@ -534,8 +534,17 @@ void ArmyBalancer::buildAndPublishSynergyGraph()
     std::list<WarScroll::KeyWordConnection> connections =
       warscroll.second.getKeyWordConnections();
 
+    qDebug() << "Current war scroll is " << warscroll.second.getTitle().c_str();
+    qDebug() << "The number of connections is " << connections.size();
+
+    bool connectionMade = false;
     for (const WarScroll::KeyWordConnection &connection : connections) {
-      buildGraphFromConnectionString(connection, warscroll.second);
+      connectionMade = buildGraphFromConnectionString(
+        connection, warscroll.second);
+    }
+
+    if (connections.empty() || !connectionMade) {
+      m_WarScrollSynergyGraph.connect(warscroll.second, nullptr);
     }
   }
 
@@ -585,10 +594,11 @@ namespace
   }
 }
 
-void ArmyBalancer::buildGraphFromConnectionString(
+bool ArmyBalancer::buildGraphFromConnectionString(
   const WarScroll::KeyWordConnection &keyWordConnection,
   const WarScroll &from)
 {
+  bool connectionMade = false;
   const std::string &keyWords = keyWordConnection.getKeyWord();
 
   bool AND = keyWords.find(" and ") != std::string::npos;
@@ -621,8 +631,9 @@ void ArmyBalancer::buildGraphFromConnectionString(
 
     if (found && (keyWordConnection.getAffectType() !=
       WarScroll::KeyWordConnection::ConnectionAffectType::eEnemy)) {
-
+      connectionMade = true;
       m_WarScrollSynergyGraph.connect(from, to.second, keyWordConnection);
     }
   }
+  return connectionMade;
 }

@@ -70,7 +70,8 @@ private:
 private:
   void getNextWarScrolls(std::vector<std::string> &output,
     const std::string &factionName);
-  void buildGraphFromConnectionString(
+  // The bool signifies if a connection was made
+  bool buildGraphFromConnectionString(
     const WarScroll::KeyWordConnection &keyWordConnection,
     const WarScroll &from);
 
