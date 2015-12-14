@@ -8,6 +8,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifdef _WIN32
+  #define snprintf _snprintf
+#endif
+
 std::shared_ptr<GLSLVersionSelector>
   GLSLVersionSelector::s_glslVersionSelector = nullptr;
 

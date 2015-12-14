@@ -5,6 +5,7 @@
 
 #include <QResource>
 
+#include <cstdint>
 #include <memory>
 #include <string>
 

@@ -18,10 +18,12 @@ const bool t = true;
 const bool f = false;
 #endif
 
+const float initZ = 10.0;
+
 WarScrollRelationsGraph::WarScrollRelationsGraph()
   : m_projection(opengl_math::identity)
   , m_view(opengl_math::identity)
-  , m_z(10.0f)
+  , m_z(initZ)
   , m_zoom(Zoom::None)
   , m_y(0.0)
   , m_x(0.0)
@@ -119,7 +121,7 @@ void WarScrollRelationsGraph::updateGraph()
   m_currEllipses.clear();
   m_currSplines.clear();
 
-  Ellipse copy = *(m_ellipses[m_currScrollIndex].get());
+  Protection::Ellipse copy = *(m_ellipses[m_currScrollIndex].get());
   m_currEllipses.push_back(copy);
   const float radius = 3.0f;
 
@@ -149,9 +151,9 @@ void WarScrollRelationsGraph::updateGraph()
   // so we don't consider it in collisions.
   bool collision = false;
   for (auto it = m_currEllipses.begin() + 1; it != m_currEllipses.end(); ++it) {
-    Ellipse ccw;
-    Ellipse cw;
-    Ellipse &curr = (*it);
+    Protection::Ellipse ccw;
+    Protection::Ellipse cw;
+    Protection::Ellipse &curr = (*it);
 
     if (*(m_currEllipses.begin()) == (*it)) {
       ccw = (*(it + 1));
@@ -191,6 +193,36 @@ void WarScrollRelationsGraph::updateGraph()
   }
 
   generateSplines(m_currSplines, m_currEllipses);
+
+  // Reset the camera to stare at (0, 0).
+  m_z = initZ;
+  m_x = 0.0f;
+  m_y = 0.0f;
+  m_view = opengl_math::look_at<float, opengl_math::column>(
+    opengl_math::point_3d<float>(m_x, m_y, static_cast<float>(m_z)),
+    opengl_math::point_3d<float>(m_x, m_y, 0.0f),
+    opengl_math::vector_3d<float>(0.0f, 1.0f, 0.0f));
+
+  // Zoom out until frustum displays entire graph.
+  while (ellipseOutsideFrustum()) {
+    m_z = m_z + 0.1f;
+    m_view = opengl_math::look_at<float, opengl_math::column>(
+      opengl_math::point_3d<float>(m_x, m_y, static_cast<float>(m_z)),
+      opengl_math::point_3d<float>(m_x, m_y, 0.0f),
+      opengl_math::vector_3d<float>(0.0f, 1.0f, 0.0f));
+  }
+}
+
+bool WarScrollRelationsGraph::ellipseOutsideFrustum() const
+{
+  bool insideFrustum = true;
+  std::for_each(m_currEllipses.begin(), m_currEllipses.end(),
+    [&](const Protection::Ellipse &ellipse)
+    {
+      insideFrustum &= (ellipse.insideFrustum(m_projection, m_view));
+    });
+
+  return !insideFrustum;
 }
 
 void WarScrollRelationsGraph::setGraph(WarScrollSynergyGraph *graph)

@@ -52,7 +52,7 @@ void Spline::create()
   glGenBuffers(1, &m_vbo); GL_CALL
 
   std::vector<opengl_math::curve_sample_3d<float>> samples =
-    m_cubic.compute_samples_adaptive(0.109999992);
+    m_cubic.compute_samples_adaptive(0.109999992f);
   verts::collection_type data(new verts::datum_type[samples.size()]);
   std::size_t index = 0;
   for (const auto &sample : samples) {
@@ -98,7 +98,8 @@ void Spline::draw()
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
   m_shaderManager->enableVertexAttribArrays(m_handle, m_shaderVertexAttrib);
   m_shaderManager->setUniformMatrix4X4(m_handle, m_mvp.to_gl_matrix(), "uMVP");
-  glDrawArrays(GL_LINE_STRIP, 0, m_vertexAttrib.get_attribute_count()); GL_CALL
+  glDrawArrays(GL_LINE_STRIP, 0,
+    (GLsizei)m_vertexAttrib.get_attribute_count()); GL_CALL
 }
 
 void Spline::destroy()
@@ -138,6 +139,6 @@ void Spline::debug() const
   std::size_t attributeCount = m_vertexAttrib.get_attribute_count();
   for (std::size_t i = 0; i < attributeCount; ++i) {
     const auto &point = data[i]._datum1;
-    int x = 0; x = x;
+    (void)point;
   }
 }

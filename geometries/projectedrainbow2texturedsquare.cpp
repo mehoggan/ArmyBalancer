@@ -151,8 +151,8 @@ void ProjectedRainbow2TexturedSquare::draw()
   m_shaderManager->configureSampler(m_handle, m_texHandles[1], "uSampler2");
   m_shaderManager->enableVertexAttribArrays(m_handle, m_shaderVertexAttrib);
   m_shaderManager->setUniformMatrix4X4(m_handle, m_mvp.to_gl_matrix(), "uMVP");
-  glDrawElements(GL_TRIANGLES, m_indices.get_indices_count(), GL_UNSIGNED_INT,
-    0); GL_CALL
+  glDrawElements(GL_TRIANGLES, (GLsizei)m_indices.get_indices_count(),
+    GL_UNSIGNED_INT, 0); GL_CALL
   m_textureManager->deactivateTexture(m_texHandles[0]);
   m_textureManager->deactivateTexture(m_texHandles[1]);
   glPopAttrib();

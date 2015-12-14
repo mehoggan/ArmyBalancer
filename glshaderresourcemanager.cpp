@@ -88,7 +88,7 @@ GLShaderResourceManager::generateProgram(
     ++i;
   }
   GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER); GL_CALL
-  glShaderSource(vertexShader, vertexSources.size(),
+  glShaderSource(vertexShader, (GLsizei)vertexSources.size(),
     combinedVSources, NULL); GL_CALL
   glCompileShader(vertexShader); GL_CALL
   if (getCompilerErrors(vertexShader)) {
@@ -122,7 +122,7 @@ GLShaderResourceManager::generateProgram(
     ++j;
   }
   GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER); GL_CALL
-  glShaderSource(fragmentShader, fragmentSources.size(),
+  glShaderSource(fragmentShader, (GLsizei)fragmentSources.size(),
     combinedFSources, NULL); GL_CALL
   glCompileShader(fragmentShader); GL_CALL
   if (getCompilerErrors(fragmentShader)) {
@@ -209,8 +209,8 @@ void GLShaderResourceManager::enableVertexAttribArray(
 
   GLint attribPos = glGetAttribLocation(shaderProgram, attribName); GL_CALL
   glEnableVertexAttribArray(attribPos); GL_CALL
-  glVertexAttribPointer(attribPos, dimension, GL_FLOAT, GL_FALSE, stride,
-    (void*)offset); GL_CALL
+  glVertexAttribPointer(attribPos, (GLsizei)dimension, GL_FLOAT, GL_FALSE,
+    (GLint)stride, (void*)offset); GL_CALL
 
   const_cast<GLShaderAttributes &>(attrib).m_position = attribPos;
 }

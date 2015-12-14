@@ -17,7 +17,7 @@
 #include <QString>
 
 void walkGraph(
-  std::vector<std::shared_ptr<Ellipse>> &output1,
+  std::vector<std::shared_ptr<Protection::Ellipse>> &output1,
   std::vector<WarScrollSynergyGraph::Vertex> &output2,
   WarScrollSynergyGraph &graph)
 {
@@ -35,7 +35,7 @@ void walkGraph(
   std::for_each(output2.begin(), output2.end(),
     [&](const WarScrollSynergyGraph::Vertex& node)
     {
-      std::shared_ptr<Ellipse> ellipse(new Ellipse());
+      std::shared_ptr<Protection::Ellipse> ellipse(new Protection::Ellipse());
       output1.push_back(ellipse);
       output1.back()->setName(node.getWarScroll()->getTitle().c_str());
       output1.back()->setWarScroll(*(node.getWarScroll()));
@@ -69,7 +69,7 @@ void walkGraph(
 }
 
 void generateEllipses(
-  std::vector<std::shared_ptr<Ellipse>>& output1,
+  std::vector<std::shared_ptr<Protection::Ellipse>>& output1,
   std::vector<WarScrollSynergyGraph::Vertex>& output2,
   WarScrollSynergyGraph *graph)
 {
@@ -77,18 +77,17 @@ void generateEllipses(
     return;
   }
 
-  std::vector<std::shared_ptr<Ellipse>> ellipses;
+  std::vector<std::shared_ptr<Protection::Ellipse>> ellipses;
   std::vector<WarScrollSynergyGraph::Vertex> nodes;
   walkGraph(output1, output2, *graph);
   assert(ellipses.size() == nodes.size());
 }
 
 void generateSplines(std::vector<std::shared_ptr<Spline>> &output1,
-  const std::vector<Ellipse> &ellipses)
+  const std::vector<Protection::Ellipse> &ellipses)
 {
   // We assume that the center ellipse is the first ellipse in the vector
   opengl_math::point_3d<float> center = ellipses.front().getCenter();
-  const std::string &centerName = ellipses.front().getName();
 
   for (auto it = ellipses.begin() + 1; it != ellipses.end(); ++it) {
     opengl_math::point_3d<float> ccenter = it->getCenter();

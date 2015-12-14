@@ -43,8 +43,8 @@ private:
   std::mutex m_graphMutex;
   WarScrollSynergyGraph *m_graph;
 
-  std::vector<std::shared_ptr<Ellipse>> m_ellipses;
-  std::vector<Ellipse> m_currEllipses;
+  std::vector<std::shared_ptr<Protection::Ellipse>> m_ellipses;
+  std::vector<Protection::Ellipse> m_currEllipses;
   std::vector<WarScrollSynergyGraph::Vertex> m_vertices;
   std::vector<std::shared_ptr<Spline>> m_currSplines;
 
@@ -65,6 +65,7 @@ private:
   void creatStaticData();
   void initGraphData();
   void updateGraph();
+  bool ellipseOutsideFrustum() const;
 
 public:
   WarScrollRelationsGraph();
