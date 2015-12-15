@@ -5,6 +5,7 @@
 #include "geometries/ellipse.h"
 
 #include "math/matrix.h"
+#include "planes/plane_3d.h"
 
 #include <QQuickWindow>
 
@@ -271,6 +272,23 @@ void WarScrollRelationsGraph::focalPointChanged(const QVector2D &focalPoint)
   m_y = (m_y + static_cast<double>(focalPoint.y() / 100.0f));
 }
 
+void WarScrollRelationsGraph::doubleClickChanged(const QVector2D &point)
+{
+  float xndc = (2.0f * point.x()) / m_viewportSize.width() - 1.0f;
+  float yndc = (1.0f - (2.0f * point.y()) / m_viewportSize.height());
+  float zndc = 1.0f;
+
+  opengl_math::vector_3d<float> ndc(xndc, yndc, zndc);
+  opengl_math::vector_4d<float> clip(ndc.x(), ndc.y(), -1.0f, 1.0f);
+  opengl_math::vector_4d<float> eye = m_projection.inversion() * clip;
+  eye = opengl_math::vector_4d<float>(eye.x(), eye.y(), -1.0f, 0.0f);
+  opengl_math::vector_4d<float> world = m_view.inversion() * eye;
+  opengl_math::vector_3d<float> world_3d(world.x(), world.y(), world.z());
+  world_3d.normalize();
+
+  m_pickRay = world_3d;
+}
+
 void WarScrollRelationsGraph::paint()
 {
   if (m_initialize) {
@@ -312,6 +330,58 @@ void WarScrollRelationsGraph::renderGraph()
   // At this point the graph is right infrot of our face.
   if (m_z < 1.5) {
     m_z = 1.5;
+  }
+
+  if (m_currEllipses.empty()) {
+    return;
+  }
+
+  if (m_pickRay != opengl_math::vector_3d<float>(0.0f, 0.0f, 0.0f)) {
+
+    auto pv = (m_projection * m_view).inversion();
+
+    auto c = opengl_math::vector_3d<float>(pv[3].x(), pv[3].y(), pv[3].z());
+    auto r = m_pickRay;
+
+    // Parametric equation for line:
+    // x = c.x() + r.x() * t;
+    // y = c.y() + r.y() * t;
+    // z = c.z() + r.z() * t;
+
+    // We know the plane is of the form
+    // A * x + B * y + C * z = D;
+    // We substitute and get:
+    // A * (c.x + r.x * t) + B * (c.y + r.y * t) + C * (c.z + r.z * t) = D
+    // Since our plane is always paralell with the xy-plane we cane reduce to
+    // D = C * (c.z + r.z * t)
+    // Simplifying we get
+    // t = (D / (C * r.z)) - (c.z / r.z);
+
+    if (r.z() != 0.0) {
+      float D = m_currEllipses[0].getCenter().z();
+      float C = opengl_math::plane_3d<float>(0.0f, 0.0f, 1.0f, D).c();
+      float t = (D / (C * r.z())) - (c.z() / r.z());
+
+      float x = c.x() + r.x() * t;
+      float y = c.y() + r.y() * t;
+      float z = c.z() + r.z() * t;
+      auto pos3 = opengl_math::point_3d<float>(x, y, z);
+
+      Protection::Ellipse *found = nullptr;
+
+      for (auto &ellipse : m_currEllipses) {
+        if (ellipse.contains(pos3)) {
+          found = &ellipse;
+          break;
+        }
+      }
+      if (found != nullptr) {
+        qDebug() << "Clicked on " << found->getWarScroll().getTitle().c_str();
+      }
+    }
+
+
+    m_pickRay = opengl_math::vector_3d<float>();
   }
 
   m_view = opengl_math::look_at<float, opengl_math::column>(

@@ -51,6 +51,8 @@ private:
   opengl_math::matrix_4X4<float, opengl_math::column> m_projection;
   opengl_math::matrix_4X4<float, opengl_math::column> m_view;
 
+  opengl_math::vector_3d<float> m_pickRay;
+
   std::atomic<qreal> m_z;
   std::atomic<Zoom> m_zoom;
   std::atomic<qreal> m_y;
@@ -80,6 +82,7 @@ public slots:
   void drawChanged(bool);
   void zChanged(qreal);
   void focalPointChanged(const QVector2D &);
+  void doubleClickChanged(const QVector2D &);
 };
 
 #endif // WARSCROLLRELATIONSGRAPH_H

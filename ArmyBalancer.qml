@@ -419,6 +419,11 @@ Item
                 m_x = mouse.x;
                 m_y = mouse.y;
               }
+
+              onDoubleClicked: {
+                warscrollRelationsGraphScene.doubleClick = Qt.vector2d(mouse.x,
+                  mouse.y)
+              }
             }
 
             SequentialAnimation on t

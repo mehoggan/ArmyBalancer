@@ -54,6 +54,7 @@ namespace Protection
     void setNameTexture(const QImage &image);
     bool collides(const Ellipse &other) const;
     opengl_math::point_3d<float> getCenter() const;
+    bool contains(const opengl_math::point_3d<float> &point);
 
     bool insideFrustum(
       const opengl_math::matrix_4X4<float, opengl_math::column> &proj,
@@ -72,7 +73,8 @@ namespace Protection
     GLuint m_ebo;
 
     GLShaderResourceManager::GLShaderHandle m_handle;
-    std::vector<GLShaderResourceManager::GLShaderAttributes> m_shaderVertexAttrib;
+    std::vector<GLShaderResourceManager::GLShaderAttributes>
+      m_shaderVertexAttrib;
     GLTextureResourceManager::GLTextureHandle m_texHandles[1];
 
     typedef opengl_graphics::interleaved_data<opengl_math::point_3d<float>,

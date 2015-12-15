@@ -246,6 +246,22 @@ namespace Protection
     return opengl_math::point_3d<float>(mcv.x(), mcv.y(), mcv.z());
   }
 
+  bool Ellipse::contains(const opengl_math::point_3d<float> &point)
+  {
+    const opengl_math::point_3d<float> center = getCenter();
+
+    float x = (point.x() - center.x());
+    x *= x;
+    x /= (a * a);
+
+    float y = (point.y() - center.y());
+    y *= y;
+    y /= (b * b);
+
+    float final = x + y;
+    return (final <= 1.0f);
+  }
+
   bool Ellipse::insideFrustum(
     const opengl_math::matrix_4X4<float, opengl_math::column> &proj,
     const opengl_math::matrix_4X4<float, opengl_math::column> &view) const

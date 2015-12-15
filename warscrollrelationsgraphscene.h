@@ -16,6 +16,8 @@ class WarScrollRelationsGraphScene : public QQuickItem
   Q_PROPERTY(qreal z READ getZ WRITE setZ NOTIFY zChanged)
   Q_PROPERTY(QVector2D focalPoint READ getFocalPoint WRITE setFocalPoint
     NOTIFY focalPointChanged)
+  Q_PROPERTY(QVector2D doubleClick READ getDoubleClick WRITE setDoubleClick
+    NOTIFY doubleClickChanged)
 
 public:
   WarScrollRelationsGraphScene(QObject *parent = nullptr);
@@ -32,6 +34,9 @@ public:
   QVector2D getFocalPoint() const {return m_focalPoint;}
   void setFocalPoint(const QVector2D &focalPoint);
 
+  QVector2D getDoubleClick() const {return m_doubleClick;}
+  void setDoubleClick(const QVector2D &doubleClick);
+
   void setWarScrollSynergyGraph(WarScrollSynergyGraph *graph);
 
 signals:
@@ -39,6 +44,7 @@ signals:
   void drawChanged(bool);
   void zChanged(qreal);
   void focalPointChanged(const QVector2D &);
+  void doubleClickChanged(const QVector2D &);
 
 public slots:
   void sync();
@@ -53,6 +59,7 @@ private:
   bool m_draw;
   qreal m_z;
   QVector2D m_focalPoint;
+  QVector2D m_doubleClick;
   WarScrollRelationsGraph *m_renderer;
   QQuickWindow *m_win;
 };

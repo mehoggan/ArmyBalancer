@@ -50,6 +50,12 @@ void WarScrollRelationsGraphScene::setFocalPoint(const QVector2D &focalPoint)
   emit focalPointChanged(m_focalPoint);
 }
 
+void WarScrollRelationsGraphScene::setDoubleClick(const QVector2D &doubleClick)
+{
+  m_doubleClick = doubleClick;
+  emit doubleClickChanged(m_doubleClick);
+}
+
 void WarScrollRelationsGraphScene::setWarScrollSynergyGraph(
   WarScrollSynergyGraph *graph)
 {
@@ -96,6 +102,8 @@ void WarScrollRelationsGraphScene::sync()
       SLOT(zChanged(qreal)));
     connect(this, SIGNAL(focalPointChanged(QVector2D)), m_renderer,
       SLOT(focalPointChanged(QVector2D)));
+    connect(this, SIGNAL(doubleClickChanged(QVector2D)), m_renderer,
+      SLOT(doubleClickChanged(QVector2D)));
   }
   m_renderer->setViewportSize(QSize(width(), height())
     * window()->devicePixelRatio());
