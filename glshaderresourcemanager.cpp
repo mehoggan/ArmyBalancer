@@ -231,6 +231,14 @@ void GLShaderResourceManager::configureSampler(const GLShaderHandle &handle,
     texHandle.textureId()); GL_CALL
 }
 
+
+void GLShaderResourceManager::setUniformRGBA(const GLShaderHandle &handle,
+  opengl_math::color_rgba<float> &color, const GLchar *uniform)
+{
+  GLint uni = glGetUniformLocation(handle.m_shaderProgram, uniform); GL_CALL
+  glUniform4f(uni, color.r(), color.g(), color.b(), color.a()); GL_CALL
+}
+
 bool GLShaderResourceManager::getCompilerErrors(GLuint shaderId)
 {
   bool errors = false;

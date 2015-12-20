@@ -35,6 +35,12 @@ Item
     }
   }
 
+  function setCurrentGraphIndex(index)
+  {
+    selectWarScrollGraph.currentIndex = index;
+    console.log("Index has changed to ", selectWarScrollGraph.currentIndex)
+  }
+
   function addToCurrentPoints(val)
   {
     pointsText.text = Number(pointsText.text) + val
@@ -394,7 +400,7 @@ Item
             id: warscrollRelationsGraphScene
             objectName: "warscrollRelationsGraphScene"
             width: parent.width
-            height: 0.90 * parent.height
+            height: parent.height
 
             SequentialAnimation on t
             {
@@ -447,6 +453,8 @@ Item
 
       Row
       {
+        id: warscrollRelationsGraphSceneBackButton
+        objectName: "warscrollRelationsGraphSceneBackButton"
         width: parent.width
         height: 0.10 * parent.height
         anchors.horizontalCenter: parent.horizontalCenter
@@ -461,7 +469,9 @@ Item
             addColumn.visible = false
             viewRemoveColumn.visible = false
             graphColumn.visible = false
-            warscrollRelationsGraphScene.draw = false;
+            warscrollRelationsGraphScene.draw = false
+            setCurrentGraphIndex(0)
+            warscrollRelationsGraphScene.resetIndices()
           }
         }
       }

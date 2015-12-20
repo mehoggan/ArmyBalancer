@@ -5,6 +5,8 @@
 
 #include "geometries/geometry.h"
 
+#include "primitives/colors/type_color_rgba.h"
+
 #include "gltextureresourcemanager.h"
 
 #include <QResource>
@@ -84,6 +86,9 @@ public:
   void configureSampler(const GLShaderHandle &handle,
     const GLTextureResourceManager::GLTextureHandle &texHandle,
     const GLchar *sampler);
+  void setUniformRGBA(const GLShaderHandle &handle,
+    opengl_math::color_rgba<float> &color,
+    const GLchar *uniform);
 
 private:
   GLShaderResourceManager();

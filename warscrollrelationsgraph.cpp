@@ -30,6 +30,7 @@ WarScrollRelationsGraph::WarScrollRelationsGraph()
   , m_x(0.0)
   , m_currScrollIndex(-1)
   , m_prevScrollIndex(-1)
+  , m_doubleClickedEllipse(nullptr)
 {
   m_draw = f;
   m_create = f;
@@ -58,8 +59,12 @@ WarScrollRelationsGraph::~WarScrollRelationsGraph()
 void WarScrollRelationsGraph::setViewport(const QPointF &lowerLeft,
   const QSize &size)
 {
+  float x = lowerLeft.x();
+  float y = lowerLeft.y();
+
   m_viewport = opengl_math::axis_aligned_2d<float>(
-    opengl_math::point_2d<float>(0.0f, 0.0f), size.width(), size.height());
+    opengl_math::point_2d<float>(x, y), size.width(), size.height());
+
   float den = (m_viewport.height() == 0) ? 1.0f :
     static_cast<float>(m_viewport.height());
   float num = static_cast<float>(m_viewport.width());
@@ -123,6 +128,7 @@ void WarScrollRelationsGraph::updateGraph()
 
   m_currEllipses.clear();
   m_currSplines.clear();
+  m_doubleClickedEllipse = nullptr;
 
   Protection::Ellipse copy = *(m_ellipses[m_currScrollIndex].get());
   m_currEllipses.push_back(copy);
@@ -249,6 +255,13 @@ void WarScrollRelationsGraph::warScrollSelected(int index)
   qDebug() << index << " selected";
 }
 
+void WarScrollRelationsGraph::resetIndices()
+{
+  m_prevScrollIndex = 0;
+  m_currScrollIndex = 0;
+  m_scrollChanged = f;
+}
+
 void WarScrollRelationsGraph::drawChanged(bool draw)
 {
   // We only want to turn drawing off. The setting of a non empty graph
@@ -274,21 +287,55 @@ void WarScrollRelationsGraph::focalPointChanged(const QVector2D &focalPoint)
   m_y = (m_y + static_cast<double>(focalPoint.y() / 100.0f));
 }
 
+namespace Detail
+{
+  template <typename T>
+  opengl_math::vector_3d<T> get_camera_pos_no_scale(
+    const opengl_math::matrix_4X4<T, opengl_math::column> &mv)
+  {
+    auto orientation = opengl_math::orientation_matrix(mv);
+    auto d = opengl_math::vector_3d<float>(mv[3].x(), mv[3].y(), mv[3].z());
+
+    auto ret = orientation * -d;
+    return ret;
+  }
+
+  template <typename T>
+  opengl_math::vector_3d<T> get_camera_pos(
+    const opengl_math::matrix_4X4<T, opengl_math::column> &mv)
+  {
+    auto mvT = mv.transposed();
+
+    auto n0 = opengl_math::vector3d_from_vector4d(mvT[0]);
+    auto n1 = opengl_math::vector3d_from_vector4d(mvT[1]);
+    auto n2 = opengl_math::vector3d_from_vector4d(mvT[2]);
+
+    float d0(mvT[0].w());
+    float d1(mvT[1].w());
+    float d2(mvT[2].w());
+
+    auto n1n2 = n1.cross(n2);
+    auto n2n0 = n2.cross(n0);
+    auto n0n1 = n0.cross(n1);
+
+    auto top = (d0 * n1n2) + (d1 * n2n0) + (d2 * n0n1);
+    float denom = n0.dot(n1n2);
+    return -denom * top;
+  }
+}
+
 void WarScrollRelationsGraph::doubleClickChanged(const QVector2D &point)
 {
   float xndc = (2.0f * point.x()) / m_viewport.width() - 1.0f;
   float yndc = (1.0f - (2.0f * point.y()) / m_viewport.height());
-  float zndc = 1.0f;
 
-  opengl_math::vector_3d<float> ndc(xndc, yndc, zndc);
-  opengl_math::vector_4d<float> clip(ndc.x(), ndc.y(), -1.0f, 1.0f);
-  opengl_math::vector_4d<float> eye = m_projection.inversion() * clip;
-  eye = opengl_math::vector_4d<float>(eye.x(), eye.y(), -1.0f, 0.0f);
-  opengl_math::vector_4d<float> world = m_view.inversion() * eye;
-  opengl_math::vector_3d<float> world_3d(world.x(), world.y(), world.z());
-  world_3d.normalize();
+  opengl_math::matrix_4X4<float, opengl_math::column> pvi =
+    (m_projection * m_view).inversion();
+  auto ndc = opengl_math::vector_4d<float>(xndc, yndc, 1.0f, 1.0f);
+  auto world = pvi * ndc;
 
-  m_pickRay = world_3d;
+  m_pickVector = opengl_math::vector_3d<float>(
+    opengl_math::vector3d_from_vector4d(world));
 }
 
 void WarScrollRelationsGraph::paint()
@@ -338,12 +385,10 @@ void WarScrollRelationsGraph::renderGraph()
     return;
   }
 
-  if (m_pickRay != opengl_math::vector_3d<float>(0.0f, 0.0f, 0.0f)) {
+  if (m_pickVector != opengl_math::vector_3d<float>(0.0f, 0.0f, 0.0f)) {
 
-    auto pv = (m_projection * m_view).inversion();
-
-    auto c = opengl_math::vector_3d<float>(pv[3].x(), pv[3].y(), pv[3].z());
-    auto r = m_pickRay;
+    auto c = Detail::get_camera_pos(m_view);
+    auto r = m_pickVector;
 
     // Parametric equation for line:
     // x = c.x() + r.x() * t;
@@ -369,25 +414,51 @@ void WarScrollRelationsGraph::renderGraph()
       float z = c.z() + r.z() * t;
       auto pos3 = opengl_math::point_3d<float>(x, y, z);
 
-      char buf[2048];
-      _snprintf(buf, 2048, "(%f, %f, %f)\n", pos3.x(), pos3.y(), pos3.z());
-      OutputDebugStringA(buf);
+      if (m_doubleClickedEllipse.load() != nullptr) {
+        m_doubleClickedEllipse.load()->setUnifromColor(
+          opengl_math::color_rgba<float>(1.0f, 1.0f, 1.0f, 1.0f));
+      }
 
-      Protection::Ellipse *found = nullptr;
+      m_doubleClickedEllipse = nullptr;
 
       for (auto &ellipse : m_currEllipses) {
         if (ellipse.contains(pos3)) {
-          found = &ellipse;
+          m_doubleClickedEllipse = &ellipse;
           break;
         }
       }
-      if (found != nullptr) {
-        qDebug() << "Clicked on " << found->getWarScroll().getTitle().c_str();
+      if (m_doubleClickedEllipse.load() != nullptr) {
+        m_doubleClickedEllipse.load()->setUnifromColor(
+          opengl_math::color_rgba<float>(1.0f, 0.0f, 0.0f, 1.0f));
+          connect(&m_doubleClickedTimer, &QTimer::timeout, [&]() {
+            if (m_doubleClickedEllipse.load() != nullptr) {
+              m_doubleClickedEllipse.load()->setUnifromColor(
+                opengl_math::color_rgba<float>(1.0f, 1.0f, 1.0f, 1.0f));
+              int currIndex(0);
+              bool found = false;
+              for (std::shared_ptr<Protection::Ellipse> ellipse : m_ellipses) {
+                if (m_doubleClickedEllipse.load()->getWarScroll().getGuid()
+                  == ellipse->getWarScroll().getGuid()) {
+                  found = true;
+                  break;
+                }
+                ++currIndex;
+              }
+              if (currIndex != m_currScrollIndex.load() && found) {
+                QMetaObject::invokeMethod(RootView::getRootView()->rootObject(),
+                  "setCurrentGraphIndex",
+                  Q_ARG(QVariant, QVariant::fromValue(currIndex)));
+              }
+            }
+            m_doubleClickedEllipse = nullptr;
+          });
+          // milli seconds
+          m_doubleClickedTimer.setSingleShot(true);
+          m_doubleClickedTimer.start(500);
       }
     }
 
-
-    m_pickRay = opengl_math::vector_3d<float>();
+    m_pickVector = opengl_math::vector_3d<float>();
   }
 
   m_view = opengl_math::look_at<float, opengl_math::column>(

@@ -6,8 +6,9 @@ in vec2 oTexcoord;
 out vec4 xColor;
 
 uniform sampler2D uSampler1;
+uniform vec4 uColor;
 
 void main()
 {
-  xColor = oColor * texture(uSampler1, oTexcoord);
+  xColor = uColor * oColor * texture(uSampler1, oTexcoord);
 }

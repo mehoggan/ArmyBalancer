@@ -15,6 +15,7 @@
 #include "primitives/points/type_point_3d.h"
 
 #include <QQuickView>
+#include <QTimer>
 
 #include <atomic>
 #include <memory>
@@ -52,7 +53,7 @@ private:
   opengl_math::matrix_4X4<float, opengl_math::column> m_projection;
   opengl_math::matrix_4X4<float, opengl_math::column> m_view;
 
-  opengl_math::vector_3d<float> m_pickRay;
+  opengl_math::vector_3d<float> m_pickVector;
 
   std::atomic<qreal> m_z;
   std::atomic<Zoom> m_zoom;
@@ -61,6 +62,8 @@ private:
   std::atomic_bool m_scrollChanged;
   std::atomic<int> m_currScrollIndex;
   std::atomic<int> m_prevScrollIndex;
+  std::atomic<Protection::Ellipse*> m_doubleClickedEllipse;
+  QTimer m_doubleClickedTimer;
 
 private:
   void renderBackground();
@@ -77,6 +80,7 @@ public:
   void setViewport(const QPointF &lowerLeft, const QSize &size);
   void setGraph(WarScrollSynergyGraph *graph);
   void warScrollSelected(int index);
+  void resetIndices();
 
 public slots:
   void paint();

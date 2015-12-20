@@ -51,6 +51,11 @@ namespace Protection
     const WarScroll &getWarScroll() const {return m_warScroll;}
     void setWarScroll(const WarScroll &warScroll) {m_warScroll = warScroll;}
 
+    auto getUniformColor() const -> const opengl_math::color_rgba<float>&
+    {return m_uniform;}
+    void setUnifromColor(const opengl_math::color_rgba<float> &color)
+    {m_uniform = color;}
+
     void setNameTexture(const QImage &image);
     bool collides(const Ellipse &other) const;
     opengl_math::point_3d<float> getCenter() const;
@@ -85,6 +90,7 @@ namespace Protection
 
     opengl_math::matrix_4X4<float, opengl_math::column> m_mvp;
     opengl_math::matrix_4X4<float, opengl_math::column> m_transform;
+    opengl_math::color_rgba<float> m_uniform;
 
     QImage m_nameTexture;
     std::string m_name;

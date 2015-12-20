@@ -50,6 +50,7 @@ public slots:
   void sync();
   void cleanup();
   void warScrollSelected(int index);
+  void resetIndices();
 
 private slots:
   void handleWindowChanged(QQuickWindow *win);

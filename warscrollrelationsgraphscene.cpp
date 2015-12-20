@@ -91,6 +91,13 @@ void WarScrollRelationsGraphScene::warScrollSelected(int index)
   }
 }
 
+void WarScrollRelationsGraphScene::resetIndices()
+{
+  if (m_renderer) {
+    m_renderer->resetIndices();
+  }
+}
+
 void WarScrollRelationsGraphScene::sync()
 {
   if (!m_renderer) {
@@ -109,10 +116,13 @@ void WarScrollRelationsGraphScene::sync()
 
   QQuickItem *item =
     RootView::getRootView()->rootObject()->findChild<QQuickItem*>(
-    "warscrollRelationsGraphSceneParent");
-  QPointF windowPos = mapToItem(nullptr, QPointF(0, 0));
+    "warscrollRelationsGraphSceneBackButton");
+  QVariant h = QQmlProperty::read(item, "height");
+  bool ok = false;
+  float hf = h.toFloat(&ok);
+  Q_ASSERT(ok);
 
-  m_renderer->setViewport(QPointF(0.0f, 0.0f), QSize(width(), height())
-    * window()->devicePixelRatio());
+  m_renderer->setViewport(QPointF(0.0f, hf) * window()->devicePixelRatio(),
+    QSize(width(), height()) * window()->devicePixelRatio());
 }
 

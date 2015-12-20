@@ -31,6 +31,7 @@ namespace Protection
     , m_ebo(0)
     , m_mvp(opengl_math::identity)
     , m_transform(opengl_math::identity)
+    , m_uniform(1.0f, 1.0f, 1.0f, 1.0f)
   {}
 
   Ellipse::~Ellipse()
@@ -118,7 +119,8 @@ namespace Protection
     m_handle = m_shaderManager->generateProgram({vshaderRes}, {fshaderRes},
       &success);
     if (!success) {
-      throw std::runtime_error("Failed to generate program for textured square");
+      throw std::runtime_error(
+        "Failed to generate program for textured square");
     }
 
     m_shaderVertexAttrib.resize(3);
@@ -162,6 +164,7 @@ namespace Protection
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo); GL_CALL
     m_textureManager->activateTexture(m_texHandles[0]);
     m_shaderManager->configureSampler(m_handle, m_texHandles[0], "uSampler1");
+    m_shaderManager->setUniformRGBA(m_handle, m_uniform, "uColor");
     m_shaderManager->enableVertexAttribArrays(m_handle, m_shaderVertexAttrib);
     m_shaderManager->setUniformMatrix4X4(m_handle, m_mvp.to_gl_matrix(),
       "uMVP");
