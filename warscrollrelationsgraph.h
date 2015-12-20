@@ -7,6 +7,7 @@
 #include "rootview.h"
 #include "warscrollsynergygraph.h"
 
+#include "bounds/axis_aligned_2d.h"
 #include "core/platform.h"
 #include "geometries/geometry.h"
 #include "geometries/ellipse.h"
@@ -38,7 +39,7 @@ private:
   std::atomic_bool m_draw;
   std::atomic_bool m_create;
   std::atomic_bool m_initialize;
-  QSize m_viewportSize;
+  opengl_math::axis_aligned_2d<float> m_viewport;
 
   std::mutex m_graphMutex;
   WarScrollSynergyGraph *m_graph;
@@ -73,7 +74,7 @@ public:
   WarScrollRelationsGraph();
   ~WarScrollRelationsGraph();
 
-  void setViewportSize(const QSize &size);
+  void setViewport(const QPointF &lowerLeft, const QSize &size);
   void setGraph(WarScrollSynergyGraph *graph);
   void warScrollSelected(int index);
 

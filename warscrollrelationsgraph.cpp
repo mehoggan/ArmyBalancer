@@ -55,12 +55,14 @@ WarScrollRelationsGraph::~WarScrollRelationsGraph()
   }
 }
 
-void WarScrollRelationsGraph::setViewportSize(const QSize &size)
+void WarScrollRelationsGraph::setViewport(const QPointF &lowerLeft,
+  const QSize &size)
 {
-  m_viewportSize = size;
-  float den = (m_viewportSize.height() == 0) ? 1.0f :
-    static_cast<float>(m_viewportSize.height());
-  float num = static_cast<float>(m_viewportSize.width());
+  m_viewport = opengl_math::axis_aligned_2d<float>(
+    opengl_math::point_2d<float>(0.0f, 0.0f), size.width(), size.height());
+  float den = (m_viewport.height() == 0) ? 1.0f :
+    static_cast<float>(m_viewport.height());
+  float num = static_cast<float>(m_viewport.width());
   m_projection = opengl_math::perspective<float, opengl_math::column>(
     45.0f, num / den, 1.0, 100.0, opengl_math::degrees);
 }
@@ -274,8 +276,8 @@ void WarScrollRelationsGraph::focalPointChanged(const QVector2D &focalPoint)
 
 void WarScrollRelationsGraph::doubleClickChanged(const QVector2D &point)
 {
-  float xndc = (2.0f * point.x()) / m_viewportSize.width() - 1.0f;
-  float yndc = (1.0f - (2.0f * point.y()) / m_viewportSize.height());
+  float xndc = (2.0f * point.x()) / m_viewport.width() - 1.0f;
+  float yndc = (1.0f - (2.0f * point.y()) / m_viewport.height());
   float zndc = 1.0f;
 
   opengl_math::vector_3d<float> ndc(xndc, yndc, zndc);
@@ -327,7 +329,7 @@ void WarScrollRelationsGraph::renderGraph()
     m_zoom = Zoom::None;
   }
 
-  // At this point the graph is right infrot of our face.
+  // At this point the graph is right in front of our face.
   if (m_z < 1.5) {
     m_z = 1.5;
   }
@@ -352,7 +354,7 @@ void WarScrollRelationsGraph::renderGraph()
     // A * x + B * y + C * z = D;
     // We substitute and get:
     // A * (c.x + r.x * t) + B * (c.y + r.y * t) + C * (c.z + r.z * t) = D
-    // Since our plane is always paralell with the xy-plane we cane reduce to
+    // Since our plane is always parallel with the xy-plane we cane reduce to
     // D = C * (c.z + r.z * t)
     // Simplifying we get
     // t = (D / (C * r.z)) - (c.z / r.z);
@@ -366,6 +368,10 @@ void WarScrollRelationsGraph::renderGraph()
       float y = c.y() + r.y() * t;
       float z = c.z() + r.z() * t;
       auto pos3 = opengl_math::point_3d<float>(x, y, z);
+
+      char buf[2048];
+      _snprintf(buf, 2048, "(%f, %f, %f)\n", pos3.x(), pos3.y(), pos3.z());
+      OutputDebugStringA(buf);
 
       Protection::Ellipse *found = nullptr;
 
@@ -391,9 +397,11 @@ void WarScrollRelationsGraph::renderGraph()
 
   auto pv = (m_projection * m_view);
 
-  qreal width = m_viewportSize.width();
-  qreal height = m_viewportSize.height();
-  glViewport(0, 0.14 * height, width, 1.1135 * height);
+  float llx = m_viewport.r_ll().x();
+  float lly = m_viewport.r_ll().y();
+  float w = m_viewport.width();
+  float h = m_viewport.height();
+  glViewport(llx, lly, w, h);
   glDisable(GL_DEPTH_TEST);
 
   for (auto spline : m_currSplines) {

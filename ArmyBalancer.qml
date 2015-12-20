@@ -384,6 +384,8 @@ Item
 
         Item
         {
+          id: warscrollRelationsGraphSceneParent
+          objectName: "warscrollRelationsGraphSceneParent"
           width: parent.width
           height: parent.height
 
@@ -393,38 +395,6 @@ Item
             objectName: "warscrollRelationsGraphScene"
             width: parent.width
             height: 0.90 * parent.height
-
-            MouseArea
-            {
-              anchors.fill: parent
-              property real m_x;
-              property real m_y;
-
-              onWheel: {
-                if (wheel.angleDelta.y < 0) {
-                  warscrollRelationsGraphScene.z = -1.0;
-                } else if (wheel.angleDelta.y > 0) {
-                  warscrollRelationsGraphScene.z = +1.0;
-                }
-              }
-
-              onPressed: {
-                m_x = mouse.x;
-                m_y = mouse.y;
-              }
-
-              onPositionChanged: {
-                warscrollRelationsGraphScene.focalPoint = Qt.vector2d(
-                  mouse.x - m_x, mouse.y - m_y)
-                m_x = mouse.x;
-                m_y = mouse.y;
-              }
-
-              onDoubleClicked: {
-                warscrollRelationsGraphScene.doubleClick = Qt.vector2d(mouse.x,
-                  mouse.y)
-              }
-            }
 
             SequentialAnimation on t
             {
@@ -439,6 +409,38 @@ Item
               loops: Animation.Infinite
               running: true
             }
+          }
+        }
+
+        MouseArea
+        {
+          anchors.fill: parent
+          property real m_x;
+          property real m_y;
+
+          onWheel: {
+            if (wheel.angleDelta.y < 0) {
+              warscrollRelationsGraphScene.z = -1.0;
+            } else if (wheel.angleDelta.y > 0) {
+              warscrollRelationsGraphScene.z = +1.0;
+            }
+          }
+
+          onPressed: {
+            m_x = mouse.x;
+            m_y = mouse.y;
+          }
+
+          onPositionChanged: {
+            warscrollRelationsGraphScene.focalPoint = Qt.vector2d(
+              mouse.x - m_x, mouse.y - m_y)
+            m_x = mouse.x;
+            m_y = mouse.y;
+          }
+
+          onDoubleClicked: {
+            warscrollRelationsGraphScene.doubleClick = Qt.vector2d(mouse.x,
+              mouse.y)
           }
         }
       }

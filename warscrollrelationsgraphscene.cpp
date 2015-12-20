@@ -2,6 +2,7 @@
 
 #include <QQmlContext>
 #include <QQmlEngine>
+#include <QQmlProperty>
 
 WarScrollRelationsGraphScene::WarScrollRelationsGraphScene(QObject *)
   : m_t(0)
@@ -105,7 +106,13 @@ void WarScrollRelationsGraphScene::sync()
     connect(this, SIGNAL(doubleClickChanged(QVector2D)), m_renderer,
       SLOT(doubleClickChanged(QVector2D)));
   }
-  m_renderer->setViewportSize(QSize(width(), height())
+
+  QQuickItem *item =
+    RootView::getRootView()->rootObject()->findChild<QQuickItem*>(
+    "warscrollRelationsGraphSceneParent");
+  QPointF windowPos = mapToItem(nullptr, QPointF(0, 0));
+
+  m_renderer->setViewport(QPointF(0.0f, 0.0f), QSize(width(), height())
     * window()->devicePixelRatio());
 }
 
