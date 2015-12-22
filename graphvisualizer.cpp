@@ -19,7 +19,7 @@
 void walkGraph(
   std::vector<std::shared_ptr<Protection::Ellipse>> &output1,
   std::vector<WarScrollSynergyGraph::Vertex> &output2,
-  WarScrollSynergyGraph &graph)
+  WarScrollSynergyGraph &graph, NameTextureAtlasMap *nameAtlas)
 {
   std::copy(graph.begin(), graph.end(), std::back_inserter(output2));
 
@@ -29,49 +29,43 @@ void walkGraph(
       return lhs.connections() > rhs.connections();
     });
 
-  std::copy(output2.begin(), output2.end(),
-    std::ostream_iterator<WarScrollSynergyGraph::Vertex>(std::cout, ""));
-
   std::for_each(output2.begin(), output2.end(),
     [&](const WarScrollSynergyGraph::Vertex& node)
     {
-      std::shared_ptr<Protection::Ellipse> ellipse(new Protection::Ellipse());
+      auto ellipse = std::make_shared<Protection::Ellipse>();
       output1.push_back(ellipse);
-      output1.back()->setName(node.getWarScroll()->getTitle().c_str());
+      std::string wsName = node.getWarScroll()->getTitle().c_str();
+      output1.back()->setName(wsName.c_str());
       output1.back()->setWarScroll(*(node.getWarScroll()));
-      QImage img(512, 512, QImage::Format_RGBA8888);
-      img.fill(Qt::white);
-      QPainter painter(&img);
-      painter.setRenderHints(QPainter::Antialiasing |
-        QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
-
-      QRectF rect(QPointF(0.0, 0.0), QSizeF(512.0, 512.0));
-      QImage image(":/images/wasteland.png");
-      painter.drawImage(rect, image, image.rect());
-
-      QFont font = painter.font() ;
-      font.setPointSize(36.0);
-      font.setBold(true);
-      while (QFontMetricsF(font).boundingRect(
-        node.getWarScroll()->getTitle().c_str()).width() > 502.0) {
-        font.setPointSize(font.pointSize() - 1.0);
-      }
-      painter.setFont(font);
-      painter.setPen(Qt::red);
-      auto flags = Qt::AlignHCenter | Qt::AlignVCenter;
-      painter.drawText(rect, flags, node.getWarScroll()->getTitle().c_str(),
-        nullptr);
-
-      QImage tex = QGLWidget::convertToGLFormat(img);
-      output1.back()->setNameTexture(tex);
-      output1.back()->create();
+      auto uvBbox = nameAtlas->getUVForName(wsName);
+      Q_ASSERT(uvBbox.is_valid());
+      output1.back()->create_bbox(&uvBbox);
+      output1.back()->setTextureAtlas(*nameAtlas);
     });
+}
+
+std::vector<std::string> extractNamesFromGraph(WarScrollSynergyGraph *graph)
+{
+  std::vector<std::string> names;
+  std::vector<WarScrollSynergyGraph::Vertex> vertices;
+  std::copy(graph->begin(), graph->end(), std::back_inserter(vertices));
+  std::sort(vertices.begin(), vertices.end(),
+    [&](const WarScrollSynergyGraph::Vertex &lhs,
+      const WarScrollSynergyGraph::Vertex &rhs) {
+      return lhs.connections() > rhs.connections();
+    });
+  std::for_each(vertices.begin(), vertices.end(),
+    [&](const WarScrollSynergyGraph::Vertex& node)
+    {
+      names.push_back(node.getWarScroll()->getTitle());
+    });
+  return names;
 }
 
 void generateEllipses(
   std::vector<std::shared_ptr<Protection::Ellipse>>& output1,
   std::vector<WarScrollSynergyGraph::Vertex>& output2,
-  WarScrollSynergyGraph *graph)
+  WarScrollSynergyGraph *graph, NameTextureAtlasMap *nameAtlas)
 {
   if (!graph) {
     return;
@@ -79,7 +73,7 @@ void generateEllipses(
 
   std::vector<std::shared_ptr<Protection::Ellipse>> ellipses;
   std::vector<WarScrollSynergyGraph::Vertex> nodes;
-  walkGraph(output1, output2, *graph);
+  walkGraph(output1, output2, *graph, nameAtlas);
   assert(ellipses.size() == nodes.size());
 }
 

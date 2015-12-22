@@ -5,6 +5,7 @@
 
 #include "glshaderresourcemanager.h"
 #include "gltextureresourcemanager.h"
+#include "nametextureatlasmap.h"
 #include "warscroll.h"
 
 #include "mesh_types/interleaved_data.h"
@@ -41,9 +42,10 @@ namespace Protection
       m_mvp = mvp;
     }
 
-    virtual void create();
     virtual void draw();
     virtual void destroy();
+
+    void create_bbox(opengl_math::axis_aligned_2d<float> *bbox = nullptr);
 
     const std::string &getName() const {return m_name;}
     void setName(const std::string &name) {m_name = name;}
@@ -55,8 +57,9 @@ namespace Protection
     {return m_uniform;}
     void setUnifromColor(const opengl_math::color_rgba<float> &color)
     {m_uniform = color;}
+    void setTextureAtlas(const NameTextureAtlasMap &atlas)
+    {m_tetxtureAtlas = &atlas;}
 
-    void setNameTexture(const QImage &image);
     bool collides(const Ellipse &other) const;
     opengl_math::point_3d<float> getCenter() const;
     bool contains(const opengl_math::point_3d<float> &point);
@@ -71,8 +74,9 @@ namespace Protection
     }
 
   private:
+    virtual void create();
+
     std::shared_ptr<GLShaderResourceManager> m_shaderManager;
-    std::shared_ptr<GLTextureResourceManager> m_textureManager;
 
     GLuint m_vbo;
     GLuint m_ebo;
@@ -80,7 +84,6 @@ namespace Protection
     GLShaderResourceManager::GLShaderHandle m_handle;
     std::vector<GLShaderResourceManager::GLShaderAttributes>
       m_shaderVertexAttrib;
-    GLTextureResourceManager::GLTextureHandle m_texHandles[1];
 
     typedef opengl_graphics::interleaved_data<opengl_math::point_3d<float>,
       opengl_math::color_rgba<float>, opengl_math::texcoord_2d<float>> verts;
@@ -92,9 +95,11 @@ namespace Protection
     opengl_math::matrix_4X4<float, opengl_math::column> m_transform;
     opengl_math::color_rgba<float> m_uniform;
 
-    QImage m_nameTexture;
     std::string m_name;
     WarScroll m_warScroll;
+
+    const NameTextureAtlasMap *m_tetxtureAtlas;
+    const opengl_math::axis_aligned_2d<float> *m_uvBbox;
   };
 }
 

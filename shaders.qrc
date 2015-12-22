@@ -5,5 +5,60 @@
         <file>shaders/glsl_450/projectedcolored_vshader.glsl</file>
         <file>shaders/glsl_450/projectedcolored_fshader.glsl</file>
         <file>shaders/glsl_450/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_110/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_110/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_110/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_110/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_110/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_120/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_120/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_120/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_120/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_120/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_130/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_130/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_130/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_130/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_130/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_140/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_140/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_140/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_140/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_140/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_150/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_150/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_150/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_150/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_150/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_330/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_330/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_330/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_330/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_330/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_400/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_400/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_400/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_400/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_400/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_410/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_410/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_410/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_410/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_410/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_420/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_420/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_420/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_420/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_420/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_430/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_430/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_430/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_430/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_430/projectedcoloredtextured_vshader.glsl</file>
+        <file>shaders/glsl_440/projectedcolored1sampler_fshader.glsl</file>
+        <file>shaders/glsl_440/projectedcolored2samplermixed_fshader.glsl</file>
+        <file>shaders/glsl_440/projectedcolored_fshader.glsl</file>
+        <file>shaders/glsl_440/projectedcolored_vshader.glsl</file>
+        <file>shaders/glsl_440/projectedcoloredtextured_vshader.glsl</file>
     </qresource>
 </RCC>

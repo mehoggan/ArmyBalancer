@@ -47,6 +47,7 @@ SOURCES += main.cpp \
   geometries/splines.cpp \
   glshaderresourcemanager.cpp \
   gltextureresourcemanager.cpp \
+  nametextureatlasmap.cpp
 
 RESOURCES += qml.qrc \
     shaders.qrc \
@@ -100,6 +101,7 @@ HEADERS += \
   geometries/splines.h \
   glshaderresourcemanager.h \
   gltextureresourcemanager.h \
+  nametextureatlasmap.h
 
 win32 {
     home_dir = $$(HOMEDRIVE)$$(HOMEPATH)

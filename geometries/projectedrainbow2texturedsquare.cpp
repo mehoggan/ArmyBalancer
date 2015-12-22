@@ -141,7 +141,9 @@ void ProjectedRainbow2TexturedSquare::create()
 
 void ProjectedRainbow2TexturedSquare::draw()
 {
+#if !defined(__ANDROID__)
   glPushAttrib(GL_ALL_ATTRIB_BITS);
+#endif
   m_shaderManager->useProgram(m_handle);
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo); GL_CALL
@@ -155,7 +157,9 @@ void ProjectedRainbow2TexturedSquare::draw()
     GL_UNSIGNED_INT, 0); GL_CALL
   m_textureManager->deactivateTexture(m_texHandles[0]);
   m_textureManager->deactivateTexture(m_texHandles[1]);
+#if !defined(__ANDROID__)
   glPopAttrib();
+#endif
 }
 
 void ProjectedRainbow2TexturedSquare::destroy()

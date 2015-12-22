@@ -12,6 +12,7 @@
 #include "geometries/geometry.h"
 #include "geometries/ellipse.h"
 #include "geometries/splines.h"
+#include "nametextureatlasmap.h"
 #include "primitives/points/type_point_3d.h"
 
 #include <QQuickView>
@@ -64,6 +65,8 @@ private:
   std::atomic<int> m_prevScrollIndex;
   std::atomic<Protection::Ellipse*> m_doubleClickedEllipse;
   QTimer m_doubleClickedTimer;
+
+  NameTextureAtlasMap m_atlasNameMap;
 
 private:
   void renderBackground();

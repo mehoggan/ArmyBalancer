@@ -224,11 +224,10 @@ void GLShaderResourceManager::setUniformMatrix4X4(const GLShaderHandle &handle,
 }
 
 void GLShaderResourceManager::configureSampler(const GLShaderHandle &handle,
-  const GLTextureResourceManager::GLTextureHandle &texHandle,
+  const GLTextureResourceManager::GLTextureHandle &/*texHandle*/,
   const GLchar *sampler)
 {
-  glUniform1i(glGetUniformLocation(handle.m_shaderProgram, sampler),
-    texHandle.textureId()); GL_CALL
+  glUniform1i(glGetUniformLocation(handle.m_shaderProgram, sampler), 0); GL_CALL
 }
 
 

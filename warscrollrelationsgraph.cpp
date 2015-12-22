@@ -82,7 +82,13 @@ void WarScrollRelationsGraph::initGraphData()
   m_ellipses.clear();
   m_vertices.clear();
 
-  generateEllipses(m_ellipses, m_vertices, m_graph);
+  std::vector<std::string> names = extractNamesFromGraph(m_graph);
+
+  m_atlasNameMap.clearAtlas();
+  m_atlasNameMap.generateAtlas(names);
+  m_atlasNameMap.createTexture();
+
+  generateEllipses(m_ellipses, m_vertices, m_graph, &m_atlasNameMap);
 
   QVariantList list;
   for (const WarScrollSynergyGraph::Vertex &vert : m_vertices) {
@@ -130,8 +136,10 @@ void WarScrollRelationsGraph::updateGraph()
   m_currSplines.clear();
   m_doubleClickedEllipse = nullptr;
 
+  std::vector<std::string> names;
   Protection::Ellipse copy = *(m_ellipses[m_currScrollIndex].get());
   m_currEllipses.push_back(copy);
+  names.push_back(copy.getWarScroll().getTitle());
   const float radius = 3.0f;
 
   float currAngle = 270.0;
@@ -143,14 +151,13 @@ void WarScrollRelationsGraph::updateGraph()
     std::size_t index = std::distance(m_vertices.begin(), it);
 
     if (index != static_cast<std::size_t>(m_currScrollIndex)) {
-      std::cout << "Adding ellipse for " << it->getWarScroll()->getTitle() <<
-        std::endl;
       copy = *(m_ellipses[index].get());
       copy.setTransform(opengl_math::translate_by(copy.getTransform(),
         opengl_math::vector_3d<float>(
           radius * opengl_math::cos<float, opengl_math::degrees>(currAngle),
           radius * opengl_math::sin<float, opengl_math::degrees>(currAngle),
           0.0f)));
+      names.push_back(copy.getWarScroll().getTitle());
       m_currEllipses.push_back(copy);
       currAngle += angleDelta;
     }
@@ -267,7 +274,6 @@ void WarScrollRelationsGraph::drawChanged(bool draw)
   // We only want to turn drawing off. The setting of a non empty graph
   // will handle turning drawing on.
   if (!draw) {
-    std::cout << "Drawing OFF" << std::endl;
     m_draw = f;
   }
 }

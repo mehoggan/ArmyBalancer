@@ -1,4 +1,4 @@
-#ifndef GLTEXTURERESOURCEMANAGER_H
+﻿#ifndef GLTEXTURERESOURCEMANAGER_H
 #define GLTEXTURERESOURCEMANAGER_H
 
 #include <QOpenGLFunctions>
@@ -13,7 +13,6 @@
 #include <atomic>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <unordered_set>
 
 class GLTextureResourceManager : public QOpenGLFunctions
@@ -24,12 +23,14 @@ public:
   private:
     friend class GLTextureResourceManager;
     GLuint m_textureId;
+    GLint m_activeId;
 
   public:
     GLTextureHandle();
     ~GLTextureHandle();
 
     GLuint textureId() const {return m_textureId;}
+    GLint activeId() const {return m_activeId;}
   };
 
   struct GLTextureParameteri
@@ -68,7 +69,7 @@ public:
 
   void activateTexture(const GLTextureHandle &handle);
 
-  void deactivateTexture(const GLTextureHandle &handle);
+  void deactivateTexture(const GLTextureHandle &);
 
   void destroyTexture(const GLTextureHandle &handle);
 
@@ -81,6 +82,10 @@ private:
   GLTextureResourceManager &operator=(const GLTextureResourceManager&) = delete;
 
   static std::shared_ptr<GLTextureResourceManager> s_glTextureResourceManager;
+
+private:
+  std::unordered_set<std::int32_t> m_activeTextures;
+  std::unordered_set<std::int32_t> m_inactiveTextures;
 };
 
 #endif // GLTEXTURERESOURCEMANAGER_H

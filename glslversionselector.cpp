@@ -50,7 +50,7 @@ std::shared_ptr<QResource> GLSLVersionSelector::getResourcePath(
   char *pch = strtok((char*)(glslVersion.c_str()), " ");
   while (pch != nullptr) {
     char* endptr;
-    ver = std::strtof(pch, &endptr);
+    ver = std::strtod(pch, &endptr);
     if (*endptr == '\0') {
       break;
     }
@@ -58,18 +58,18 @@ std::shared_ptr<QResource> GLSLVersionSelector::getResourcePath(
   }
 
   std::string uri = "shaders/";
-  if (ver == 1.1 || ver == 1.10) {
-  } else if (ver == 1.1 || ver == 1.10) {
-    uri += ("glsl_110/" + shaderName);
-  } else if (ver == 4.5 || ver == 4.50) {
-    uri += ("glsl_450/" + shaderName);
-  } else {
-    const std::uint8_t size = 5;
-    char buf[size];
-    snprintf(buf, size, "%f", ver);
-    std::string err(buf);
-    throw std::runtime_error("Unsupported version " + err + "found");
+  std::map<float, const char *> versionMap = {
+    {1.1, "glsl_110"}, {2.0, "glsl_120"}, {2.1, "glsl_120"}, {3.0, "glsl_130"},
+    {3.1, "glsl_140"}, {3.2, "glsl_150"}, {3.3, "glsl_330"}, {4.0, "glsl_400"},
+    {4.1, "glsl_410"}, {4.2, "glsl_420"}, {4.3, "glsl_430"}, {4.4, "glsl_440"},
+    {4.5, "glsl_450"}};
+  auto it = versionMap.find(ver);
+  if (it == versionMap.end()) {
+    qFatal((QString("FATAL: Unsupported GLSL Version ") +
+      QString::number(ver)).toStdString().c_str());
   }
+  uri += (std::string(it->second) + std::string("/") + shaderName);
+  qDebug() << "INFO: Going to return " << uri.c_str() << " as resource path.";
 
   return std::make_shared<QResource>(uri.c_str());
 }

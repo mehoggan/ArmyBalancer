@@ -534,9 +534,6 @@ void ArmyBalancer::buildAndPublishSynergyGraph()
     std::list<WarScroll::KeyWordConnection> connections =
       warscroll.second.getKeyWordConnections();
 
-    qDebug() << "Current war scroll is " << warscroll.second.getTitle().c_str();
-    qDebug() << "The number of connections is " << connections.size();
-
     bool connectionMade = false;
     for (const WarScroll::KeyWordConnection &connection : connections) {
       connectionMade = buildGraphFromConnectionString(

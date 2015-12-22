@@ -32,21 +32,30 @@ namespace Protection
     , m_mvp(opengl_math::identity)
     , m_transform(opengl_math::identity)
     , m_uniform(1.0f, 1.0f, 1.0f, 1.0f)
+    , m_tetxtureAtlas(nullptr)
   {}
 
   Ellipse::~Ellipse()
   {}
 
+  void Ellipse::create_bbox(opengl_math::axis_aligned_2d<float> *bbox)
+  {
+    if (!bbox || !bbox->is_valid()) {
+      return;
+    }
+
+    m_uvBbox = bbox;
+    create();
+  }
+
   void Ellipse::create()
   {
+    Q_ASSERT(m_uvBbox);
+
     initializeOpenGLFunctions();
 
     if (!m_shaderManager) {
       m_shaderManager = GLShaderResourceManager::getSharedInstance();
-    }
-
-    if (!m_textureManager) {
-      m_textureManager = GLTextureResourceManager::getSharedInstance();
     }
 
     destroy();
@@ -63,12 +72,21 @@ namespace Protection
     std::size_t index = 0u;
     std::uint32_t indexVal = 1u;
 
-    std::vector<std::pair<float, float>> texs;
+    auto center = m_uvBbox->center();
     data[attrib++] = verts::datum_type(
       opengl_math::point_3d<float>(0.0f, 0.0f, 0.0f),
       opengl_math::color_rgba<float>(1.0f, 1.0f, 1.0f, 1.0f),
-      opengl_math::texcoord_2d<float>(0.5f, 0.5f));
-    texs.push_back(std::make_pair(0.5f, 0.5f));
+      opengl_math::texcoord_2d<float>(center.x(), center.y()));
+
+    auto *bbox = const_cast<opengl_math::axis_aligned_2d<float>*>(m_uvBbox);
+
+    float minX = bbox->r_ll().x();
+    float minY = bbox->r_ll().y();
+    float maxX = bbox->r_ur().x();
+    float maxY = bbox->r_ur().y();
+
+    float xDiff = maxX - minX;
+    float yDiff = maxY - minY;
 
     float t = 0.0f;
     while (index < totalIndice) {
@@ -79,14 +97,13 @@ namespace Protection
 
       float x0 = a * std::cos(rad);
       float y0 = b * std::sin(rad);
-      float u = (x0 + 1.0f) / (2);
-      float v = (y0 + 1.0f) / (2);
+      float u = minX + (x0 + 1.0f) / (2) * (xDiff);
+      float v = minY + (y0 + 1.0f) / (2) * (yDiff);
+
       data[attrib++] = verts::datum_type(
         opengl_math::point_3d<float>(x0, y0, 0.0f),
         opengl_math::color_rgba<float>(1.0f, 1.0f, 1.0f, 1.0f),
         opengl_math::texcoord_2d<float>(u, v));
-
-      texs.push_back(std::make_pair(u, v));
 
       indic[index++] = (indexVal++);
       if (index < totalIndice - 1) {
@@ -119,8 +136,8 @@ namespace Protection
     m_handle = m_shaderManager->generateProgram({vshaderRes}, {fshaderRes},
       &success);
     if (!success) {
-      throw std::runtime_error(
-        "Failed to generate program for textured square");
+      qFatal((QString("Failed to generate shader program in !!!") +
+        __FILE__).toStdString().c_str());
     }
 
     m_shaderVertexAttrib.resize(3);
@@ -139,39 +156,24 @@ namespace Protection
       verts::traits::stride,
       verts::traits::type3_byte_offset,
       "iTexcoord");
-
-    m_texHandles[0] = m_textureManager->createTextureResource();
-    m_textureManager->uploadTexture(m_nameTexture, m_texHandles[0]);
-    m_textureManager->setTextureParameters(
-      m_texHandles[0],
-      {
-        GLTextureResourceManager::GLTextureParameteri(
-          GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE),
-        GLTextureResourceManager::GLTextureParameteri(
-          GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE),
-        GLTextureResourceManager::GLTextureParameteri(
-          GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR),
-        GLTextureResourceManager::GLTextureParameteri(
-          GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR),
-      });
   }
 
   void Ellipse::draw()
   {
-    glPushAttrib(GL_ALL_ATTRIB_BITS);
+    auto textureHandle = m_tetxtureAtlas->textureHandle();
+    auto textureManager = GLTextureResourceManager::getSharedInstance();
+
     m_shaderManager->useProgram(m_handle);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GL_CALL
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo); GL_CALL
-    m_textureManager->activateTexture(m_texHandles[0]);
-    m_shaderManager->configureSampler(m_handle, m_texHandles[0], "uSampler1");
+    textureManager->activateTexture(textureHandle);
+    m_shaderManager->configureSampler(m_handle, textureHandle, "uSampler1");
     m_shaderManager->setUniformRGBA(m_handle, m_uniform, "uColor");
     m_shaderManager->enableVertexAttribArrays(m_handle, m_shaderVertexAttrib);
     m_shaderManager->setUniformMatrix4X4(m_handle, m_mvp.to_gl_matrix(),
       "uMVP");
     glDrawElements(GL_TRIANGLES, (GLsizei)m_indices.get_indices_count(),
       GL_UNSIGNED_INT, 0); GL_CALL
-    m_textureManager->deactivateTexture(m_texHandles[0]);
-    glPopAttrib();
   }
 
   void Ellipse::destroy()
@@ -185,11 +187,6 @@ namespace Protection
     }
 
     m_shaderManager->destroyProgram(m_handle);
-  }
-
-  void Ellipse::setNameTexture(const QImage &image)
-  {
-    m_nameTexture = image;
   }
 
   bool Ellipse::collides(const Ellipse &other) const

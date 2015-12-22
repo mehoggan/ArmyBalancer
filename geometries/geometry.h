@@ -3,6 +3,7 @@
 
 #include "matrices/type_matrix_4X4.h"
 
+#include <QDebug>
 #include <QtGui/QOpenGLFunctions>
 
 #include <iostream>
@@ -10,8 +11,8 @@
 #define GL_CALL do { \
     GLint error; \
     while ((error = glGetError()) != 0) { \
-      std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " \
-        << error << std::endl; \
+      qDebug() << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " \
+        << error; \
     } \
   } while(false);
 

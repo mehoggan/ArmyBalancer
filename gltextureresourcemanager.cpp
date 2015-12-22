@@ -1,12 +1,14 @@
-#include "gltextureresourcemanager.h"
+﻿#include "gltextureresourcemanager.h"
 
 #include <iostream>
+#include <QDebug>
 
 std::shared_ptr<GLTextureResourceManager>
   GLTextureResourceManager::s_glTextureResourceManager = nullptr;
 
 GLTextureResourceManager::GLTextureHandle::GLTextureHandle()
   : m_textureId(0)
+  , m_activeId(-1)
 {}
 
 GLTextureResourceManager::GLTextureHandle::~GLTextureHandle()
@@ -43,8 +45,17 @@ GLTextureResourceManager::getSharedInstance()
 }
 
 GLTextureResourceManager::GLTextureResourceManager()
+  : m_activeTextures(0)
 {
   initializeOpenGLFunctions();
+
+  GLint textureUnits;
+  glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &textureUnits);
+
+  std::int32_t count = textureUnits;
+  std::vector<std::int32_t> tmp(textureUnits);
+  std::generate(tmp.begin(), tmp.end(), [&](){return (--count);});
+  m_inactiveTextures = std::unordered_set<std::int32_t>(tmp.begin(), tmp.end());
 }
 
 GLTextureResourceManager::GLTextureHandle
@@ -76,13 +87,11 @@ void GLTextureResourceManager::setTextureParameters(
 
 void GLTextureResourceManager::activateTexture(const GLTextureHandle &handle)
 {
-  glActiveTexture(GL_TEXTURE0 + handle.m_textureId); GL_CALL
-  glBindTexture(GL_TEXTURE_2D, handle.m_textureId);
+  glBindTexture(GL_TEXTURE_2D, handle.m_textureId); GL_CALL
 }
 
-void GLTextureResourceManager::deactivateTexture(const GLTextureHandle &handle)
+void GLTextureResourceManager::deactivateTexture(const GLTextureHandle &)
 {
-  glActiveTexture(GL_TEXTURE0 + handle.m_textureId); GL_CALL
   glBindTexture(GL_TEXTURE_2D, 0); GL_CALL
 }
 
