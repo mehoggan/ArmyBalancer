@@ -6,12 +6,14 @@
 
 NameTextureAtlasMap::NameTextureAtlasMap()
   : m_firstRun(true)
+  , m_backgroundColor(Qt::black)
 {}
 
 void NameTextureAtlasMap::clearAtlas()
 {
   m_atlas = QImage();
   m_nameToUVCoordsMap.clear();
+  m_backgroundColor = Qt::black;
 }
 
 const int atlasSize = 4096;
@@ -28,7 +30,7 @@ void NameTextureAtlasMap::generateAtlas(const std::vector<std::string> &names)
   const float textWidth = stepf - 10.0;
 
   QImage tmp = QImage(atlasSize, atlasSize, QImage::Format_ARGB32);
-  tmp.fill(Qt::blue);
+  tmp.fill(QColor(255, 255, 255, 0));
   QPainter painter(&tmp);
   painter.setRenderHints(QPainter::Antialiasing |
     QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
@@ -48,7 +50,7 @@ void NameTextureAtlasMap::generateAtlas(const std::vector<std::string> &names)
       }
       painter.setFont(font);
       painter.setPen(Qt::black);
-      painter.fillRect(rect, Qt::green);
+      painter.fillRect(rect, m_backgroundColor);
       auto flags = Qt::AlignHCenter | Qt::AlignVCenter;
       painter.drawText(rect, flags, name.c_str(), nullptr);
 
@@ -73,6 +75,9 @@ void NameTextureAtlasMap::generateAtlas(const std::vector<std::string> &names)
   }
 
   m_atlas = QImage(tmp2);
+
+  m_atlas.save((std::string("/home/mhoggan/Pictures/") + names[0] +
+    std::string(".png")).c_str(), "png");
 }
 
 opengl_math::axis_aligned_2d<float> NameTextureAtlasMap::getUVForName(

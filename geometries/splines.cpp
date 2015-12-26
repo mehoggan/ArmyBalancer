@@ -2,7 +2,8 @@
 
 #include "glslversionselector.h"
 
-#include <math/matrix.h>
+#include "math/algebra.h"
+#include "math/matrix.h"
 
 #include <QDebug>
 #include <QFile>
@@ -109,6 +110,19 @@ void Spline::destroy()
   }
 
   m_shaderManager->destroyProgram(m_handle);
+}
+
+auto Spline::computeCenter() -> opengl_math::point_3d<float>
+{
+  auto bez = opengl_math::bezier<float, opengl_math::column>();
+  auto ibez = bez.inversion();
+  auto cp =  m_cubic.get_matrix() * ibez;
+
+  auto p0 = opengl_math::point3d_from_vector4d(cp[0]);
+  auto p3 = opengl_math::point3d_from_vector4d(cp[3]);
+
+  auto pm = opengl_math::lerp(0.5f, p0, p3);
+  return pm;
 }
 
 std::shared_ptr<Spline> Spline::createBezier(

@@ -15,20 +15,21 @@ public:
   private:
     friend class WarScrollSynergyGraph;
     const Vertex *m_node;
-    const WarScroll::KeyWordConnection * const m_meta;
+    const WarScroll::KeyWordConnection m_meta;
 
   public:
     Edge() :
-      m_node(nullptr),
-      m_meta(nullptr)
+      m_node(nullptr)
     {}
 
     Edge(const Vertex &v, const WarScroll::KeyWordConnection &d) :
       m_node(&v),
-      m_meta(&d)
+      m_meta(d)
     {}
 
     const Vertex &adjacent() const {return (*m_node);}
+    const WarScroll::KeyWordConnection &keyWordConnection() const
+    {return m_meta;}
   };
 
   struct Vertex

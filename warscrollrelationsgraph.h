@@ -11,6 +11,7 @@
 #include "core/platform.h"
 #include "geometries/geometry.h"
 #include "geometries/ellipse.h"
+#include "geometries/rectangulartext.h"
 #include "geometries/splines.h"
 #include "nametextureatlasmap.h"
 #include "primitives/points/type_point_3d.h"
@@ -50,6 +51,7 @@ private:
   std::vector<Protection::Ellipse> m_currEllipses;
   std::vector<WarScrollSynergyGraph::Vertex> m_vertices;
   std::vector<std::shared_ptr<Spline>> m_currSplines;
+  std::vector<std::shared_ptr<RectangularText>> m_currEdgeLabels;
 
   opengl_math::matrix_4X4<float, opengl_math::column> m_projection;
   opengl_math::matrix_4X4<float, opengl_math::column> m_view;
@@ -67,6 +69,7 @@ private:
   QTimer m_doubleClickedTimer;
 
   NameTextureAtlasMap m_atlasNameMap;
+  NameTextureAtlasMap m_atlasKeywordMap;
 
 private:
   void renderBackground();

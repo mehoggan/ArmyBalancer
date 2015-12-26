@@ -69,7 +69,6 @@ std::shared_ptr<QResource> GLSLVersionSelector::getResourcePath(
       QString::number(ver)).toStdString().c_str());
   }
   uri += (std::string(it->second) + std::string("/") + shaderName);
-  qDebug() << "INFO: Going to return " << uri.c_str() << " as resource path.";
 
   return std::make_shared<QResource>(uri.c_str());
 }

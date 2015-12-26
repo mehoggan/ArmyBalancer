@@ -1,4 +1,4 @@
-#include "warscrollsynergygraph.h"
+﻿#include "warscrollsynergygraph.h"
 
 #include <iostream>
 
@@ -16,7 +16,7 @@ void WarScrollSynergyGraph::Vertex::connect(const Vertex &other,
 {
   bool contains = false;
   for (const Edge &edge : m_adjacents) {
-    if ((*edge.m_meta) == d && (*edge.m_node) == other) {
+    if ((edge.m_meta) == d && (*edge.m_node) == other) {
       contains = true;
     }
   }
@@ -64,12 +64,12 @@ void WarScrollSynergyGraph::print()
     std::cout << it->m_data->getTitle() << "==>";
     for (const auto &edge : it->m_adjacents) {
       std::cout << edge.m_node->m_data->getTitle() << "(";
-      if (!edge.m_meta->getAbility().getName().empty()) {
-        std::cout << edge.m_meta->getAbility().getName();
-      } else if (!edge.m_meta->getSpell().getName().empty()) {
-        std::cout << edge.m_meta->getSpell().getName();
+      if (!edge.m_meta.getAbility().getName().empty()) {
+        std::cout << edge.m_meta.getAbility().getName();
+      } else if (!edge.m_meta.getSpell().getName().empty()) {
+        std::cout << edge.m_meta.getSpell().getName();
       } else {
-        std::cout << edge.m_meta->getName();
+        std::cout << edge.m_meta.getName();
       }
       std::cout << ") ==>";
     }

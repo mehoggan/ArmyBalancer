@@ -78,17 +78,32 @@ void generateEllipses(
 }
 
 void generateSplines(std::vector<std::shared_ptr<Spline>> &output1,
-  const std::vector<Protection::Ellipse> &ellipses)
+  std::vector<std::shared_ptr<RectangularText> > &output2,
+  const std::vector<Protection::Ellipse> &ellipses,
+  const std::vector<std::string> &edgeLabels,
+  NameTextureAtlasMap *atlasKeyWordMap)
 {
+  Q_ASSERT(ellipses.size() == edgeLabels.size() + 1);
+
   // We assume that the center ellipse is the first ellipse in the vector
   opengl_math::point_3d<float> center = ellipses.front().getCenter();
 
-  for (auto it = ellipses.begin() + 1; it != ellipses.end(); ++it) {
+  std::size_t i = 0;
+  for (auto it = ellipses.begin() + 1; it != ellipses.end(); ++it, ++i) {
     opengl_math::point_3d<float> ccenter = it->getCenter();
-    const std::string currName = it->getName();
     opengl_math::point_3d<float> mid = opengl_math::lerp<float>(0.5f,
       center, ccenter);
     output1.push_back(Spline::createBezier(center, mid, mid, ccenter));
     output1.back()->create();
+    auto center3d = output1.back()->computeCenter();
+
+    auto label = std::make_shared<RectangularText>(+2.0, +1.0);
+    output2.push_back(label);
+    auto bbox = atlasKeyWordMap->getUVForName(edgeLabels[i]);
+    Q_ASSERT(bbox.is_valid());
+    output2.back()->create_bbox(&bbox);
+    output2.back()->setTextureAtlas(*atlasKeyWordMap);
+    auto mat44 = output2.back()->getTransform();
+    output2.back()->setTransform(opengl_math::translate_to(mat44, center3d));
   }
 }

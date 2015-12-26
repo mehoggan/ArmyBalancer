@@ -10,6 +10,8 @@
 #include <QQuickWindow>
 
 #include <iostream>
+#include <map>
+#include <utility>
 
 #if __OPENGL_CORE_WINDOWS__
 const std::atomic_bool t{true};
@@ -85,6 +87,7 @@ void WarScrollRelationsGraph::initGraphData()
   std::vector<std::string> names = extractNamesFromGraph(m_graph);
 
   m_atlasNameMap.clearAtlas();
+  m_atlasNameMap.backgroundColor(QColor(200, 200, 200, 255));
   m_atlasNameMap.generateAtlas(names);
   m_atlasNameMap.createTexture();
 
@@ -98,7 +101,7 @@ void WarScrollRelationsGraph::initGraphData()
 
   Q_ASSERT(RootView::getRootView());
   QMetaObject::invokeMethod(RootView::getRootView()->rootObject(),
-      "updateWarScrollGraphList", Q_ARG(QVariant, QVariant::fromValue(list)));
+    "updateWarScrollGraphList", Q_ARG(QVariant, QVariant::fromValue(list)));
 
   m_prevScrollIndex = -1;
   m_currScrollIndex = -1;
@@ -134,6 +137,7 @@ void WarScrollRelationsGraph::updateGraph()
 
   m_currEllipses.clear();
   m_currSplines.clear();
+  m_currEdgeLabels.clear();
   m_doubleClickedEllipse = nullptr;
 
   std::vector<std::string> names;
@@ -141,6 +145,8 @@ void WarScrollRelationsGraph::updateGraph()
   m_currEllipses.push_back(copy);
   names.push_back(copy.getWarScroll().getTitle());
   const float radius = 3.0f;
+
+  std::vector<std::string> edgeLabels;
 
   float currAngle = 270.0;
   for (const WarScrollSynergyGraph::Edge &edge : edges) {
@@ -159,9 +165,16 @@ void WarScrollRelationsGraph::updateGraph()
           0.0f)));
       names.push_back(copy.getWarScroll().getTitle());
       m_currEllipses.push_back(copy);
+      edgeLabels.push_back(edge.keyWordConnection().getKeyWord());
+
       currAngle += angleDelta;
     }
   }
+
+  m_atlasKeywordMap.clearAtlas();
+  m_atlasKeywordMap.backgroundColor(QColor(200, 200, 200, 0));
+  m_atlasKeywordMap.generateAtlas(edgeLabels);
+  m_atlasKeywordMap.createTexture();
 
   // The first node in m_currEllipses will be the center node of the graph,
   // so we don't consider it in collisions.
@@ -208,7 +221,8 @@ void WarScrollRelationsGraph::updateGraph()
     }
   }
 
-  generateSplines(m_currSplines, m_currEllipses);
+  generateSplines(m_currSplines, m_currEdgeLabels, m_currEllipses, edgeLabels,
+    &m_atlasKeywordMap);
 
   // Reset the camera to stare at (0, 0).
   m_z = initZ;
@@ -259,7 +273,6 @@ void WarScrollRelationsGraph::warScrollSelected(int index)
     m_currScrollIndex = index;
     m_scrollChanged = t;
   }
-  qDebug() << index << " selected";
 }
 
 void WarScrollRelationsGraph::resetIndices()
@@ -480,6 +493,8 @@ void WarScrollRelationsGraph::renderGraph()
   float h = m_viewport.height();
   glViewport(llx, lly, w, h);
   glDisable(GL_DEPTH_TEST);
+  glEnable (GL_BLEND);
+  glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   for (auto spline : m_currSplines) {
     spline->setMVPMatrix(pv * spline->getTransform());
@@ -489,5 +504,10 @@ void WarScrollRelationsGraph::renderGraph()
   for (auto ellipse : m_currEllipses) {
     ellipse.setMVPMatrix(pv * ellipse.getTransform());
     ellipse.draw();
+  }
+
+  for (auto label : m_currEdgeLabels) {
+    label->setMVPMatrix(pv * label->getTransform());
+    label->draw();
   }
 }

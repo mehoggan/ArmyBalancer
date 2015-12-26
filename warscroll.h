@@ -752,6 +752,11 @@ public:
     return (lhs.m_Guid == rhs.m_Guid);
   }
 
+  friend bool operator<(const WarScroll &lhs, const WarScroll &rhs)
+  {
+    return (lhs.m_Guid < rhs.m_Guid);
+  }
+
   friend std::ostream &operator<<(std::ostream &out, const WarScroll &ws)
   {
     out << "Title: " << ws.m_Title << std::endl

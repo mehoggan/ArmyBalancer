@@ -1,4 +1,4 @@
-#include "warscroll.h"
+﻿#include "warscroll.h"
 
 #include <sstream>
 #include <utility>
@@ -514,12 +514,12 @@ std::string WarScroll::refreshPointsCost()
     m_PointsCost += 2;
   }
 
-  out << "Points = " << m_PointsCost << std::endl << std::endl;
+  //out << "Points = " << m_PointsCost << std::endl << std::endl;
 
-  out << "TOTAL POINTS COST FOR " << getTitle() << " = " <<
-    m_PointsCost << std::endl;
+  //out << "TOTAL POINTS COST FOR " << getTitle() << " = " <<
+  //  m_PointsCost << std::endl;
 
-  std::cout << out.str() << std::endl;
+  //std::cout << out.str() << std::endl;
   return out.str();
 }
 
@@ -570,7 +570,7 @@ const WarScroll::Weapon &WarScroll::getWeapon(const std::string &name) const
   if (it != m_Weapons.end()) {
     return it->second;
   }
-  Q_ASSERT(false && "Failed to find ability");
+  Q_ASSERT(false && "Failed to find weapon");
 }
 #ifdef Q_OS_WIN32
 #pragma warning(default : 4715)

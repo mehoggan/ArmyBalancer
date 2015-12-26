@@ -9,6 +9,7 @@
 #include "mesh_types/datums/interleaved_datum_2d.h"
 #include "curves/cubic_curve.h"
 #include "curves/curve_sample_3d.h"
+#include "matrices/type_matrix_4X4.h"
 #include "primitives/colors/type_color_rgba.h"
 #include "primitives/points/type_point_3d.h"
 #include "primitives/vectors/type_vector_3d.h"
@@ -41,6 +42,8 @@ public:
   virtual void create();
   virtual void draw();
   virtual void destroy();
+
+  auto computeCenter() -> opengl_math::point_3d<float>;
 
   static std::shared_ptr<Spline> createBezier(
     const opengl_math::point_3d<float> &p0,

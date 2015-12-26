@@ -2,6 +2,7 @@
 #define GRAPHVISUALIZER_H
 
 #include "geometries/ellipse.h"
+#include "geometries/rectangulartext.h"
 #include "geometries/splines.h"
 #include "nametextureatlasmap.h"
 #include "warscrollsynergygraph.h"
@@ -17,8 +18,10 @@ void generateEllipses(
   std::vector<WarScrollSynergyGraph::Vertex> &output2,
   WarScrollSynergyGraph *graph, NameTextureAtlasMap *nameAtlas);
 
-void generateSplines(
-  std::vector<std::shared_ptr<Spline>> &output1,
-  const std::vector<Protection::Ellipse> &ellipses);
+void generateSplines(std::vector<std::shared_ptr<Spline>> &output1,
+  std::vector<std::shared_ptr<RectangularText> > &output2,
+  const std::vector<Protection::Ellipse> &ellipses,
+  const std::vector<std::string> &edgeLabels,
+  NameTextureAtlasMap *atlasKeyWordMap);
 
 #endif // GRAPHVISUALIZER_H

@@ -10,5 +10,5 @@ uniform vec4 uColor;
 
 void main()
 {
-  xColor = uColor * oColor * texture(uSampler1, oTexcoord);
+  xColor = uColor * oColor * texture2D(uSampler1, oTexcoord);
 }

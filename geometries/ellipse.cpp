@@ -21,18 +21,17 @@
 
 #include <string.h>
 
-const float a = 1.0f;
-const float b = 0.5f;
-
 namespace Protection
 {
-  Ellipse::Ellipse()
+  Ellipse::Ellipse(float w, float h)
     : m_vbo(0)
     , m_ebo(0)
     , m_mvp(opengl_math::identity)
     , m_transform(opengl_math::identity)
     , m_uniform(1.0f, 1.0f, 1.0f, 1.0f)
     , m_tetxtureAtlas(nullptr)
+    , m_a(w)
+    , m_b(h)
   {}
 
   Ellipse::~Ellipse()
@@ -95,8 +94,8 @@ namespace Protection
 
       float rad = (t * 360.0f) * (opengl_math::pi<float>() / 180.0f);
 
-      float x0 = a * std::cos(rad);
-      float y0 = b * std::sin(rad);
+      float x0 = m_a * std::cos(rad);
+      float y0 = m_b * std::sin(rad);
       float u = minX + (x0 + 1.0f) / (2) * (xDiff);
       float v = minY + (y0 + 1.0f) / (2) * (yDiff);
 
@@ -218,11 +217,11 @@ namespace Protection
 
       float xpart = (op.x() - mc.x());
       xpart *= xpart;
-      xpart /= (a * a);
+      xpart /= (m_a * m_a);
 
       float ypart = (op.y() - mc.y());
       ypart *= ypart;
-      ypart /= (b * b);
+      ypart /= (m_b * m_b);
 
       // Solving for; is op is within (*this)
       float solve = xpart + ypart;
@@ -252,11 +251,11 @@ namespace Protection
 
     float x = (point.x() - center.x());
     x *= x;
-    x /= (a * a);
+    x /= (m_a * m_a);
 
     float y = (point.y() - center.y());
     y *= y;
-    y /= (b * b);
+    y /= (m_b * m_b);
 
     float final = x + y;
     return (final <= 1.0f);

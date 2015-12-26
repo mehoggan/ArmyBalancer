@@ -21,10 +21,13 @@
 // being detected by the compiler in Visual Studio 2013.
 namespace Protection
 {
+  const float a = 1.0f;
+  const float b = 0.5f;
+
   class Ellipse : public Geometry
   {
   public:
-    Ellipse();
+    Ellipse(float w = a, float h = b);
     ~Ellipse();
 
     virtual void setTransform(
@@ -100,6 +103,9 @@ namespace Protection
 
     const NameTextureAtlasMap *m_tetxtureAtlas;
     const opengl_math::axis_aligned_2d<float> *m_uvBbox;
+
+    float m_a;
+    float m_b;
   };
 }
 

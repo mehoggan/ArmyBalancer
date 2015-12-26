@@ -30,7 +30,6 @@ Item
     var curr = selectWarScrollGraph.currentIndex;
     warScrollGraphModel.clear();
     for (var i = 0; i < aList.length; ++i) {
-      console.log("Appending ", aList[i]);
       warScrollGraphModel.append({'name': aList[i]});
     }
   }
@@ -38,7 +37,6 @@ Item
   function setCurrentGraphIndex(index)
   {
     selectWarScrollGraph.currentIndex = index;
-    console.log("Index has changed to ", selectWarScrollGraph.currentIndex)
   }
 
   function addToCurrentPoints(val)

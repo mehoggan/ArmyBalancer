@@ -177,7 +177,6 @@ Rectangle
         } else {
           currentWarScroll = model.get(currentWarScrollsView.currentIndex)
           var currentWarScrollGuid = currentWarScrollGuid.guid
-          console.log(currentWarScrollGuid, " selected");
         }
       }
 
