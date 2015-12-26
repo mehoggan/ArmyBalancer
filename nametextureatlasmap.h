@@ -28,7 +28,8 @@ private:
   using map_t = std::unordered_map<std::string,
     opengl_math::axis_aligned_2d<float>>;
   map_t m_nameToUVCoordsMap;
-  QImage *m_atlas;
+  //QImage *m_atlas;
+  QImage m_atlas;
   GLTextureResourceManager::GLTextureHandle m_texHandles[1];
   bool m_firstRun;
 };

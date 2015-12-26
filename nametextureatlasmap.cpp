@@ -10,7 +10,7 @@ NameTextureAtlasMap::NameTextureAtlasMap()
 
 void NameTextureAtlasMap::clearAtlas()
 {
-  delete m_atlas;
+  m_atlas = QImage();
   m_nameToUVCoordsMap.clear();
 }
 
@@ -19,13 +19,17 @@ const float atlasSizeF = (float)atlasSize;
 
 void NameTextureAtlasMap::generateAtlas(const std::vector<std::string> &names)
 {
+  if (names.empty()) {
+    return;
+  }
+
   const float stepf = 512.0f;
   const int stepi = 512;
   const float textWidth = stepf - 10.0;
 
-  m_atlas = new QImage(atlasSize, atlasSize, QImage::Format_RGBA8888);
-  m_atlas->fill(Qt::blue);
-  QPainter painter(m_atlas);
+  QImage tmp = QImage(atlasSize, atlasSize, QImage::Format_ARGB32);
+  tmp.fill(Qt::blue);
+  QPainter painter(&tmp);
   painter.setRenderHints(QPainter::Antialiasing |
     QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
 
@@ -62,8 +66,13 @@ void NameTextureAtlasMap::generateAtlas(const std::vector<std::string> &names)
     }
   }
 
-  *m_atlas = QGLWidget::convertToGLFormat(*m_atlas);
-  m_atlas->save("/home/mhoggan/Documents/test.png", "png");
+  QImage tmp2 = QGLWidget::convertToGLFormat(tmp);
+
+  if (m_atlas.size() != QSize()) {
+    m_atlas = QImage();
+  }
+
+  m_atlas = QImage(tmp2);
 }
 
 opengl_math::axis_aligned_2d<float> NameTextureAtlasMap::getUVForName(
@@ -93,7 +102,7 @@ void NameTextureAtlasMap::createTexture()
   }
 
   m_texHandles[0] = m_textureManager->createTextureResource();
-  m_textureManager->uploadTexture(*m_atlas, m_texHandles[0]);
+  m_textureManager->uploadTexture(m_atlas, m_texHandles[0]);
   m_textureManager->setTextureParameters(m_texHandles[0], {
       GLTextureResourceManager::GLTextureParameteri(
         GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE),
