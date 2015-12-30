@@ -107,11 +107,6 @@ namespace WarScrollGeneration
       WarScroll::Ability("Grisly Trophy", 2, true), 1,
       WarScroll::KeyWordConnection::ConnectionAffectType::eFriendly,
       WarScroll::Spell()));
-    // TODO: This is a test
-    ws.addKeyWordConnection(WarScroll::KeyWordConnection("MONSTER",
-      WarScroll::s_MaxDistance, WarScroll::Ability(), 1,
-      WarScroll::KeyWordConnection::ConnectionAffectType::eSummons,
-      WarScroll::Spell("Savage Dominion")));
 
     return ws;
   }

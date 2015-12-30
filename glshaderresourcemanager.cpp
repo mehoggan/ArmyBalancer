@@ -253,7 +253,8 @@ bool GLShaderResourceManager::getCompilerErrors(GLuint shaderId)
     std::stringstream out;
     std::copy(errorLog.begin(), errorLog.end(), std::ostream_iterator<char>(
       out, ""));
-    qDebug() << out.str().c_str();
+    std::string errorsStr = out.str();
+    qDebug() << "Shader Compiler Erros " << errorsStr.c_str();
     errors = true;
   }
 

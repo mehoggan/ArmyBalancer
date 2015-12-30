@@ -213,7 +213,7 @@ Rectangle
   objectName: "warScrollFormInternal"
   width: parent.width
   height: parent.height
-  color: "#77000000"
+  color: "#777777"
 
   Column
   {

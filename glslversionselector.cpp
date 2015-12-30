@@ -68,6 +68,7 @@ std::shared_ptr<QResource> GLSLVersionSelector::getResourcePath(
     qFatal((QString("FATAL: Unsupported GLSL Version ") +
       QString::number(ver)).toStdString().c_str());
   }
+  qDebug() << "Using " << ver << " for GLSL.";
   uri += (std::string(it->second) + std::string("/") + shaderName);
 
   return std::make_shared<QResource>(uri.c_str());

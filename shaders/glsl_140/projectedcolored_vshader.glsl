@@ -1,4 +1,4 @@
-﻿#version 150 core
+﻿#version 310 es
 
 in vec3 iPosition;
 in vec4 iColor;

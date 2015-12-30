@@ -1,12 +1,12 @@
-﻿#version 450 core
+﻿#version 310 es
 
-in vec4 oColor;
-in vec2 oTexcoord;
+in highp vec4 oColor;
+in highp vec2 oTexcoord;
 
-out vec4 xColor;
+out highp vec4 xColor;
 
-uniform sampler2D uSampler1;
-uniform sampler2D uSampler2;
+uniform highp sampler2D uSampler1;
+uniform highp sampler2D uSampler2;
 
 void main()
 {

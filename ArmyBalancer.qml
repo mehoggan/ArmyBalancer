@@ -64,11 +64,7 @@ Item
       rotation: 270
       gradient: Gradient
       {
-        GradientStop { position: 0.00; color: "#000099" }
-        GradientStop { position: 0.47; color: "#222222" }
-        GradientStop { position: 0.50; color: "#999999" }
-        GradientStop { position: 0.53; color: "#222222" }
-        GradientStop { position: 1.00; color: "#990000" }
+        GradientStop { position: 1.00; color: "#555555" }
       }
     }
     Text
@@ -110,7 +106,7 @@ Item
 
     anchors.bottom: parent.bottom
 
-    color: "#FFFF00"
+    color: "#777777"
     RadialGradient
     {
       anchors.fill: parent
@@ -120,8 +116,8 @@ Item
       verticalRadius: 300
       gradient: Gradient
       {
-        GradientStop { position: 0.00; color: "#FFFFFF" }
-        GradientStop { position: 0.75; color: "#F5F5DC" }
+        GradientStop { position: 0.00; color: "#999999" }
+        GradientStop { position: 0.75; color: "#AAAAAA" }
       }
     }
 
@@ -189,7 +185,7 @@ Item
 
         Rectangle
         {
-          color: "#F5F5DC"
+          color: "#999999"
         }
       }
 
@@ -234,9 +230,9 @@ Item
           width: parent.width
           height: parent.height
 
-          color: "#77000000"
+          color: "#777777"
           border.width: 2
-          border.color: "#F5F5DF"
+          border.color: "#BBBBBB"
           Column
           {
             width: parent.width

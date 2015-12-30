@@ -48,13 +48,22 @@ function sign_and_align_apk()
   echo "Searching in ${DIR} for apk"
   APK=$(find ${DIR} -name *.apk | grep '\-release');
   echo "apk to sign" ${APK}
-  jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${SCRIPT_DIR}/CARoot.keystore ${APK} ArmyBalancer
-  jarsigner -verify -verbose -certs ${APk} &> /dev/null
+  jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${SCRIPT_DIR}/CARoot.keystore ${APK} ArmyBalancer 1> /dev/null
+  echo "verifying apk"
+  jarsigner -verify -verbose -certs ${APK}
   if [[ -e ${SCRIPT_DIR}/ArmyBalancer.apk ]]; then
     rm -f ${SCRIPT_DIR}/ArmyBalancer.apk
   fi
-  ${ANDROID_SDK_ROOT}/build-tools/${ANDROID_SDK_ZIPALIGN_VERSION}/zipalign -v 4 ${APK} ${SCRIPT_DIR}/ArmyBalancer.apk &> /dev/null
+  echo "zipalign on the final apk" ${SCRIPT_DIR}/ArmyBalancer.apk
+  ${ANDROID_SDK_ROOT}/build-tools/${ANDROID_SDK_ZIPALIGN_VERSION}/zipalign -v 4 ${APK} ${SCRIPT_DIR}/ArmyBalancer.apk
+  if [[ ! -e ${SCRIPT_DIR}/ArmyBalancer.apk ]]; then
+    echo "Something went seriously wrong."
+  fi
 }
 
 run_qmake_make_install;
 sign_and_align_apk;
+adb install ${SCRIPT_DIR}/ArmyBalancer.apk &> /dev/null
+if [[ "$?" != "0" ]]; then
+  echo "Failed to install ${SCRIPT_DIR}/ArmyBalancer.apk"
+fi

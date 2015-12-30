@@ -1,10 +1,10 @@
-﻿#version 150 core
+﻿#version 310 es
 
-in vec4 oColor;
+in highp vec4 oColor;
 
-out vec4 fColor;
+out highp vec4 xColor;
 
 void main()
 {
-  fColor = oColor;
+  xColor = oColor;
 }

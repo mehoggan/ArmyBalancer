@@ -15,7 +15,7 @@ public:
   private:
     friend class WarScrollSynergyGraph;
     const Vertex *m_node;
-    const WarScroll::KeyWordConnection m_meta;
+    std::vector<WarScroll::KeyWordConnection> m_connections;
 
   public:
     Edge() :
@@ -24,12 +24,13 @@ public:
 
     Edge(const Vertex &v, const WarScroll::KeyWordConnection &d) :
       m_node(&v),
-      m_meta(d)
+      m_connections(1, d)
     {}
 
     const Vertex &adjacent() const {return (*m_node);}
-    const WarScroll::KeyWordConnection &keyWordConnection() const
-    {return m_meta;}
+    const std::vector<WarScroll::KeyWordConnection> &keyWordConnections() const
+    {return m_connections;}
+    void addKeyWord(const WarScroll::KeyWordConnection &connection);
   };
 
   struct Vertex

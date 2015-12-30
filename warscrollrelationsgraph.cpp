@@ -165,7 +165,18 @@ void WarScrollRelationsGraph::updateGraph()
           0.0f)));
       names.push_back(copy.getWarScroll().getTitle());
       m_currEllipses.push_back(copy);
-      edgeLabels.push_back(edge.keyWordConnection().getKeyWord());
+
+      std::string label;
+      for (const WarScroll::KeyWordConnection &connection :
+        edge.keyWordConnections()) {
+        std::string term = "\n";
+        if (connection == edge.keyWordConnections().back()) {
+          term = "";
+        }
+        label += (connection.getKeyWord() + term);
+      }
+      Q_ASSERT(!label.empty());
+      edgeLabels.push_back(label);
 
       currAngle += angleDelta;
     }

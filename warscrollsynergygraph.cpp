@@ -1,6 +1,17 @@
 ﻿#include "warscrollsynergygraph.h"
 
+#include <algorithm>
 #include <iostream>
+#include <string>
+
+void WarScrollSynergyGraph::Edge::addKeyWord(
+  const WarScroll::KeyWordConnection &connection)
+{
+  if (std::find(m_connections.begin(), m_connections.end(), connection) ==
+    m_connections.end()) {
+      m_connections.push_back(connection);
+  }
+}
 
 WarScrollSynergyGraph::WarScrollSynergyGraph()
 {
@@ -14,16 +25,23 @@ void WarScrollSynergyGraph::clear()
 void WarScrollSynergyGraph::Vertex::connect(const Vertex &other,
   const WarScroll::KeyWordConnection &d) const
 {
-  bool contains = false;
+  const Edge *found = nullptr;
+
   for (const Edge &edge : m_adjacents) {
-    if ((edge.m_meta) == d && (*edge.m_node) == other) {
-      contains = true;
+    if (*edge.m_node == other) {
+        found = &edge;
     }
   }
 
-  if (!contains) {
+  if (!found) {
     Edge edge(other, d);
     m_adjacents.push_back(edge);
+  } else {
+    const auto &connections = found->m_connections;
+    if (std::find(connections.cbegin(), connections.cend(), d) ==
+      connections.cend()) {
+      const_cast<Edge *>(found)->addKeyWord(d);
+    }
   }
 }
 
@@ -64,14 +82,16 @@ void WarScrollSynergyGraph::print()
     std::cout << it->m_data->getTitle() << "==>";
     for (const auto &edge : it->m_adjacents) {
       std::cout << edge.m_node->m_data->getTitle() << "(";
-      if (!edge.m_meta.getAbility().getName().empty()) {
-        std::cout << edge.m_meta.getAbility().getName();
-      } else if (!edge.m_meta.getSpell().getName().empty()) {
-        std::cout << edge.m_meta.getSpell().getName();
-      } else {
-        std::cout << edge.m_meta.getName();
+      for (auto connection : edge.m_connections) {
+        if (!connection.getAbility().getName().empty()) {
+          std::cout << connection.getAbility().getName();
+        } else if (!connection.getSpell().getName().empty()) {
+          std::cout << connection.getSpell().getName();
+        } else {
+          std::cout << connection.getName();
+        }
+        std::cout << ") ==>";
       }
-      std::cout << ") ==>";
     }
     std::cout << std::endl;
   }
