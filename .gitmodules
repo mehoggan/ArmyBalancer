@@ -1,9 +1,9 @@
 [submodule "opengl_math"]
 	path = opengl_math
-	url = ssh://mehoggan@www.matthewh.me:29418/opengl_math
+	url = git@github.com:mehoggan/opengl_math.git
 [submodule "opengl_graphics"]
 	path = opengl_graphics
-	url = ssh://mehoggan@www.matthewh.me:29418/opengl_graphics
+	url = git@github.com:mehoggan/opengl_graphics.git
 [submodule "opengl_core"]
 	path = opengl_core
-	url = ssh://mehoggan@www.matthewh.me:29418/opengl_core
+	url = git@github.com:mehoggan/opengl_core.git
